@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Image from "next/image";
 import { ChevronDown, X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -50,66 +50,57 @@ export default function ProjectVahanSoghomonian({ language }: ProjectVahanProps)
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const buttonRef = useRef<HTMLDivElement>(null);
 
-  const handleToggleImages = () => {
-    if (showAllImages) {
-      setShowAllImages(false);
+  const handleToggleImages = useCallback(() => {
+    setShowAllImages(prev => {
+      if (!prev) return true;
+      // Scroll to button after closing
       setTimeout(() => {
         buttonRef.current?.scrollIntoView({ 
           behavior: 'smooth', 
           block: 'center' 
         });
-      }, 100);
-    } else {
-      setShowAllImages(true);
-    }
-  };
+      }, 50);
+      return false;
+    });
+  }, []);
 
-  const handleOpenLightbox = (index: number) => {
+  const handleOpenLightbox = useCallback((index: number) => {
     setLightboxIndex(index);
     setLightboxImage(vahanImages[index].src);
     document.body.style.overflow = 'hidden';
-    // Hide navigation and back-to-top button
-    const nav = document.querySelector('header');
-    if (nav) nav.style.display = 'none';
-    const backToTop = document.querySelector('[aria-label="Scroll to top"]');
-    if (backToTop) (backToTop as HTMLElement).style.display = 'none';
-  };
+  }, []);
 
-  const handleCloseLightbox = () => {
+  const handleCloseLightbox = useCallback(() => {
     setLightboxImage(null);
     document.body.style.overflow = 'unset';
-    // Show navigation and back-to-top button
-    const nav = document.querySelector('header');
-    if (nav) nav.style.display = '';
-    const backToTop = document.querySelector('[aria-label="Scroll to top"]');
-    if (backToTop) (backToTop as HTMLElement).style.display = '';
-  };
+  }, []);
 
-  const handleNextImage = () => {
-    const nextIndex = (lightboxIndex + 1) % vahanImages.length;
-    setLightboxIndex(nextIndex);
-    setLightboxImage(vahanImages[nextIndex].src);
-  };
+  const handleNextImage = useCallback(() => {
+    setLightboxIndex(prev => (prev + 1) % vahanImages.length);
+    setLightboxImage(prev => vahanImages[(vahanImages.findIndex(img => img.src === prev) + 1) % vahanImages.length].src);
+  }, []);
 
-  const handlePrevImage = () => {
-    const prevIndex = (lightboxIndex - 1 + vahanImages.length) % vahanImages.length;
-    setLightboxIndex(prevIndex);
-    setLightboxImage(vahanImages[prevIndex].src);
-  };
+  const handlePrevImage = useCallback(() => {
+    setLightboxIndex(prev => (prev - 1 + vahanImages.length) % vahanImages.length);
+    setLightboxImage(prev => vahanImages[(vahanImages.findIndex(img => img.src === prev) - 1 + vahanImages.length) % vahanImages.length].src);
+  }, []);
 
   useEffect(() => {
+    if (!lightboxImage) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!lightboxImage) return;
       if (e.key === 'Escape') handleCloseLightbox();
       if (e.key === 'ArrowRight') handleNextImage();
       if (e.key === 'ArrowLeft') handlePrevImage();
     };
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown, { passive: true });
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxImage, lightboxIndex]);
+  }, [lightboxImage, handleCloseLightbox, handleNextImage, handlePrevImage]);
 
   const t = translations[language];
-  const visibleImages = showAllImages ? vahanImages : vahanImages.slice(0, 1);
+  const visibleImages = useMemo(() => 
+    showAllImages ? vahanImages : vahanImages.slice(0, 1),
+    [showAllImages]
+  );
 
   return (
     <section
@@ -132,7 +123,7 @@ export default function ProjectVahanSoghomonian({ language }: ProjectVahanProps)
                   <button
                     key={image.id}
                     onClick={() => handleOpenLightbox(imageIndex)}
-                    className="relative overflow-hidden rounded-lg bg-gray-100 w-full cursor-pointer group hover:opacity-80 transition-opacity"
+                    className="relative overflow-hidden rounded-lg w-full cursor-pointer group hover:opacity-80 transition-opacity duration-200"
                     style={{
                       aspectRatio: image.id === "1" ? "9/12" : "2/1",
                       border: 'none',
@@ -148,7 +139,7 @@ export default function ProjectVahanSoghomonian({ language }: ProjectVahanProps)
                       className="object-cover"
                       priority={isInitial}
                       loading={isInitial ? "eager" : "lazy"}
-                      quality={85}
+                      quality={isInitial ? 85 : 75}
                     />
                   </button>
                 );
