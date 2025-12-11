@@ -293,7 +293,7 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
                 loop
                 muted
                 playsInline
-                preload="none"
+                preload="metadata"
                 style={{
                   width: "100%",
                   height: "auto",
