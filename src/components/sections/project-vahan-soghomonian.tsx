@@ -139,7 +139,7 @@ export default function ProjectVahanSoghomonian({ language }: ProjectVahanProps)
                       className="object-cover"
                       priority={isInitial}
                       loading={isInitial ? "eager" : "lazy"}
-                      quality={isInitial ? 85 : 75}
+                      quality={85}
                     />
                   </button>
                 );

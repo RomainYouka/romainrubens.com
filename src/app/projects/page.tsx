@@ -149,13 +149,7 @@ export default function ProjectsPage() {
           <div className="flex flex-col items-center justify-center text-center">
             {currentTranslations.headingImage ?
             <div
-              className={`relative w-full max-w-[700px] transition-all duration-[360ms] ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"}`
-              }
-              style={{
-                transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-                transitionDelay: "60ms"
-              }}>
+              className="relative w-full max-w-[700px]">
 
                 <Image
                 src={currentTranslations.headingImage}
@@ -169,13 +163,9 @@ export default function ProjectsPage() {
               </div> :
 
             <h1
-              className={`font-semibold text-[#515151] leading-tight max-w-[90vw] md:max-w-none transition-all duration-[360ms] ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"}`
-              }
+              className="font-semibold text-[#515151] leading-tight max-w-[90vw] md:max-w-none"
               style={{
                 fontSize: "clamp(32px, 7vw, 56px)",
-                transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-                transitionDelay: "60ms",
                 textWrap: "balance"
               }}>
 
@@ -185,12 +175,8 @@ export default function ProjectsPage() {
 
             <div className="max-w-[900px] mt-2">
               <p
-                className={`text-[clamp(16px,3.5vw,24px)] font-normal text-[#515151] leading-[1.4] md:leading-[1.6] text-center transition-all duration-[360ms] px-4 md:px-8 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"}`
-                }
+                className="text-[clamp(16px,3.5vw,24px)] font-normal text-[#515151] leading-[1.4] md:leading-[1.6] text-center px-4 md:px-8"
                 style={{
-                  transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-                  transitionDelay: "120ms",
                   textWrap: "balance"
                 }}>
 
