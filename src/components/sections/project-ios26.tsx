@@ -436,7 +436,7 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
                     {section.id === "insights" && isOpen && (
                       <div 
                         onClick={() => setShowPNGZoom(true)}
-                        className="mt-6 rounded-lg overflow-hidden cursor-pointer transition-transform duration-200 hover:scale-[1.01] bg-[#1a1a1a] animate-pulse"
+                        className="mt-6 rounded-lg overflow-hidden cursor-pointer transition-transform duration-200 hover:scale-[1.01]"
                       >
                         <Image 
                           src="/iOS_26_frustrations.png" 
@@ -444,8 +444,8 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
                           width={1200}
                           height={700}
                           style={{ width: "100%", height: "auto" }}
-                          priority
-                          quality={75}
+                          loading="lazy"
+                          quality={85}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
                         />
                       </div>
