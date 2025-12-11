@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import { ChevronDown, ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -81,6 +81,7 @@ export default function ProjectFlashConcept({ language }: ProjectFlashConceptPro
   const [lightboxConcept, setLightboxConcept] = useState<"01" | "02" | null>(null);
   const [displayedImage, setDisplayedImage] = useState<string | number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
   
   const concept01ButtonRef = useRef<HTMLDivElement>(null);
   const concept02ButtonRef = useRef<HTMLDivElement>(null);
@@ -92,6 +93,16 @@ export default function ProjectFlashConcept({ language }: ProjectFlashConceptPro
   const concept01 = flashConcept01Translations[language];
   const concept02 = flashConcept02Translations[language];
 
+  // Detect tablet size (768px to 1024px)
+  useEffect(() => {
+    const checkTabletSize = () => {
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+    checkTabletSize();
+    window.addEventListener("resize", checkTabletSize);
+    return () => window.removeEventListener("resize", checkTabletSize);
+  }, []);
+
   // FlashConcept_02: Explicit image manifest (skips 9 and 26)
   const concept02Images: (string | number)[] = [
     1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -99,7 +110,7 @@ export default function ProjectFlashConcept({ language }: ProjectFlashConceptPro
     39, 40, 41, 42, 43, 44, 45, 46
   ];
   
-  const initialImageCount = 4;
+  const initialImageCount = isTablet ? 3 : 4;
   const visibleConcept02Images = showAllImages 
     ? concept02Images 
     : concept02Images.slice(0, initialImageCount);
