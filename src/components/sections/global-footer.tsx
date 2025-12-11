@@ -65,11 +65,11 @@ const GlobalFooter = () => {
               href="/logo-guidelines.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] md:text-xs text-[#535353] font-medium hover:text-[#1D1D1F] transition-all duration-160 relative inline-block group active:scale-[0.98] whitespace-nowrap"
+              className="text-[10px] md:text-xs text-[#3C3C3C] font-medium hover:text-[#EA4335] transition-all duration-160 relative inline-block group active:scale-[0.98] whitespace-nowrap"
             >
               <span className="relative">
                 {currentTranslations.logoGuide}
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#535353] transition-all duration-160 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#EA4335] transition-all duration-160 group-hover:w-full" />
               </span>
             </a>
             <a
