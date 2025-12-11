@@ -96,3 +96,37 @@ Preferred communication style: Simple, everyday language.
 - **WaveSwitch Section 1**: `marginTop: -20px` - buttons positioned 20px lower than initial -40px (descended by 20px) - PERFECT
 - **Implementation**: Buttons placed below video with margin-top to position them on the invisible border area
 - **Note**: These two projects have invisible top/bottom borders in their video mockups.
+
+# NameQuest Project - Podcast Integration
+
+## Spotify Embed
+- **Location**: `src/components/sections/project-namequest.tsx`
+- **Podcast URL**: https://open.spotify.com/embed/episode/03xwhLY3oo5cApzEvD9IvY
+- **Implementation**:
+  - Mobile: Podcast appears after image and text (text-first due to flex-col-reverse)
+  - Desktop: Podcast appears after first mockup, before second mockup
+  - Height: 152px with border-radius: 12px
+  - Full width responsive layout with proper padding
+
+# Performance Optimizations (December 11, 2025)
+
+## Chunk Loading & Build Performance
+- Fixed "Loading chunk app-pages-internals failed" timeout by clearing corrupted .next cache
+- Compile time: 5.8s (fixed from previously hanging state)
+
+## React Rendering Optimizations
+- **iOS 26 Accordion Sections**: Added useCallback for toggleSection function
+- **Accordion Sections List**: Added useMemo to prevent unnecessary recalculations on language changes
+- **Smooth Animations**: Unified accordion transition timing (300ms) with cubic-bezier easing
+
+## Scroll Performance
+- **projects/page.tsx**: Implemented requestAnimationFrame throttling for scroll event handler
+- **Passive Listener**: Added { passive: true } to scroll event listener for better performance
+- **State Updates**: Only updates showScrollTop when scrollY > 500 (debounced via RAF)
+
+## Image Optimization (Already in Place)
+- All project images use Next.js Image component with:
+  - `loading="lazy"` for accordion content images
+  - `priority` for above-fold images
+  - Responsive `sizes` attributes for different viewports
+  - Quality: 90-95 for optimal compression
