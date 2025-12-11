@@ -40,7 +40,7 @@ export default function ProjectNameQuest({ language }: ProjectNameQuestProps) {
       }}
     >
       <div className="max-w-[1200px] mx-auto">
-        <div className="flex flex-col md:flex-row md:items-stretch gap-0 md:gap-0">
+        <div className="flex flex-col-reverse md:flex-row md:items-stretch gap-0 md:gap-0">
           {/* Image PNG à gauche */}
           <div
             className="w-full md:w-[45%] lg:w-[50%] xl:flex-shrink-0 xl:!w-[650px] xl:!max-w-[650px]"
@@ -121,6 +121,21 @@ export default function ProjectNameQuest({ language }: ProjectNameQuestProps) {
             </div>
 
           </div>
+        </div>
+
+        {/* Podcast Section - Mobile only */}
+        <div className="md:hidden px-5 py-12">
+          <iframe 
+            data-testid="embed-iframe" 
+            style={{borderRadius: "12px"}}
+            src="https://open.spotify.com/embed/episode/03xwhLY3oo5cApzEvD9IvY?utm_source=generator&theme=0" 
+            width="100%" 
+            height="152" 
+            frameBorder="0" 
+            allowFullScreen 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy"
+          />
         </div>
       </div>
 
