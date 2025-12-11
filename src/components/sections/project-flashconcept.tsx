@@ -115,11 +115,9 @@ export default function ProjectFlashConcept({ language }: ProjectFlashConceptPro
     ? concept02Images 
     : concept02Images.slice(0, initialImageCount);
   
-  // Flash Concept 01: Show 2 on tablet, 3 on desktop
-  const flashConcept01InitialCount = isTablet ? 2 : 3;
   const flashConcept01Images = showAllConcept01 
     ? ["1a", 2, 3, "1.2", 4, 5, "1.3", 6, 7]
-    : ["1a", 2, 3].slice(0, flashConcept01InitialCount);
+    : ["1a", 2, 3];
   
   const currentImageIndex = lightboxImage 
     ? (lightboxConcept === "01" 
@@ -328,7 +326,7 @@ export default function ProjectFlashConcept({ language }: ProjectFlashConceptPro
 
           {/* Images Grid - iPhone mockups with show more */}
           <div className="flex justify-center">
-            <div className="grid gap-3 md:gap-4 w-full" style={{ maxWidth: "900px", gridTemplateColumns: isTablet ? "repeat(2, 1fr)" : "repeat(auto-fit, minmax(200px, 1fr))", gridAutoColumns: isTablet ? "repeat(2, 1fr)" : undefined }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 w-full" style={{ maxWidth: "900px" }}>
               {flashConcept01Images.map((num, index) => {
                 const isInitial = index < 3;
                 return (
