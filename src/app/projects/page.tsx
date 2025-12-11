@@ -188,13 +188,7 @@ export default function ProjectsPage() {
 
         <button
           onClick={scrollToFirstProject}
-          className={`w-10 h-10 rounded-full bg-[#424245] flex items-center justify-center transition-all duration-300 hover:bg-[#515151] hover:scale-110 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"}`
-          }
-          style={{
-            transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
-            transitionDelay: "180ms"
-          }}
+          className="w-10 h-10 rounded-full bg-[#424245] flex items-center justify-center transition-all duration-300 hover:bg-[#515151] hover:scale-110"
           aria-label="Scroll to projects">
 
           <ChevronDown className="w-5 h-5 text-white" />
