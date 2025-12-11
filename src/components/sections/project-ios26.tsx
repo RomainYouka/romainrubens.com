@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import { Play, Pause, SkipForward, X, ChevronDown } from "lucide-react";
 
@@ -171,15 +171,18 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const content = translations[language];
-  const accordionSections = language === "FR" ? accordionSectionsFR : language === "EN" ? accordionSectionsEN : accordionSectionsHY;
+  const accordionSections = useMemo(() => 
+    language === "FR" ? accordionSectionsFR : language === "EN" ? accordionSectionsEN : accordionSectionsHY,
+    [language]
+  );
 
-  const toggleSection = (id: string) => {
+  const toggleSection = useCallback((id: string) => {
     setOpenSections(prev => 
       prev.includes(id) 
         ? prev.filter(s => s !== id)
         : [...prev, id]
     );
-  };
+  }, []);
 
   useEffect(() => {
     if (showPNGZoom) {
@@ -407,9 +410,10 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
                 </button>
                 
                 <div
-                  className="overflow-hidden transition-all ease-out"
+                  className="overflow-hidden transition-all"
                   style={{
-                    transitionDuration: isOpen ? "400ms" : "250ms",
+                    transitionDuration: "300ms",
+                    transitionTimingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
                     maxHeight: isOpen ? "2000px" : "0",
                     opacity: isOpen ? 1 : 0
                   }}
