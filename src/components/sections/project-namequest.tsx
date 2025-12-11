@@ -139,6 +139,21 @@ export default function ProjectNameQuest({ language }: ProjectNameQuestProps) {
         </div>
       </div>
 
+      {/* Podcast Section - Desktop only */}
+      <div className="hidden md:block max-w-[1200px] mx-auto px-5 md:px-6 lg:px-10 py-12">
+        <iframe 
+          data-testid="embed-iframe" 
+          style={{borderRadius: "12px"}}
+          src="https://open.spotify.com/embed/episode/03xwhLY3oo5cApzEvD9IvY?utm_source=generator&theme=0" 
+          width="100%" 
+          height="152" 
+          frameBorder="0" 
+          allowFullScreen 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+          loading="lazy"
+        />
+      </div>
+
       {/* Spacing divider */}
       <div className="h-16 md:h-24 bg-[#F5F5F7]" />
 
