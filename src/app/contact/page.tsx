@@ -12,6 +12,7 @@ const contactTranslations = {
     emailMe: "M'envoyer un mail",
     readMedium: "Me lire sur Medium",
     explorePinterest: "Explorer mon Pinterest",
+    viewBehance: "Voir mon Behance (À venir)",
   },
   EN: {
     heading: "Get in touch",
@@ -21,6 +22,7 @@ const contactTranslations = {
     emailMe: "Email me",
     readMedium: "Read me on Medium",
     explorePinterest: "Explore my Pinterest",
+    viewBehance: "View my Behance (Coming soon)",
   },
   ՀԱՅ: {
     heading: "Կապ հաստատեք",
@@ -30,6 +32,7 @@ const contactTranslations = {
     emailMe: "Ուղարկել ինձ էլ․փոստ",
     readMedium: "Կարդացեք ինձ Medium-ում",
     explorePinterest: "Բացահայտեք իմ Pinterest-ը",
+    viewBehance: "Տեսնել իմ Behance (Շատ շուտով)",
   },
 };
 
@@ -61,6 +64,12 @@ const MediumLogo = ({ className }: { className?: string }) => (
 const PinterestLogo = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
     <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.965 1.406-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.261 7.929-7.261 4.162 0 7.396 2.966 7.396 6.929 0 4.135-2.607 7.462-6.225 7.462-1.214 0-2.354-.629-2.746-1.373l-.749 2.853c-.271 1.031-1.002 2.324-1.492 3.12 1.13.348 2.324.537 3.559.537 6.621 0 11.988-5.367 11.988-11.987C23.987 5.367 18.621 0 12.017 0z" />
+  </svg>
+);
+
+const BehanceLogo = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.228h-8.949c.02 1.892 1.087 2.972 2.367 2.972 1.218 0 1.895-.584 2.287-1.335h3.923zM14.27 10.11h4.905c-.147-1.344-.933-2.148-2.477-2.148-1.559 0-2.586.886-2.428 2.148zM3.5 5h8v2h-8zm0 5h8v2h-8zm0 5h8v2h-8z" />
   </svg>
 );
 
@@ -126,6 +135,10 @@ export default function ContactPage() {
 
   const handlePinterest = () => {
     window.open("https://www.pinterest.com/rubensromain/_created", "_blank", "noopener,noreferrer");
+  };
+
+  const handleBehance = () => {
+    window.open("https://www.behance.net/rubensromain", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -208,6 +221,15 @@ export default function ContactPage() {
             >
               <PinterestLogo className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.explorePinterest}</span>
+            </button>
+
+            {/* View Behance Button */}
+            <button
+              onClick={handleBehance}
+              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+            >
+              <BehanceLogo className="w-4 h-4 flex-shrink-0" />
+              <span>{currentTranslations.viewBehance}</span>
             </button>
           </div>
         </div>
