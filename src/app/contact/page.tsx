@@ -69,7 +69,7 @@ const PinterestLogo = ({ className }: { className?: string }) => (
 
 const BehanceLogo = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.228h-8.949c.02 1.892 1.087 2.972 2.367 2.972 1.218 0 1.895-.584 2.287-1.335h3.923zM14.27 10.11h4.905c-.147-1.344-.933-2.148-2.477-2.148-1.559 0-2.586.886-2.428 2.148zM3.5 5h8v2h-8zm0 5h8v2h-8zm0 5h8v2h-8z" />
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15h-2v-5h2v5zm0-6h-2v-2h2v2zm4 6h-2v-3h2v3zm0-4h-2v-2h2v2zm4 4h-2v-3h2v3zm0-4h-2v-2h2v2z" />
   </svg>
 );
 
