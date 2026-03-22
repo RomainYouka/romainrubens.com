@@ -1,0 +1,36 @@
+.horizontal-scroll-section {
+  position: relative;
+  width: 100%;
+  background: #000;
+  padding: 40px 0;
+}
+
+.horizontal-track {
+  display: flex;
+  align-items: center;
+  will-change: transform;
+  padding: 0 2rem;
+}
+
+.hint-text {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  margin-top: 16px;
+}
+
+/* Responsive iPhone */
+@media (max-width: 768px) {
+  .horizontal-scroll-section {
+    padding: 24px 0;
+  }
+
+  .horizontal-track {
+    padding: 0 1rem;
+  }
+
+  .hint-text {
+    font-size: 11px;
+    margin-top: 12px;
+  }
+}
