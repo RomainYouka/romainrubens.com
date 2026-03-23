@@ -2,204 +2,22 @@
   "lastUpdated": "23 Mars 2026",
   "categories": [
     {
-      "id": "tools",
+      "id": "design",
       "names": {
-        "FR": "Outils numériques",
-        "EN": "Digital tools",
-        "ՀԱՅ": "Թվային գործիքներ"
+        "FR": "UX Design ",
+        "EN": "UX Design ",
+        "ՀԱՅ": "UX Design "
       },
       "order": 1,
       "skills": [
         {
-          "id": "figma",
+          "id": "accessibility",
           "names": {
-            "EN": "Figma",
-            "FR": "Figma",
-            "ՀԱՅ": "Figma"
+            "EN": "Accessibility",
+            "FR": "Accessibility",
+            "ՀԱՅ": "Accessibility"
           },
           "rating": 5
-        },
-        {
-          "id": "photoshop",
-          "names": {
-            "EN": "Adobe Photoshop",
-            "FR": "Adobe Photoshop",
-            "ՀԱՅ": "Adobe Photoshop"
-          },
-          "rating": 4
-        },
-        {
-          "id": "after-effects",
-          "names": {
-            "EN": "Adobe After Effects",
-            "FR": "Adobe After Effects",
-            "ՀԱՅ": "Adobe After Effects"
-          },
-          "rating": 3
-        },
-        {
-          "id": "sketch",
-          "names": {
-            "EN": "Sketch",
-            "FR": "Sketch",
-            "ՀԱՅ": "Sketch"
-          },
-          "rating": 3
-        },
-        {
-          "id": "indesign",
-          "names": {
-            "EN": "InDesign",
-            "FR": "InDesign",
-            "ՀԱՅ": "InDesign"
-          },
-          "rating": 3
-        },
-        {
-          "id": "illustrator",
-          "names": {
-            "EN": "Adobe Illustrator",
-            "FR": "Adobe Illustrator",
-            "ՀԱՅ": "Adobe Illustrator"
-          },
-          "rating": 4
-        },
-        {
-          "id": "framer",
-          "names": {
-            "EN": "Framer",
-            "FR": "Framer",
-            "ՀԱՅ": "Framer"
-          },
-          "rating": 4
-        },
-        {
-          "id": "replit",
-          "names": {
-            "EN": "Replit",
-            "FR": "Replit",
-            "ՀԱՅ": "Replit"
-          },
-          "rating": 4
-        },
-        {
-          "id": "web-dev",
-          "names": {
-            "EN": "Web Development",
-            "FR": "Web Development",
-            "ՀԱՅ": "Web Development"
-          },
-          "rating": 3
-        },
-        {
-          "id": "html-css",
-          "names": {
-            "EN": "HTML & CSS",
-            "FR": "HTML & CSS",
-            "ՀԱՅ": "HTML & CSS"
-          },
-          "rating": 4
-        },
-        {
-          "id": "js-react",
-          "names": {
-            "EN": "JavaScript & React",
-            "FR": "JavaScript & React",
-            "ՀԱՅ": "JavaScript & React"
-          },
-          "rating": 4
-        },
-        {
-          "id": "nextjs",
-          "names": {
-            "EN": "Next.js",
-            "FR": "Next.js",
-            "ՀԱՅ": "Next.js"
-          },
-          "rating": 4
-        },
-        {
-          "id": "notion",
-          "names": {
-            "EN": "Notion",
-            "FR": "Notion",
-            "ՀԱՅ": "Notion"
-          },
-          "rating": 5
-        },
-        {
-          "id": "tally",
-          "names": {
-            "EN": "Tally",
-            "FR": "Tally",
-            "ՀԱՅ": "Tally"
-          },
-          "rating": 3
-        },
-        {
-          "id": "yklsixo7",
-          "names": {
-            "EN": "Apple HomeKit",
-            "FR": "Apple HomeKit",
-            "ՀԱՅ": "Apple HomeKit"
-          },
-          "rating": 5
-        },
-        {
-          "id": "google-tools",
-          "names": {
-            "EN": "Google Tools",
-            "FR": "Google Tools",
-            "ՀԱՅ": "Google Tools"
-          },
-          "rating": 4
-        }
-      ]
-    },
-    {
-      "id": "design",
-      "names": {
-        "FR": "Design & UX/UI",
-        "EN": "Design & UX/UI",
-        "ՀԱՅ": "Դիզայն & UX/UI"
-      },
-      "order": 0,
-      "skills": [
-        {
-          "id": "ux-design",
-          "names": {
-            "EN": "UX Design",
-            "FR": "UX Design",
-            "ՀԱՅ": "UX Design"
-          },
-          "rating": 4
-        },
-        {
-          "id": "ui-design",
-          "names": {
-            "EN": "UI Design",
-            "FR": "UI Design",
-            "ՀԱՅ": "UI Design"
-          },
-          "rating": 5
-        },
-        {
-          "id": "interaction-design",
-          "names": {
-            "EN": "Interaction Design",
-            "FR": "Interaction Design",
-            "ՀԱՅ": "Interaction Design"
-          },
-          "rating": 4
-        },
-        {
-          "id": "user-research",
-          "names": {
-            "EN": "User Research",
-            "FR": "User Research",
-            "ՀԱՅ": "User Research"
-          },
-          "rating": 3
         },
         {
           "id": "systems-thinking",
@@ -220,13 +38,29 @@
           "rating": 4
         },
         {
+          "id": "ob5xkga8",
+          "names": {
+            "EN": "2×2 matrices"
+          },
+          "rating": 5
+        },
+        {
+          "id": "user-research",
+          "names": {
+            "EN": "User Research",
+            "FR": "User Research",
+            "ՀԱՅ": "User Research"
+          },
+          "rating": 3
+        },
+        {
           "id": "wireframing",
           "names": {
             "EN": "Wireframing",
             "FR": "Wireframing",
             "ՀԱՅ": "Wireframing"
           },
-          "rating": 4
+          "rating": 5
         },
         {
           "id": "prototyping",
@@ -234,24 +68,6 @@
             "EN": "Prototyping",
             "FR": "Prototyping",
             "ՀԱՅ": "Prototyping"
-          },
-          "rating": 4
-        },
-        {
-          "id": "design-system",
-          "names": {
-            "EN": "Design System",
-            "FR": "Design System",
-            "ՀԱՅ": "Design System"
-          },
-          "rating": 4
-        },
-        {
-          "id": "visual-hierarchy",
-          "names": {
-            "EN": "Visual Hierarchy",
-            "FR": "Visual Hierarchy",
-            "ՀԱՅ": "Visual Hierarchy"
           },
           "rating": 4
         },
@@ -265,43 +81,595 @@
           "rating": 3
         },
         {
-          "id": "accessibility",
+          "id": "ds48xxlh",
           "names": {
-            "EN": "Accessibility",
-            "FR": "Accessibility",
-            "ՀԱՅ": "Accessibility"
+            "EN": "Interviews"
+          },
+          "rating": 5
+        },
+        {
+          "id": "opmlfo8u",
+          "names": {
+            "EN": "Insight mapping"
           },
           "rating": 3
         },
         {
-          "id": "typography",
+          "id": "73ydjxcy",
           "names": {
-            "EN": "Typography",
-            "FR": "Typography",
-            "ՀԱՅ": "Typography"
+            "EN": "Personas"
+          },
+          "rating": 5
+        },
+        {
+          "id": "u7xub2aj",
+          "names": {
+            "EN": "Behavioral analysis"
           },
           "rating": 4
         },
         {
-          "id": "motion-design",
+          "id": "si1lypfs",
           "names": {
-            "EN": "Motion Design",
-            "FR": "Motion Design",
-            "ՀԱՅ": "Motion Design"
+            "EN": "UX evaluation (Nielsen heuristics)"
           },
           "rating": 3
+        },
+        {
+          "id": "s3ya1hfz",
+          "names": {
+            "EN": "WCAG"
+          },
+          "rating": 4
+        },
+        {
+          "id": "q6ig2uvf",
+          "names": {
+            "EN": "Design monitoring"
+          },
+          "rating": 4
+        },
+        {
+          "id": "era8n91f",
+          "names": {
+            "EN": "Complex systems"
+          },
+          "rating": 5
+        },
+        {
+          "id": "ku9vm029",
+          "names": {
+            "EN": "Interface analysis"
+          },
+          "rating": 3
+        },
+        {
+          "id": "xq1csmgh",
+          "names": {
+            "EN": "Interactive prototyping"
+          },
+          "rating": 5
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "names": {
+        "FR": "Outils numériques",
+        "EN": "Digital tools",
+        "ՀԱՅ": "Թվային գործիքներ"
+      },
+      "order": 0,
+      "skills": [
+        {
+          "id": "figma",
+          "names": {
+            "EN": "Figma",
+            "FR": "Figma",
+            "ՀԱՅ": "Figma"
+          },
+          "rating": 5
+        },
+        {
+          "id": "k4g90omj",
+          "names": {
+            "EN": "Fig Jam"
+          },
+          "rating": 5
+        },
+        {
+          "id": "sketch",
+          "names": {
+            "EN": "Sketch",
+            "FR": "Sketch",
+            "ՀԱՅ": "Sketch"
+          },
+          "rating": 4
+        },
+        {
+          "id": "photoshop",
+          "names": {
+            "EN": "Adobe Photoshop",
+            "FR": "Adobe Photoshop",
+            "ՀԱՅ": "Adobe Photoshop"
+          },
+          "rating": 3
+        },
+        {
+          "id": "nmcwcmnj",
+          "names": {
+            "EN": "Mural"
+          },
+          "rating": 5
+        },
+        {
+          "id": "after-effects",
+          "names": {
+            "EN": "Adobe After Effects",
+            "FR": "Adobe After Effects",
+            "ՀԱՅ": "Adobe After Effects"
+          },
+          "rating": 3
+        },
+        {
+          "id": "indesign",
+          "names": {
+            "EN": "InDesign",
+            "FR": "InDesign",
+            "ՀԱՅ": "InDesign"
+          },
+          "rating": 3
+        },
+        {
+          "id": "illustrator",
+          "names": {
+            "EN": "Adobe Illustrator",
+            "FR": "Adobe Illustrator",
+            "ՀԱՅ": "Adobe Illustrator"
+          },
+          "rating": 3
+        },
+        {
+          "id": "replit",
+          "names": {
+            "EN": "Replit",
+            "FR": "Replit",
+            "ՀԱՅ": "Replit"
+          },
+          "rating": 5
+        },
+        {
+          "id": "html-css",
+          "names": {
+            "EN": "HTML & CSS",
+            "FR": "HTML & CSS",
+            "ՀԱՅ": "HTML & CSS"
+          },
+          "rating": 2
+        },
+        {
+          "id": "notion",
+          "names": {
+            "EN": "Notion",
+            "FR": "Notion",
+            "ՀԱՅ": "Notion"
+          },
+          "rating": 5
+        },
+        {
+          "id": "tally",
+          "names": {
+            "EN": "Tally",
+            "FR": "Tally",
+            "ՀԱՅ": "Tally"
+          },
+          "rating": 5
+        },
+        {
+          "id": "ym1f9ixw",
+          "names": {
+            "EN": "Type form"
+          },
+          "rating": 4
+        },
+        {
+          "id": "google-tools",
+          "names": {
+            "EN": "Google Tools",
+            "FR": "Google Tools",
+            "ՀԱՅ": "Google Tools"
+          },
+          "rating": 4
+        },
+        {
+          "id": "15akgx4z",
+          "names": {
+            "EN": "Condens"
+          },
+          "rating": 4
+        },
+        {
+          "id": "9iwwjnkw",
+          "names": {
+            "EN": "Orchids"
+          },
+          "rating": 4
+        },
+        {
+          "id": "3h44d41n",
+          "names": {
+            "EN": "Jitter"
+          },
+          "rating": 4
+        },
+        {
+          "id": "b02aajvu",
+          "names": {
+            "EN": "Lovable"
+          },
+          "rating": 4
+        },
+        {
+          "id": "774al2nx",
+          "names": {
+            "EN": "Visual Code"
+          },
+          "rating": 2
+        },
+        {
+          "id": "js-react",
+          "names": {
+            "EN": "JavaScript & React",
+            "FR": "JavaScript & React",
+            "ՀԱՅ": "JavaScript & React"
+          },
+          "rating": 1
+        },
+        {
+          "id": "bo5mojr8",
+          "names": {
+            "EN": "Miro"
+          },
+          "rating": 5
+        },
+        {
+          "id": "web-dev",
+          "names": {
+            "EN": "Web Development",
+            "FR": "Web Development",
+            "ՀԱՅ": "Web Development"
+          },
+          "rating": 1
         }
       ]
     },
     {
       "id": "gca5sh7f",
       "names": {
-        "FR": "Test",
-        "EN": "Test",
-        "ՀԱՅ": "Test"
+        "FR": "UI Design",
+        "EN": "UI Design",
+        "ՀԱՅ": "UI Design"
       },
       "order": 2,
-      "skills": []
+      "skills": [
+        {
+          "id": "vqurnlpc",
+          "names": {
+            "EN": "Design system"
+          },
+          "rating": 4
+        },
+        {
+          "id": "4jzkvgat",
+          "names": {
+            "EN": "Components"
+          },
+          "rating": 5
+        },
+        {
+          "id": "osiofkah",
+          "names": {
+            "EN": "Auto Layout"
+          },
+          "rating": 5
+        },
+        {
+          "id": "d2ict5yj",
+          "names": {
+            "EN": "Grids"
+          },
+          "rating": 5
+        },
+        {
+          "id": "lty5lyfq",
+          "names": {
+            "EN": "Design sprint"
+          },
+          "rating": 4
+        },
+        {
+          "id": "fdjy9f65",
+          "names": {
+            "EN": "Iconography"
+          },
+          "rating": 5
+        },
+        {
+          "id": "0k7u3zso",
+          "names": {
+            "EN": "High-fidelity mockups"
+          },
+          "rating": 4
+        },
+        {
+          "id": "pdr2oc2d",
+          "names": {
+            "EN": "Visual hierarchy"
+          },
+          "rating": 5
+        },
+        {
+          "id": "r4zo2jv1",
+          "names": {
+            "EN": "Interaction design"
+          },
+          "rating": 5
+        },
+        {
+          "id": "m4br37u7",
+          "names": {
+            "EN": "Multi-platform"
+          },
+          "rating": 3
+        },
+        {
+          "id": "nd8b3dvl",
+          "names": {
+            "EN": "Motion Design"
+          },
+          "rating": 4
+        },
+        {
+          "id": "qvwqjzuh",
+          "names": {
+            "EN": "Typography"
+          },
+          "rating": 5
+        },
+        {
+          "id": "m68bnb81",
+          "names": {
+            "EN": "Interface states"
+          },
+          "rating": 3
+        }
+      ]
+    },
+    {
+      "id": "0qi7szcm",
+      "names": {
+        "FR": "Design Graphique",
+        "EN": "Graphic Design",
+        "ՀԱՅ": "Գրաֆիկական դիզայն"
+      },
+      "order": 3,
+      "skills": [
+        {
+          "id": "e1vl9xi9",
+          "names": {
+            "EN": "Visual identity",
+            "FR": "Identité visuelle"
+          },
+          "rating": 5
+        },
+        {
+          "id": "xoc03jtu",
+          "names": {
+            "EN": "Logo design",
+            "FR": "Conception de logo"
+          },
+          "rating": 4
+        },
+        {
+          "id": "b37bp6jy",
+          "names": {
+            "EN": "Visual hierarchy",
+            "FR": "Hiérarchie visuelle"
+          },
+          "rating": 5
+        },
+        {
+          "id": "9fsyeehf",
+          "names": {
+            "EN": "Graphic composition",
+            "FR": "Composition graphique"
+          },
+          "rating": 5
+        },
+        {
+          "id": "t4of8rlo",
+          "names": {
+            "EN": "Graphic system",
+            "FR": "Système graphique"
+          },
+          "rating": 4
+        },
+        {
+          "id": "xfenfmfd",
+          "names": {
+            "EN": "Brand guidelines",
+            "FR": "Charte graphique"
+          },
+          "rating": 4
+        },
+        {
+          "id": "biztt780",
+          "names": {
+            "EN": "Layout grid",
+            "FR": "Grille de mise en page"
+          },
+          "rating": 3
+        },
+        {
+          "id": "se6scip4",
+          "names": {
+            "EN": "Color theory",
+            "FR": "Théorie des couleurs"
+          },
+          "rating": 4
+        },
+        {
+          "id": "gmpg9ob8",
+          "names": {
+            "EN": "Color palette",
+            "FR": "Palette chromatique"
+          },
+          "rating": 5
+        },
+        {
+          "id": "m4w2ldc6",
+          "names": {
+            "EN": "Cover design",
+            "FR": "Design de couverture"
+          },
+          "rating": 4
+        },
+        {
+          "id": "imv10ovf",
+          "names": {
+            "EN": "Presentation design",
+            "FR": "Design de présentation"
+          },
+          "rating": 5
+        },
+        {
+          "id": "60oqs0hh",
+          "names": {
+            "EN": "PDF document design",
+            "FR": "Design de documents PDF"
+          },
+          "rating": 5
+        },
+        {
+          "id": "noqgjbgz",
+          "names": {
+            "EN": "Basic motion design",
+            "FR": "Motion design de base"
+          },
+          "rating": 3
+        },
+        {
+          "id": "q1p6nn6v",
+          "names": {
+            "EN": "File preparation",
+            "FR": "Mise en conformité des fichiers"
+          },
+          "rating": 4
+        },
+        {
+          "id": "5k1qxun0",
+          "names": {
+            "EN": "Asset adaptation",
+            "FR": "Déclinaison de supports"
+          },
+          "rating": 4
+        }
+      ]
+    },
+    {
+      "id": "czd9s9u4",
+      "names": {
+        "FR": "Écosystème de Maison Connectée",
+        "EN": "Smart Home Ecosystem",
+        "ՀԱՅ": ""
+      },
+      "order": 4,
+      "skills": [
+        {
+          "id": "a7otof9p",
+          "names": {
+            "EN": "Apple HomeKit"
+          },
+          "rating": 5
+        },
+        {
+          "id": "s22c7o1x",
+          "names": {
+            "EN": "Google Home"
+          },
+          "rating": 5
+        },
+        {
+          "id": "keskvmrj",
+          "names": {
+            "EN": "Amazon Alexa"
+          },
+          "rating": 4
+        },
+        {
+          "id": "2144s6f5",
+          "names": {
+            "EN": "HomeBridge"
+          },
+          "rating": 3
+        },
+        {
+          "id": "g9rsacl8",
+          "names": {
+            "EN": "Home Assistant"
+          },
+          "rating": 2
+        },
+        {
+          "id": "xxq3rpy7",
+          "names": {
+            "EN": "Philips Hue"
+          },
+          "rating": 5
+        },
+        {
+          "id": "ddawmpjy",
+          "names": {
+            "EN": "IKEA Home Smart"
+          },
+          "rating": 5
+        },
+        {
+          "id": "ztmiq1wd",
+          "names": {
+            "EN": "Aqara"
+          },
+          "rating": 3
+        },
+        {
+          "id": "5cym8wd7",
+          "names": {
+            "EN": "Xiaomi Home"
+          },
+          "rating": 3
+        },
+        {
+          "id": "xe00agbr",
+          "names": {
+            "EN": "Samsung SmartThings"
+          },
+          "rating": 4
+        },
+        {
+          "id": "qeflt7t6",
+          "names": {
+            "EN": "Sonos"
+          },
+          "rating": 5
+        },
+        {
+          "id": "e28k7426",
+          "names": {
+            "EN": "Tuya/SmartLife"
+          },
+          "rating": 3
+        }
+      ]
     }
   ]
 }
