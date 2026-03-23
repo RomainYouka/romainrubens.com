@@ -165,20 +165,20 @@ export default function ChaussezVousOuPasPage() {
   };
 
   const images = [
-    { src: "/projects/chaussez-vous-ou-pas/1.png", alt: "Chaussez-vous ou pas - 1" },
-    { src: "/projects/chaussez-vous-ou-pas/2.png", alt: "Chaussez-vous ou pas - 2" },
-    { src: "/projects/chaussez-vous-ou-pas/3.png", alt: "Chaussez-vous ou pas - 3" },
-    { src: "/projects/chaussez-vous-ou-pas/4.png", alt: "Chaussez-vous ou pas - 4" },
-    { src: "/projects/chaussez-vous-ou-pas/5.png", alt: "Chaussez-vous ou pas - 5" },
-    { src: "/projects/chaussez-vous-ou-pas/6.png", alt: "Chaussez-vous ou pas - 6" },
-    { src: "/projects/chaussez-vous-ou-pas/7.png", alt: "Chaussez-vous ou pas - 7" },
-    { src: "/projects/chaussez-vous-ou-pas/8.png", alt: "Chaussez-vous ou pas - 8" },
-    { src: "/projects/chaussez-vous-ou-pas/9.png", alt: "Chaussez-vous ou pas - 9" },
-    { src: "/projects/chaussez-vous-ou-pas/10.png", alt: "Chaussez-vous ou pas - 10" },
-    { src: "/projects/chaussez-vous-ou-pas/11.png", alt: "Chaussez-vous ou pas - 11" },
-    { src: "/projects/chaussez-vous-ou-pas/12.png", alt: "Chaussez-vous ou pas - 12" },
-    { src: "/projects/chaussez-vous-ou-pas/13.png", alt: "Chaussez-vous ou pas - 13" },
-    { src: "/projects/chaussez-vous-ou-pas/14.png", alt: "Chaussez-vous ou pas - 14" }
+    { src: "/projects/chaussez-vous-ou-pas/1.webp", alt: "Chaussez-vous ou pas - 1" },
+    { src: "/projects/chaussez-vous-ou-pas/2.webp", alt: "Chaussez-vous ou pas - 2" },
+    { src: "/projects/chaussez-vous-ou-pas/3.webp", alt: "Chaussez-vous ou pas - 3" },
+    { src: "/projects/chaussez-vous-ou-pas/4.webp", alt: "Chaussez-vous ou pas - 4" },
+    { src: "/projects/chaussez-vous-ou-pas/5.webp", alt: "Chaussez-vous ou pas - 5" },
+    { src: "/projects/chaussez-vous-ou-pas/6.webp", alt: "Chaussez-vous ou pas - 6" },
+    { src: "/projects/chaussez-vous-ou-pas/7.webp", alt: "Chaussez-vous ou pas - 7" },
+    { src: "/projects/chaussez-vous-ou-pas/8.webp", alt: "Chaussez-vous ou pas - 8" },
+    { src: "/projects/chaussez-vous-ou-pas/9.webp", alt: "Chaussez-vous ou pas - 9" },
+    { src: "/projects/chaussez-vous-ou-pas/10.webp", alt: "Chaussez-vous ou pas - 10" },
+    { src: "/projects/chaussez-vous-ou-pas/11.webp", alt: "Chaussez-vous ou pas - 11" },
+    { src: "/projects/chaussez-vous-ou-pas/12.webp", alt: "Chaussez-vous ou pas - 12" },
+    { src: "/projects/chaussez-vous-ou-pas/13.webp", alt: "Chaussez-vous ou pas - 13" },
+    { src: "/projects/chaussez-vous-ou-pas/14.webp", alt: "Chaussez-vous ou pas - 14" }
   ];
 
   return (
