@@ -149,12 +149,12 @@ export default function VahanSoghomonianPage() {
   };
 
   const images = [
-    { src: "/projects/vahan/R1.png", alt: "Arvest Magazine Cover" },
-    { src: "/projects/vahan/R2.png", alt: "Biography" },
-    { src: "/projects/vahan/R3.png", alt: "Current Projects" },
-    { src: "/projects/vahan/R4.png", alt: "Photography Projects" },
-    { src: "/projects/vahan/R5.png", alt: "Design and Inspiration" },
-    { src: "/projects/vahan/R6.png", alt: "Credits and Final Thoughts" }
+    { src: "/projects/vahan/R1.webp", alt: "Arvest Magazine Cover" },
+    { src: "/projects/vahan/R2.webp", alt: "Biography" },
+    { src: "/projects/vahan/R3.webp", alt: "Current Projects" },
+    { src: "/projects/vahan/R4.webp", alt: "Photography Projects" },
+    { src: "/projects/vahan/R5.webp", alt: "Design and Inspiration" },
+    { src: "/projects/vahan/R6.webp", alt: "Credits and Final Thoughts" }
   ];
 
   return (

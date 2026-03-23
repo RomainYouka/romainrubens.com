@@ -36,12 +36,12 @@ const translations = {
 };
 
 const vahanImages = [
-  { id: "1", src: "/projects/vahan/R1.png" },
-  { id: "2", src: "/projects/vahan/R2.png" },
-  { id: "3", src: "/projects/vahan/R3.png" },
-  { id: "4", src: "/projects/vahan/R4.png" },
-  { id: "5", src: "/projects/vahan/R5.png" },
-  { id: "6", src: "/projects/vahan/R6.png" }
+  { id: "1", src: "/projects/vahan/R1.webp" },
+  { id: "2", src: "/projects/vahan/R2.webp" },
+  { id: "3", src: "/projects/vahan/R3.webp" },
+  { id: "4", src: "/projects/vahan/R4.webp" },
+  { id: "5", src: "/projects/vahan/R5.webp" },
+  { id: "6", src: "/projects/vahan/R6.webp" }
 ];
 
 export default function ProjectVahanSoghomonian({ language }: ProjectVahanProps) {
