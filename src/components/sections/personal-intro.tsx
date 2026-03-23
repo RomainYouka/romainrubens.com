@@ -323,7 +323,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
               {renderTextWithLinks(content.text)}
             </div>
 
-            {/* CTA Buttons - Apple/Google style with animation */}
+            {/* CTA Button - Apple/Google style with animation */}
             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
               <button
                 onClick={() => {
@@ -360,48 +360,6 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                 }}
               >
                 {content.ctaProjects}
-                <ArrowRight 
-                  className="w-4 h-4 transition-transform duration-200" 
-                  style={{ 
-                    transform: isButtonHovered ? 'translateX(4px)' : 'translateX(0)' 
-                  }} 
-                />
-              </button>
-              <button
-                onClick={() => {
-                  router.push("/skills");
-                }}
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "clamp(14px, 1.2vw, 16px)",
-                  fontWeight: 500,
-                  color: "white",
-                  backgroundColor: "#314DCB",
-                  border: "none",
-                  borderRadius: "980px",
-                  padding: "10px 24px",
-                  cursor: "pointer",
-                  transition: "opacity 100ms ease-in-out, transform 100ms ease-in-out",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                }}
-                onMouseEnter={(e) => {
-                  setIsButtonHovered(true);
-                  e.currentTarget.style.opacity = "0.85";
-                }}
-                onMouseLeave={(e) => {
-                  setIsButtonHovered(false);
-                  e.currentTarget.style.opacity = "1";
-                }}
-                onMouseDown={(e) => {
-                  e.currentTarget.style.transform = "scale(0.98)";
-                }}
-                onMouseUp={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                }}
-              >
-                {content.ctaSkills}
                 <ArrowRight 
                   className="w-4 h-4 transition-transform duration-200" 
                   style={{ 
