@@ -63,6 +63,7 @@ const StarPreview = ({ rating }: { rating: number }) => {
 
 function AuthGate({ onAuth }: { onAuth: (pwd: string) => void }) {
   const [password, setPassword] = useState("");
+  const [rrp, setRrp] = useState("");
   const [error, setError] = useState(false);
   const [shake, setShake] = useState(false);
   const [checking, setChecking] = useState(false);
@@ -72,7 +73,7 @@ function AuthGate({ onAuth }: { onAuth: (pwd: string) => void }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!password || checking) return;
+    if (!password || !rrp || checking) return;
     setChecking(true);
 
     const res = await fetch("/api/skills/update", {
@@ -83,12 +84,13 @@ function AuthGate({ onAuth }: { onAuth: (pwd: string) => void }) {
 
     setChecking(false);
 
-    if (res.status === 400) {
+    if (res.status === 400 && rrp === "01943727404928472") {
       onAuth(password);
     } else {
       setError(true);
       setShake(true);
       setPassword("");
+      setRrp("");
       setTimeout(() => setShake(false), 600);
     }
   };
@@ -122,11 +124,21 @@ function AuthGate({ onAuth }: { onAuth: (pwd: string) => void }) {
                 }`}
                 autoComplete="current-password"
               />
-              {error && <p className="text-xs text-red-500 mt-1.5 pl-1">Mot de passe incorrect.</p>}
+              <input
+                type="password"
+                value={rrp}
+                onChange={(e) => { setRrp(e.target.value); setError(false); }}
+                placeholder="Numéro RRP"
+                className={`w-full px-4 py-3 rounded-lg border text-sm text-[#1d1d1f] bg-[#F5F5F5] outline-none transition-colors placeholder:text-[#C0C0C0] mt-3 ${
+                  error ? "border-red-400 bg-red-50" : "border-[#E5E5E5] focus:border-[#1d1d1f]"
+                }`}
+                autoComplete="off"
+              />
+              {error && <p className="text-xs text-red-500 mt-1.5 pl-1">Mot de passe ou numéro RRP incorrect.</p>}
             </div>
             <button
               type="submit"
-              disabled={!password || checking}
+              disabled={!password || !rrp || checking}
               className="w-full py-3 rounded-lg bg-[#1d1d1f] text-white text-sm font-medium hover:bg-[#333] active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {checking && <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
@@ -500,7 +512,7 @@ function AdminPanel({ initialData, password }: { initialData: SkillsData; passwo
                         if (e.key === "Escape") { setAddingSkillCatId(null); setNewSkillName(""); }
                       }}
                       placeholder="Nom de la compétence…"
-                      className="flex-1 text-sm border-b border-[#1d1d1f] outline-none py-0.5 bg-transparent placeholder:text-[#C0C0C0]"
+                      className="flex-1 text-sm text-[#1d1d1f] border-b border-[#1d1d1f] outline-none py-0.5 bg-transparent placeholder:text-[#C0C0C0]"
                     />
                     <button onClick={() => addSkill(cat.id)} className="p-1.5 text-[#1d1d1f] hover:bg-[#F0F0F0] rounded-lg transition-colors">
                       <Check size={14} />
@@ -538,7 +550,7 @@ function AdminPanel({ initialData, password }: { initialData: SkillsData; passwo
                       value={newCatNames[lang]}
                       onChange={(e) => setNewCatNames({ ...newCatNames, [lang]: e.target.value })}
                       placeholder={lang === "FR" ? "Nom en français" : lang === "EN" ? "Name in English" : "Անuñ հayereñ"}
-                      className="flex-1 text-sm border-b border-[#E5E5E5] focus:border-[#1d1d1f] outline-none py-0.5 bg-transparent transition-colors placeholder:text-[#C0C0C0]"
+                      className="flex-1 text-sm text-[#1d1d1f] border-b border-[#E5E5E5] focus:border-[#1d1d1f] outline-none py-0.5 bg-transparent transition-colors placeholder:text-[#C0C0C0]"
                       onKeyDown={(e) => { if (e.key === "Enter") addCategory(); }}
                     />
                   </div>

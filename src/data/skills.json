@@ -162,14 +162,14 @@
           "rating": 3
         },
         {
-          "id": "google-tools",
-          "name": "Google Tools",
-          "rating": 4
-        },
-        {
           "id": "yklsixo7",
           "name": "Apple HomeKit",
           "rating": 5
+        },
+        {
+          "id": "google-tools",
+          "name": "Google Tools",
+          "rating": 4
         }
       ]
     }
