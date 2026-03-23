@@ -14,6 +14,7 @@ const translations = {
   FR: {
     title: "Compétences",
     subtitle: "Une vision transversale de mes savoir-faire en design, interaction et outils numériques.",
+    starsExplanation: "Les étoiles indiquent mon niveau d'expertise : 0 = aucune expérience, 5 = maîtrise complète.",
     designSkills: "Design & UX/UI",
     toolsSkills: "Outils numériques",
     skills: {
@@ -53,6 +54,7 @@ const translations = {
   EN: {
     title: "Skills",
     subtitle: "A cross-functional overview of my expertise in design, interaction, and digital tools.",
+    starsExplanation: "Stars indicate my expertise level: 0 = no experience, 5 = complete mastery.",
     designSkills: "Design & UX/UI",
     toolsSkills: "Digital tools",
     skills: {
@@ -92,6 +94,7 @@ const translations = {
   "ՀԱՅ": {
     title: "Հմտություններ",
     subtitle: "Մեր փորձի լայն տեսակետ դիզայնի, փոխազդեցության և թվային գործիքների մեջ:",
+    starsExplanation: "Աստղերը ցույց են տալիս իմ փորձի մակարդակը: 0 = փորձ չունենք, 5 = լրիվ տիրապետում:",
     designSkills: "Դիզայն & UX/UI",
     toolsSkills: "Թվային գործիքներ",
     skills: {
@@ -219,6 +222,13 @@ export default function SkillsPage() {
           </h1>
           <p className="text-base md:text-lg text-[#666666] leading-relaxed max-w-2xl">
             {t.subtitle}
+          </p>
+        </div>
+
+        {/* Stars Explanation Block */}
+        <div className="mb-16 md:mb-20 p-5 md:p-6 bg-white border border-[#E5E5E5] rounded-lg">
+          <p className="text-sm md:text-base text-[#666666] leading-relaxed">
+            {t.starsExplanation}
           </p>
         </div>
 
