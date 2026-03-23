@@ -50,6 +50,7 @@ const translations = {
   FR: {
     home: "Accueil",
     projects: "Projets",
+    skills: "Compétences",
     explorations: "Explorations",
     contact: "Contact",
     resume: "CV"
@@ -57,6 +58,7 @@ const translations = {
   EN: {
     home: "Home",
     projects: "Projects",
+    skills: "Skills",
     explorations: "Explorations",
     contact: "Contact",
     resume: "Resume"
@@ -64,12 +66,12 @@ const translations = {
   ՀԱՅ: {
     home: "Գլխավոր",
     projects: "Նախագծեր",
+    skills: "Հմտություններ",
     explorations: "Հետազոտություններ",
     contact: "Կապ",
     resume: "Ռեզյումե"
   }
 };
-
 const LanguageSelector = ({
   selectedLanguage,
   onLanguageChange,
@@ -445,6 +447,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const navLinks = [
     { name: currentTranslations.home, href: "/" },
     { name: currentTranslations.projects, href: "/projects" },
+    { name: currentTranslations.skills, href: "/skills" },
     { name: currentTranslations.explorations, href: "/explorations" },
     { name: currentTranslations.contact, href: "/contact" }
   ];

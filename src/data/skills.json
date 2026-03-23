@@ -1,0 +1,177 @@
+{
+  "lastUpdated": "23 Mars 2026",
+  "categories": [
+    {
+      "id": "design",
+      "names": {
+        "FR": "Design & UX/UI",
+        "EN": "Design & UX/UI",
+        "ՀԱՅ": "Դիզայն & UX/UI"
+      },
+      "order": 0,
+      "skills": [
+        {
+          "id": "ux-design",
+          "name": "UX Design",
+          "rating": 4
+        },
+        {
+          "id": "ui-design",
+          "name": "UI Design",
+          "rating": 5
+        },
+        {
+          "id": "interaction-design",
+          "name": "Interaction Design",
+          "rating": 4
+        },
+        {
+          "id": "user-research",
+          "name": "User Research",
+          "rating": 3
+        },
+        {
+          "id": "systems-thinking",
+          "name": "Systems thinking",
+          "rating": 3
+        },
+        {
+          "id": "user-journeys",
+          "name": "User journeys",
+          "rating": 4
+        },
+        {
+          "id": "wireframing",
+          "name": "Wireframing",
+          "rating": 4
+        },
+        {
+          "id": "prototyping",
+          "name": "Prototyping",
+          "rating": 4
+        },
+        {
+          "id": "design-system",
+          "name": "Design System",
+          "rating": 4
+        },
+        {
+          "id": "visual-hierarchy",
+          "name": "Visual Hierarchy",
+          "rating": 4
+        },
+        {
+          "id": "usability-testing",
+          "name": "Usability Testing",
+          "rating": 3
+        },
+        {
+          "id": "accessibility",
+          "name": "Accessibility",
+          "rating": 3
+        },
+        {
+          "id": "typography",
+          "name": "Typography",
+          "rating": 4
+        },
+        {
+          "id": "motion-design",
+          "name": "Motion Design",
+          "rating": 3
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "names": {
+        "FR": "Outils numériques",
+        "EN": "Digital tools",
+        "ՀԱՅ": "Թվային գործիքներ"
+      },
+      "order": 1,
+      "skills": [
+        {
+          "id": "figma",
+          "name": "Figma",
+          "rating": 5
+        },
+        {
+          "id": "photoshop",
+          "name": "Adobe Photoshop",
+          "rating": 4
+        },
+        {
+          "id": "after-effects",
+          "name": "Adobe After Effects",
+          "rating": 3
+        },
+        {
+          "id": "sketch",
+          "name": "Sketch",
+          "rating": 3
+        },
+        {
+          "id": "indesign",
+          "name": "InDesign",
+          "rating": 3
+        },
+        {
+          "id": "illustrator",
+          "name": "Adobe Illustrator",
+          "rating": 4
+        },
+        {
+          "id": "framer",
+          "name": "Framer",
+          "rating": 4
+        },
+        {
+          "id": "replit",
+          "name": "Replit",
+          "rating": 4
+        },
+        {
+          "id": "web-dev",
+          "name": "Web Development",
+          "rating": 3
+        },
+        {
+          "id": "html-css",
+          "name": "HTML & CSS",
+          "rating": 4
+        },
+        {
+          "id": "js-react",
+          "name": "JavaScript & React",
+          "rating": 4
+        },
+        {
+          "id": "nextjs",
+          "name": "Next.js",
+          "rating": 4
+        },
+        {
+          "id": "notion",
+          "name": "Notion",
+          "rating": 5
+        },
+        {
+          "id": "tally",
+          "name": "Tally",
+          "rating": 3
+        },
+        {
+          "id": "google-tools",
+          "name": "Google Tools",
+          "rating": 4
+        },
+        {
+          "id": "yklsixo7",
+          "name": "Apple HomeKit",
+          "rating": 5
+        }
+      ]
+    }
+  ]
+}
