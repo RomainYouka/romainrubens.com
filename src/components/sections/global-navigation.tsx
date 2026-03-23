@@ -361,6 +361,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
   const [logoAnimating, setLogoAnimating] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [shouldShowBurger, setShouldShowBurger] = useState(false);
+  const navContainerRef = useRef<HTMLDivElement>(null);
 
   const isExplorationsPage = pathname === "/explorations";
   const logoIconSrc = isScrolled
@@ -452,6 +454,75 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     { name: currentTranslations.contact, href: "/contact" }
   ];
 
+  // Measure if we need burger menu due to space constraints
+  useEffect(() => {
+    // Use a small delay to let DOM render before measuring
+    const timer = setTimeout(() => {
+      if (!navContainerRef.current) return;
+      
+      const containerWidth = navContainerRef.current.clientWidth;
+      
+      // Estimate widths - be conservative with Armenian text
+      const logoWidth = 40;
+      const languageSelectorWidth = 50; // globe icon + spacing
+      const resumeButtonWidth = 110; // "CV" or "Resume" or "Ռեզյումե" + padding
+      const burgerMenuWidth = 40;
+      const gapsBetweenElements = 40; // ~40px total for gaps
+      const padding = 12; // container padding
+      
+      const fixedElementsWidth = logoWidth + languageSelectorWidth + resumeButtonWidth + burgerMenuWidth + gapsBetweenElements + padding;
+      
+      // Width per nav link - Armenian is significantly wider
+      // Estimate: "Աuñ հayereñ" (14 chars) is much wider than "Contact" (7 chars)
+      const isArmenian = selectedLanguage === "ՀԱՅ";
+      const avgLinkWidth = isArmenian ? 140 : (selectedLanguage === "EN" ? 85 : 80);
+      const estimatedLinksWidth = navLinks.length * avgLinkWidth;
+      
+      // Add gap between nav links
+      const navLinksGaps = (navLinks.length - 1) * 40;
+      
+      const totalNeededWidth = fixedElementsWidth + estimatedLinksWidth + navLinksGaps;
+      
+      // Trigger burger menu with some margin (min 100px free space to avoid cramping)
+      const needsBurger = totalNeededWidth + 100 > containerWidth;
+      
+      setShouldShowBurger(needsBurger);
+    }, 100);
+
+    const handleResize = () => {
+      clearTimeout(timer);
+      setTimeout(() => {
+        if (!navContainerRef.current) return;
+        
+        const containerWidth = navContainerRef.current.clientWidth;
+        const logoWidth = 40;
+        const languageSelectorWidth = 50;
+        const resumeButtonWidth = 110;
+        const burgerMenuWidth = 40;
+        const gapsBetweenElements = 40;
+        const padding = 12;
+        
+        const fixedElementsWidth = logoWidth + languageSelectorWidth + resumeButtonWidth + burgerMenuWidth + gapsBetweenElements + padding;
+        
+        const isArmenian = selectedLanguage === "ՀԱՅ";
+        const avgLinkWidth = isArmenian ? 140 : (selectedLanguage === "EN" ? 85 : 80);
+        const estimatedLinksWidth = navLinks.length * avgLinkWidth;
+        const navLinksGaps = (navLinks.length - 1) * 40;
+        
+        const totalNeededWidth = fixedElementsWidth + estimatedLinksWidth + navLinksGaps;
+        const needsBurger = totalNeededWidth + 100 > containerWidth;
+        
+        setShouldShowBurger(needsBurger);
+      }, 50);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [selectedLanguage, navLinks.length]);
+
   const prefersReducedMotion = typeof window !== 'undefined' ?
     window.matchMedia('(prefers-reduced-motion: reduce)').matches :
     false;
@@ -485,9 +556,9 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
             borderRadius: isScrolled ? "980px" : "0",
             borderBottom: isScrolled ? "none" : `1px solid ${borderColor}`
           }}>
-          <div className="mx-auto h-16 max-w-[1200px] px-6">
+          <div className="mx-auto h-16 max-w-[1200px] px-6" ref={navContainerRef}>
             <nav className="flex h-full w-full items-center justify-between">
-              <div className="hidden h-full w-full items-center justify-between lg:flex">
+              <div className={`h-full w-full items-center justify-between ${shouldShowBurger ? "hidden" : "flex"}`}>
                 <a
                   href="/"
                   onClick={handleLogoClick}
@@ -531,7 +602,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                 </div>
               </div>
 
-              <div className="flex w-full items-center justify-between lg:hidden">
+              <div className={`flex w-full items-center justify-between ${shouldShowBurger ? "flex" : "hidden"}`}>
                 <a
                   href="/"
                   onClick={handleLogoClick}
