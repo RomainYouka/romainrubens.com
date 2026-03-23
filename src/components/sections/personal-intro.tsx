@@ -8,17 +8,20 @@ const translations = {
   FR: {
     title: "À propos de moi",
     text: "Je suis étudiant en troisième année de design industriel, spécialisé en UX/UI et design d'interaction.\nJ'explore la relation entre l'humain, la technologie et les objets qu'il utilise.\nMon approche consiste à transformer la complexité en clarté et le design en expérience.\nPour en savoir plus sur mon parcours, vous pouvez me retrouver sur LinkedIn ou télécharger mon CV.",
-    cta: "Voir mes projets",
+    ctaProjects: "Voir mes projets",
+    ctaSkills: "Mes compétences",
   },
   EN: {
     title: "About me",
     text: "I'm a third-year industrial design student specializing in UX/UI and interaction design.\nI explore the relationship between humans, technology, and the objects they use.\nMy approach is to turn complexity into clarity and design into experience.\nTo learn more about my background, you can find me on LinkedIn or download my resume.",
-    cta: "View my projects",
+    ctaProjects: "View my projects",
+    ctaSkills: "My skills",
   },
   ՀԱՅ: {
     title: "Իմ մասին՝",
     text: "Ես չեմ հավատում պատրաստի լուծումներին։ Ես հավատում եմ ճիշտ գործընթացին։ Իմ մոտեցումը համակցում է կարեկցանք, կառուցվածք և ինտուիցիա։ Դիզայնը լսելն է։ Դիզայներ լինելը՝ հասկանալը որոշելուց առաջ։",
-    cta: "Տեսեք իմ նախագծերը",
+    ctaProjects: "Տեսեք իմ նախագծերը",
+    ctaSkills: "Իմ հմտությունները",
   },
 };
 
@@ -320,49 +323,93 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
               {renderTextWithLinks(content.text)}
             </div>
 
-            {/* CTA Button - Apple/Google style with animation */}
-            <button
-              onClick={() => {
-                router.push("/projects");
-              }}
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "clamp(14px, 1.2vw, 16px)",
-                fontWeight: 500,
-                color: "white",
-                backgroundColor: "#314DCB",
-                border: "none",
-                borderRadius: "980px",
-                padding: "10px 24px",
-                cursor: "pointer",
-                transition: "opacity 100ms ease-in-out, transform 100ms ease-in-out",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-              }}
-              onMouseEnter={(e) => {
-                setIsButtonHovered(true);
-                e.currentTarget.style.opacity = "0.85";
-              }}
-              onMouseLeave={(e) => {
-                setIsButtonHovered(false);
-                e.currentTarget.style.opacity = "1";
-              }}
-              onMouseDown={(e) => {
-                e.currentTarget.style.transform = "scale(0.98)";
-              }}
-              onMouseUp={(e) => {
-                e.currentTarget.style.transform = "scale(1)";
-              }}
-            >
-              {content.cta}
-              <ArrowRight 
-                className="w-4 h-4 transition-transform duration-200" 
-                style={{ 
-                  transform: isButtonHovered ? 'translateX(4px)' : 'translateX(0)' 
-                }} 
-              />
-            </button>
+            {/* CTA Buttons - Apple/Google style with animation */}
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <button
+                onClick={() => {
+                  router.push("/projects");
+                }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "clamp(14px, 1.2vw, 16px)",
+                  fontWeight: 500,
+                  color: "white",
+                  backgroundColor: "#314DCB",
+                  border: "none",
+                  borderRadius: "980px",
+                  padding: "10px 24px",
+                  cursor: "pointer",
+                  transition: "opacity 100ms ease-in-out, transform 100ms ease-in-out",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+                onMouseEnter={(e) => {
+                  setIsButtonHovered(true);
+                  e.currentTarget.style.opacity = "0.85";
+                }}
+                onMouseLeave={(e) => {
+                  setIsButtonHovered(false);
+                  e.currentTarget.style.opacity = "1";
+                }}
+                onMouseDown={(e) => {
+                  e.currentTarget.style.transform = "scale(0.98)";
+                }}
+                onMouseUp={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
+              >
+                {content.ctaProjects}
+                <ArrowRight 
+                  className="w-4 h-4 transition-transform duration-200" 
+                  style={{ 
+                    transform: isButtonHovered ? 'translateX(4px)' : 'translateX(0)' 
+                  }} 
+                />
+              </button>
+              <button
+                onClick={() => {
+                  router.push("/skills");
+                }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "clamp(14px, 1.2vw, 16px)",
+                  fontWeight: 500,
+                  color: "white",
+                  backgroundColor: "#314DCB",
+                  border: "none",
+                  borderRadius: "980px",
+                  padding: "10px 24px",
+                  cursor: "pointer",
+                  transition: "opacity 100ms ease-in-out, transform 100ms ease-in-out",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+                onMouseEnter={(e) => {
+                  setIsButtonHovered(true);
+                  e.currentTarget.style.opacity = "0.85";
+                }}
+                onMouseLeave={(e) => {
+                  setIsButtonHovered(false);
+                  e.currentTarget.style.opacity = "1";
+                }}
+                onMouseDown={(e) => {
+                  e.currentTarget.style.transform = "scale(0.98)";
+                }}
+                onMouseUp={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
+              >
+                {content.ctaSkills}
+                <ArrowRight 
+                  className="w-4 h-4 transition-transform duration-200" 
+                  style={{ 
+                    transform: isButtonHovered ? 'translateX(4px)' : 'translateX(0)' 
+                  }} 
+                />
+              </button>
+            </div>
           </div>
         </div>
       </section>

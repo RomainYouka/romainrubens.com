@@ -22,6 +22,7 @@ const translations = {
     },
     designSkills: "Design & UX/UI",
     toolsSkills: "Outils numériques",
+    lastUpdated: "Dernière mise à jour : 23 Mars 2026",
     skills: {
       // Design skills
       "UX Design": 4,
@@ -67,6 +68,7 @@ const translations = {
     },
     designSkills: "Design & UX/UI",
     toolsSkills: "Digital tools",
+    lastUpdated: "Last updated: March 23, 2026",
     skills: {
       // Design skills
       "UX Design": 4,
@@ -112,6 +114,7 @@ const translations = {
     },
     designSkills: "Դիզայն & UX/UI",
     toolsSkills: "Թվային գործիքներ",
+    lastUpdated: "Վերջին թարմացում՝ Մարտ 23, 2026",
     skills: {
       // Design skills
       "UX Design": 4,
@@ -279,7 +282,7 @@ export default function SkillsPage() {
         </div>
 
         {/* Tools Skills Section */}
-        <div>
+        <div className="mb-16 md:mb-20">
           <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] mb-8">
             {t.toolsSkills}
           </h2>
@@ -293,6 +296,13 @@ export default function SkillsPage() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Last Updated */}
+        <div className="text-center mt-8">
+          <p className="text-xs md:text-sm text-[#999999]">
+            {t.lastUpdated}
+          </p>
         </div>
       </section>
     </main>
