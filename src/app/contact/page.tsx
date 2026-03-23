@@ -225,10 +225,9 @@ export default function ContactPage() {
 
             {/* View Behance Button */}
             <button
-              onClick={handleBehance}
-              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              disabled
+              className="w-full py-4 px-6 bg-white text-[#9C9C9C] font-semibold text-base rounded-full border border-[#E5E5E5] pointer-events-none opacity-60 flex items-center justify-center gap-2"
             >
-              <BehanceLogo className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.viewBehance}</span>
             </button>
           </div>
