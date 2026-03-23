@@ -7,7 +7,7 @@ import { ChevronUp, ChevronDown, Trash2, Plus, Check, X, Lock, ArrowLeft, Save }
 
 interface Skill {
   id: string;
-  name: string;
+  names: { EN: string; FR?: string; ՀԱՅ?: string };
   rating: number;
 }
 
@@ -177,10 +177,10 @@ function AdminPanel({ initialData, password }: { initialData: SkillsData; passwo
   const [editingCatValues, setEditingCatValues] = useState<{ FR: string; EN: string; ՀԱՅ: string }>({ FR: "", EN: "", ՀԱՅ: "" });
 
   const [editingSkill, setEditingSkill] = useState<{ catId: string; skillId: string } | null>(null);
-  const [editingSkillName, setEditingSkillName] = useState("");
+  const [editingSkillNames, setEditingSkillNames] = useState<Skill["names"]>({ EN: "", FR: "", ՀԱՅ: "" });
 
   const [addingSkillCatId, setAddingSkillCatId] = useState<string | null>(null);
-  const [newSkillName, setNewSkillName] = useState("");
+  const [newSkillNames, setNewSkillNames] = useState<Skill["names"]>({ EN: "", FR: "", ՀԱՅ: "" });
 
   const [addingCategory, setAddingCategory] = useState(false);
   const [newCatNames, setNewCatNames] = useState({ FR: "", EN: "", ՀԱՅ: "" });
@@ -277,17 +277,17 @@ function AdminPanel({ initialData, password }: { initialData: SkillsData; passwo
 
   const startEditSkill = (catId: string, skill: Skill) => {
     setEditingSkill({ catId, skillId: skill.id });
-    setEditingSkillName(skill.name);
+    setEditingSkillNames({ ...skill.names });
   };
 
   const confirmEditSkill = () => {
-    if (!editingSkill) return;
+    if (!editingSkill || !editingSkillNames.EN.trim()) return;
     const { catId, skillId } = editingSkill;
     setData({
       ...data,
       categories: data.categories.map((c) =>
         c.id === catId
-          ? { ...c, skills: c.skills.map((s) => (s.id === skillId ? { ...s, name: editingSkillName.trim() || s.name } : s)) }
+          ? { ...c, skills: c.skills.map((s) => (s.id === skillId ? { ...s, names: { EN: editingSkillNames.EN.trim(), FR: editingSkillNames.FR?.trim() || undefined, ՀԱՅ: editingSkillNames.ՀԱՅ?.trim() || undefined } } : s)) }
           : c
       ),
     });
@@ -310,15 +310,15 @@ function AdminPanel({ initialData, password }: { initialData: SkillsData; passwo
   };
 
   const addSkill = (catId: string) => {
-    if (!newSkillName.trim()) return;
-    const newSkill: Skill = { id: generateId(), name: newSkillName.trim(), rating: 3 };
+    if (!newSkillNames.EN.trim()) return;
+    const newSkill: Skill = { id: generateId(), names: { EN: newSkillNames.EN.trim(), FR: newSkillNames.FR?.trim() || undefined, ՀԱՅ: newSkillNames.ՀԱՅ?.trim() || undefined }, rating: 3 };
     setData({
       ...data,
       categories: data.categories.map((c) =>
         c.id === catId ? { ...c, skills: [...c.skills, newSkill] } : c
       ),
     });
-    setNewSkillName("");
+    setNewSkillNames({ EN: "", FR: "", ՀԱՅ: "" });
     setAddingSkillCatId(null);
   };
 
@@ -443,7 +443,9 @@ function AdminPanel({ initialData, password }: { initialData: SkillsData; passwo
 
               {/* Skills */}
               <div className="divide-y divide-[#F5F5F5]">
-                {cat.skills.map((skill, skillIdx) => (
+                {cat.skills.map((skill, skillIdx) => {
+                  const isEditing = editingSkill?.catId === cat.id && editingSkill?.skillId === skill.id;
+                  return (
                   <div key={skill.id} className="flex items-center gap-3 px-5 py-3">
                     <div className="flex flex-col gap-0.5 shrink-0">
                       <button
@@ -462,25 +464,34 @@ function AdminPanel({ initialData, password }: { initialData: SkillsData; passwo
                       </button>
                     </div>
 
-                    {editingSkill?.catId === cat.id && editingSkill?.skillId === skill.id ? (
-                      <input
-                        type="text"
-                        value={editingSkillName}
-                        autoFocus
-                        onChange={(e) => setEditingSkillName(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") confirmEditSkill();
-                          if (e.key === "Escape") setEditingSkill(null);
-                        }}
-                        onBlur={confirmEditSkill}
-                        className="flex-1 min-w-0 text-sm border-b border-[#1d1d1f] outline-none py-0.5 bg-transparent"
-                      />
+                    {isEditing ? (
+                      <div className="flex-1 flex flex-col gap-1">
+                        {(["EN", "FR", "ՀԱՅ"] as const).map((lang) => (
+                          <div key={lang} className="flex items-center gap-2">
+                            <span className="text-xs text-[#999999] font-mono w-6">{lang}</span>
+                            <input
+                              type="text"
+                              value={editingSkillNames[lang] || ""}
+                              autoFocus={lang === "EN"}
+                              onChange={(e) => setEditingSkillNames({ ...editingSkillNames, [lang]: e.target.value })}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") confirmEditSkill();
+                                if (e.key === "Escape") setEditingSkill(null);
+                              }}
+                              placeholder={lang === "EN" ? "Required" : "Optional"}
+                              className="flex-1 text-xs text-[#1d1d1f] border-b border-[#1d1d1f] outline-none py-0.5 bg-transparent placeholder:text-[#C0C0C0]"
+                            />
+                          </div>
+                        ))}
+                      </div>
                     ) : (
                       <button
                         onClick={() => startEditSkill(cat.id, skill)}
-                        className="flex-1 min-w-0 text-left text-sm text-[#1d1d1f] hover:underline underline-offset-2 py-0.5 truncate"
+                        className="flex-1 min-w-0 text-left text-sm text-[#1d1d1f] hover:underline underline-offset-2 py-0.5"
                       >
-                        {skill.name}
+                        <div className="truncate">{skill.names.EN}</div>
+                        {skill.names.FR && <div className="text-xs text-[#999999] truncate">{skill.names.FR}</div>}
+                        {skill.names.ՀԱՅ && <div className="text-xs text-[#999999] truncate">{skill.names.ՀԱՅ}</div>}
                       </button>
                     )}
 
@@ -496,37 +507,44 @@ function AdminPanel({ initialData, password }: { initialData: SkillsData; passwo
                       <Trash2 size={13} />
                     </button>
                   </div>
-                ))}
+                );
+                })}
 
                 {/* Add skill */}
                 {addingSkillCatId === cat.id ? (
-                  <div className="flex items-center gap-3 px-5 py-3 bg-[#FAFAFA]">
-                    <div className="w-5 shrink-0" />
-                    <input
-                      autoFocus
-                      type="text"
-                      value={newSkillName}
-                      onChange={(e) => setNewSkillName(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") addSkill(cat.id);
-                        if (e.key === "Escape") { setAddingSkillCatId(null); setNewSkillName(""); }
-                      }}
-                      placeholder="Nom de la compétence…"
-                      className="flex-1 text-sm text-[#1d1d1f] border-b border-[#1d1d1f] outline-none py-0.5 bg-transparent placeholder:text-[#C0C0C0]"
-                    />
-                    <button onClick={() => addSkill(cat.id)} className="p-1.5 text-[#1d1d1f] hover:bg-[#F0F0F0] rounded-lg transition-colors">
-                      <Check size={14} />
-                    </button>
-                    <button
-                      onClick={() => { setAddingSkillCatId(null); setNewSkillName(""); }}
-                      className="p-1.5 text-[#999999] hover:bg-[#F0F0F0] rounded-lg transition-colors"
-                    >
-                      <X size={14} />
-                    </button>
+                  <div className="flex flex-col gap-2 px-5 py-3 bg-[#FAFAFA] rounded-lg">
+                    {(["EN", "FR", "ՀԱՅ"] as const).map((lang) => (
+                      <div key={lang} className="flex items-center gap-2">
+                        <span className="text-xs text-[#999999] font-mono w-6">{lang}</span>
+                        <input
+                          autoFocus={lang === "EN"}
+                          type="text"
+                          value={newSkillNames[lang] || ""}
+                          onChange={(e) => setNewSkillNames({ ...newSkillNames, [lang]: e.target.value })}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") addSkill(cat.id);
+                            if (e.key === "Escape") { setAddingSkillCatId(null); setNewSkillNames({ EN: "", FR: "", ՀԱՅ: "" }); }
+                          }}
+                          placeholder={lang === "EN" ? "Required" : "Optional"}
+                          className="flex-1 text-xs text-[#1d1d1f] border-b border-[#1d1d1f] outline-none py-0.5 bg-transparent placeholder:text-[#C0C0C0]"
+                        />
+                      </div>
+                    ))}
+                    <div className="flex gap-2 mt-2">
+                      <button onClick={() => addSkill(cat.id)} className="px-3 py-1 text-xs text-white bg-[#1d1d1f] hover:bg-[#333] rounded transition-colors">
+                        Créer
+                      </button>
+                      <button
+                        onClick={() => { setAddingSkillCatId(null); setNewSkillNames({ EN: "", FR: "", ՀԱՅ: "" }); }}
+                        className="px-3 py-1 text-xs text-[#999999] border border-[#E5E5E5] hover:bg-[#F0F0F0] rounded transition-colors"
+                      >
+                        Annuler
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <button
-                    onClick={() => { setAddingSkillCatId(cat.id); setNewSkillName(""); }}
+                    onClick={() => { setAddingSkillCatId(cat.id); setNewSkillNames({ EN: "", FR: "", ՀԱՅ: "" }); }}
                     className="flex items-center gap-2 w-full px-5 py-3 text-sm text-[#999999] hover:text-[#1d1d1f] hover:bg-[#FAFAFA] transition-colors text-left"
                   >
                     <Plus size={13} />

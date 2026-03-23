@@ -7,7 +7,7 @@ type Language = "FR" | "EN" | "ՀԱՅ";
 
 interface Skill {
   id: string;
-  name: string;
+  names: { EN: string; FR?: string; ՀԱՅ?: string };
   rating: number;
 }
 
@@ -45,6 +45,10 @@ const uiTranslations = {
     lastUpdatedPrefix: "Վերջին թարմացում՝",
     loading: "Բեռnvum…",
   },
+};
+
+const getSkillName = (names: Skill["names"], language: Language): string => {
+  return names[language] || names.EN;
 };
 
 const StarRating = ({ rating }: { rating: number }) => {
@@ -139,7 +143,7 @@ export default function SkillsPage() {
               {category.skills.map((skill) => (
                 <div key={skill.id} className="flex items-center justify-between p-4 rounded-lg bg-white border border-[#E5E5E5]">
                   <span className="text-sm md:text-base font-medium text-[#1d1d1f]">
-                    {skill.name}
+                    {getSkillName(skill.names, language)}
                   </span>
                   <StarRating rating={skill.rating} />
                 </div>

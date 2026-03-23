@@ -2,87 +2,6 @@
   "lastUpdated": "23 Mars 2026",
   "categories": [
     {
-      "id": "design",
-      "names": {
-        "FR": "Design & UX/UI",
-        "EN": "Design & UX/UI",
-        "ՀԱՅ": "Դիզայն & UX/UI"
-      },
-      "order": 0,
-      "skills": [
-        {
-          "id": "ux-design",
-          "name": "UX Design",
-          "rating": 4
-        },
-        {
-          "id": "ui-design",
-          "name": "UI Design",
-          "rating": 5
-        },
-        {
-          "id": "interaction-design",
-          "name": "Interaction Design",
-          "rating": 4
-        },
-        {
-          "id": "user-research",
-          "name": "User Research",
-          "rating": 3
-        },
-        {
-          "id": "systems-thinking",
-          "name": "Systems thinking",
-          "rating": 3
-        },
-        {
-          "id": "user-journeys",
-          "name": "User journeys",
-          "rating": 4
-        },
-        {
-          "id": "wireframing",
-          "name": "Wireframing",
-          "rating": 4
-        },
-        {
-          "id": "prototyping",
-          "name": "Prototyping",
-          "rating": 4
-        },
-        {
-          "id": "design-system",
-          "name": "Design System",
-          "rating": 4
-        },
-        {
-          "id": "visual-hierarchy",
-          "name": "Visual Hierarchy",
-          "rating": 4
-        },
-        {
-          "id": "usability-testing",
-          "name": "Usability Testing",
-          "rating": 3
-        },
-        {
-          "id": "accessibility",
-          "name": "Accessibility",
-          "rating": 3
-        },
-        {
-          "id": "typography",
-          "name": "Typography",
-          "rating": 4
-        },
-        {
-          "id": "motion-design",
-          "name": "Motion Design",
-          "rating": 3
-        }
-      ]
-    },
-    {
       "id": "tools",
       "names": {
         "FR": "Outils numériques",
@@ -93,85 +12,296 @@
       "skills": [
         {
           "id": "figma",
-          "name": "Figma",
+          "names": {
+            "EN": "Figma",
+            "FR": "Figma",
+            "ՀԱՅ": "Figma"
+          },
           "rating": 5
         },
         {
           "id": "photoshop",
-          "name": "Adobe Photoshop",
+          "names": {
+            "EN": "Adobe Photoshop",
+            "FR": "Adobe Photoshop",
+            "ՀԱՅ": "Adobe Photoshop"
+          },
           "rating": 4
         },
         {
           "id": "after-effects",
-          "name": "Adobe After Effects",
+          "names": {
+            "EN": "Adobe After Effects",
+            "FR": "Adobe After Effects",
+            "ՀԱՅ": "Adobe After Effects"
+          },
           "rating": 3
         },
         {
           "id": "sketch",
-          "name": "Sketch",
+          "names": {
+            "EN": "Sketch",
+            "FR": "Sketch",
+            "ՀԱՅ": "Sketch"
+          },
           "rating": 3
         },
         {
           "id": "indesign",
-          "name": "InDesign",
+          "names": {
+            "EN": "InDesign",
+            "FR": "InDesign",
+            "ՀԱՅ": "InDesign"
+          },
           "rating": 3
         },
         {
           "id": "illustrator",
-          "name": "Adobe Illustrator",
+          "names": {
+            "EN": "Adobe Illustrator",
+            "FR": "Adobe Illustrator",
+            "ՀԱՅ": "Adobe Illustrator"
+          },
           "rating": 4
         },
         {
           "id": "framer",
-          "name": "Framer",
+          "names": {
+            "EN": "Framer",
+            "FR": "Framer",
+            "ՀԱՅ": "Framer"
+          },
           "rating": 4
         },
         {
           "id": "replit",
-          "name": "Replit",
+          "names": {
+            "EN": "Replit",
+            "FR": "Replit",
+            "ՀԱՅ": "Replit"
+          },
           "rating": 4
         },
         {
           "id": "web-dev",
-          "name": "Web Development",
+          "names": {
+            "EN": "Web Development",
+            "FR": "Web Development",
+            "ՀԱՅ": "Web Development"
+          },
           "rating": 3
         },
         {
           "id": "html-css",
-          "name": "HTML & CSS",
+          "names": {
+            "EN": "HTML & CSS",
+            "FR": "HTML & CSS",
+            "ՀԱՅ": "HTML & CSS"
+          },
           "rating": 4
         },
         {
           "id": "js-react",
-          "name": "JavaScript & React",
+          "names": {
+            "EN": "JavaScript & React",
+            "FR": "JavaScript & React",
+            "ՀԱՅ": "JavaScript & React"
+          },
           "rating": 4
         },
         {
           "id": "nextjs",
-          "name": "Next.js",
+          "names": {
+            "EN": "Next.js",
+            "FR": "Next.js",
+            "ՀԱՅ": "Next.js"
+          },
           "rating": 4
         },
         {
           "id": "notion",
-          "name": "Notion",
+          "names": {
+            "EN": "Notion",
+            "FR": "Notion",
+            "ՀԱՅ": "Notion"
+          },
           "rating": 5
         },
         {
           "id": "tally",
-          "name": "Tally",
+          "names": {
+            "EN": "Tally",
+            "FR": "Tally",
+            "ՀԱՅ": "Tally"
+          },
           "rating": 3
         },
         {
           "id": "yklsixo7",
-          "name": "Apple HomeKit",
+          "names": {
+            "EN": "Apple HomeKit",
+            "FR": "Apple HomeKit",
+            "ՀԱՅ": "Apple HomeKit"
+          },
           "rating": 5
         },
         {
           "id": "google-tools",
-          "name": "Google Tools",
+          "names": {
+            "EN": "Google Tools",
+            "FR": "Google Tools",
+            "ՀԱՅ": "Google Tools"
+          },
           "rating": 4
         }
       ]
+    },
+    {
+      "id": "design",
+      "names": {
+        "FR": "Design & UX/UI",
+        "EN": "Design & UX/UI",
+        "ՀԱՅ": "Դիզայն & UX/UI"
+      },
+      "order": 0,
+      "skills": [
+        {
+          "id": "ux-design",
+          "names": {
+            "EN": "UX Design",
+            "FR": "UX Design",
+            "ՀԱՅ": "UX Design"
+          },
+          "rating": 4
+        },
+        {
+          "id": "ui-design",
+          "names": {
+            "EN": "UI Design",
+            "FR": "UI Design",
+            "ՀԱՅ": "UI Design"
+          },
+          "rating": 5
+        },
+        {
+          "id": "interaction-design",
+          "names": {
+            "EN": "Interaction Design",
+            "FR": "Interaction Design",
+            "ՀԱՅ": "Interaction Design"
+          },
+          "rating": 4
+        },
+        {
+          "id": "user-research",
+          "names": {
+            "EN": "User Research",
+            "FR": "User Research",
+            "ՀԱՅ": "User Research"
+          },
+          "rating": 3
+        },
+        {
+          "id": "systems-thinking",
+          "names": {
+            "EN": "Systems thinking",
+            "FR": "Systems thinking",
+            "ՀԱՅ": "Systems thinking"
+          },
+          "rating": 3
+        },
+        {
+          "id": "user-journeys",
+          "names": {
+            "EN": "User journeys",
+            "FR": "User journeys",
+            "ՀԱՅ": "User journeys"
+          },
+          "rating": 4
+        },
+        {
+          "id": "wireframing",
+          "names": {
+            "EN": "Wireframing",
+            "FR": "Wireframing",
+            "ՀԱՅ": "Wireframing"
+          },
+          "rating": 4
+        },
+        {
+          "id": "prototyping",
+          "names": {
+            "EN": "Prototyping",
+            "FR": "Prototyping",
+            "ՀԱՅ": "Prototyping"
+          },
+          "rating": 4
+        },
+        {
+          "id": "design-system",
+          "names": {
+            "EN": "Design System",
+            "FR": "Design System",
+            "ՀԱՅ": "Design System"
+          },
+          "rating": 4
+        },
+        {
+          "id": "visual-hierarchy",
+          "names": {
+            "EN": "Visual Hierarchy",
+            "FR": "Visual Hierarchy",
+            "ՀԱՅ": "Visual Hierarchy"
+          },
+          "rating": 4
+        },
+        {
+          "id": "usability-testing",
+          "names": {
+            "EN": "Usability Testing",
+            "FR": "Usability Testing",
+            "ՀԱՅ": "Usability Testing"
+          },
+          "rating": 3
+        },
+        {
+          "id": "accessibility",
+          "names": {
+            "EN": "Accessibility",
+            "FR": "Accessibility",
+            "ՀԱՅ": "Accessibility"
+          },
+          "rating": 3
+        },
+        {
+          "id": "typography",
+          "names": {
+            "EN": "Typography",
+            "FR": "Typography",
+            "ՀԱՅ": "Typography"
+          },
+          "rating": 4
+        },
+        {
+          "id": "motion-design",
+          "names": {
+            "EN": "Motion Design",
+            "FR": "Motion Design",
+            "ՀԱՅ": "Motion Design"
+          },
+          "rating": 3
+        }
+      ]
+    },
+    {
+      "id": "gca5sh7f",
+      "names": {
+        "FR": "Test",
+        "EN": "Test",
+        "ՀԱՅ": "Test"
+      },
+      "order": 2,
+      "skills": []
     }
   ]
 }
