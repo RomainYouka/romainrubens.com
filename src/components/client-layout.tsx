@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import GlobalNavigation from "@/components/sections/global-navigation";
 import GlobalFooter from "@/components/sections/global-footer";
+import ThemeToggle from "@/components/theme-toggle";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const DesignerQuotes = dynamic(() => import("@/components/sections/designer-quotes"), {
   loading: () => null,
@@ -64,11 +66,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   }, []);
 
   return (
-    <>
+    <ThemeProvider>
       {!isResumePage && <GlobalNavigation onShowQuotes={() => setShowQuotes(true)} />}
       {children}
       {!isResumePage && <DesignerQuotes isVisible={showQuotes} onClose={() => setShowQuotes(false)} />}
       {!isResumePage && <GlobalFooter />}
-    </>
+      <ThemeToggle />
+    </ThemeProvider>
   );
 }

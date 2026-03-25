@@ -396,7 +396,7 @@
           "id": "vqurnlpc",
           "names": {
             "EN": "Design system",
-            "FR": "Système de design",
+            "FR": "Design system",
             "ՀԱՅ": "Դիզայն համակարգ"
           },
           "rating": 4
@@ -431,8 +431,8 @@
         {
           "id": "lty5lyfq",
           "names": {
-            "EN": "Design sprint",
-            "FR": "Design sprint",
+            "EN": "Sprint Design",
+            "FR": "Sprint Design",
             "ՀԱՅ": "Դիզայն սպրինտ"
           },
           "rating": 4
@@ -468,7 +468,7 @@
           "id": "r4zo2jv1",
           "names": {
             "EN": "Interaction design",
-            "FR": "Conception d'interaction",
+            "FR": "Design d'interaction",
             "ՀԱՅ": "Փոխազդեցության դիզայն"
           },
           "rating": 5
