@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useTheme } from "@/components/theme-provider";
 
 const footerTranslations = {
   FR: {
@@ -30,8 +31,10 @@ const footerTranslations = {
 const GlobalFooter = () => {
   const pathname = usePathname();
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const { theme } = useTheme();
 
   const isExplorationsPage = pathname === "/explorations";
+  const isDarkMode = isExplorationsPage || theme === "dark";
 
   useEffect(() => {
     let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
@@ -56,9 +59,9 @@ const GlobalFooter = () => {
 
   const currentTranslations = footerTranslations[selectedLanguage];
 
-  const bgColor = isExplorationsPage ? "#121212" : "#FFFFFF";
-  const textColor = isExplorationsPage ? "#FFFFFF" : "#1d1d1f";
-  const borderColor = isExplorationsPage ? "#3F3F3F" : "#D3D3D4";
+  const bgColor = isDarkMode ? "#121212" : "#FFFFFF";
+  const textColor = isDarkMode ? "#FFFFFF" : "#1d1d1f";
+  const borderColor = isDarkMode ? "#3F3F3F" : "#D3D3D4";
 
   const pdfFiles = {
     FR: "/resume/RUBENS_Romain_Logo_Guidelines_FR.pdf",
