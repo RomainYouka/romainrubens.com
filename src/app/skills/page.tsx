@@ -27,7 +27,7 @@ const uiTranslations = {
   FR: {
     title: "Compétences",
     subtitle: "Une vision transversale de mes savoir-faire en design, interaction et outils numériques.",
-    ratingLabels: { 1: "Débutant", 2: "Bonne Maîtrise", 4: "Maîtrise Avancée", 5: "Maîtrise Parfaite" },
+    ratingLabels: { 1: "Débutant", 2: "Bonne maîtrise", 4: "Maîtrise avancée", 5: "Maîtrise parfaite" },
     lastUpdatedPrefix: "Dernière mise à jour :",
     loading: "Chargement…",
   },
@@ -40,10 +40,10 @@ const uiTranslations = {
   },
   ՀԱՅ: {
     title: "Հմտություններ",
-    subtitle: "Մեր փորձի լայն տեսակետ դիզայնի, փոխազդեցության և թվային գործիքների մեջ:",
+    subtitle: "Իմ փորձի ընդարձակ ակնարկ դիզայնի, փոխազդեցության և թվային գործիքների ոլորտում.",
     ratingLabels: { 1: "Սկսնակ", 2: "Լավ տիրապետում", 4: "Առաջադեմ տիրապետում", 5: "Կատարյալ տիրապետում" },
     lastUpdatedPrefix: "Վերջին թարմացում՝",
-    loading: "Բեռnvum…",
+    loading: "Բեռնում…",
   },
 };
 
