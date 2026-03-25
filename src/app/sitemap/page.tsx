@@ -13,6 +13,7 @@ const translations = {
     mobileProjects: "Projets mobiles",
     webProjects: "Projets web",
     diverseProjects: "Projets divers",
+    skills: "Compétences",
     explorations: "Explorations",
     contact: "Contact",
     resume: "CV / Resume",
@@ -47,6 +48,7 @@ const translations = {
     mobileProjects: "Mobile projects",
     webProjects: "Web projects",
     diverseProjects: "Diverse projects",
+    skills: "Skills",
     explorations: "Explorations",
     contact: "Contact",
     resume: "CV / Resume",
@@ -81,6 +83,7 @@ const translations = {
     mobileProjects: "Բջջային նախագծեր",
     webProjects: "Վեբ նախագծեր",
     diverseProjects: "Տարբեր նախագծեր",
+    skills: "Հմտություններ",
     explorations: "Հետազոտություններ",
     contact: "Կապ",
     resume: "CV / Ռեզյումե",
@@ -149,6 +152,12 @@ const getSections = (): Section[] => [
       { label: "vahansoghomonian", href: "/projects/vahansoghomonian", isSubItem: true, isClickable: true },
       { label: "chaussezVousOuPas", href: "/projects/chaussez-vous-ou-pas", isSubItem: true, isClickable: true },
       { label: "sansnom", href: "/projects/sansnom", isSubItem: true, isClickable: false },
+    ]
+  },
+  {
+    title: "skills",
+    items: [
+      { label: "skills", href: "/skills", isClickable: true }
     ]
   },
   {
