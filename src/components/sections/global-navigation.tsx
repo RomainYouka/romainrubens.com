@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { ChevronDown, Languages, Download, Check } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
 
 // Animated Burger Icon Component
 const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean, isDark: boolean }) => {
@@ -351,6 +350,8 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: "FR" | "
   );
 };
 
+import { useRef } from "react";
+
 const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -451,17 +452,14 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     { name: currentTranslations.contact, href: "/contact" }
   ];
 
-  const { theme } = useTheme();
-  const isDarkMode = isExplorationsPage || theme === "dark";
-
   const prefersReducedMotion = typeof window !== 'undefined' ?
     window.matchMedia('(prefers-reduced-motion: reduce)').matches :
     false;
 
-  const textColor = isDarkMode ? "#FFFFFF" : "#1d1d1f";
-  const navBgColor = isDarkMode ? "#121212" : "#FFFFFF";
-  const borderColor = isDarkMode ? "#3F3F3F" : "#D3D3D4";
-  const scrolledBgColor = isDarkMode ? "rgba(18, 18, 18, 0.85)" : "rgba(255, 255, 255, 0.85)";
+  const textColor = isExplorationsPage ? "#FFFFFF" : "#1d1d1f";
+  const navBgColor = isExplorationsPage ? "#121212" : "#FFFFFF";
+  const borderColor = isExplorationsPage ? "#3F3F3F" : "#D3D3D4";
+  const scrolledBgColor = isExplorationsPage ? "rgba(18, 18, 18, 0.85)" : "rgba(255, 255, 255, 0.85)";
 
   return (
     <>
@@ -503,7 +501,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     transform: logoAnimating && !prefersReducedMotion ? 'scale(0.98)' : 'scale(1)',
                     overflow: 'hidden'
                   }}>
-                  <LogoIcon className="h-4 w-auto fill-current relative z-10" isDark={isDarkMode} iconSrc={logoIconSrc} />
+                  <LogoIcon className="h-4 w-auto fill-current relative z-10" isDark={isExplorationsPage} iconSrc={logoIconSrc} />
                 </a>
                 
                 <div className="flex items-center h-full" style={{ gap: "40px" }}>
@@ -528,8 +526,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     onLanguageChange={handleLanguageChange}
                     isScrolled={isScrolled}
                     onToggle={handleLanguageDropdownToggle}
-                    isDark={isDarkMode} />
-                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDarkMode} />
+                    isDark={isExplorationsPage} />
+                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isExplorationsPage} />
                 </div>
               </div>
 
@@ -547,24 +545,24 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     transform: logoAnimating && !prefersReducedMotion ? 'scale(0.98)' : 'scale(1)',
                     overflow: 'hidden'
                   }}>
-                  <LogoIcon className="h-3.5 w-auto fill-current relative z-10" isDark={isDarkMode} iconSrc={logoIconSrc} />
+                  <LogoIcon className="h-3.5 w-auto fill-current relative z-10" isDark={isExplorationsPage} iconSrc={logoIconSrc} />
                 </a>
                 <div className="flex items-center gap-5" style={{ height: "36px" }}>
-                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDarkMode} />
+                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isExplorationsPage} />
                   <div className="flex items-center justify-center" style={{ height: "36px" }}>
                     <LanguageSelector
                       selectedLanguage={selectedLanguage}
                       onLanguageChange={handleLanguageChange}
                       isScrolled={isScrolled}
                       onToggle={handleLanguageDropdownToggle}
-                      isDark={isDarkMode} />
+                      isDark={isExplorationsPage} />
                   </div>
                   <button
                     onClick={handleMenuToggle}
                     className="flex items-center justify-center transition-opacity duration-200 hover:opacity-80"
                     style={{ height: "36px", color: textColor }}
                     aria-label="Toggle menu">
-                    <AnimatedBurgerIcon isOpen={isMenuOpen} isDark={isDarkMode} />
+                    <AnimatedBurgerIcon isOpen={isMenuOpen} isDark={isExplorationsPage} />
                   </button>
                 </div>
               </div>
