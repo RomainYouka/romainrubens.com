@@ -165,7 +165,7 @@ export default function HeroLanding() {
   }, [showScrollButton, userInteracted]);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section className="relative w-full h-screen overflow-hidden" data-section="hero-landing">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <Image

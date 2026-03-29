@@ -282,6 +282,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
       <section
         id={id}
         className="w-full bg-[#F5F5F5] min-h-screen flex items-center"
+        data-section="personal-intro"
         style={{
           paddingTop: "clamp(80px, 10vw, 120px)",
           paddingBottom: "clamp(80px, 10vw, 120px)",
