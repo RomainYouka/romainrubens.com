@@ -20,26 +20,20 @@ export function useSnapScroll() {
 
       const heroSection = sections[0] as HTMLElement;
       const personalIntroSection = sections[1] as HTMLElement;
-      
-      const heroHeight = heroSection.offsetHeight;
-      const personalIntroHeight = personalIntroSection.offsetHeight;
-      const viewportHeight = window.innerHeight;
-      
-      // Define exact snap positions
-      const snapPositions = [
-        0,                                    // State 1: Top of page (Hero)
-        heroHeight,                           // State 2: Top of PersonalIntro
-        heroHeight + personalIntroHeight - viewportHeight * 0.3  // State 3: Footer visible + PersonalIntro
-      ];
+      const footerSection = sections.length > 2 ? (sections[2] as HTMLElement) : null;
 
       const currentScroll = window.scrollY;
+      const viewportHeight = window.innerHeight;
 
-      // Determine current state based on scroll position
+      // Determine current state
+      const personalIntroTop = personalIntroSection.offsetTop;
+      const footerTop = footerSection?.offsetTop ?? document.body.scrollHeight;
+
       let currentStateIndex = 0;
       
-      if (currentScroll >= snapPositions[2] - 50) {
+      if (currentScroll >= footerTop - viewportHeight + 100) {
         currentStateIndex = 2;
-      } else if (currentScroll >= snapPositions[1] - 50) {
+      } else if (currentScroll >= personalIntroTop - 50) {
         currentStateIndex = 1;
       } else {
         currentStateIndex = 0;
@@ -50,38 +44,31 @@ export function useSnapScroll() {
       let targetStateIndex = currentStateIndex + direction;
 
       // Clamp to valid range
-      targetStateIndex = Math.max(0, Math.min(targetStateIndex, snapPositions.length - 1));
+      targetStateIndex = Math.max(0, Math.min(targetStateIndex, 2));
 
       // If already at the target, don't snap
       if (targetStateIndex === currentStateIndex) return;
 
-      // Snap animation
       isSnapRef.current = true;
-      const startScroll = currentScroll;
-      const targetScroll = snapPositions[targetStateIndex];
-      const distance = targetScroll - startScroll;
-      const duration = 600;
-      const startTime = Date.now();
 
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        const easeInOutCubic = (t: number) => {
-          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        };
-
-        const newScroll = startScroll + distance * easeInOutCubic(progress);
-        window.scrollTo(0, newScroll);
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          isSnapRef.current = false;
+      // Use scrollIntoView for smooth native behavior
+      if (targetStateIndex === 0) {
+        // State 1: Top of hero
+        heroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (targetStateIndex === 1) {
+        // State 2: Top of PersonalIntro (same as "Découvrir" button)
+        personalIntroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (targetStateIndex === 2) {
+        // State 3: Top of Footer
+        if (footerSection) {
+          footerSection.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      };
+      }
 
-      animate();
+      // Reset snap flag after animation completes
+      setTimeout(() => {
+        isSnapRef.current = false;
+      }, 650);
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
