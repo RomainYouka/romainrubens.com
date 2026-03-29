@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 const footerTranslations = {
   FR: {
@@ -29,7 +30,10 @@ const footerTranslations = {
 
 const GlobalFooter = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [pendingPath, setPendingPath] = useState<string | null>(null);
 
   const isExplorationsPage = pathname === "/explorations";
 
@@ -68,7 +72,79 @@ const GlobalFooter = () => {
   
   const pdfUrl = pdfFiles[selectedLanguage];
 
+  const handleNavigation = (href: string) => {
+    setShowOverlay(true);
+    setPendingPath(href);
+    setTimeout(() => {
+      router.push(href);
+    }, 250);
+  };
+
   return (
+    <>
+      {/* Blue overlay transition */}
+      <AnimatePresence>
+        {showOverlay && (
+          <>
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0,
+                borderRadius: "50%",
+              }}
+              animate={{
+                opacity: 0.5,
+                scale: 1.5,
+                borderRadius: "50%",
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                duration: 0.15,
+                ease: "easeOut",
+              }}
+              style={{
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                x: "-50%",
+                y: "-50%",
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#314DCB",
+                filter: "blur(40px)",
+                zIndex: 9998,
+              }}
+            />
+            <motion.div
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                duration: 0.2,
+                ease: [0.32, 0.72, 0, 1],
+                delay: 0.05,
+              }}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#314DCB",
+                zIndex: 9999,
+              }}
+            />
+          </>
+        )}
+      </AnimatePresence>
     <footer
       className="border-t transition-colors duration-300"
       data-section="footer"
@@ -120,12 +196,16 @@ const GlobalFooter = () => {
             {currentTranslations.reportProblem}
           </a>
           <span style={{ color: "#6e6e73" }}>|</span>
-          <a
-            href="/legal"
+          <button
+            onClick={() => handleNavigation("/legal")}
             style={{
               color: "#6e6e73",
               textDecoration: "none",
               cursor: "pointer",
+              background: "none",
+              border: "none",
+              padding: 0,
+              font: "inherit",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "#314DCB";
@@ -135,14 +215,18 @@ const GlobalFooter = () => {
             }}
           >
             {currentTranslations.legal}
-          </a>
+          </button>
           <span style={{ color: "#6e6e73" }}>|</span>
-          <a
-            href="/sitemap"
+          <button
+            onClick={() => handleNavigation("/sitemap")}
             style={{
               color: "#6e6e73",
               textDecoration: "none",
               cursor: "pointer",
+              background: "none",
+              border: "none",
+              padding: 0,
+              font: "inherit",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "#314DCB";
@@ -152,10 +236,11 @@ const GlobalFooter = () => {
             }}
           >
             {currentTranslations.sitemap}
-          </a>
+          </button>
         </div>
       </div>
     </footer>
+    </>
   );
 };
 
