@@ -350,33 +350,67 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                 </button>
               </div>
 
-              {/* Blue overlay transition */}
+              {/* Genius overlay transition */}
               <AnimatePresence>
                 {showOverlay && (
-                  <motion.div
-                    initial={{
-                      opacity: 0,
-                    }}
-                    animate={{
-                      opacity: 1,
-                    }}
-                    exit={{
-                      opacity: 0,
-                    }}
-                    transition={{
-                      duration: 0.25,
-                      ease: [0.32, 0.72, 0, 1],
-                    }}
-                    style={{
-                      position: "fixed",
-                      top: 0,
-                      left: 0,
-                      width: "100vw",
-                      height: "100vh",
-                      backgroundColor: "#314DCB",
-                      zIndex: 9999,
-                    }}
-                  />
+                  <>
+                    <motion.div
+                      initial={{
+                        opacity: 0,
+                        scale: 0,
+                        borderRadius: "50%",
+                      }}
+                      animate={{
+                        opacity: 0.5,
+                        scale: 1.5,
+                        borderRadius: "50%",
+                      }}
+                      exit={{
+                        opacity: 0,
+                      }}
+                      transition={{
+                        duration: 0.15,
+                        ease: "easeOut",
+                      }}
+                      style={{
+                        position: "fixed",
+                        top: "50%",
+                        left: "50%",
+                        x: "-50%",
+                        y: "-50%",
+                        width: "100vw",
+                        height: "100vh",
+                        backgroundColor: "#314DCB",
+                        filter: "blur(40px)",
+                        zIndex: 9998,
+                      }}
+                    />
+                    <motion.div
+                      initial={{
+                        opacity: 0,
+                      }}
+                      animate={{
+                        opacity: 1,
+                      }}
+                      exit={{
+                        opacity: 0,
+                      }}
+                      transition={{
+                        duration: 0.2,
+                        ease: [0.32, 0.72, 0, 1],
+                        delay: 0.05,
+                      }}
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100vw",
+                        height: "100vh",
+                        backgroundColor: "#314DCB",
+                        zIndex: 9999,
+                      }}
+                    />
+                  </>
                 )}
               </AnimatePresence>
             </div>
