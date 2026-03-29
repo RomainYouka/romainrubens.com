@@ -427,11 +427,27 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                         height: "100vh",
                         backgroundColor: "#314DCB",
                         zIndex: 9999,
+                        pointerEvents: "none",
                       }}
                     />
                   </>
                 )}
               </AnimatePresence>
+
+              {/* Apply overlay to footer when visible */}
+              {showOverlay && (
+                <style>{`
+                  footer[data-section="footer"] {
+                    position: relative;
+                    z-index: 10000;
+                    background-color: #314DCB;
+                    color: white;
+                  }
+                  footer[data-section="footer"] a {
+                    color: white !important;
+                  }
+                `}</style>
+              )}
             </div>
           </div>
         </div>
