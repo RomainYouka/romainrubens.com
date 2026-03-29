@@ -50,19 +50,42 @@ export function useSnapScroll() {
       e.preventDefault();
       isSnapRef.current = true;
 
-      // Use scrollIntoView for exact same behavior as "Découvrir" button
+      const startScroll = currentScroll;
+      let targetScroll = 0;
+
       if (targetStateIndex === 0) {
-        heroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        targetScroll = 0;
       } else if (targetStateIndex === 1) {
-        personalIntroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Scroll to top of PersonalIntro (same as button)
+        targetScroll = personalIntroSection.offsetTop;
       } else if (targetStateIndex === 2) {
-        footerSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Scroll to footer
+        targetScroll = footerSection?.offsetTop ?? personalIntroSection.offsetTop + personalIntroSection.offsetHeight - viewportHeight * 0.3;
       }
 
-      // Reset snap flag after animation completes
-      setTimeout(() => {
-        isSnapRef.current = false;
-      }, 650);
+      const distance = targetScroll - startScroll;
+      const duration = 600;
+      const startTime = Date.now();
+
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        const easeInOutCubic = (t: number) => {
+          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        };
+
+        const newScroll = startScroll + distance * easeInOutCubic(progress);
+        window.scrollTo(0, newScroll);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          isSnapRef.current = false;
+        }
+      };
+
+      animate();
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
