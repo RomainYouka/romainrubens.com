@@ -6,20 +6,20 @@ import { ArrowRight } from "lucide-react";
 
 const translations = {
   FR: {
-    title: "À propos de moi",
-    text: "Je suis étudiant en troisième année de design industriel, spécialisé en UX/UI et design d'interaction.\nJ'explore la relation entre l'humain, la technologie et les objets qu'il utilise.\nMon approche consiste à transformer la complexité en clarté et le design en expérience.\nPour en savoir plus sur mon parcours, vous pouvez me retrouver sur LinkedIn ou télécharger mon CV.",
+    title: "UX/UI Designer · Smart home",
+    text: "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien. Je porte un intérêt particulier aux environnements connectés dans l'espace domestique, tout en développant une approche applicable à des contextes numériques plus larges.",
     ctaProjects: "Voir mes projets",
     ctaSkills: "Mes compétences",
   },
   EN: {
-    title: "About me",
-    text: "I'm a third-year industrial design student specializing in UX/UI and interaction design.\nI explore the relationship between humans, technology, and the objects they use.\nMy approach is to turn complexity into clarity and design into experience.\nTo learn more about my background, you can find me on LinkedIn or download my resume.",
+    title: "UX/UI Designer · Smart home",
+    text: "I'm an industrial design student with a practice focused on UX/UI and interaction design. My work explores how interfaces organize themselves in real-world usage, concrete constraints, and everyday systems. I have a particular interest in connected environments in domestic spaces, while developing an approach applicable to broader digital contexts.",
     ctaProjects: "View my projects",
     ctaSkills: "My skills",
   },
   ՀԱՅ: {
-    title: "Իմ մասին՝",
-    text: "Ես չեմ հավատում պատրաստի լուծումներին։ Ես հավատում եմ ճիշտ գործընթացին։ Իմ մոտեցումը համակցում է կարեկցանք, կառուցվածք և ինտուիցիա։ Դիզայնը լսելն է։ Դիզայներ լինելը՝ հասկանալը որոշելուց առաջ։",
+    title: "UX/UI Դիզայներ · Smart home",
+    text: "Ես industrial design ուսանող եմ՝ UX/UI և interaction design կենտրոնացված պրակտիկայով։ Իմ աշխատանքը ուսումնասիրում է, թե ինչպես են ինտերֆեյսները կազմակերպվում իրական օգտագործման, կոնկրետ սահմանափակումների և առօրյա համակարգերում։ Ես հատկապես հետաքրքրված եմ կապակցված միջավայրերով մեր տնային տարածքում, միաժամանակ զարգացնելով մոտեցում, որը կիրառելի է ավելի լայն թվային համատեքստերում։",
     ctaProjects: "Տեսեք իմ նախագծերը",
     ctaSkills: "Իմ հմտությունները",
   },
@@ -271,102 +271,69 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
       {/* Main section - same as home page */}
       <section
         id={id}
-        className="w-full bg-[#F5F5F5]"
+        className="w-full bg-[#F5F5F5] min-h-screen flex items-center"
         style={{
-          paddingTop: "clamp(160px, 15vw, 200px)",
-          paddingBottom: "clamp(160px, 15vw, 200px)",
+          paddingTop: "clamp(80px, 10vw, 120px)",
+          paddingBottom: "clamp(80px, 10vw, 120px)",
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? "translateY(0)" : "translateY(20px)",
           transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       >
-        <div className="container max-w-[1200px] mx-auto px-5 md:px-10 w-full">
-          <div
-            style={{
-              maxWidth: "70ch",
-              marginLeft: "auto",
-              marginRight: "auto",
-              textAlign: "left",
-              opacity: isFading ? 0 : 1,
-              transition: `opacity ${transitionDuration} ease-in-out`,
-            }}
-          >
-            {/* Title */}
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(32px, 4.5vw, 48px)",
-                fontWeight: 600,
-                color: "#1d1d1f",
-                lineHeight: 1.1,
-                letterSpacing: "-0.015em",
-                marginBottom: "clamp(20px, 2.5vw, 32px)",
-              }}
-            >
-              {content.title}
-            </h2>
-
-            {/* Text with LinkedIn and CV links */}
+        <div className="w-full">
+          <div className="container max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 w-full">
             <div
               style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "clamp(15px, 1.6vw, 17px)",
-                fontWeight: 400,
-                color: "#1d1d1f",
-                lineHeight: 1.5,
-                letterSpacing: "-0.022em",
-                whiteSpace: "pre-line",
-                textWrap: "pretty",
-                marginBottom: "clamp(60px, 8vw, 80px)",
+                maxWidth: "70ch",
+                textAlign: "left",
+                opacity: isFading ? 0 : 1,
+                transition: `opacity ${transitionDuration} ease-in-out`,
               }}
             >
-              {renderTextWithLinks(content.text)}
-            </div>
-
-            {/* CTA Button - Apple/Google style with animation */}
-            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-              <button
-                onClick={() => {
-                  router.push("/projects");
-                }}
+              {/* Title */}
+              <h2
                 style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "clamp(14px, 1.2vw, 16px)",
-                  fontWeight: 500,
-                  color: "white",
-                  backgroundColor: "#314DCB",
-                  border: "none",
-                  borderRadius: "980px",
-                  padding: "10px 24px",
-                  cursor: "pointer",
-                  transition: "opacity 100ms ease-in-out, transform 100ms ease-in-out",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                }}
-                onMouseEnter={(e) => {
-                  setIsButtonHovered(true);
-                  e.currentTarget.style.opacity = "0.85";
-                }}
-                onMouseLeave={(e) => {
-                  setIsButtonHovered(false);
-                  e.currentTarget.style.opacity = "1";
-                }}
-                onMouseDown={(e) => {
-                  e.currentTarget.style.transform = "scale(0.98)";
-                }}
-                onMouseUp={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(28px, 5vw, 56px)",
+                  fontWeight: 600,
+                  color: "#1d1d1f",
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.018em",
+                  marginBottom: "clamp(24px, 3vw, 40px)",
                 }}
               >
-                {content.ctaProjects}
-                <ArrowRight 
-                  className="w-4 h-4 transition-transform duration-200" 
-                  style={{ 
-                    transform: isButtonHovered ? 'translateX(4px)' : 'translateX(0)' 
-                  }} 
-                />
-              </button>
+                {content.title}
+              </h2>
+
+              {/* Text with LinkedIn and CV links */}
+              <div
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "clamp(16px, 1.8vw, 18px)",
+                  fontWeight: 400,
+                  color: "#1d1d1f",
+                  lineHeight: 1.6,
+                  letterSpacing: "-0.018em",
+                  whiteSpace: "pre-line",
+                  textWrap: "pretty",
+                  marginBottom: "clamp(48px, 8vw, 88px)",
+                }}
+              >
+                {renderTextWithLinks(content.text)}
+              </div>
+
+              {/* CTA Button - Contact page style */}
+              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                <button
+                  onClick={() => {
+                    router.push("/projects");
+                  }}
+                  className="py-4 px-6 bg-[#314DCB] text-white font-semibold text-base rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 inline-flex items-center gap-2"
+                >
+                  {content.ctaProjects}
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
