@@ -26,7 +26,7 @@ export function useSnapScroll() {
       // Define snap positions
       const snapPositions = [
         0,                                    // State 1: Hero top
-        heroSection.offsetHeight,             // State 2: PersonalIntro top
+        personalIntroSection.offsetTop,       // State 2: PersonalIntro top (same as scrollIntoView)
         footerSection?.offsetTop ?? personalIntroSection.offsetTop + personalIntroSection.offsetHeight - viewportHeight * 0.3  // State 3: Footer
       ];
 
