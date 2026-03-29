@@ -53,7 +53,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const prefersReducedMotion =
     typeof window !== "undefined"
@@ -336,12 +336,20 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
               <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
                 <button
                   onClick={() => {
-                    router.push("/projects");
+                    setIsTransitioning(true);
+                    setTimeout(() => {
+                      router.push("/projects");
+                    }, 300);
                   }}
-                  className="bg-[#314DCB] text-white font-semibold rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 inline-flex items-center gap-2 py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
+                  disabled={isTransitioning}
+                  style={{
+                    opacity: isTransitioning ? 0 : 1,
+                    transform: isTransitioning ? "translateY(20px)" : "translateY(0)",
+                  }}
+                  className="bg-[#314DCB] text-white font-semibold rounded-full transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-95 disabled:opacity-0 disabled:cursor-not-allowed inline-flex items-center py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
                 >
                   {content.ctaProjects}
-                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                  <ArrowRight className="ml-2 w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
             </div>

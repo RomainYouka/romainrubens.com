@@ -6,9 +6,9 @@ import { ChevronDown } from "lucide-react";
 import Lottie from "lottie-react";
 
 const translations = {
-  FR: { text: "Hey, moi c'est Romain Rubens", button: "Descendre" },
-  EN: { text: "Hello, I'm Romain Rubens", button: "Scroll Down" },
-  ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ", button: "ԻՋՆԵԼ" }
+  FR: { text: "Hey, moi c'est Romain Rubens", button: "Découvrir" },
+  EN: { text: "Hello, I'm Romain Rubens", button: "Discover" },
+  ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ", button: "ԲԱՑԱՀԱՅՏԵԼ" }
 };
 
 export default function HeroLanding() {
