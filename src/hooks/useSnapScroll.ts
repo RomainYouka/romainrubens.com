@@ -1,94 +1,75 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function useSnapScroll() {
-  const [isScrolling, setIsScrolling] = useState(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout>();
-  const lastWheelTimeRef = useRef<number>(0);
+  const lastSnapRef = useRef<number>(0);
 
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      const now = Date.now();
-      if (now - lastWheelTimeRef.current < 50) return;
-      lastWheelTimeRef.current = now;
+    const handleScroll = () => {
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
 
-      if (isScrolling) {
-        e.preventDefault();
-        return;
-      }
+      scrollTimeoutRef.current = setTimeout(() => {
+        const sections = document.querySelectorAll("[data-section]");
+        if (sections.length === 0) return;
 
-      const scrollThreshold = 50;
-      if (Math.abs(e.deltaY) < scrollThreshold) return;
+        const viewportCenter = window.scrollY + window.innerHeight / 2;
+        let closestSection: Element | null = null;
+        let closestDistance = Infinity;
 
-      e.preventDefault();
-      setIsScrolling(true);
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          const sectionCenter = window.scrollY + rect.top + rect.height / 2;
+          const distance = Math.abs(viewportCenter - sectionCenter);
 
-      const direction = e.deltaY > 0 ? 1 : -1;
-      const currentScroll = window.scrollY;
-      const viewportHeight = window.innerHeight;
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestSection = section;
+          }
+        });
 
-      const allSections = document.querySelectorAll("[data-section]");
-      let nextSection = null;
+        if (closestSection) {
+          const targetTop = (closestSection as HTMLElement).offsetTop;
+          const now = Date.now();
 
-      if (direction > 0) {
-        for (const section of allSections) {
-          const rect = (section as HTMLElement).getBoundingClientRect();
-          if (rect.top > viewportHeight * 0.5) {
-            nextSection = section;
-            break;
+          if (now - lastSnapRef.current > 600) {
+            lastSnapRef.current = now;
+
+            const startScroll = window.scrollY;
+            const distance = targetTop - startScroll;
+            const duration = 600;
+            const startTime = Date.now();
+
+            const animate = () => {
+              const elapsed = Date.now() - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+
+              const easeInOutCubic = (t: number) => {
+                return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+              };
+
+              const newScroll = startScroll + distance * easeInOutCubic(progress);
+              window.scrollTo(0, newScroll);
+
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              }
+            };
+
+            animate();
           }
         }
-      } else {
-        const sectionsArray = Array.from(allSections);
-        for (let i = sectionsArray.length - 1; i >= 0; i--) {
-          const section = sectionsArray[i];
-          const rect = (section as HTMLElement).getBoundingClientRect();
-          if (rect.top < -viewportHeight * 0.5) {
-            nextSection = section;
-            break;
-          }
-        }
-      }
-
-      if (nextSection) {
-        const targetScroll = (nextSection as HTMLElement).offsetTop;
-        const duration = 600;
-        const startScroll = currentScroll;
-        const distance = targetScroll - startScroll;
-        const startTime = Date.now();
-
-        const animate = () => {
-          const elapsed = Date.now() - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-
-          const easeInOutCubic = (t: number) => {
-            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-          };
-
-          const newScroll = startScroll + distance * easeInOutCubic(progress);
-          window.scrollTo(0, newScroll);
-
-          if (progress < 1) {
-            requestAnimationFrame(animate);
-          } else {
-            setIsScrolling(false);
-          }
-        };
-
-        animate();
-      } else {
-        setIsScrolling(false);
-      }
+      }, 150);
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("scroll", handleScroll);
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
-  }, [isScrolling]);
+  }, []);
 
-  return { isScrolling };
+  return {};
 }
