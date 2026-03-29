@@ -8,30 +8,21 @@ type Language = "FR" | "EN" | "ՀԱՅ";
 const translations = {
   FR: {
     title: "Romain Rubens",
-    subtitle: "UX/UI Designer",
-    discover: "Découvrir",
-    viewProjects: "Voir les projets",
-    aboutMe: "À propos",
-    description: "Créatif enthousiaste alliant design UX/UI, conception industrielle et pensée stratégique.",
-    bio: "Romain Rubens est un designer UX/UI et étudiant en design industriel passionné par la création d'expériences numériques intuitives et de produits innovants. Avec une approche holistique du design, il combine esthétique, fonctionnalité et usabilité pour résoudre des problèmes réels.",
+    subtitle: "UX/UI Designer · Smart home",
+    approach: "Mon approche",
+    bio: "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien. Je porte un intérêt particulier aux environnements connectés dans l'espace domestique, tout en développant une approche applicable à des contextes numériques plus larges.",
   },
   EN: {
     title: "Romain Rubens",
-    subtitle: "UX/UI Designer",
-    discover: "Discover",
-    viewProjects: "View Projects",
-    aboutMe: "About",
-    description: "Creative enthusiast combining UX/UI design, industrial design, and strategic thinking.",
-    bio: "Romain Rubens is a UX/UI designer and industrial design student passionate about creating intuitive digital experiences and innovative products. With a holistic design approach, he combines aesthetics, functionality, and usability to solve real problems.",
+    subtitle: "UX/UI Designer · Smart home",
+    approach: "My approach",
+    bio: "I am a student in industrial design with a practice centered on UX/UI and interaction design. My work focuses on how interfaces organize themselves in real uses, concrete constraints, and everyday systems. I take a particular interest in connected environments in the home space, while developing an approach applicable to broader digital contexts.",
   },
   ՀԱՅ: {
     title: "Romain Rubens",
-    subtitle: "UX/UI Designer",
-    discover: "Հայտնաբերել",
-    viewProjects: "Տեսնել նախագծերը",
-    aboutMe: "Մասին",
-    description: "Ստեղծական ընկերասեր, որը միավորում է UX/UI դիզայն, արդյունաբերական դիզայն և ռազմավարական մտածողություն:",
-    bio: "Romain Rubens-ը UX/UI դիզայներ և արդյունաբերական դիզայնի ուսանող է, ով կրքի լեցուն է ստեղծել ինտուիտիվ թվային փորձեր և նորարար ապրանքներ: Ամբողջական դիզայն մոտեցմամբ, նա համատեղում է էսթետիկա, ֆունկցիոնալություն և օգտագործելիություն:",
+    subtitle: "UX/UI Designer · Smart home",
+    approach: "Իմ մոտեցումը",
+    bio: "Ես արդյունաբերական դիզայնի ուսանող եմ, որի պրակտիկան կենտրոնացած է UX/UI-ի և փոխազդեցության դիզայնի վրա: Իմ աշխատանքը կենտրոնանում է այն բանի վրա, թե ինչպես ինտերֆեյսները կազմակերպվում են իրական օգտագործման, կոնկրետ սահմանափակումների և առօրյա համակարգերի մեջ: Ես հատուկ հետաքրքրություն ունեմ տնային տարածքում միացված միջավայրերի նկատմամբ, միաժամանակ մշակելով լայն թվային համատեքստերում կիրառելի մոտեցում:",
   },
 };
 
@@ -45,6 +36,17 @@ export default function HomeNewPage() {
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language") as Language | null;
     if (savedLanguage) setLanguage(savedLanguage);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (aboutRef.current) {
+        aboutRef.current.scrollIntoView({ behavior: "smooth" });
+        setShowAbout(true);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const scrollToAbout = () => {
@@ -105,38 +107,6 @@ export default function HomeNewPage() {
             {t.subtitle}
           </motion.p>
         </motion.div>
-
-        {/* Bottom CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="absolute bottom-24 md:bottom-32 lg:bottom-40 left-1/2 -translate-x-1/2 z-20 w-full max-w-md px-4 md:px-6"
-        >
-          <div className="flex flex-col gap-3 md:gap-4 justify-center items-center">
-            {/* Primary CTA - Découvrir */}
-            <motion.button
-              onClick={scrollToAbout}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="w-full py-4 px-6 bg-[#314DCB] text-white rounded-full font-semibold text-base transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95"
-            >
-              {t.discover}
-            </motion.button>
-
-            {/* Secondary CTA - Voir les projets */}
-            <motion.a
-              href="/projects"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="w-full py-4 px-6 bg-white text-[#1d1d1f] rounded-full font-semibold text-base border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center"
-            >
-              {t.viewProjects}
-            </motion.a>
-          </div>
-        </motion.div>
       </section>
 
       {/* About Section */}
@@ -152,51 +122,12 @@ export default function HomeNewPage() {
           className="max-w-3xl"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1d1d1f] mb-8 md:mb-10">
-            {t.aboutMe}
+            {t.approach}
           </h2>
 
-          <p className="text-base md:text-lg lg:text-lg text-[#6f6f6f] leading-relaxed md:leading-8 font-light mb-8 md:mb-10">
+          <p className="text-base md:text-lg lg:text-lg text-[#6f6f6f] leading-relaxed md:leading-8 font-light">
             {t.bio}
           </p>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-8 md:pt-12 border-t border-[#D0D0D0]">
-            {[
-              { label: "Années", value: "3+" },
-              { label: "Projets", value: "15+" },
-              { label: "Skills", value: "50+" },
-            ].map((stat, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                viewport={{ once: false, margin: "-100px" }}
-                className="text-center"
-              >
-                <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1d1d1f] mb-2">
-                  {stat.value}
-                </p>
-                <p className="text-xs md:text-sm text-[#6f6f6f]">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTA to projects */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: false, margin: "-100px" }}
-            className="mt-12 md:mt-16"
-          >
-            <a
-              href="/projects"
-              className="inline-flex items-center gap-2 px-6 md:px-8 py-3 bg-[#314DCB] text-white rounded-full font-semibold text-sm md:text-base hover:bg-[#4462E5] hover:shadow-lg transition-all"
-            >
-              {t.viewProjects}
-            </a>
-          </motion.div>
         </motion.div>
       </section>
     </div>
