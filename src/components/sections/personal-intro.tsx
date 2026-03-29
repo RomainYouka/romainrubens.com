@@ -7,19 +7,28 @@ import { ArrowRight } from "lucide-react";
 const translations = {
   FR: {
     title: "UX/UI Designer · Smart home",
-    text: "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien. Je porte un intérêt particulier aux environnements connectés dans l'espace domestique, tout en développant une approche applicable à des contextes numériques plus larges.",
+    textMain: "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction.",
+    textGray1: " Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.",
+    textMain2: " Je porte un intérêt particulier aux environnements connectés dans l'espace domestique,",
+    textGray2: " tout en développant une approche applicable à des contextes numériques plus larges.",
     ctaProjects: "Voir mes projets",
     ctaSkills: "Mes compétences",
   },
   EN: {
     title: "UX/UI Designer · Smart home",
-    text: "I'm an industrial design student with a practice focused on UX/UI and interaction design. My work explores how interfaces organize themselves in real-world usage, concrete constraints, and everyday systems. I have a particular interest in connected environments in domestic spaces, while developing an approach applicable to broader digital contexts.",
+    textMain: "I'm an industrial design student with a practice focused on UX/UI and interaction design.",
+    textGray1: " My work explores how interfaces organize themselves in real-world usage, concrete constraints, and everyday systems.",
+    textMain2: " I have a particular interest in connected environments in domestic spaces,",
+    textGray2: " while developing an approach applicable to broader digital contexts.",
     ctaProjects: "View my projects",
     ctaSkills: "My skills",
   },
   ՀԱՅ: {
     title: "UX/UI Դիզայներ · Smart home",
-    text: "Ես industrial design ուսանող եմ՝ UX/UI և interaction design կենտրոնացված պրակտիկայով։ Իմ աշխատանքը ուսումնասիրում է, թե ինչպես են ինտերֆեյսները կազմակերպվում իրական օգտագործման, կոնկրետ սահմանափակումների և առօրյա համակարգերում։ Ես հատկապես հետաքրքրված եմ կապակցված միջավայրերով մեր տնային տարածքում, միաժամանակ զարգացնելով մոտեցում, որը կիրառելի է ավելի լայն թվային համատեքստերում։",
+    textMain: "Ես industrial design ուսանող եմ՝ UX/UI և interaction design կենտրոնացված պրակտիկայով։",
+    textGray1: " Իմ աշխատանքը ուսումնասիրում է, թե ինչպես են ինտերֆեյսները կազմակերպվում իրական օգտագործման, կոնկրետ սահմանափակումների և առօրյա համակարգերում։",
+    textMain2: " Ես հատկապես հետաքրքրված եմ կապակցված միջավայրերով մեր տնային տարածքում,",
+    textGray2: " միաժամանակ զարգացնելով մոտեցում, որը կիրառելի է ավելի լայն թվային համատեքստերում։",
     ctaProjects: "Տեսեք իմ նախագծերը",
     ctaSkills: "Իմ հմտությունները",
   },
@@ -281,11 +290,10 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
         }}
       >
         <div className="w-full">
-          <div className="container max-w-[1200px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 w-full">
+          <div className="container max-w-[900px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 w-full">
             <div
               style={{
-                maxWidth: "70ch",
-                textAlign: "left",
+                textAlign: "center",
                 opacity: isFading ? 0 : 1,
                 transition: `opacity ${transitionDuration} ease-in-out`,
               }}
@@ -305,30 +313,32 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                 {content.title}
               </h2>
 
-              {/* Text with LinkedIn and CV links */}
+              {/* Text with colored sections */}
               <div
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontSize: "clamp(16px, 1.8vw, 18px)",
-                  fontWeight: 400,
+                  fontSize: "clamp(15px, 1.8vw, 18px)",
+                  fontWeight: 500,
                   color: "#1d1d1f",
                   lineHeight: 1.6,
                   letterSpacing: "-0.018em",
-                  whiteSpace: "pre-line",
-                  textWrap: "pretty",
                   marginBottom: "clamp(48px, 8vw, 88px)",
+                  display: "inline-block",
                 }}
               >
-                {renderTextWithLinks(content.text)}
+                <span style={{ color: "#1d1d1f" }}>{content.textMain}</span>
+                <span style={{ color: "#676767" }}>{content.textGray1}</span>
+                <span style={{ color: "#1d1d1f" }}>{content.textMain2}</span>
+                <span style={{ color: "#676767" }}>{content.textGray2}</span>
               </div>
 
-              {/* CTA Button - Contact page style */}
-              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              {/* CTA Button - Wider and responsive */}
+              <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
                 <button
                   onClick={() => {
                     router.push("/projects");
                   }}
-                  className="py-4 px-6 bg-[#314DCB] text-white font-semibold text-base rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 inline-flex items-center gap-2"
+                  className="bg-[#314DCB] text-white font-semibold rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 inline-flex items-center gap-2 py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
                 >
                   {content.ctaProjects}
                   <ArrowRight className="w-4 h-4 flex-shrink-0" />
