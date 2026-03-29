@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const translations = {
   FR: {
@@ -53,7 +54,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   const prefersReducedMotion =
     typeof window !== "undefined"
@@ -336,22 +337,48 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
               <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
                 <button
                   onClick={() => {
-                    setIsTransitioning(true);
+                    setShowOverlay(true);
                     setTimeout(() => {
                       router.push("/projects");
-                    }, 300);
+                    }, 250);
                   }}
-                  disabled={isTransitioning}
-                  style={{
-                    opacity: isTransitioning ? 0 : 1,
-                    transform: isTransitioning ? "translateY(20px)" : "translateY(0)",
-                  }}
-                  className="bg-[#314DCB] text-white font-semibold rounded-full transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-95 disabled:opacity-0 disabled:cursor-not-allowed inline-flex items-center py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
+                  disabled={showOverlay}
+                  className="bg-[#314DCB] text-white font-semibold rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 disabled:opacity-0 disabled:cursor-not-allowed inline-flex items-center py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
                 >
                   {content.ctaProjects}
                   <ArrowRight className="ml-2 w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
+
+              {/* Blue overlay transition */}
+              <AnimatePresence>
+                {showOverlay && (
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                    }}
+                    animate={{
+                      opacity: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                    }}
+                    transition={{
+                      duration: 0.25,
+                      ease: [0.32, 0.72, 0, 1],
+                    }}
+                    style={{
+                      position: "fixed",
+                      top: 0,
+                      left: 0,
+                      width: "100vw",
+                      height: "100vh",
+                      backgroundColor: "#314DCB",
+                      zIndex: 9999,
+                    }}
+                  />
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
