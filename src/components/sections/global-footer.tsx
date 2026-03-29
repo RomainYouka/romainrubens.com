@@ -71,6 +71,7 @@ const GlobalFooter = () => {
   return (
     <footer
       className="border-t transition-colors duration-300"
+      data-section="footer"
       style={{
         backgroundColor: bgColor,
         borderColor: borderColor,
