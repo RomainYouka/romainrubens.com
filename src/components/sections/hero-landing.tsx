@@ -19,6 +19,7 @@ export default function HeroLanding() {
   const [splashDone, setSplashDone] = useState(false);
   const [showInitialCursor, setShowInitialCursor] = useState(false);
   const [bgImage, setBgImage] = useState("https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/fond-romain-rubens-1762169393726.png?width=8000&height=8000&resize=contain");
+  const [userInteracted, setUserInteracted] = useState(false);
 
   const fullText = translations[selectedLanguage].text;
   const buttonText = translations[selectedLanguage].button;
@@ -135,11 +136,33 @@ export default function HeroLanding() {
   }, [displayedText, isTyping, fullText, splashDone]);
 
   const handleScroll = () => {
+    setUserInteracted(true);
     const personalIntro = document.getElementById("personal-intro");
     if (personalIntro) {
       personalIntro.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    if (!showScrollButton) return;
+
+    const handlePageScroll = () => {
+      setUserInteracted(true);
+    };
+
+    window.addEventListener("scroll", handlePageScroll, { once: true });
+
+    const autoScrollTimer = setTimeout(() => {
+      if (!userInteracted) {
+        handleScroll();
+      }
+    }, 5000);
+
+    return () => {
+      window.removeEventListener("scroll", handlePageScroll);
+      clearTimeout(autoScrollTimer);
+    };
+  }, [showScrollButton, userInteracted]);
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
