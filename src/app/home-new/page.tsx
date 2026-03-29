@@ -100,19 +100,9 @@ export default function HomeNewPage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="text-base md:text-lg lg:text-xl text-[#9C9C9C] font-light mb-8 md:mb-10"
+            className="text-base md:text-lg lg:text-xl text-[#9C9C9C] font-light"
           >
             {t.subtitle}
-          </motion.p>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-sm md:text-base lg:text-lg text-[#D0D0D0] mb-16 md:mb-20 font-light leading-relaxed"
-          >
-            {t.description}
           </motion.p>
         </motion.div>
 
@@ -120,17 +110,17 @@ export default function HomeNewPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="absolute bottom-6 md:bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 z-20 w-full max-w-2xl px-4 md:px-6"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="absolute bottom-24 md:bottom-32 lg:bottom-40 left-1/2 -translate-x-1/2 z-20 w-full max-w-md px-4 md:px-6"
         >
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-stretch sm:items-center">
+          <div className="flex flex-col gap-3 md:gap-4 justify-center items-center">
             {/* Primary CTA - Découvrir */}
             <motion.button
               onClick={scrollToAbout}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="flex-1 sm:flex-initial px-8 md:px-10 py-3.5 md:py-4 bg-[#314DCB] text-white rounded-full font-semibold text-sm md:text-base transition-all hover:bg-[#4462E5] hover:shadow-lg"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="w-full py-4 px-6 bg-[#314DCB] text-white rounded-full font-semibold text-base transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95"
             >
               {t.discover}
             </motion.button>
@@ -138,10 +128,10 @@ export default function HomeNewPage() {
             {/* Secondary CTA - Voir les projets */}
             <motion.a
               href="/projects"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="flex-1 sm:flex-initial px-8 md:px-10 py-3.5 md:py-4 bg-[#2a2a2c] text-[#FFFFFF] rounded-full font-semibold text-sm md:text-base transition-all hover:bg-[#404043] text-center"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="w-full py-4 px-6 bg-white text-[#1d1d1f] rounded-full font-semibold text-base border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center"
             >
               {t.viewProjects}
             </motion.a>
