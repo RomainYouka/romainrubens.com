@@ -6,70 +6,59 @@ export function useSnapScroll() {
   const isSnapRef = useRef(false);
 
   useEffect(() => {
-    const getSnapPositions = () => {
-      const sections = document.querySelectorAll("[data-section]");
-      if (sections.length === 0) return [];
-
-      const positions: number[] = [];
-      
-      // Position 0: Top of first section (Hero)
-      positions.push(0);
-      
-      // Position 1: Top of second section (PersonalIntro) = end of Hero
-      const heroSection = sections[0] as HTMLElement;
-      if (heroSection) {
-        positions.push(heroSection.offsetHeight);
-      }
-      
-      // Position 2: Bottom of second section - show footer with part of PersonalIntro
-      const personalIntroSection = sections[1] as HTMLElement;
-      if (personalIntroSection) {
-        const scrollToShowFooter = personalIntroSection.offsetTop + personalIntroSection.offsetHeight - window.innerHeight * 0.3;
-        positions.push(Math.max(positions[1] + window.innerHeight, scrollToShowFooter));
-      }
-      
-      return positions;
-    };
-
     const handleWheel = (e: WheelEvent) => {
-      const positions = getSnapPositions();
-      if (positions.length === 0) return;
-
       // Ignore horizontal scrolling
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
 
       // Skip if already snapping
       if (isSnapRef.current) return;
 
+      const sections = document.querySelectorAll("[data-section]");
+      if (sections.length < 2) return;
+
       e.preventDefault();
 
-      // Find current snap position (closest to current scroll)
-      const currentScroll = window.scrollY;
-      let currentIndex = 0;
-      let minDistance = Infinity;
+      const heroSection = sections[0] as HTMLElement;
+      const personalIntroSection = sections[1] as HTMLElement;
+      
+      const heroHeight = heroSection.offsetHeight;
+      const personalIntroHeight = personalIntroSection.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      
+      // Define exact snap positions
+      const snapPositions = [
+        0,                                    // State 1: Top of page (Hero)
+        heroHeight,                           // State 2: Top of PersonalIntro
+        heroHeight + personalIntroHeight - viewportHeight * 0.3  // State 3: Footer visible + PersonalIntro
+      ];
 
-      positions.forEach((pos, index) => {
-        const distance = Math.abs(currentScroll - pos);
-        if (distance < minDistance) {
-          minDistance = distance;
-          currentIndex = index;
-        }
-      });
+      const currentScroll = window.scrollY;
+
+      // Determine current state based on scroll position
+      let currentStateIndex = 0;
+      
+      if (currentScroll >= snapPositions[2] - 50) {
+        currentStateIndex = 2;
+      } else if (currentScroll >= snapPositions[1] - 50) {
+        currentStateIndex = 1;
+      } else {
+        currentStateIndex = 0;
+      }
 
       // Determine direction
       const direction = e.deltaY > 0 ? 1 : -1;
-      let targetIndex = currentIndex + direction;
+      let targetStateIndex = currentStateIndex + direction;
 
       // Clamp to valid range
-      targetIndex = Math.max(0, Math.min(targetIndex, positions.length - 1));
+      targetStateIndex = Math.max(0, Math.min(targetStateIndex, snapPositions.length - 1));
 
       // If already at the target, don't snap
-      if (targetIndex === currentIndex) return;
+      if (targetStateIndex === currentStateIndex) return;
 
       // Snap animation
       isSnapRef.current = true;
       const startScroll = currentScroll;
-      const targetScroll = positions[targetIndex];
+      const targetScroll = snapPositions[targetStateIndex];
       const distance = targetScroll - startScroll;
       const duration = 600;
       const startTime = Date.now();
