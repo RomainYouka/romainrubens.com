@@ -23,20 +23,13 @@ export function useSnapScroll() {
       const currentScroll = window.scrollY;
       const viewportHeight = window.innerHeight;
 
-      // Define snap positions
-      const snapPositions = [
-        0,                                    // State 1: Hero top
-        personalIntroSection.offsetTop,       // State 2: PersonalIntro top (same as scrollIntoView)
-        footerSection?.offsetTop ?? personalIntroSection.offsetTop + personalIntroSection.offsetHeight - viewportHeight * 0.3  // State 3: Footer
-      ];
-
       const direction = e.deltaY > 0 ? 1 : -1;
 
       // Determine current state more precisely
       let currentStateIndex = 0;
-      if (currentScroll >= snapPositions[2] - 100) {
+      if (currentScroll > personalIntroSection.offsetTop + viewportHeight * 0.5) {
         currentStateIndex = 2;
-      } else if (currentScroll >= snapPositions[1] - 100) {
+      } else if (currentScroll > personalIntroSection.offsetTop - 100) {
         currentStateIndex = 1;
       } else {
         currentStateIndex = 0;
@@ -50,38 +43,26 @@ export function useSnapScroll() {
 
       // Calculate target state
       let targetStateIndex = currentStateIndex + direction;
-      targetStateIndex = Math.max(0, Math.min(targetStateIndex, snapPositions.length - 1));
+      targetStateIndex = Math.max(0, Math.min(targetStateIndex, 2));
 
       if (targetStateIndex === currentStateIndex) return;
 
       e.preventDefault();
       isSnapRef.current = true;
 
-      const startScroll = currentScroll;
-      const targetScroll = snapPositions[targetStateIndex];
-      const distance = targetScroll - startScroll;
-      const duration = 600;
-      const startTime = Date.now();
+      // Use scrollIntoView for exact same behavior as "Découvrir" button
+      if (targetStateIndex === 0) {
+        heroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (targetStateIndex === 1) {
+        personalIntroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (targetStateIndex === 2) {
+        footerSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
 
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        const easeInOutCubic = (t: number) => {
-          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        };
-
-        const newScroll = startScroll + distance * easeInOutCubic(progress);
-        window.scrollTo(0, newScroll);
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          isSnapRef.current = false;
-        }
-      };
-
-      animate();
+      // Reset snap flag after animation completes
+      setTimeout(() => {
+        isSnapRef.current = false;
+      }, 650);
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
