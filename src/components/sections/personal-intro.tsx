@@ -55,6 +55,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   const [isFading, setIsFading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
+  const [isOnMiddleOrFooterSection, setIsOnMiddleOrFooterSection] = useState(false);
 
   const prefersReducedMotion =
     typeof window !== "undefined"
@@ -338,6 +339,21 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
               <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
                 <button
                   onClick={() => {
+                    // Detect if on section 2 (PersonalIntro) or section 3 (Footer)
+                    const heroSection = document.querySelector("[data-section='hero-landing']") as HTMLElement;
+                    const personalIntroSection = document.querySelector("[data-section='personal-intro']") as HTMLElement;
+                    const footerSection = document.querySelector("[data-section='footer']") as HTMLElement;
+                    
+                    if (heroSection && personalIntroSection && footerSection) {
+                      const currentScroll = window.scrollY;
+                      const heroHeight = heroSection.offsetHeight;
+                      const footerTop = footerSection.offsetTop;
+                      
+                      // Check if on section 2 (PersonalIntro) or section 3 (Footer)
+                      const onMiddleOrFooter = currentScroll >= heroHeight - 50 && currentScroll < footerTop - 100;
+                      setIsOnMiddleOrFooterSection(onMiddleOrFooter);
+                    }
+                    
                     setShowOverlay(true);
                     setTimeout(() => {
                       router.push("/projects");
@@ -355,37 +371,39 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
               <AnimatePresence>
                 {showOverlay && (
                   <>
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        scale: 0,
-                        borderRadius: "50%",
-                      }}
-                      animate={{
-                        opacity: 0.5,
-                        scale: 1.5,
-                        borderRadius: "50%",
-                      }}
-                      exit={{
-                        opacity: 0,
-                      }}
-                      transition={{
-                        duration: 0.15,
-                        ease: "easeOut",
-                      }}
-                      style={{
-                        position: "fixed",
-                        top: "50%",
-                        left: "50%",
-                        x: "-50%",
-                        y: "-50%",
-                        width: "100vw",
-                        height: "100vh",
-                        backgroundColor: "#314DCB",
-                        filter: "blur(40px)",
-                        zIndex: 9998,
-                      }}
-                    />
+                    {!isOnMiddleOrFooterSection && (
+                      <motion.div
+                        initial={{
+                          opacity: 0,
+                          scale: 0,
+                          borderRadius: "50%",
+                        }}
+                        animate={{
+                          opacity: 0.5,
+                          scale: 1.5,
+                          borderRadius: "50%",
+                        }}
+                        exit={{
+                          opacity: 0,
+                        }}
+                        transition={{
+                          duration: 0.15,
+                          ease: "easeOut",
+                        }}
+                        style={{
+                          position: "fixed",
+                          top: "50%",
+                          left: "50%",
+                          x: "-50%",
+                          y: "-50%",
+                          width: "100vw",
+                          height: "100vh",
+                          backgroundColor: "#314DCB",
+                          filter: "blur(40px)",
+                          zIndex: 9998,
+                        }}
+                      />
+                    )}
                     <motion.div
                       initial={{
                         opacity: 0,
@@ -399,7 +417,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                       transition={{
                         duration: 0.2,
                         ease: [0.32, 0.72, 0, 1],
-                        delay: 0.05,
+                        delay: isOnMiddleOrFooterSection ? 0 : 0.05,
                       }}
                       style={{
                         position: "fixed",
