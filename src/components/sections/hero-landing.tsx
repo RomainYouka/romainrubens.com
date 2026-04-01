@@ -8,12 +8,13 @@ import Lottie from "lottie-react";
 const translations = {
   FR: { text: "Hey, moi c'est Romain Rubens", button: "Découvrir" },
   EN: { text: "Hello, I'm Romain Rubens", button: "Discover" },
-  ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ", button: "ԲԱՑԱՀԱՅՏԵԼ" }
+  ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ", button: "ԲԱՑԱՀԱՅՏԵԼ" },
+  AM: { text: "Barev, es Roman Rubens em", button: "Antsanin" }
 };
 
 export default function HeroLanding() {
   const [displayedText, setDisplayedText] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ" | "AM">("FR");
   const [isTyping, setIsTyping] = useState(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [splashDone, setSplashDone] = useState(false);

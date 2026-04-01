@@ -26,28 +26,35 @@ const footerTranslations = {
     legal: "Իրավական տեղեկություններ",
     sitemap: "Կայքի քարտեզ",
   },
+  AM: {
+    copyright: "© 2026 Roman Rubens. Bolor iravaunkner pashutsanuats en.",
+    logoGuide: "Logo ogutargvumani ughetsyts (hin)",
+    reportProblem: "Teghekatsneli khndriv veraberyal",
+    legal: "Iravanakan teghekasutsunner",
+    sitemap: "Kayqi qartez",
+  },
 };
 
 const GlobalFooter = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ" | "AM">("FR");
   const [showOverlay, setShowOverlay] = useState(false);
   const [pendingPath, setPendingPath] = useState<string | null>(null);
 
   const isExplorationsPage = pathname === "/explorations";
 
   useEffect(() => {
-    let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
-    if (!saved || !footerTranslations[saved]) {
+    let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | "AM" | null;
+    if (!saved || !footerTranslations[saved as keyof typeof footerTranslations]) {
       saved = "FR";
       localStorage.setItem("preferredLanguage", "FR");
     }
-    setSelectedLanguage(saved);
+    setSelectedLanguage(saved as "FR" | "EN" | "ՀԱՅ" | "AM");
   }, []);
 
   useEffect(() => {
-    const handleLanguageChange = (event: CustomEvent<"FR" | "EN" | "ՀԱՅ">) => {
+    const handleLanguageChange = (event: CustomEvent<"FR" | "EN" | "ՀԱՅ" | "AM">) => {
       setSelectedLanguage(event.detail);
     };
 
@@ -67,7 +74,8 @@ const GlobalFooter = () => {
   const pdfFiles = {
     FR: "/resume/RUBENS_Romain_Logo_Guidelines_FR.pdf",
     EN: "/resume/RUBENS_Romain_Logo_Guidelines_EN.pdf",
-    ՀԱՅ: "/resume/RUBENS_Romain_Logo_Guidelines_EN.pdf"
+    ՀԱՅ: "/resume/RUBENS_Romain_Logo_Guidelines_EN.pdf",
+    AM: "/resume/RUBENS_Romain_Logo_Guidelines_EN.pdf"
   };
   
   const pdfUrl = pdfFiles[selectedLanguage];
