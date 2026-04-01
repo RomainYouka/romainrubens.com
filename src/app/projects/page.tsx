@@ -87,8 +87,7 @@ const mobileProjects = [
     id: 7,
     image: "/projects/blocks/googleplay-ios.webp",
     year: "2026",
-    slug: "googleplay-ios",
-    isComingSoon: true,
+    slug: "googleonios",
   },
 ];
 
