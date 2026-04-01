@@ -1,5 +1,5 @@
 import svgPaths from "./svg-fp9gx4h3pp";
-import imgBlocGooglePlay2 from "@/public/projects/googleonios/77d58f8c4b47ff7a7972f17b6a0c48b3678fd883.png";
+import imgBlocGooglePlay2 from "@/projects/googleonios/77d58f8c4b47ff7a7972f17b6a0c48b3678fd883.png";
 
 function Frame4() {
   return (
