@@ -9,7 +9,7 @@ const translations = {
   FR: { text: "Hey, moi c'est Romain Rubens", button: "Découvrir" },
   EN: { text: "Hello, I'm Romain Rubens", button: "Discover" },
   ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ", button: "ԲԱՑԱՀԱՅՏԵԼ" },
-  AM: { text: "Barev, es Roman Rubens em", button: "Antsanin" }
+  AM: { text: "Barev, es Romain Rubens em", button: "Antsanin" }
 };
 
 export default function HeroLanding() {
