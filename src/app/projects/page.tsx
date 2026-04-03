@@ -358,6 +358,7 @@ export default function PortfolioPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [hideToolbar, setHideToolbar] = useState(false);
   const [expandingCard, setExpandingCard] = useState<{
     slug: string;
     rect: DOMRect;
@@ -393,11 +394,15 @@ export default function PortfolioPage() {
       }
     };
 
+    const handleProjectOpen = () => setHideToolbar(true);
+    window.addEventListener("projectOpen", handleProjectOpen);
+
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("languageChange", handleLanguageChange as EventListener);
       window.removeEventListener("menuStateChange", handleMenuStateChange as EventListener);
+      window.removeEventListener("projectOpen", handleProjectOpen);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
@@ -450,7 +455,7 @@ export default function PortfolioPage() {
 
       {isHydrated && (
       <div
-        className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] items-center gap-3 px-5 py-3 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-opacity duration-200 ${isFooterVisible ? "opacity-0 pointer-events-none" : "opacity-100"} ${isMobileMenuOpen ? "hidden md:flex" : "flex"}`}
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] items-center gap-3 px-5 py-3 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-opacity duration-200 ${isFooterVisible || hideToolbar ? "opacity-0 pointer-events-none" : "opacity-100"} ${isMobileMenuOpen ? "hidden md:flex" : "flex"}`}
         style={{
           background: "linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.25) 50%, rgba(240,240,245,0.35) 100%)",
           backdropFilter: "blur(24px) saturate(180%)",
