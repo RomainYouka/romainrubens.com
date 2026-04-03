@@ -12,7 +12,7 @@ const contactTranslations = {
     emailMe: "M'envoyer un mail",
     readMedium: "Me lire sur Medium",
     explorePinterest: "Explorer mon Pinterest",
-    viewBehance: "Voir mon Behance (À venir)",
+    viewBehance: "Voir mon Behance",
   },
   EN: {
     heading: "Get in touch",
@@ -22,7 +22,7 @@ const contactTranslations = {
     emailMe: "Email me",
     readMedium: "Read me on Medium",
     explorePinterest: "Explore my Pinterest",
-    viewBehance: "View my Behance (Coming soon)",
+    viewBehance: "View my Behance",
   },
   ՀԱՅ: {
     heading: "Կապ հաստատեք",
@@ -32,7 +32,7 @@ const contactTranslations = {
     emailMe: "Ուղարկել ինձ էլ․փոստ",
     readMedium: "Կարդացեք ինձ Medium-ում",
     explorePinterest: "Բացահայտեք իմ Pinterest-ը",
-    viewBehance: "Տեսնել իմ Behance (Շատ շուտով)",
+    viewBehance: "Տեսնել իմ Behance",
   },
 };
 
@@ -225,8 +225,8 @@ export default function ContactPage() {
 
             {/* View Behance Button */}
             <button
-              disabled
-              className="w-full py-4 px-6 bg-white text-[#9C9C9C] font-semibold text-base rounded-full border border-[#E5E5E5] pointer-events-none opacity-60 flex items-center justify-center gap-2"
+              onClick={handleBehance}
+              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
             >
               <span>{currentTranslations.viewBehance}</span>
             </button>
