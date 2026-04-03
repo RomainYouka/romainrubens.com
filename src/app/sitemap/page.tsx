@@ -26,7 +26,6 @@ const translations = {
     students: "Students",
     googlemaps: "Google Maps",
     renault: "Renault",
-    googleplayios: "Google Play & iOS",
     // Web projects
     framasoft: "Framasoft",
     ayooapi: "AYOO API",
@@ -61,7 +60,6 @@ const translations = {
     students: "Students",
     googlemaps: "Google Maps",
     renault: "Renault",
-    googleplayios: "Google Play & iOS",
     // Web projects
     framasoft: "Framasoft",
     ayooapi: "AYOO API",
@@ -96,7 +94,6 @@ const translations = {
     students: "Students",
     googlemaps: "Google Maps",
     renault: "Renault",
-    googleplayios: "Google Play & iOS",
     // Web projects
     framasoft: "Framasoft",
     ayooapi: "AYOO API",
@@ -142,8 +139,8 @@ const getSections = (): Section[] => [
       { label: "waveswitch", href: "/projects/waveswitch", isSubItem: true, isClickable: true },
       { label: "students", href: "/projects/students", isSubItem: true, isClickable: false },
       { label: "googlemaps", href: "/projects/googlemaps", isSubItem: true, isClickable: false },
-      { label: "renault", href: "/projects/renault", isSubItem: true, isClickable: false },
-      { label: "googleplayios", href: "/projects/googleplay-ios", isSubItem: true, isClickable: false },
+      { label: "renault", href: "https://www.behance.net/gallery/246976591/Renault-App-Extension", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
+      { label: "googleplayios", href: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "webProjects", href: "#", isSubItem: true },
       { label: "framasoft", href: "/projects/framasoft", isSubItem: true, isClickable: true },
       { label: "ayooapi", href: "/projects/ayooapi", isSubItem: true, isClickable: false },

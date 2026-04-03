@@ -70,14 +70,6 @@ const translations = {
     explorations: "Հետազոտություններ",
     contact: "Կապ",
     resume: "Ռեզյումե"
-  },
-  AM: {
-    home: "Hauptseite",
-    projects: "Proyekta",
-    skills: "Mahusay",
-    explorations: "Ehplorasyon",
-    contact: "Kontakt",
-    resume: "Resumé"
   }
 };
 const LanguageSelector = ({
@@ -103,7 +95,7 @@ const LanguageSelector = ({
   const LANGUAGE_CHANGE_DELAY = 500;
 
   // Show ALL languages
-  const allLanguages = ["FR", "EN", "ՀԱՅ", "AM"];
+  const allLanguages = ["FR", "EN", "ՀԱՅ"];
   
   useEffect(() => {
     const updatePosition = () => {

@@ -10,7 +10,7 @@ export function LanguageSync() {
 
     // If no saved preference, try to match browser language
     const browserLang = navigator.language.split('-')[0].toUpperCase();
-    let targetLang: "FR" | "EN" | "ՀԱՅ" | "AM" = "EN"; // Default to EN
+    let targetLang: "FR" | "EN" | "ՀԱՅ" = "EN"; // Default to EN
 
     if (browserLang === "FR") {
       targetLang = "FR";

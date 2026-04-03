@@ -81,14 +81,14 @@ const mobileProjects = [
     image: "/projects/blocks/renault.webp",
     year: "2026",
     slug: "renault",
-    isComingSoon: true,
+    externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
   },
   {
     id: 7,
     image: "/projects/blocks/googleplay-ios.webp",
     year: "2026",
     slug: "googleplay-ios",
-    isComingSoon: true,
+    externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
   },
 ];
 
@@ -277,18 +277,23 @@ interface ProjectCardProps {
   year: string;
   slug: string;
   onNavigate: (slug: string, rect: DOMRect) => void;
+  externalUrl?: string;
   isComingSoon?: boolean;
   isStrate?: boolean;
   language: Language;
   isPriority?: boolean;
 }
 
-const ProjectCard = ({ image, year, slug, onNavigate, isComingSoon, isStrate, language, isPriority }: ProjectCardProps) => {
+const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon, isStrate, language, isPriority }: ProjectCardProps) => {
   const [isClicked, setIsClicked] = useState(false);
   const t = translations[language];
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     triggerHapticFeedback();
+    if (externalUrl) {
+      window.open(externalUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
     if (isComingSoon || isStrate) {
       setIsClicked(prev => !prev);
       return;

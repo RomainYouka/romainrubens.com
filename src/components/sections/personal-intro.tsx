@@ -33,35 +33,24 @@ const translations = {
     ctaProjects: "Տեսեք իմ նախագծերը",
     ctaSkills: "Իմ հմտությունները",
   },
-  AM: {
-    title: "UX/UI Dizayner · Smart home",
-    textMain: "Es industrial design usanogk em` UX/UI ev interaction design kentrosatsvel praktikayov.",
-    textGray1: " Im askhatanek usgumnasiruvk, tex inchpes en interfeysner kazmakorpvum i ayryal ogutargvumen, konkret sahmanapakaumen ev arayamacjyun hamakargeren.",
-    textMain2: " Es hatchapeas hetakirtsrkvats em kapaktsats mijavayerner vor tnayin taracjkyum,",
-    textGray2: " miajamanak zargatsnelovy motatsayun, or kirtsrel e aveli layv tvayn hamatatsvetsner.",
-    ctaProjects: "Tesek im naghatserna",
-    ctaSkills: "Im hmtutsvunnerna",
-  },
 };
 
 // PDF file mapping for downloads
 const pdfFiles = {
   FR: "/resume/RUBENS_Romain_cv.pdf",
   EN: "/resume/RUBENS_Romain_Resume.pdf",
-  ՀԱՅ: "/resume/RUBENS_Romain_Ամփոփում.pdf",
-  AM: "/resume/RUBENS_Romain_Resume.pdf"
+  ՀԱՅ: "/resume/RUBENS_Romain_Ամփոփում.pdf"
 };
 
 const pdfFileNames = {
   FR: "RUBENS_Romain_cv.pdf",
   EN: "RUBENS_Romain_Resume.pdf",
-  ՀԱՅ: "RUBENS_Romain_Ամփոփում.pdf",
-  AM: "RUBENS_Romain_Resume.pdf"
+  ՀԱՅ: "RUBENS_Romain_Ամփոփում.pdf"
 };
 
 export default function PersonalIntro({ id = "personal-intro" }: { id?: string }) {
   const router = useRouter();
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ" | "AM">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
