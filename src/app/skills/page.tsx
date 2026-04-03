@@ -27,6 +27,7 @@ const uiTranslations = {
   FR: {
     title: "Compétences",
     subtitle: "Une vision transversale de mes savoir-faire en design, interaction et outils numériques.",
+    designSystem: "Design System",
     ratingLabels: { 1: "Débutant", 2: "Bonne maîtrise", 4: "Maîtrise avancée", 5: "Maîtrise parfaite" },
     lastUpdatedPrefix: "Dernière mise à jour :",
     loading: "Chargement…",
@@ -34,6 +35,7 @@ const uiTranslations = {
   EN: {
     title: "Skills",
     subtitle: "A cross-functional overview of my expertise in design, interaction, and digital tools.",
+    designSystem: "Design System",
     ratingLabels: { 1: "Beginner", 2: "Good Mastery", 4: "Advanced Mastery", 5: "Complete Mastery" },
     lastUpdatedPrefix: "Last updated:",
     loading: "Loading…",
@@ -41,6 +43,7 @@ const uiTranslations = {
   ՀԱՅ: {
     title: "Հմտություններ",
     subtitle: "Իմ փորձի ընդարձակ ակնարկ դիզայնի, փոխազդեցության և թվային գործիքների ոլորտում.",
+    designSystem: "Design System",
     ratingLabels: { 1: "Սկսնակ", 2: "Լավ տիրապետում", 4: "Առաջադեմ տիրապետում", 5: "Կատարյալ տիրապետում" },
     lastUpdatedPrefix: "Վերջին թարմացում՝",
     loading: "Բեռնում…",
@@ -91,7 +94,14 @@ export default function SkillsPage() {
 
   const t = uiTranslations[language] || uiTranslations.FR;
   const sortedCategories = data?.categories
-    ? [...data.categories].sort((a, b) => a.order - b.order)
+    ? [...data.categories].sort((a, b) => {
+        if (a.order === b.order) {
+          const aComingSoon = a.skills.some((skill) => skill.id.includes("soon") || skill.id.includes("wip"));
+          const bComingSoon = b.skills.some((skill) => skill.id.includes("soon") || skill.id.includes("wip"));
+          if (aComingSoon !== bComingSoon) return aComingSoon ? 1 : -1;
+        }
+        return a.order - b.order;
+      })
     : [];
 
   return (
@@ -137,7 +147,9 @@ export default function SkillsPage() {
         {!loading && sortedCategories.map((category, idx) => (
           <div key={category.id} className={idx < sortedCategories.length - 1 ? "mb-16 md:mb-20" : "mb-0"}>
             <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] mb-8">
-              {category.names[language] || category.names.FR}
+              {category.id === "design-system" && language === "FR"
+                ? t.designSystem
+                : category.names[language] || category.names.FR}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {category.skills.map((skill) => (

@@ -291,7 +291,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     triggerHapticFeedback();
     if (externalUrl) {
-      window.open(externalUrl, "_blank", "noopener,noreferrer");
+      window.location.href = externalUrl;
       return;
     }
     if (isComingSoon || isStrate) {
@@ -300,7 +300,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
     }
     const rect = e.currentTarget.getBoundingClientRect();
     onNavigate(slug, rect);
-  }, [slug, onNavigate, isComingSoon, isStrate]);
+  }, [externalUrl, slug, onNavigate, isComingSoon, isStrate]);
 
   return (
     <motion.div
@@ -401,6 +401,9 @@ export default function PortfolioPage() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const sortProjects = (projects: typeof mobileProjects) =>
+    [...projects].sort((a, b) => Number(!!a.isComingSoon || !!a.isStrate) - Number(!!b.isComingSoon || !!b.isStrate));
 
   const allProjects = [...mobileProjects, ...webProjects, ...diversProjects];
 
@@ -511,7 +514,7 @@ export default function PortfolioPage() {
                 <NavigationButtons activeSection="mobile" language={language} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
-                  {mobileProjects
+                  {sortProjects(mobileProjects)
                     .filter(p => !hideInProgress || (!p.isComingSoon && !p.isStrate))
                     .map((project, index) => (
                     <ProjectCard
@@ -533,7 +536,7 @@ export default function PortfolioPage() {
                 <NavigationButtons activeSection="web" language={language} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
-                  {webProjects
+                  {sortProjects(webProjects)
                     .filter(p => !hideInProgress || !p.isComingSoon)
                     .map((project, index) => (
                     <ProjectCard
@@ -554,7 +557,7 @@ export default function PortfolioPage() {
                 <NavigationButtons activeSection="divers" language={language} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
-                  {diversProjects
+                  {sortProjects(diversProjects)
                     .filter(p => !hideInProgress || !(p as any).isComingSoon)
                     .map((project, index) => (
                     <ProjectCard
