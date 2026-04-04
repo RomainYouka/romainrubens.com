@@ -75,6 +75,7 @@ const mobileProjects = [
     year: "2026",
     slug: "googlemaps",
     externalUrl: "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension",
+    isPriority: true,
   },
   {
     id: 6,
