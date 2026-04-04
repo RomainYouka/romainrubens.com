@@ -416,6 +416,10 @@ export default function PortfolioPage() {
   const handleNavigate = useCallback((slug: string, rect: DOMRect) => {
     const project = allProjects.find(p => p.slug === slug);
     if (project) {
+      if (project.externalUrl) {
+        window.location.assign(project.externalUrl);
+        return;
+      }
       setExpandingCard({ slug, rect, image: project.image });
       setTimeout(() => {
         router.push(`/projects/${slug}`);
