@@ -36,6 +36,7 @@ const GlobalFooter = () => {
   const [pendingPath, setPendingPath] = useState<string | null>(null);
 
   const isExplorationsPage = pathname === "/explorations";
+  const isProjectTransitionPage = pathname === "/projects/renault" || pathname === "/projects/googlemaps" || pathname === "/projects/googleplayios";
 
   useEffect(() => {
     let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
@@ -82,6 +83,7 @@ const GlobalFooter = () => {
 
   return (
     <>
+      {!isProjectTransitionPage && (
       {/* Blue overlay transition */}
       <AnimatePresence>
         {showOverlay && (
@@ -145,6 +147,7 @@ const GlobalFooter = () => {
           </>
         )}
       </AnimatePresence>
+      )}
     <footer
       className="border-t transition-colors duration-300"
       data-section="footer"
