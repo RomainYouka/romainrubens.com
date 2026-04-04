@@ -290,7 +290,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     triggerHapticFeedback();
     if (externalUrl) {
-      window.open(externalUrl, "_blank", "noopener,noreferrer");
+      window.location.assign(externalUrl);
       return;
     }
     if (isComingSoon || isStrate) {
