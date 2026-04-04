@@ -83,10 +83,8 @@ const GlobalFooter = () => {
 
   return (
     <>
-      {!isProjectTransitionPage && (
-      {/* Blue overlay transition */}
       <AnimatePresence>
-        {showOverlay && (
+        {!isProjectTransitionPage && showOverlay && (
           <>
             <motion.div
               initial={{
@@ -147,7 +145,6 @@ const GlobalFooter = () => {
           </>
         )}
       </AnimatePresence>
-      )}
     <footer
       className="border-t transition-colors duration-300"
       data-section="footer"
