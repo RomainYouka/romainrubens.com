@@ -1,21 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import dynamic from "next/dynamic";
 import GlobalNavigation from "@/components/sections/global-navigation";
 import GlobalFooter from "@/components/sections/global-footer";
 
-const DesignerQuotes = dynamic(() => import("@/components/sections/designer-quotes"), {
-  loading: () => null,
-});
-
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-  const [showQuotes, setShowQuotes] = useState(false);
   const pathname = usePathname();
   const isResumePage = pathname === "/resume";
   const isExplorationsPage = pathname === "/explorations";
-  const hideGlobalFooter = pathname === "/projects" || pathname === "/skills" || pathname === "/contact";
 
   useEffect(() => {
     document.body.style.transition = "background-color 0.3s ease";
@@ -66,10 +59,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <>
-      {!isResumePage && <GlobalNavigation onShowQuotes={() => setShowQuotes(true)} />}
+      {!isResumePage && <GlobalNavigation onShowQuotes={() => {}} />}
       {children}
-      {!isResumePage && <DesignerQuotes isVisible={showQuotes} onClose={() => setShowQuotes(false)} />}
-      {!isResumePage && !hideGlobalFooter && <GlobalFooter />}
+      {!isResumePage && <GlobalFooter />}
     </>
   );
 }
