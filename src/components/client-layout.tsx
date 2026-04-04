@@ -15,6 +15,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const pathname = usePathname();
   const isResumePage = pathname === "/resume";
   const isExplorationsPage = pathname === "/explorations";
+  const hideGlobalFooter = pathname === "/projects" || pathname === "/skills" || pathname === "/contact";
 
   useEffect(() => {
     document.body.style.transition = "background-color 0.3s ease";
@@ -68,7 +69,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       {!isResumePage && <GlobalNavigation onShowQuotes={() => setShowQuotes(true)} />}
       {children}
       {!isResumePage && <DesignerQuotes isVisible={showQuotes} onClose={() => setShowQuotes(false)} />}
-      {!isResumePage && <GlobalFooter />}
+      {!isResumePage && !hideGlobalFooter && <GlobalFooter />}
     </>
   );
 }
