@@ -529,7 +529,6 @@ export default function PortfolioPage() {
                       year={project.year}
                       slug={project.slug}
                       onNavigate={handleNavigate}
-                      externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       isStrate={project.isStrate}
                       language={language}
