@@ -138,7 +138,7 @@ const getSections = (): Section[] => [
       { label: "ios26", href: "/projects/ios26", isSubItem: true, isClickable: true },
       { label: "waveswitch", href: "/projects/waveswitch", isSubItem: true, isClickable: true },
       { label: "students", href: "/projects/students", isSubItem: true, isClickable: false },
-      { label: "googlemaps", href: "/projects/googlemaps", isSubItem: true, isClickable: false },
+      { label: "googlemaps", href: "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "renault", href: "https://www.behance.net/gallery/246976591/Renault-App-Extension", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "googleplayios", href: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "webProjects", href: "#", isSubItem: true },

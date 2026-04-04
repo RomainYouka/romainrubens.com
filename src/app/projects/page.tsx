@@ -74,7 +74,7 @@ const mobileProjects = [
     image: "/projects/blocks/google-maps.webp",
     year: "2026",
     slug: "googlemaps",
-    isComingSoon: true,
+    externalUrl: "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension",
   },
   {
     id: 6,
