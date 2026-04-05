@@ -100,7 +100,7 @@ const mobileProjects = [
   },
   {
     id: 5,
-    image: "/projects/blocks/students-new.webp",
+    image: "/projects/blocks/Bouton_Bloc_(Students)-2_1775406205240.webp",
     year: "2025",
     slug: "stratos",
     externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
