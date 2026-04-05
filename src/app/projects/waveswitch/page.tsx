@@ -148,7 +148,7 @@ export default function WaveSwitchPage() {
   const handleBack = () => {
     if (typeof navigator !== "undefined" && "vibrate" in navigator) navigator.vibrate(10);
     setIsExiting(true);
-    setTimeout(() => { setShowOverlay(true); setTimeout(() => router.push("/projects"), 300); }, 150);
+      setTimeout(() => { setShowOverlay(true); setTimeout(() => router.push("/projects"), 300); }, 150);
   };
 
   const handleScroll = () => {

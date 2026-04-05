@@ -12,7 +12,7 @@ const translations = {
     title: "Wave Switch & App",
     year: "Designed in 2025",
     paragraph1:
-    "WaveSwitch is a touchless, gesture-activated switch. It is designed for a speculative future in 2080, where humans live with medical and aesthetic skin fungi shaped by global transformations. The device uses artificial intelligence to translate movement into action.\n\nBeyond the object itself, the project finds its meaning in the web and mobile interfaces. Users can customize their gestures, see real-time visual feedback and track their interactions as they use the system.",
+    "Stratos is a touchless, gesture-activated switch. It is designed for a speculative future in 2080, where humans live with medical and aesthetic skin fungi shaped by global transformations. The device uses artificial intelligence to translate movement into action.\n\nBeyond the object itself, the project finds its meaning in the web and mobile interfaces. Users can customize their gestures, see real-time visual feedback and track their interactions as they use the system.",
     paragraph2:
     "This project explores the boundary between tangible objects and interactive systems, where design exists not only as a physical form but also in the relationship between humans and machines.\nThe switch becomes a way to question our connection to gesture, technological mediation and the changing nature of domestic or professional environments.",
     play: "Play",
@@ -22,7 +22,7 @@ const translations = {
     title: "Wave Switch & App",
     year: "Conception en 2025",
     paragraph1:
-    "WaveSwitch est un interrupteur sans contact activé par geste. Conçu pour un avenir spéculatif en 2080, où les humains vivent avec des champignons cutanés médicaux et esthétiques nés des transformations mondiales, il s'appuie sur l'intelligence artificielle pour traduire le mouvement en action. Au-delà de l'objet lui-même, son sens réside dans l'interface web et mobile : personnalisation des gestes, retour visuel en temps réel et suivi des interactions.",
+    "Stratos est un interrupteur sans contact activé par geste. Conçu pour un avenir spéculatif en 2080, où les humains vivent avec des champignons cutanés médicaux et esthétiques nés des transformations mondiales, il s'appuie sur l'intelligence artificielle pour traduire le mouvement en action. Au-delà de l'objet lui-même, son sens réside dans l'interface web et mobile : personnalisation des gestes, retour visuel en temps réel et suivi des interactions.",
     paragraph2:
     "Ce projet explore la frontière entre objets tangibles et systèmes interactifs, où le design existe non seulement sous forme physique mais dans la relation entre l'humain et la machine. L'interrupteur devient un moyen de questionner notre connexion au geste, à la médiation technologique et à l'évolution de l'environnement domestique ou professionnel.",
     play: "Lire",
@@ -32,7 +32,7 @@ const translations = {
     title: "Wave Switch & App",
     year: "Նախագծված 2025-ին",
     paragraph1:
-    "WaveSwitch-ը շփում չպահանջող, ժեստով ակտիվացվող անջատիչ է։ Ստեղծված է 2080 թվականի սպեկուլատիվ ապագայի համար, որտեղ մարդիկ ապրում են բժշկական ու գեղագիտական նշանակություն ունեցող մաշկային սնկերի հետ՝ գլոբալ փոփոխությունների հետևանքով առաջացած նոր իրականության մեջ։\nՍարքը հիմնված է արհեստական բանականության վրա, որը շարժումը վերածում է գործողության։\n\nՍակայն WaveSwitch-ի իմաստը միայն առարկայում չէ․ նախագծի էությունը իրեն ընդգրկում է նաև վեբ և շարժական միջերեսները՝ ժեստերի անհատականացում, իրական ժամանակում տեսողական հետադարձ կապ և օգտագործման պատմության հետևում։",
+    "Stratos-ը շփում չպահանջող, ժեստով ակտիվացվող անջատիչ է։ Ստեղծված է 2080 թվականի սպեկուլատիվ ապագայի համար, որտեղ մարդիկ ապրում են բժշկական ու գեղագիտական նշանակություն ունեցող մաշկային սնկերի հետ՝ գլոբալ փոփոխությունների հետևանքով առաջացած նոր իրականության մեջ։\nՍարքը հիմնված է արհեստական բանականության վրա, որը շարժումը վերածում է գործողության։\n\nՍակայն Stratos-ի իմաստը միայն առարկայում չէ․ նախագծի էությունը իրեն ընդգրկում է նաև վեբ և շարժական միջերեսները՝ ժեստերի անհատականացում, իրական ժամանակում տեսողական հետադարձ կապ և օգտագործման պատմության հետևում։",
     paragraph2:
     "Այս նախագիծը ուսումնասիրում է շոշափելի առարկաների և ինտերակտիվ համակարգերի սահմանը, որտեղ դիզայնը գոյություն ունի ոչ միայն ֆիզիկական ձևով, այլև մարդու և մեքենայի փոխհարաբերության մեջ։\nԱնջատիչը վերածվում է մի միջոցի, որը հանդես է գալիս որպես հարցադրում՝ մեր կապի մասին ժեստի, տեխնոլոգիական միջնորդման և կենցաղային կամ աշխատանքային միջավայրի զարգացող բնույթի հետ։",
     play: "Նվագարկել",
