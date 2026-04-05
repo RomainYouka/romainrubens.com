@@ -78,18 +78,18 @@ const mobileProjects = [
     isPriority: true,
   },
   {
-    id: 6,
-    image: "/projects/blocks/renault.webp",
-    year: "2026",
-    slug: "renault",
-    externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
-  },
-  {
     id: 7,
     image: "/projects/blocks/googleplay-ios.webp",
     year: "2026",
     slug: "googleplayios",
     externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
+  },
+  {
+    id: 6,
+    image: "/projects/blocks/renault.webp",
+    year: "2026",
+    slug: "renault",
+    externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
   },
 ];
 
