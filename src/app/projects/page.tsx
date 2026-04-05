@@ -70,6 +70,13 @@ const mobileProjects = [
     externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
   },
   {
+    id: 7,
+    image: "/projects/blocks/googleplay-ios.webp",
+    year: "2026",
+    slug: "googleplayios",
+    externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
+  },
+  {
     id: 4,
     image: "/projects/blocks/google-maps.webp",
     year: "2026",
@@ -83,13 +90,6 @@ const mobileProjects = [
     year: "2026",
     slug: "renault",
     externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
-  },
-  {
-    id: 7,
-    image: "/projects/blocks/googleplay-ios.webp",
-    year: "2026",
-    slug: "googleplayios",
-    externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
   },
 ];
 
