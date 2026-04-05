@@ -63,6 +63,13 @@ const mobileProjects = [
     slug: "waveswitch",
   },
   {
+    id: 5,
+    image: "/projects/blocks/students.webp",
+    year: "2025",
+    slug: "stratos",
+    externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
+  },
+  {
     id: 4,
     image: "/projects/blocks/google-maps.webp",
     year: "2026",
@@ -83,13 +90,6 @@ const mobileProjects = [
     year: "2026",
     slug: "googleplayios",
     externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
-  },
-  {
-    id: 5,
-    image: "/projects/blocks/students.webp",
-    year: "2025",
-    slug: "stratos",
-    externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
   },
 ];
 
