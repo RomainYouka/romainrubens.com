@@ -64,7 +64,7 @@ const mobileProjects = [
   },
   {
     id: 5,
-    image: "/projects/blocks/stratos.webp",
+    image: "/projects/blocks/students.webp",
     year: "2025",
     slug: "stratos",
     externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
@@ -296,7 +296,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
       window.location.assign(externalUrl);
       return;
     }
-    if (isComingSoon || isStrate) {
+    if (isComingSoon) {
       setIsClicked(prev => !prev);
       return;
     }
@@ -310,7 +310,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
       className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] border border-[#D0D0D0] cursor-pointer block"
       whileHover={{ 
         scale: 1.02, 
-        boxShadow: (isComingSoon || isStrate)
+        boxShadow: isComingSoon
           ? "0 10px 40px rgba(0,0,0,0.4)" 
           : "0 10px 40px rgba(0,0,0,0.15)" 
       }}
@@ -339,13 +339,10 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
           />
         </div>
       </div>
-      {(isComingSoon || isStrate) && (
+      {isComingSoon && (
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4 z-20">
           <span className="text-white font-bold text-center text-sm md:text-xl lg:text-2xl drop-shadow-lg">
-            {isStrate 
-              ? (isClicked ? t.strateWorkInProgress : t.strateSoon)
-              : (isClicked ? t.returnDate : t.soon)
-            }
+            {isClicked ? t.returnDate : t.soon}
           </span>
         </div>
       )}
