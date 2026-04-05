@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import GlobalNavigation from "@/components/sections/global-navigation";
 import GlobalFooter from "@/components/sections/global-footer";
+import IntroSplash from "@/components/intro-splash";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -60,6 +61,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   return (
     <>
       {!isResumePage && <GlobalNavigation onShowQuotes={() => {}} />}
+      <IntroSplash />
       {children}
       {!isResumePage && <GlobalFooter />}
     </>
