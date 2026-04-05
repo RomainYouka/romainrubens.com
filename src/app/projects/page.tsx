@@ -68,7 +68,6 @@ const mobileProjects = [
     year: "2025",
     slug: "stratos",
     externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
-    isStrate: true,
   },
   {
     id: 4,
@@ -281,12 +280,11 @@ interface ProjectCardProps {
   onNavigate: (slug: string, rect: DOMRect) => void;
   externalUrl?: string;
   isComingSoon?: boolean;
-  isStrate?: boolean;
   language: Language;
   isPriority?: boolean;
 }
 
-const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon, isStrate, language, isPriority }: ProjectCardProps) => {
+const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon, language, isPriority }: ProjectCardProps) => {
   const [isClicked, setIsClicked] = useState(false);
   const t = translations[language];
 
@@ -302,7 +300,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
     }
     const rect = e.currentTarget.getBoundingClientRect();
     onNavigate(slug, rect);
-  }, [externalUrl, slug, onNavigate, isComingSoon, isStrate]);
+  }, [externalUrl, slug, onNavigate, isComingSoon]);
 
   return (
     <motion.div
