@@ -23,7 +23,7 @@ const translations = {
     intratone: "Intratone",
     ios26: "iOS 26",
     waveswitch: "Wave Switch",
-    students: "Stratos",
+    stratos: "Stratos",
     googlemaps: "Google Maps",
     renault: "Renault",
     // Web projects
@@ -57,7 +57,7 @@ const translations = {
     intratone: "Intratone",
     ios26: "iOS 26",
     waveswitch: "Wave Switch",
-    students: "Stratos",
+    stratos: "Stratos",
     googlemaps: "Google Maps",
     renault: "Renault",
     // Web projects
@@ -91,7 +91,7 @@ const translations = {
     intratone: "Intratone",
     ios26: "iOS 26",
     waveswitch: "Wave Switch",
-    students: "Stratos",
+    stratos: "Stratos",
     googlemaps: "Google Maps",
     renault: "Renault",
     // Web projects
@@ -137,7 +137,7 @@ const getSections = (): Section[] => [
       { label: "intratone", href: "/projects/intratone", isSubItem: true, isClickable: true },
       { label: "ios26", href: "/projects/ios26", isSubItem: true, isClickable: true },
       { label: "waveswitch", href: "/projects/waveswitch", isSubItem: true, isClickable: true },
-      { label: "students", href: "/projects/stratos", isSubItem: true, isClickable: false },
+      { label: "stratos", href: "https://www.behance.net/gallery/247046537/Stratos-Campus-App", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "googlemaps", href: "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "renault", href: "https://www.behance.net/gallery/246976591/Renault-App-Extension", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "googleplayios", href: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },

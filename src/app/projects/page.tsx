@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProjectSkeleton } from "@/components/ui/skeleton";
+import stratosBlock from "@assets/stratos_1775403329282.webp";
 
 const BUTTON_IMAGE = "/bouton-aller-clair.png";
 
@@ -64,7 +65,7 @@ const mobileProjects = [
   },
   {
     id: 5,
-    image: "/projects/blocks/students.webp",
+    image: stratosBlock.src,
     year: "2025",
     slug: "stratos",
     externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
