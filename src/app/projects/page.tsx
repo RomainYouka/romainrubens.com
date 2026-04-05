@@ -64,7 +64,7 @@ const mobileProjects = [
   },
   {
     id: 5,
-    image: "/projects/blocks/students.webp",
+    image: "/projects/blocks/stratos.webp",
     year: "2025",
     slug: "stratos",
     isStrate: true,
