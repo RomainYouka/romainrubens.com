@@ -100,7 +100,7 @@ const mobileProjects = [
   },
   {
     id: 5,
-    image: "/projects/blocks/students.webp",
+    image: "/projects/blocks/students-new.webp",
     year: "2025",
     slug: "stratos",
     externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
@@ -491,7 +491,7 @@ export default function PortfolioPage() {
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
-                      isPriority={index < 2}
+                      isPriority={index < 4}
                     />
                   ))}
                 </div>
@@ -512,7 +512,7 @@ export default function PortfolioPage() {
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
-                      isPriority={index < 2}
+                      isPriority={index < 4}
                     />
                   ))}
                 </div>
@@ -533,7 +533,7 @@ export default function PortfolioPage() {
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
-                      isPriority={index < 2}
+                      isPriority={index < 4}
                     />
                   ))}
                 </div>
