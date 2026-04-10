@@ -108,7 +108,7 @@ function BeforeAfterSlider({ beforeImage, afterImage, beforeLabel, afterLabel }:
       </div>
       <div className="absolute top-0 bottom-0 w-1 bg-[#FF6B6B] shadow-lg" style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)', transition: 'left 1200ms cubic-bezier(0.4, 0, 0.2, 1)' }}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-[#FF6B6B]/10 backdrop-blur-md rounded-full border-2 border-[#FF6B6B] shadow-xl flex items-center justify-center">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" strokeWidth="3" className="w-5 h-5"><polyline points="9 17 4 12 9 7" /><polyline points="15 7 20 12 15 17" /></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#FF6B6B" strokeWidth="3" className="w-5 h-5"><polyline points="9 17 4 12 9 7" /><polyline points="15 7 20 12 15 17" /></svg>
         </div>
       </div>
       <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-medium">{beforeLabel}</div>
@@ -164,7 +164,7 @@ export default function FramasoftPage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#6e3667]">
+    <main id="main-content" className="w-full min-h-screen bg-[#6e3667]">
       <AnimatePresence mode="wait">
         {!isExiting && (
           <motion.div key="content" className="w-full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -175,7 +175,7 @@ export default function FramasoftPage() {
             <motion.div className="w-full" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
               <motion.div variants={fadeInUp} className="absolute top-24 left-6 md:top-32 md:left-8 z-[100]">
                 <button onClick={handleBack} className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/90 backdrop-blur-sm border border-white/20 hover:bg-[#6e3667] active:scale-[0.95] transition-all duration-300 hover:-translate-x-1 group shadow-lg">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e3667" strokeWidth="2" className="transition-colors duration-300 group-hover:stroke-white"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e3667" strokeWidth="2" className="transition-colors duration-300 group-hover:stroke-white"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 </button>
               </motion.div>
 
@@ -279,6 +279,6 @@ export default function FramasoftPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 }

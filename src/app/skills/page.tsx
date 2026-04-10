@@ -105,7 +105,7 @@ export default function SkillsPage() {
     : [];
 
   return (
-    <main className="min-h-screen w-full" style={{ backgroundColor: "var(--theme-bg-alt)", fontFamily: "var(--font-body)" }}>
+    <main id="main-content" className="min-h-screen w-full" style={{ backgroundColor: "var(--theme-bg-alt)", fontFamily: "var(--font-body)" }}>
       <section className="w-full max-w-5xl mx-auto px-4 md:px-8 py-20 md:py-32">
 
         <div className="mb-16 md:mb-20">

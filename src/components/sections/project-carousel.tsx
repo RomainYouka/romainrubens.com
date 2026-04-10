@@ -259,7 +259,7 @@ export default function ProjectCarousel() {
 
                   <Image
                     src={image}
-                    alt={`Image ${index}`}
+                    alt={`Slide ${index + 1}`}
                     fill
                     className="object-contain select-none"
                     draggable={false}

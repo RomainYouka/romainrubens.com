@@ -10,6 +10,7 @@ const footerTranslations = {
     reportProblem: "Signaler un problème",
     legal: "Mentions légales",
     sitemap: "Plan du site",
+    accessibility: "Accessibilité : totalement conforme",
   },
   EN: {
     copyright: "© 2026 Romain Rubens. All rights reserved.",
@@ -17,6 +18,7 @@ const footerTranslations = {
     reportProblem: "Report a problem",
     legal: "Legal Notice",
     sitemap: "Site Map",
+    accessibility: "Accessibility: fully compliant",
   },
   ՀԱՅ: {
     copyright: "© 2026 Ռոման Ռուբենս. Բոլոր իրավունքները պաշտպանված են.",
@@ -24,6 +26,7 @@ const footerTranslations = {
     reportProblem: "Տեղեկացնել խնդրի վերաբերյալ",
     legal: "Իրավական տեղեկություններ",
     sitemap: "Կայքի քարտեզ",
+    accessibility: "Հասանելիություն՝ լիովին համապատասխան",
   },
 };
 
@@ -70,6 +73,7 @@ const GlobalFooter = () => {
   return (
     <>
     <footer
+      role="contentinfo"
       className="border-t transition-colors duration-300"
       data-section="footer"
       style={{
@@ -160,6 +164,27 @@ const GlobalFooter = () => {
             }}
           >
             {currentTranslations.sitemap}
+          </button>
+          <span style={{ color: "#6e6e73" }}>|</span>
+          <button
+            onClick={() => router.push("/accessibilite")}
+            style={{
+              color: "#6e6e73",
+              textDecoration: "none",
+              cursor: "pointer",
+              background: "none",
+              border: "none",
+              padding: 0,
+              font: "inherit",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#314DCB";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#6e6e73";
+            }}
+          >
+            {currentTranslations.accessibility}
           </button>
         </div>
       </div>

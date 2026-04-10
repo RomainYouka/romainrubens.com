@@ -176,7 +176,7 @@ export default function LegalPage() {
   const t = translations[language];
 
   return (
-    <div className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
+    <main id="main-content" className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
       <div className="flex-1 w-full flex justify-center pt-20 md:pt-24 pb-4 md:pb-24 px-4 md:px-8">
         <div className="w-full max-w-[1234px]">
           {/* Title */}
@@ -317,6 +317,6 @@ export default function LegalPage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

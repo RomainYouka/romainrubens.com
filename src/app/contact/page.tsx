@@ -37,38 +37,38 @@ const contactTranslations = {
 };
 
 const PDFIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M9 2H5C3.9 2 3 2.9 3 4v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9l-7-7z" fill="currentColor" />
     <path d="M16 9h-7V2v7z" fill="currentColor" opacity="0.3" />
   </svg>
 );
 
 const GmailLogo = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M22 4H2C0.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 6L2 8V6l10 6 10-6v2z" fill="currentColor" />
   </svg>
 );
 
 const LinkedInLogo = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="currentColor">
     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
   </svg>
 );
 
 const MediumLogo = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="currentColor">
     <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
   </svg>
 );
 
 const PinterestLogo = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="currentColor">
     <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.965 1.406-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.261 7.929-7.261 4.162 0 7.396 2.966 7.396 6.929 0 4.135-2.607 7.462-6.225 7.462-1.214 0-2.354-.629-2.746-1.373l-.749 2.853c-.271 1.031-1.002 2.324-1.492 3.12 1.13.348 2.324.537 3.559.537 6.621 0 11.988-5.367 11.988-11.987C23.987 5.367 18.621 0 12.017 0z" />
   </svg>
 );
 
 const BehanceLogo = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path d="M10.228 15.386c0 1.476-.966 1.962-2.173 1.962H5.804v-3.96h2.361c1.318 0 2.063.568 2.063 1.998zm-.249-4.44c0-1.297-.876-1.705-2.007-1.705H5.804v3.498h2.273c1.205 0 1.902-.59 1.902-1.793zm8.084 1.66H14.54c.1-1.373.95-2.132 2.01-2.132 1.129 0 1.744.715 1.713 2.132zm3.44 4.04c-.368 1.11-1.353 2.76-3.777 2.76-2.425 0-4.249-1.498-4.249-4.593 0-2.975 1.768-4.691 4.188-4.691 2.562 0 4.032 1.71 4.032 4.617v.68h-5.543c.145 1.619 1.049 2.278 2.225 2.278 1.129 0 1.74-.618 1.976-1.468l1.148.417zM.4 5.804h5.882c2.69 0 4.413 1.42 4.413 3.818 0 1.473-.716 2.56-1.774 3.087 1.479.462 2.365 1.74 2.365 3.305 0 2.727-1.869 4.182-4.827 4.182H.4V5.804zm23.2 0H14.4v1.35H23.6V5.804z"/>
   </svg>
 );
@@ -143,6 +143,7 @@ export default function ContactPage() {
 
   return (
     <main
+      id="main-content"
       className="min-h-screen pt-20 md:pt-24"
       style={{ fontFamily: "var(--font-body)", backgroundColor: "var(--theme-bg-alt)" }}
     >

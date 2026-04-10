@@ -202,7 +202,7 @@ export default function NameQuestPage() {
   };
 
   return (
-    <div className="w-full min-h-screen" style={{ backgroundColor: "#EBEFF0" }}>
+    <main id="main-content" className="w-full min-h-screen" style={{ backgroundColor: "#EBEFF0" }}>
       <AnimatePresence>
         {showOverlay && <motion.div className="fixed inset-0 z-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }} style={{ backgroundColor: "#EBEFF0" }} />}
       </AnimatePresence>
@@ -638,6 +638,6 @@ export default function NameQuestPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 }

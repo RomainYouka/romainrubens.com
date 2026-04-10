@@ -457,7 +457,7 @@ export default function PortfolioPage() {
         </div>
       )}
 
-      <div className="w-full min-h-screen flex justify-center py-5 md:mt-[20px] pb-32 md:pb-12" style={{ backgroundColor: "var(--theme-bg)" }}>
+      <main id="main-content" className="w-full min-h-screen flex justify-center py-5 md:mt-[20px] pb-32 md:pb-12" style={{ backgroundColor: "var(--theme-bg)" }}>
         <div className="flex w-full max-w-[1234px] h-auto px-4 md:px-8 lg:px-12 xl:px-4 mt-16 md:mt-[40px] relative flex-col items-center gap-12 md:gap-[100px]">
           {!isHydrated ? (
             <div className="w-full flex flex-col gap-12 md:gap-[100px]">
@@ -533,7 +533,7 @@ export default function PortfolioPage() {
             </>
           )}
         </div>
-      </div>
+      </main>
     </>
   );
 }

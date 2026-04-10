@@ -10,7 +10,7 @@ export default function Home() {
   useSnapScroll();
 
   return (
-    <main className="min-h-screen w-full" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
+    <main id="main-content" className="min-h-screen w-full" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
       <div className="w-full">
         <HeroLanding />
       </div>

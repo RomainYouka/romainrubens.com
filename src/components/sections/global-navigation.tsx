@@ -466,6 +466,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   return (
     <>
       <header
+        role="banner"
         className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ease-in-out ${
           isLightboxOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
@@ -475,7 +476,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
           paddingRight: isScrolled ? "12px" : "0"
         }}>
 
-        <div 
+        <div
           className={`transition-all duration-300 ease-in-out ${
             isScrolled ? "shadow-[0_4px_12px_rgba(0,0,0,0.08)]" : ""
           }`}
@@ -487,7 +488,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
             borderBottom: isScrolled ? "none" : `1px solid ${borderColor}`
           }}>
           <div className="mx-auto h-16 max-w-[1200px] px-6">
-            <nav className="flex h-full w-full items-center justify-between">
+            <nav role="navigation" aria-label="Navigation principale" className="flex h-full w-full items-center justify-between">
               <div className="hidden h-full w-full items-center justify-between lg:flex">
                 <a
                   href="/"

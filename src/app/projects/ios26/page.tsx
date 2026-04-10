@@ -395,7 +395,7 @@ export default function IOS26Page() {
   };
 
   return (
-    <div className="w-full min-h-screen" style={{ backgroundColor: "#000000" }}>
+    <main id="main-content" className="w-full min-h-screen" style={{ backgroundColor: "#000000" }}>
       <AnimatePresence mode="wait">
         {!isExiting && (
           <motion.div key="content" className="w-full" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
@@ -764,6 +764,6 @@ export default function IOS26Page() {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

@@ -29,14 +29,33 @@ const notoSansArmenian = Noto_Sans_Armenian({
   fallback: ["-apple-system", "system-ui", "sans-serif"],
 });
 
+const siteUrlMeta = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
+
 export const metadata: Metadata = {
-  title: "Romain Rubens",
-  description: "RomainRubens (EN)",
+  title: {
+    default: "Romain Rubens — Designer UX/UI",
+    template: "%s — Romain Rubens",
+  },
+  description: "Portfolio de Romain Rubens, étudiant en design industriel spécialisé UX/UI et design d'interaction.",
+  metadataBase: new URL(siteUrlMeta),
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
   },
   manifest: "/site.webmanifest",
+  openGraph: {
+    type: "website",
+    siteName: "Romain Rubens",
+    title: "Romain Rubens — Designer UX/UI",
+    description: "Portfolio de Romain Rubens, étudiant en design industriel spécialisé UX/UI et design d'interaction.",
+    url: siteUrlMeta,
+    images: [{ url: "/icons/icon.svg", width: 512, height: 512, alt: "Romain Rubens" }],
+  },
+  twitter: {
+    card: "summary",
+    title: "Romain Rubens — Designer UX/UI",
+    description: "Portfolio de Romain Rubens, étudiant en design industriel spécialisé UX/UI et design d'interaction.",
+  },
 };
 
 export const viewport: Viewport = {
@@ -52,28 +71,41 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
-  
   return (
-    <html lang="en" className={`${googleSans.variable} ${googleSansFlex.variable} ${notoSansArmenian.variable}`}>
+    <html lang="fr" className={`${googleSans.variable} ${googleSansFlex.variable} ${notoSansArmenian.variable}`}>
       <head>
         {/* Anti-flash : applique le thème et la couleur du navigateur avant le rendu React */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(!t){var h=new Date().getHours();if(h>=19||h<6)t='dark';}if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}}catch(e){}})()` }} />
         <meta name="theme-color" content="#ffffff" />
+        {/* Preconnect for performance */}
+        <link rel="preconnect" href="https://slelguoygbfzlpylpxfs.supabase.co" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": "Person",
               "name": "Romain Rubens",
-              "url": siteUrl,
-              "logo": `${siteUrl}/icons/icon.svg`
+              "url": siteUrlMeta,
+              "image": `${siteUrlMeta}/icons/icon.svg`,
+              "jobTitle": "Designer UX/UI",
+              "sameAs": [
+                "https://www.linkedin.com/in/romain-rubens-ba660323b/",
+                "https://www.behance.net/rubensromain"
+              ]
             })
           }}
         />
       </head>
       <body className="antialiased bg-white">
+        {/* Lien d'évitement — critère RGAA 12.7 */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:text-white focus:text-sm focus:font-semibold focus:no-underline"
+          style={{ backgroundColor: "#314DCB" }}
+        >
+          Aller au contenu principal
+        </a>
         <LanguageSync />
         <IntroSplashWrapper />
         <Script

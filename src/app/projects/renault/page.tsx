@@ -59,7 +59,7 @@ export default function RenaultPage() {
   };
 
   return (
-    <main style={{ fontFamily: "var(--font-body)", backgroundColor: "#1d1d1f", overflowX: "hidden" }}>
+    <main id="main-content" style={{ fontFamily: "var(--font-body)", backgroundColor: "#1d1d1f", overflowX: "hidden" }}>
 
       {/* ── HERO ── Dark avec pattern Renault */}
       <section

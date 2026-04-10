@@ -170,7 +170,8 @@ export default function HeroLanding() {
       <div className="absolute inset-0 w-full h-full">
         <Image
           src={bgImage}
-          alt="Background"
+          alt=""
+          role="presentation"
           fill
           className="object-cover"
           priority

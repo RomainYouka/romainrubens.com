@@ -18,6 +18,7 @@ const translations = {
     contact: "Contact",
     resume: "CV / Resume",
     legal: "Mentions légales",
+    accessibility: "Accessibilité",
     inProgress: "(en cours)",
     // Mobile projects
     intratone: "Intratone",
@@ -52,6 +53,7 @@ const translations = {
     contact: "Contact",
     resume: "CV / Resume",
     legal: "Legal Notice",
+    accessibility: "Accessibility",
     inProgress: "(in progress)",
     // Mobile projects
     intratone: "Intratone",
@@ -86,6 +88,7 @@ const translations = {
     contact: "Կապ",
     resume: "CV / Ռեզյումե",
     legal: "Իրավական տեղեկություններ",
+    accessibility: "Հասանելիություն",
     inProgress: "(կա՛մ վերամշակում)",
     // Mobile projects
     intratone: "Intratone",
@@ -184,6 +187,12 @@ const getSections = (): Section[] => [
     items: [
       { label: "legal", href: "/legal", isClickable: true }
     ]
+  },
+  {
+    title: "accessibility",
+    items: [
+      { label: "accessibility", href: "/accessibilite", isClickable: true }
+    ]
   }
 ];
 
@@ -210,7 +219,7 @@ export default function SitemapPage() {
   const sections = getSections();
 
   return (
-    <div className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
+    <main id="main-content" className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
       <div className="flex-1 w-full flex justify-center pt-20 md:pt-24 pb-4 md:pb-24 px-4 md:px-8">
         <div className="w-full max-w-[1234px]">
           {/* Title */}
@@ -403,6 +412,6 @@ export default function SitemapPage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

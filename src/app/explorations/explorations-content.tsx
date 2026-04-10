@@ -240,7 +240,7 @@ export default function ExplorationsPageContent() {
   const BUTTON_IMAGE = "/bouton-aller-sombre.png";
 
   return (
-    <div className="min-h-screen selection:bg-blue-500/30" style={{ backgroundColor: "var(--theme-bg)" }}>
+    <main id="main-content" className="min-h-screen selection:bg-blue-500/30" style={{ backgroundColor: "var(--theme-bg)" }}>
       <AnimatePresence>
         {expandingCard && (
           <motion.div
@@ -306,6 +306,6 @@ export default function ExplorationsPageContent() {
 
         </div>
       </div>
-    </div>
+    </main>
   );
 }

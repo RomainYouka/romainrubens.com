@@ -158,7 +158,7 @@ export default function VahanSoghomonianPage() {
   ];
 
   return (
-    <div className="w-full min-h-screen" style={{ backgroundColor: "#4A3728" }}>
+    <main id="main-content" className="w-full min-h-screen" style={{ backgroundColor: "#4A3728" }}>
       <AnimatePresence mode="wait">
         {!isExiting && (
           <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="w-full">
@@ -169,7 +169,7 @@ export default function VahanSoghomonianPage() {
             <motion.div className="w-full" variants={containerVariants} initial="hidden" animate="visible" exit="exit">
               <motion.div variants={fadeInUp} className="absolute top-24 left-6 md:top-32 md:left-8 z-[100]">
                 <button onClick={handleBack} className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/90 backdrop-blur-sm border border-white/20 hover:bg-[#6D5340] active:scale-[0.95] transition-all duration-300 hover:-translate-x-1 group shadow-lg">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A3728" strokeWidth="2" className="transition-colors duration-300 group-hover:stroke-white"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A3728" strokeWidth="2" className="transition-colors duration-300 group-hover:stroke-white"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 </button>
               </motion.div>
 
@@ -223,6 +223,6 @@ export default function VahanSoghomonianPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 }
