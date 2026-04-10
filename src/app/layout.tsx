@@ -33,6 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Anti-flash : applique le thème avant le rendu React pour éviter le scintillement */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(!t){var h=new Date().getHours();if(h>=19||h<6)t='dark';}if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})()` }} />
         <link rel="preload" href="/fonts/google-sans.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/google-sans-flex.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <script

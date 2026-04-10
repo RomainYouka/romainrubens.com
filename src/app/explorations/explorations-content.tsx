@@ -159,7 +159,8 @@ const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, buttonIm
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[12px] border border-[#3F3F3F] cursor-pointer block"
+      className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[12px] cursor-pointer block"
+      style={{ border: "1px solid var(--theme-border)" }}
       whileHover={{ 
         scale: 1.02, 
         boxShadow: isComingSoon
@@ -239,7 +240,7 @@ export default function ExplorationsPageContent() {
   const BUTTON_IMAGE = "/bouton-aller-sombre.png";
 
   return (
-    <div className="bg-[#121212] min-h-screen selection:bg-blue-500/30">
+    <div className="min-h-screen selection:bg-blue-500/30" style={{ backgroundColor: "var(--theme-bg)" }}>
       <AnimatePresence>
         {expandingCard && (
           <motion.div
@@ -263,7 +264,7 @@ export default function ExplorationsPageContent() {
               ease: [0.32, 0.72, 0, 1],
             }}
             style={{
-              backgroundColor: "#121212",
+              backgroundColor: "var(--theme-bg)",
             }}
           />
         )}
@@ -279,8 +280,8 @@ export default function ExplorationsPageContent() {
               <BlueBanner language={language} />
 
               <div className="w-full">
-                <div className="bg-[#272727] border border-[#3F3F3F] h-10 lg:h-12 rounded-[20px] flex items-center justify-center w-full">
-                  <span className="font-semibold text-[9px] sm:text-[11px] lg:text-[calc(10px+0.8vw)] leading-tight text-center text-[#FFFFFF]">
+                <div className="h-10 lg:h-12 rounded-[20px] flex items-center justify-center w-full border" style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-border)" }}>
+                  <span className="font-semibold text-[9px] sm:text-[11px] lg:text-[calc(10px+0.8vw)] leading-tight text-center" style={{ color: "var(--theme-fg)" }}>
                     {t.title}
                   </span>
                 </div>

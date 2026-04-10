@@ -4,6 +4,8 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Languages, Check } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
 
 // Animated Burger Icon Component
 const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean, isDark: boolean }) => {
@@ -349,6 +351,7 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: "FR" | "
 };
 
 const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
+  const { isDark } = useTheme();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -359,8 +362,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
 
   const isExplorationsPage = pathname === "/explorations";
   const logoIconSrc = isScrolled
-    ? (isExplorationsPage ? "/icons/icon.short.white.svg" : "/icons/icon.short.svg")
-    : (isExplorationsPage ? "/icons/icon.white.svg" : "/icons/icon.svg");
+    ? (isDark ? "/icons/icon.short.white.svg" : "/icons/icon.short.svg")
+    : (isDark ? "/icons/icon.white.svg" : "/icons/icon.svg");
 
   useEffect(() => {
     let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
@@ -453,10 +456,10 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
       : false,
     []);
 
-  const textColor = isExplorationsPage ? "#FFFFFF" : "#1d1d1f";
-  const navBgColor = isExplorationsPage ? "#121212" : "#FFFFFF";
-  const borderColor = isExplorationsPage ? "#3F3F3F" : "#D3D3D4";
-  const scrolledBgColor = isExplorationsPage ? "rgba(18, 18, 18, 0.85)" : "rgba(255, 255, 255, 0.85)";
+  const textColor    = "var(--theme-fg)";
+  const navBgColor   = "var(--theme-nav-bg)";
+  const borderColor  = "var(--theme-border)";
+  const scrolledBgColor = "var(--theme-nav-scrolled)";
 
   return (
     <>
@@ -522,8 +525,9 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     onLanguageChange={handleLanguageChange}
                     isScrolled={isScrolled}
                     onToggle={handleLanguageDropdownToggle}
-                    isDark={isExplorationsPage} />
-                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isExplorationsPage} />
+                    isDark={isDark} />
+                  <ThemeToggle />
+                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} />
                 </div>
               </div>
 
@@ -544,21 +548,21 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                   <LogoIcon className="h-3.5 w-auto fill-current relative z-10" isDark={isExplorationsPage} iconSrc={logoIconSrc} />
                 </a>
                 <div className="flex items-center h-9 gap-5">
-                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isExplorationsPage} />
+                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} />
                   <div className="flex items-center justify-center h-9">
                     <LanguageSelector
                       selectedLanguage={selectedLanguage}
                       onLanguageChange={handleLanguageChange}
                       isScrolled={isScrolled}
                       onToggle={handleLanguageDropdownToggle}
-                      isDark={isExplorationsPage} />
+                      isDark={isDark} />
                   </div>
                   <button
                     onClick={handleMenuToggle}
                     className="flex items-center justify-center h-9 transition-opacity duration-200 hover:opacity-80"
                     style={{ color: textColor }}
                     aria-label="Toggle menu">
-                    <AnimatedBurgerIcon isOpen={isMenuOpen} isDark={isExplorationsPage} />
+                    <AnimatedBurgerIcon isOpen={isMenuOpen} isDark={isDark} />
                   </button>
                 </div>
               </div>
@@ -573,7 +577,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
         }`}
         style={{ backgroundColor: navBgColor }}
       >
-        <div className="h-full overflow-y-auto px-6 pt-8">
+        <div className="h-full overflow-y-auto px-6 pt-8 flex flex-col justify-between pb-8">
           <div className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <Link
@@ -586,6 +590,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
               </Link>
             ))}
           </div>
+          <ThemeToggleMobile selectedLanguage={selectedLanguage} borderColor={borderColor} />
         </div>
       </div>
     </>

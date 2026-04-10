@@ -32,7 +32,6 @@ const GlobalFooter = () => {
   const router = useRouter();
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
 
-  const isExplorationsPage = pathname === "/explorations";
   useEffect(() => {
     let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
     if (!saved || !footerTranslations[saved as keyof typeof footerTranslations]) {
@@ -56,9 +55,9 @@ const GlobalFooter = () => {
 
   const currentTranslations = footerTranslations[selectedLanguage];
 
-  const bgColor = isExplorationsPage ? "#121212" : "#FFFFFF";
-  const textColor = isExplorationsPage ? "#FFFFFF" : "#1d1d1f";
-  const borderColor = isExplorationsPage ? "#3F3F3F" : "#D3D3D4";
+  const bgColor    = "var(--theme-bg)";
+  const textColor  = "var(--theme-fg)";
+  const borderColor = "var(--theme-border)";
 
   const pdfFiles = {
     FR: "/resume/RUBENS_Romain_Logo_Guidelines_FR.pdf",
