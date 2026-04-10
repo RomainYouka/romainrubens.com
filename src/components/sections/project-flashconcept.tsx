@@ -119,7 +119,7 @@ export default function ProjectFlashConcept({ language }: ProjectFlashConceptPro
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(12px, 1.2vw, 14px)",
                 fontWeight: 600,
-                color: "#86868b",
+                color: "var(--theme-subtle)",
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
                 marginBottom: "clamp(8px, 1vw, 12px)"
@@ -147,7 +147,7 @@ export default function ProjectFlashConcept({ language }: ProjectFlashConceptPro
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(13px, 1.3vw, 15px)",
                 fontWeight: 500,
-                color: "#86868b",
+                color: "var(--theme-subtle)",
                 lineHeight: 1.4,
                 letterSpacing: "-0.01em",
                 marginBottom: "clamp(16px, 2vw, 20px)"

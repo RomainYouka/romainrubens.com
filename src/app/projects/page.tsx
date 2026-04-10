@@ -299,7 +299,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
       />
       <div className="flex items-end justify-between p-0 h-full pl-[26px] pr-[13px] pb-[13px] relative z-10">
-        <span className="font-light text-[#9C9C9C] text-[9px] tracking-[0] leading-[normal] select-none">
+        <span className="font-light text-[var(--theme-subtle)] text-[9px] tracking-[0] leading-[normal] select-none">
           {year}
         </span>
         <div className="w-8 h-8 md:w-10 md:h-10 p-0 pointer-events-none flex-shrink-0">

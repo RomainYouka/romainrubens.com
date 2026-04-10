@@ -168,7 +168,7 @@ export default function AccessibilitePage() {
             <ul style={{ ...textStyle, paddingLeft: "20px", listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
               {t.approachList.map((item, i) => (
                 <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
-                  <span style={{ color: "#314DCB", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
+                  <span style={{ color: "var(--theme-accent)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -182,7 +182,7 @@ export default function AccessibilitePage() {
             <ul style={{ ...textStyle, paddingLeft: "20px", listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>
               {t.techList.map((tech, i) => (
                 <li key={i} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <span style={{ color: "#314DCB", fontWeight: 700, flexShrink: 0 }}>—</span>
+                  <span style={{ color: "var(--theme-accent)", fontWeight: 700, flexShrink: 0 }}>—</span>
                   <span>{tech}</span>
                 </li>
               ))}
@@ -211,7 +211,7 @@ export default function AccessibilitePage() {
               href={`mailto:${t.contactEmail}`}
               style={{
                 display: "inline-block",
-                color: "#314DCB",
+                color: "var(--theme-accent)",
                 fontFamily: "var(--font-body)",
                 fontSize: "15px",
                 fontWeight: 500,

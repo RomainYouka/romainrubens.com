@@ -87,47 +87,47 @@ const GlobalFooter = () => {
         </p>
 
         {/* Footer links section */}
-        <div className="flex flex-wrap items-center justify-start md:justify-center gap-1 text-[10px] md:text-xs" style={{ color: "#6e6e73" }}>
+        <div className="flex flex-wrap items-center justify-start md:justify-center gap-1 text-[10px] md:text-xs" style={{ color: "var(--theme-subtle)" }}>
           <a
             href={pdfUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: "#6e6e73",
+              color: "var(--theme-subtle)",
               textDecoration: "none",
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#314DCB";
+              e.currentTarget.style.color = "var(--theme-accent)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#6e6e73";
+              e.currentTarget.style.color = "var(--theme-subtle)";
             }}
           >
             {currentTranslations.logoGuide}
           </a>
-          <span style={{ color: "#6e6e73" }}>|</span>
+          <span style={{ color: "var(--theme-subtle)" }}>|</span>
           <a
             href="mailto:report@romainrubens.com"
             style={{
-              color: "#6e6e73",
+              color: "var(--theme-subtle)",
               textDecoration: "none",
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#314DCB";
+              e.currentTarget.style.color = "var(--theme-accent)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#6e6e73";
+              e.currentTarget.style.color = "var(--theme-subtle)";
             }}
           >
             {currentTranslations.reportProblem}
           </a>
-          <span style={{ color: "#6e6e73" }}>|</span>
+          <span style={{ color: "var(--theme-subtle)" }}>|</span>
           <button
             onClick={() => router.push("/legal")}
             style={{
-              color: "#6e6e73",
+              color: "var(--theme-subtle)",
               textDecoration: "none",
               cursor: "pointer",
               background: "none",
@@ -136,19 +136,19 @@ const GlobalFooter = () => {
               font: "inherit",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#314DCB";
+              e.currentTarget.style.color = "var(--theme-accent)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#6e6e73";
+              e.currentTarget.style.color = "var(--theme-subtle)";
             }}
           >
             {currentTranslations.legal}
           </button>
-          <span style={{ color: "#6e6e73" }}>|</span>
+          <span style={{ color: "var(--theme-subtle)" }}>|</span>
           <button
             onClick={() => router.push("/sitemap")}
             style={{
-              color: "#6e6e73",
+              color: "var(--theme-subtle)",
               textDecoration: "none",
               cursor: "pointer",
               background: "none",
@@ -157,19 +157,19 @@ const GlobalFooter = () => {
               font: "inherit",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#314DCB";
+              e.currentTarget.style.color = "var(--theme-accent)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#6e6e73";
+              e.currentTarget.style.color = "var(--theme-subtle)";
             }}
           >
             {currentTranslations.sitemap}
           </button>
-          <span style={{ color: "#6e6e73" }}>|</span>
+          <span style={{ color: "var(--theme-subtle)" }}>|</span>
           <button
             onClick={() => router.push("/accessibilite")}
             style={{
-              color: "#6e6e73",
+              color: "var(--theme-subtle)",
               textDecoration: "none",
               cursor: "pointer",
               background: "none",
@@ -178,10 +178,10 @@ const GlobalFooter = () => {
               font: "inherit",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#314DCB";
+              e.currentTarget.style.color = "var(--theme-accent)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#6e6e73";
+              e.currentTarget.style.color = "var(--theme-subtle)";
             }}
           >
             {currentTranslations.accessibility}

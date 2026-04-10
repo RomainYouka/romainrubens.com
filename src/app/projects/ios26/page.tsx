@@ -624,7 +624,7 @@ export default function IOS26Page() {
                             {section.title}
                           </span>
                           <ChevronDown 
-                            className={`w-5 h-5 text-[#86868b] transition-transform duration-300 flex-shrink-0 ${isOpen ? "rotate-180" : ""}`}
+                            className={`w-5 h-5 text-[var(--theme-subtle)] transition-transform duration-300 flex-shrink-0 ${isOpen ? "rotate-180" : ""}`}
                           />
                         </button>
                         

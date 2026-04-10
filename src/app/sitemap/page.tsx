@@ -299,7 +299,7 @@ export default function SitemapPage() {
                           <Link
                             href={item.href}
                             style={{
-                              color: "#314DCB",
+                              color: "var(--theme-accent)",
                               textDecoration: "none",
                               cursor: "pointer",
                               display: "block",
@@ -381,7 +381,7 @@ export default function SitemapPage() {
                           <Link
                             href={item.href}
                             style={{
-                              color: "#314DCB",
+                              color: "var(--theme-accent)",
                               textDecoration: "none",
                               cursor: "pointer",
                             }}

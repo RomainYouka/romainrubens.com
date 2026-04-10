@@ -103,7 +103,7 @@ export default function ProjectIntratone({ language = "EN" }: ProjectIntratonePr
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(12px, 1.2vw, 14px)",
                 fontWeight: 600,
-                color: "#86868b",
+                color: "var(--theme-subtle)",
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
                 marginBottom: "clamp(8px, 1vw, 12px)"
@@ -235,7 +235,7 @@ export default function ProjectIntratone({ language = "EN" }: ProjectIntratonePr
                 fontFamily: "var(--font-body)",
                 fontSize: "15px",
                 fontWeight: 400,
-                color: "#86868b",
+                color: "var(--theme-subtle)",
                 lineHeight: 1.5,
                 marginBottom: "24px"
               }}

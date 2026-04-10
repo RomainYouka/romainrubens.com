@@ -235,7 +235,7 @@ export default function LegalPage() {
                         key={i}
                         href={isEmail ? `mailto:${part}` : `https://${part}`}
                         style={{
-                          color: "#314DCB",
+                          color: "var(--theme-accent)",
                           textDecoration: "none",
                           cursor: "pointer",
                         }}
@@ -294,7 +294,7 @@ export default function LegalPage() {
                         key={i}
                         href={isEmail ? `mailto:${part}` : `https://${part}`}
                         style={{
-                          color: "#314DCB",
+                          color: "var(--theme-accent)",
                           textDecoration: "none",
                           cursor: "pointer",
                         }}

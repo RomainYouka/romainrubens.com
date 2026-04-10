@@ -67,7 +67,7 @@ export default function ProjectFramaspace({ language }: ProjectFramaspaceProps) 
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(12px, 1.2vw, 14px)",
                 fontWeight: 600,
-                color: "#86868b",
+                color: "var(--theme-subtle)",
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
                 marginBottom: "clamp(8px, 1vw, 12px)"
