@@ -55,7 +55,7 @@ const GlobalFooter = () => {
 
   const currentTranslations = footerTranslations[selectedLanguage];
 
-  const bgColor    = "var(--theme-bg)";
+  const bgColor    = "var(--theme-nav-bg)";
   const textColor  = "var(--theme-fg)";
   const borderColor = "var(--theme-border)";
 

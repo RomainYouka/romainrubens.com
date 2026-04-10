@@ -97,9 +97,9 @@ export function TimeThemePopup() {
         className="relative w-full max-w-[400px] overflow-hidden"
         style={{
           borderRadius: "24px",
-          backgroundColor: "#111111",
-          border: "1px solid rgba(255,255,255,0.1)",
-          boxShadow: "0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset",
+          backgroundColor: "#343434",
+          border: "1px solid #616161",
+          boxShadow: "0 32px 80px rgba(0,0,0,0.5)",
         }}
         initial={{ scale: 0.9, y: 24, opacity: 0 }}
         animate={{ scale: 1, y: 0, opacity: 1 }}

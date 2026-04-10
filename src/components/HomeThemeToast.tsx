@@ -82,10 +82,10 @@ export function HomeThemeToast() {
             className="overflow-hidden"
             style={{
               borderRadius: "20px",
-              backgroundColor: isDark ? "#161616" : "#ffffff",
-              border: `1px solid ${isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)"}`,
+              backgroundColor: isDark ? "#343434" : "#ffffff",
+              border: `1px solid ${isDark ? "#616161" : "rgba(0,0,0,0.08)"}`,
               boxShadow: isDark
-                ? "0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset"
+                ? "0 20px 60px rgba(0,0,0,0.4)"
                 : "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
             }}
           >
@@ -116,7 +116,7 @@ export function HomeThemeToast() {
                   </div>
                   <span
                     className="font-semibold text-[13px] leading-tight"
-                    style={{ color: isDark ? "#ffffff" : "#1d1d1f" }}
+                    style={{ color: "var(--theme-fg)" }}
                   >
                     {t.title}
                   </span>
@@ -146,7 +146,7 @@ export function HomeThemeToast() {
                   className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-[12px] font-medium transition-all duration-150 active:scale-95"
                   style={
                     isDark
-                      ? { backgroundColor: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)" }
+                      ? { backgroundColor: "#343434", color: "rgba(255,255,255,0.55)", border: "1px solid #616161" }
                       : { background: "linear-gradient(135deg, #1e3a8a, #314DCB)", color: "#ffffff", boxShadow: "0 2px 8px rgba(49,77,203,0.3)" }
                   }
                 >
@@ -158,7 +158,7 @@ export function HomeThemeToast() {
                   className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-[12px] font-medium transition-all duration-150 active:scale-95"
                   style={
                     !isDark
-                      ? { backgroundColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)", color: isDark ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.45)", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}` }
+                      ? { backgroundColor: "rgba(0,0,0,0.05)", color: "rgba(0,0,0,0.45)", border: "1px solid rgba(0,0,0,0.08)" }
                       : { background: "linear-gradient(135deg, #e8e8e8, #ffffff)", color: "#1d1d1f", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }
                   }
                 >

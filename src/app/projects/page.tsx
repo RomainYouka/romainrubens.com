@@ -197,7 +197,7 @@ const NavigationButtons = ({ activeSection, language }: { activeSection: "mobile
             className="h-10 lg:h-12 rounded-[20px] transition-all duration-200 cursor-pointer flex items-center justify-center border active:scale-[0.98]"
             style={{
               backgroundColor: isActive ? "var(--theme-btn-bg)"  : "var(--theme-pill-bg)",
-              borderColor:     isActive ? "transparent"           : "var(--theme-pill-border)",
+              borderColor:     isActive ? "var(--theme-btn-border)" : "var(--theme-pill-border)",
               color:           isActive ? "var(--theme-btn-fg)"  : "var(--theme-fg)",
             }}
           >

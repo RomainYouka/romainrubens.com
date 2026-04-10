@@ -176,12 +176,12 @@ const LanguageSelector = ({
   };
 
   const textColor      = isDark ? "#FFFFFF" : "#1d1d1f";
-  const bgColor        = isDark ? "#121212" : "#FFFFFF";
-  const hoverBgColor   = isDark ? "#1e1e1e" : "#F5F5F7";
-  const borderColor    = isDark ? "#3F3F3F" : "#D3D3D4";
-  // Sélection : pill inversée (sombre sur clair, clair sur sombre)
-  const selectedBg     = isDark ? "#F5F5F5" : "#1d1d1f";
-  const selectedColor  = isDark ? "#1d1d1f" : "#FFFFFF";
+  const bgColor        = isDark ? "#191919" : "#FFFFFF";
+  const hoverBgColor   = isDark ? "#343434" : "#F5F5F7";
+  const borderColor    = isDark ? "#616161" : "#D3D3D4";
+  const selectedBg     = isDark ? "#314DCB" : "#1d1d1f";
+  const selectedBorder = isDark ? "#5194FF" : "transparent";
+  const selectedColor  = "#FFFFFF";
 
   return (
     <div className="relative" ref={dropdownRef} style={{ margin: 0, padding: 0 }}>
@@ -242,6 +242,7 @@ const LanguageSelector = ({
                     padding: "8px 0",
                     backgroundColor: isSelected ? selectedBg : "transparent",
                     color: isSelected ? selectedColor : textColor,
+                    border: `1px solid ${isSelected ? selectedBorder : "transparent"}`,
                   }}
                   onMouseEnter={(e) => {
                     if (!isSelected) {
@@ -295,8 +296,9 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: "FR" | "
     document.body.removeChild(link);
   };
 
-  const bgColor = isDark ? "#e8e8e8" : "#1d1d1f";
-  const textColor = isDark ? "#1d1d1f" : "#ffffff";
+  const bgColor = isDark ? "#314DCB" : "#1d1d1f";
+  const btnBorder = isDark ? "#5194FF" : "transparent";
+  const textColor = "#ffffff";
 
   return (
     <button
@@ -307,7 +309,7 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: "FR" | "
       style={{
         backgroundColor: bgColor,
         color: textColor,
-        border: `1px solid ${bgColor}`,
+        border: `1px solid ${btnBorder}`,
         borderRadius: "980px",
         padding: "8px 16px",
         height: "36px",
