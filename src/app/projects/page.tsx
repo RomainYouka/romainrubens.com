@@ -95,7 +95,6 @@ const mobileProjects = [
     image: "/projects/blocks/renault.webp",
     year: "2026",
     slug: "renault",
-    externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
     isComingSoon: false,
     isPriority: false,
   },
