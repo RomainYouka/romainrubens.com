@@ -10,7 +10,7 @@ const footerTranslations = {
     reportProblem: "Signaler un problème",
     legal: "Mentions légales",
     sitemap: "Plan du site",
-    accessibility: "Accessibilité : totalement conforme",
+    accessibility: "Accessibilité",
   },
   EN: {
     copyright: "© 2026 Romain Rubens. All rights reserved.",
@@ -18,7 +18,7 @@ const footerTranslations = {
     reportProblem: "Report a problem",
     legal: "Legal Notice",
     sitemap: "Site Map",
-    accessibility: "Accessibility: fully compliant",
+    accessibility: "Accessibility",
   },
   ՀԱՅ: {
     copyright: "© 2026 Ռոման Ռուբենս. Բոլոր իրավունքները պաշտպանված են.",
@@ -26,7 +26,7 @@ const footerTranslations = {
     reportProblem: "Տեղեկացնել խնդրի վերաբերյալ",
     legal: "Իրավական տեղեկություններ",
     sitemap: "Կայքի քարտեզ",
-    accessibility: "Հասանելիություն՝ լիովին համապատասխան",
+    accessibility: "Հասանելիություն",
   },
 };
 

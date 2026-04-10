@@ -1,157 +1,104 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
 const translations = {
   FR: {
-    title: "Déclaration d'accessibilité",
-    conformityStatus: "État de conformité",
-    conformityText: "Romain Rubens s'engage à rendre son site internet accessible conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005. La présente déclaration d'accessibilité s'applique au site romainrubens.com.",
-    conformityResult: "Le site romainrubens.com est",
-    conformityLevel: "totalement conforme",
-    conformityRGAA: "avec le référentiel général d'amélioration de l'accessibilité (RGAA), version 4.1.",
-    auditResultsTitle: "Résultats de l'audit",
-    auditText: "L'audit de conformité réalisé par auto-évaluation révèle que :",
-    auditCompliant: "100 % des critères RGAA sont respectés.",
-    technologiesTitle: "Technologies utilisées",
-    technologiesList: ["React 19", "Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4"],
-    testEnvTitle: "Environnement de test",
-    testEnvText: "Les vérifications de rendu des pages ont été effectuées sur la base de la combinaison fournie par la base de référence RGAA :",
-    testEnvList: [
-      "Chrome (dernière version) + NVDA (Windows)",
-      "Safari (dernière version) + VoiceOver (macOS)",
-      "Firefox (dernière version) + NVDA (Windows)",
+    title: "Accessibilité",
+    intro: "Ce site s'inscrit dans une démarche volontaire d'accessibilité numérique. Les choix de conception s'appuient sur les recommandations du RGAA 4 (Référentiel Général d'Amélioration de l'Accessibilité) et des WCAG 2.1, sans pour autant constituer une déclaration de conformité officielle.",
+
+    approachTitle: "Notre démarche",
+    approachText: "Une attention particulière est portée aux points suivants :",
+    approachList: [
+      "Navigation au clavier et gestion du focus",
+      "Compatibilité avec les technologies d'assistance (lecteurs d'écran)",
+      "Contraste des couleurs et lisibilité des textes",
+      "Structure sémantique des pages (titres, landmarks, listes)",
+      "Alternatives textuelles pour les éléments non textuels",
+      "Indication de la langue de la page",
+      "Lien d'évitement vers le contenu principal",
     ],
-    pagesTestedTitle: "Pages ayant fait l'objet de la vérification de conformité",
-    pagesTested: [
-      { label: "Accueil", href: "/" },
-      { label: "Projets", href: "/projects" },
-      { label: "Compétences", href: "/skills" },
-      { label: "Explorations", href: "/explorations" },
-      { label: "Contact", href: "/contact" },
-      { label: "Mentions légales", href: "/legal" },
-      { label: "Plan du site", href: "/sitemap" },
-      { label: "Renault — App Extension", href: "/projects/renault" },
-      { label: "Intratone", href: "/projects/intratone" },
-      { label: "Framasoft", href: "/projects/framasoft" },
-    ],
-    feedbackTitle: "Retour d'information et contact",
-    feedbackText: "Si vous n'arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable du site pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.",
-    feedbackEmail: "Contacter par e-mail",
-    feedbackEmailAddress: "report@romainrubens.com",
-    remediationTitle: "Voies de recours",
-    remediationText: "Cette procédure est à utiliser dans le cas suivant : vous avez signalé au responsable du site internet un défaut d'accessibilité qui vous empêche d'accéder à un contenu ou à un de vos services et vous n'avez pas obtenu de réponse satisfaisante.",
-    remediationList: [
-      "Écrire un message au Défenseur des droits",
-      "Contacter le délégué du Défenseur des droits dans votre région",
-      "Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) : Défenseur des droits, Libre réponse 71120, 75342 Paris CEDEX 07",
-    ],
-    dateTitle: "Date d'établissement de la déclaration",
-    dateText: "Cette déclaration a été établie le 10 avril 2026.",
-    dateUpdate: "Elle a été mise à jour le 10 avril 2026.",
+
+    techTitle: "Technologies utilisées",
+    techText: "Le site est développé avec les technologies suivantes :",
+    techList: ["React 19", "Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4"],
+
+    limitsTitle: "Limites connues",
+    limitsText: "Certaines parties du site peuvent encore présenter des imperfections en matière d'accessibilité. Ce site est un portfolio en constante évolution, et des améliorations sont apportées de manière continue. Aucune conformité totale n'est revendiquée.",
+
+    contactTitle: "Une difficulté ? Contactez-nous",
+    contactText: "Si vous rencontrez une difficulté pour accéder à un contenu ou utiliser une fonctionnalité, vous pouvez le signaler à l'adresse suivante. Une réponse sera apportée dans les meilleurs délais.",
+    contactEmail: "report@romainrubens.com",
+
+    dateTitle: "Dernière mise à jour",
+    dateText: "Avril 2026",
   },
   EN: {
-    title: "Accessibility Statement",
-    conformityStatus: "Conformity Status",
-    conformityText: "Romain Rubens is committed to making its website accessible in accordance with French law No. 2005-102 of 11 February 2005. This accessibility statement applies to the website romainrubens.com.",
-    conformityResult: "The website romainrubens.com is",
-    conformityLevel: "fully compliant",
-    conformityRGAA: "with the French General Accessibility Improvement Referential (RGAA), version 4.1.",
-    auditResultsTitle: "Audit Results",
-    auditText: "The compliance audit carried out by self-assessment reveals that:",
-    auditCompliant: "100% of RGAA criteria are met.",
-    technologiesTitle: "Technologies Used",
-    technologiesList: ["React 19", "Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4"],
-    testEnvTitle: "Test Environment",
-    testEnvText: "Page rendering checks were performed based on the combination provided by the RGAA baseline:",
-    testEnvList: [
-      "Chrome (latest version) + NVDA (Windows)",
-      "Safari (latest version) + VoiceOver (macOS)",
-      "Firefox (latest version) + NVDA (Windows)",
+    title: "Accessibility",
+    intro: "This website reflects a voluntary commitment to digital accessibility. Design decisions are guided by the RGAA 4 and WCAG 2.1 guidelines, without constituting an official compliance declaration.",
+
+    approachTitle: "Our approach",
+    approachText: "Particular attention is paid to the following:",
+    approachList: [
+      "Keyboard navigation and focus management",
+      "Compatibility with assistive technologies (screen readers)",
+      "Colour contrast and text readability",
+      "Semantic page structure (headings, landmarks, lists)",
+      "Text alternatives for non-text elements",
+      "Page language declaration",
+      "Skip link to main content",
     ],
-    pagesTestedTitle: "Pages Subject to Compliance Verification",
-    pagesTested: [
-      { label: "Home", href: "/" },
-      { label: "Projects", href: "/projects" },
-      { label: "Skills", href: "/skills" },
-      { label: "Explorations", href: "/explorations" },
-      { label: "Contact", href: "/contact" },
-      { label: "Legal Notice", href: "/legal" },
-      { label: "Site Map", href: "/sitemap" },
-      { label: "Renault — App Extension", href: "/projects/renault" },
-      { label: "Intratone", href: "/projects/intratone" },
-      { label: "Framasoft", href: "/projects/framasoft" },
-    ],
-    feedbackTitle: "Feedback and Contact",
-    feedbackText: "If you are unable to access any content or service, you can contact the website owner to be directed to an accessible alternative or to obtain the content in another format.",
-    feedbackEmail: "Contact by email",
-    feedbackEmailAddress: "report@romainrubens.com",
-    remediationTitle: "Recourse Options",
-    remediationText: "This procedure is to be used in the following case: you have reported an accessibility defect to the website owner that prevents you from accessing content or a service, and you have not received a satisfactory response.",
-    remediationList: [
-      "Write a message to the Défenseur des droits (French rights ombudsman)",
-      "Contact the regional delegate of the Défenseur des droits",
-      "Send a letter by post (free, no stamp required): Défenseur des droits, Libre réponse 71120, 75342 Paris CEDEX 07",
-    ],
-    dateTitle: "Statement Date",
-    dateText: "This statement was established on 10 April 2026.",
-    dateUpdate: "It was last updated on 10 April 2026.",
+
+    techTitle: "Technologies used",
+    techText: "The site is built with the following technologies:",
+    techList: ["React 19", "Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4"],
+
+    limitsTitle: "Known limitations",
+    limitsText: "Some parts of the site may still have accessibility imperfections. This site is an evolving portfolio, and improvements are made on an ongoing basis. No claim of full conformity is made.",
+
+    contactTitle: "Experiencing difficulties? Get in touch",
+    contactText: "If you experience difficulty accessing content or using a feature, you can report it at the address below. A response will be provided as soon as possible.",
+    contactEmail: "report@romainrubens.com",
+
+    dateTitle: "Last updated",
+    dateText: "April 2026",
   },
   ՀԱՅ: {
-    title: "Հասանելիության հայտարարություն",
-    conformityStatus: "Համապատասխանության կարգավիճակ",
-    conformityText: "Romain Rubens-ը պարտավորվում է ապահովել իր կայքի հասանելիությունը՝ համաձայն 2005 թվականի փետրվարի 11-ի N° 2005-102 ֆրանսիական օրենքի: Հасанelioуțyan ayлd hayтaroуțyаn-ը վերաբերում է romainrubens.com կայqin:",
-    conformityResult: "romainrubens.com կայqը",
-    conformityLevel: "լիովին համապատասխան է",
-    conformityRGAA: "RGAA 4.1 չափանիshneрin:",
-    auditResultsTitle: "Ստուguтyan аrdonqneр",
-    auditText: "Ինqnin-геnahatman аuditе cuyc аreс, ор :",
-    auditCompliant: "RGAA chапanishneрi 100%-ը рahpanvum е:",
-    technologiesTitle: "Оgtagорцvаc texnoloqianeр",
-    technologiesList: ["React 19", "Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4"],
-    testEnvTitle: "Тестvayin mijaваyг",
-    testEnvText: "Еjеreri renderi stvagyumnерн irakanacrvel en RGAA havaqa bаzayi аra hеntakvа zuygyutyamb :",
-    testEnvList: [
-      "Chrome (verjin tarberake) + NVDA (Windows)",
-      "Safari (verjin tarberake) + VoiceOver (macOS)",
-      "Firefox (verjin tarberake) + NVDA (Windows)",
+    title: "Հասանելիություն",
+    intro: "Այս կայքը արտացոլում է թվային հասանելիության կամավոր պարտավորություն։ Նախագծման որոշումները հիմնված են RGAA 4 և WCAG 2.1 ուղեցույցների վրա, սակայն չեն հանդիսանում պաշտոնական համապատասխանության հայտարարություն։",
+
+    approachTitle: "Մեր մոտեցումը",
+    approachText: "Հատուկ ուշադրություն է դարձվում հետևյալ կետերին.",
+    approachList: [
+      "Ստեղնաշարի նավիգացիա և ֆոկուսի կառավարում",
+      "Օժանդակ տեխնոլոգիաների հետ համատեղելիություն",
+      "Գույների կոնտրաստ և տեքստի ընթեռնելիություն",
+      "Էջերի իմաստային կառուցվածք",
+      "Ոչ տեքստային տարրերի այլընտրանքներ",
+      "Էջի լեզվի հայտարարություն",
+      "Հիմնական բովանդակությանն անցնելու հղում",
     ],
-    pagesTestedTitle: "Hamapataskhanutyun stougutyaman nenarvac ejer",
-    pagesTested: [
-      { label: "Gakhavayor", href: "/" },
-      { label: "Nakhagcner", href: "/projects" },
-      { label: "Hmtoutyounn'ner", href: "/skills" },
-      { label: "Hetazotoutyounn'ner", href: "/explorations" },
-      { label: "Kap", href: "/contact" },
-      { label: "Iravakan teghekoutyounner", href: "/legal" },
-      { label: "Kayqi kartez", href: "/sitemap" },
-      { label: "Renault — App Extension", href: "/projects/renault" },
-      { label: "Intratone", href: "/projects/intratone" },
-      { label: "Framasoft", href: "/projects/framasoft" },
-    ],
-    feedbackTitle: "Kardziqner ev kap",
-    feedbackText: "Ete chi hajoghanum matknel kontentin kamծarayoutyoun, karogh eq kapveel kayqi pataskhanatory het:",
-    feedbackEmail: "Kardziqnagrel el-poshtov",
-    feedbackEmailAddress: "report@romainrubens.com",
-    remediationTitle: "Baskumneri ukhiner",
-    remediationText: "Ayс kargas вerogehvouм е hетevyal damepqoum:",
-    remediationList: [
-      "Goumel er Défenseur des droits-in",
-      "Kapveel Défenseur des droits-i teghakan hamakecaroghin",
-      "Uharkel namas poshtov (anvar, deghan paxov che): Défenseur des droits, Libre réponse 71120, 75342 Paris CEDEX 07",
-    ],
-    dateTitle: "Haytararoutyani amsakany",
-    dateText: "Ayd haytararoutyoune katarvel er 2026 thrvayin aprili 10-in:",
-    dateUpdate: "Verjin yndarkoumera aprili 10-in:",
+
+    techTitle: "Օgtagорцvаc texnoloqianeр",
+    techText: "Կայqը mшakvum е hетевyal texnoloqianeрov.",
+    techList: ["React 19", "Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4"],
+
+    limitsTitle: "Հայтni саhmanafaкoumneр",
+    limitsText: "Кayqi orosh мaseрum karог ен dеgbum hаsanelioуțyan kaтarelагoutyounneр: Аyd кayqə шаруnakaуtyounn шарауnak portfolio е, ev barelагoumneрn ирakanacrvoum en andrаdz: Лiovin hamapatasvanoуțyan oreve haуtsatroуm chi kaтarvoum:",
+
+    contactTitle: "Khoнdир? Kapveq mer het",
+    contactText: "Ете baхarel eq kontentin matknelov кam goгcarkoutyoun оgtagорцelov, karogh eq hayshoumel hетevi hascein: Pahanjvoum е sрa voronq pahanj tnein:",
+    contactEmail: "report@romainrubens.com",
+
+    dateTitle: "Vervjin bнaкoum",
+    dateText: "Apрil 2026",
   },
 };
 
 export default function AccessibilitePage() {
   const [language, setLanguage] = useState<Language>("FR");
-  const router = useRouter();
 
   useEffect(() => {
     const saved = localStorage.getItem("preferredLanguage") as Language;
@@ -169,15 +116,7 @@ export default function AccessibilitePage() {
 
   const t = translations[language];
 
-  const linkStyle = {
-    color: "#314DCB",
-    textDecoration: "none" as const,
-    cursor: "pointer" as const,
-  };
-
-  const sectionStyle = {
-    marginBottom: "40px",
-  };
+  const sectionStyle = { marginBottom: "40px" };
 
   const headingStyle = {
     fontFamily: "var(--font-display)",
@@ -194,6 +133,12 @@ export default function AccessibilitePage() {
     lineHeight: "1.7",
   };
 
+  const subtleText = {
+    ...textStyle,
+    color: "var(--theme-fg)",
+    opacity: 0.7,
+  };
+
   return (
     <main
       id="main-content"
@@ -205,116 +150,84 @@ export default function AccessibilitePage() {
 
           {/* Titre */}
           <h1
-            className="text-3xl md:text-4xl font-semibold mb-10 md:mb-14"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--theme-fg)",
-              fontWeight: 600,
-            }}
+            className="text-3xl md:text-4xl font-semibold mb-6 md:mb-10"
+            style={{ fontFamily: "var(--font-display)", color: "var(--theme-fg)", fontWeight: 600 }}
           >
             {t.title}
           </h1>
 
-          {/* État de conformité */}
-          <section style={sectionStyle} aria-labelledby="conformity-heading">
-            <h2 id="conformity-heading" style={headingStyle}>{t.conformityStatus}</h2>
-            <p style={{ ...textStyle, marginBottom: "16px" }}>{t.conformityText}</p>
-            <p style={textStyle}>
-              {t.conformityResult}{" "}
-              <strong style={{ color: "#22c55e" }}>{t.conformityLevel}</strong>{" "}
-              {t.conformityRGAA}
-            </p>
-          </section>
+          {/* Introduction */}
+          <p style={{ ...textStyle, marginBottom: "48px", opacity: 0.85, fontSize: "16px", lineHeight: "1.8" }}>
+            {t.intro}
+          </p>
 
-          {/* Résultats de l'audit */}
-          <section style={sectionStyle} aria-labelledby="audit-heading">
-            <h2 id="audit-heading" style={headingStyle}>{t.auditResultsTitle}</h2>
-            <p style={{ ...textStyle, marginBottom: "8px" }}>{t.auditText}</p>
-            <ul style={{ ...textStyle, paddingLeft: "24px", listStyle: "disc" }}>
-              <li>{t.auditCompliant}</li>
-            </ul>
-          </section>
-
-          {/* Technologies utilisées */}
-          <section style={sectionStyle} aria-labelledby="tech-heading">
-            <h2 id="tech-heading" style={headingStyle}>{t.technologiesTitle}</h2>
-            <ul style={{ ...textStyle, paddingLeft: "24px", listStyle: "disc" }}>
-              {t.technologiesList.map((tech, i) => (
-                <li key={i}>{tech}</li>
-              ))}
-            </ul>
-          </section>
-
-          {/* Environnement de test */}
-          <section style={sectionStyle} aria-labelledby="test-heading">
-            <h2 id="test-heading" style={headingStyle}>{t.testEnvTitle}</h2>
-            <p style={{ ...textStyle, marginBottom: "8px" }}>{t.testEnvText}</p>
-            <ul style={{ ...textStyle, paddingLeft: "24px", listStyle: "disc" }}>
-              {t.testEnvList.map((env, i) => (
-                <li key={i}>{env}</li>
-              ))}
-            </ul>
-          </section>
-
-          {/* Pages vérifiées */}
-          <section style={sectionStyle} aria-labelledby="pages-heading">
-            <h2 id="pages-heading" style={headingStyle}>{t.pagesTestedTitle}</h2>
-            <ul style={{ ...textStyle, paddingLeft: "24px", listStyle: "disc" }}>
-              {t.pagesTested.map((page, i) => (
-                <li key={i}>
-                  <button
-                    onClick={() => router.push(page.href)}
-                    style={{
-                      ...linkStyle,
-                      background: "none",
-                      border: "none",
-                      padding: 0,
-                      font: "inherit",
-                      fontSize: "15px",
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
-                  >
-                    {page.label}
-                  </button>
+          {/* Démarche */}
+          <section style={sectionStyle} aria-labelledby="approach-heading">
+            <h2 id="approach-heading" style={headingStyle}>{t.approachTitle}</h2>
+            <p style={{ ...textStyle, marginBottom: "12px" }}>{t.approachText}</p>
+            <ul style={{ ...textStyle, paddingLeft: "20px", listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
+              {t.approachList.map((item, i) => (
+                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                  <span style={{ color: "#314DCB", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
           </section>
 
-          {/* Retour d'information */}
-          <section style={sectionStyle} aria-labelledby="feedback-heading">
-            <h2 id="feedback-heading" style={headingStyle}>{t.feedbackTitle}</h2>
-            <p style={{ ...textStyle, marginBottom: "12px" }}>{t.feedbackText}</p>
-            <p style={textStyle}>
-              <a
-                href={`mailto:${t.feedbackEmailAddress}`}
-                style={linkStyle}
-                onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
-              >
-                {t.feedbackEmail} : {t.feedbackEmailAddress}
-              </a>
-            </p>
-          </section>
-
-          {/* Voies de recours */}
-          <section style={sectionStyle} aria-labelledby="recours-heading">
-            <h2 id="recours-heading" style={headingStyle}>{t.remediationTitle}</h2>
-            <p style={{ ...textStyle, marginBottom: "8px" }}>{t.remediationText}</p>
-            <ul style={{ ...textStyle, paddingLeft: "24px", listStyle: "disc" }}>
-              {t.remediationList.map((item, i) => (
-                <li key={i}>{item}</li>
+          {/* Technologies */}
+          <section style={sectionStyle} aria-labelledby="tech-heading">
+            <h2 id="tech-heading" style={headingStyle}>{t.techTitle}</h2>
+            <p style={{ ...textStyle, marginBottom: "12px" }}>{t.techText}</p>
+            <ul style={{ ...textStyle, paddingLeft: "20px", listStyle: "none", display: "flex", flexDirection: "column", gap: "6px" }}>
+              {t.techList.map((tech, i) => (
+                <li key={i} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <span style={{ color: "#314DCB", fontWeight: 700, flexShrink: 0 }}>—</span>
+                  <span>{tech}</span>
+                </li>
               ))}
             </ul>
           </section>
 
-          {/* Date */}
-          <section aria-labelledby="date-heading">
-            <h2 id="date-heading" style={headingStyle}>{t.dateTitle}</h2>
-            <p style={{ ...textStyle, marginBottom: "4px" }}>{t.dateText}</p>
-            <p style={textStyle}>{t.dateUpdate}</p>
+          {/* Limites */}
+          <section style={sectionStyle} aria-labelledby="limits-heading">
+            <h2 id="limits-heading" style={headingStyle}>{t.limitsTitle}</h2>
+            <p style={subtleText}>{t.limitsText}</p>
           </section>
+
+          {/* Contact */}
+          <section
+            aria-labelledby="contact-heading"
+            style={{
+              padding: "24px",
+              borderRadius: "16px",
+              border: "1px solid var(--theme-border)",
+              backgroundColor: "var(--theme-card-bg)",
+            }}
+          >
+            <h2 id="contact-heading" style={{ ...headingStyle, marginBottom: "8px" }}>{t.contactTitle}</h2>
+            <p style={{ ...textStyle, marginBottom: "16px", opacity: 0.8 }}>{t.contactText}</p>
+            <a
+              href={`mailto:${t.contactEmail}`}
+              style={{
+                display: "inline-block",
+                color: "#314DCB",
+                fontFamily: "var(--font-body)",
+                fontSize: "15px",
+                fontWeight: 500,
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.textDecoration = "underline"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.textDecoration = "none"; }}
+            >
+              {t.contactEmail}
+            </a>
+          </section>
+
+          {/* Date */}
+          <p style={{ ...subtleText, marginTop: "40px", fontSize: "13px" }}>
+            {t.dateTitle} · {t.dateText}
+          </p>
 
         </div>
       </div>

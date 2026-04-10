@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Déclaration d'accessibilité",
-  description: "Déclaration d'accessibilité RGAA 4.1 du site romainrubens.com — état de conformité, résultats d'audit et contacts.",
+  title: "Accessibilité",
+  description: "Démarche d'accessibilité numérique de romainrubens.com — approche basée sur les standards RGAA 4 et WCAG 2.1.",
 };
 
 export default function AccessibiliteLayout({ children }: { children: React.ReactNode }) {
