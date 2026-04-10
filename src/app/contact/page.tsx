@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 const contactTranslations = {
   FR: {
@@ -69,7 +68,9 @@ const PinterestLogo = ({ className }: { className?: string }) => (
 );
 
 const BehanceLogo = ({ className }: { className?: string }) => (
-  <Image src="/behance.svg" alt="" width={24} height={24} className={className} />
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 1.2.577 1.894 1.482 2.365.267.14.602.204.949.204.404 0 .802-.087 1.093-.316.428-.316.639-.7.739-1.199h2.493zm-4.601-4.729c-.114-1.014-.606-1.799-1.697-1.799-1.063 0-1.621.77-1.764 1.799h3.461zM4.117 5h8.022c1.818 0 3.309 1.076 3.309 2.999 0 1.048-.484 2.045-1.494 2.578v.065c1.33.346 2.228 1.4 2.228 3.01 0 2.554-1.842 3.848-4.521 3.848H4.117V5zm3.345 4.888h3.532c.875 0 1.371-.45 1.371-1.27 0-.836-.546-1.152-1.371-1.152H7.462v2.422zm0 5.026h3.726c.962 0 1.576-.455 1.576-1.462 0-1.009-.645-1.376-1.576-1.376H7.462v2.838z"/>
+  </svg>
 );
 
 export default function ContactPage() {

@@ -292,8 +292,8 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: "FR" | "
     document.body.removeChild(link);
   };
 
-  const bgColor = isDark ? "#FFFFFF" : "#1d1d1f";
-  const textColor = isDark ? "#272727" : "#FFFFFF";
+  const bgColor = isDark ? "#e8e8e8" : "#1d1d1f";
+  const textColor = isDark ? "#1d1d1f" : "#ffffff";
 
   return (
     <button

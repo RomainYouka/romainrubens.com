@@ -281,9 +281,10 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
       {/* Main section - same as home page */}
       <section
         id={id}
-        className="w-full bg-[#F5F5F5] min-h-screen flex items-center"
+        className="w-full min-h-screen flex items-center"
         data-section="personal-intro"
         style={{
+          backgroundColor: "var(--theme-bg-alt)",
           paddingTop: "clamp(80px, 10vw, 120px)",
           paddingBottom: "clamp(80px, 10vw, 120px)",
           opacity: isVisible ? 1 : 0,
@@ -306,7 +307,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                   fontFamily: "var(--font-display)",
                   fontSize: "clamp(28px, 5vw, 56px)",
                   fontWeight: 600,
-                  color: "#1d1d1f",
+                  color: "var(--theme-fg)",
                   lineHeight: 1.15,
                   letterSpacing: "-0.018em",
                   marginBottom: "clamp(24px, 3vw, 40px)",
@@ -321,17 +322,17 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                   fontFamily: "var(--font-body)",
                   fontSize: "clamp(15px, 1.8vw, 18px)",
                   fontWeight: 500,
-                  color: "#1d1d1f",
+                  color: "var(--theme-fg)",
                   lineHeight: 1.6,
                   letterSpacing: "-0.018em",
                   marginBottom: "clamp(48px, 8vw, 88px)",
                   display: "inline-block",
                 }}
               >
-                <span style={{ color: "#1d1d1f" }}>{content.textMain}</span>
-                <span style={{ color: "#676767" }}>{content.textGray1}</span>
-                <span style={{ color: "#1d1d1f" }}>{content.textMain2}</span>
-                <span style={{ color: "#676767" }}>{content.textGray2}</span>
+                <span style={{ color: "var(--theme-fg)" }}>{content.textMain}</span>
+                <span style={{ color: "var(--theme-muted)" }}>{content.textGray1}</span>
+                <span style={{ color: "var(--theme-fg)" }}>{content.textMain2}</span>
+                <span style={{ color: "var(--theme-muted)" }}>{content.textGray2}</span>
               </div>
 
               {/* CTA Button - Wider and responsive */}

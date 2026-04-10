@@ -176,7 +176,7 @@ export default function LegalPage() {
   const t = translations[language];
 
   return (
-    <div className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "#F5F5F5" }}>
+    <div className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
       <div className="flex-1 w-full flex justify-center pt-20 md:pt-24 pb-4 md:pb-24 px-4 md:px-8">
         <div className="w-full max-w-[1234px]">
           {/* Title */}
@@ -184,7 +184,7 @@ export default function LegalPage() {
             className="text-3xl md:text-4xl font-semibold mb-12 md:mb-16"
             style={{
               fontFamily: "var(--font-display)",
-              color: "#1D1D1F",
+              color: "var(--theme-fg)",
               fontWeight: 600,
             }}
           >
@@ -197,7 +197,7 @@ export default function LegalPage() {
               columnCount: 2,
               columnGap: "48px",
               fontFamily: "var(--font-body)",
-              color: "#1D1D1F",
+              color: "var(--theme-fg)",
               fontSize: "15px",
               lineHeight: "1.6",
             }}
@@ -265,7 +265,7 @@ export default function LegalPage() {
                 className="flex flex-col gap-2"
                 style={{
                   fontFamily: "var(--font-body)",
-                  color: "#1D1D1F",
+                  color: "var(--theme-fg)",
                   fontSize: "15px",
                   lineHeight: "1.6",
                 }}

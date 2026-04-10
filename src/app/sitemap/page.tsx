@@ -210,7 +210,7 @@ export default function SitemapPage() {
   const sections = getSections();
 
   return (
-    <div className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "#F5F5F5" }}>
+    <div className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
       <div className="flex-1 w-full flex justify-center pt-20 md:pt-24 pb-4 md:pb-24 px-4 md:px-8">
         <div className="w-full max-w-[1234px]">
           {/* Title */}
@@ -218,7 +218,7 @@ export default function SitemapPage() {
             className="text-3xl md:text-4xl font-semibold mb-12 md:mb-16"
             style={{
               fontFamily: "var(--font-display)",
-              color: "#1D1D1F",
+              color: "var(--theme-fg)",
               fontWeight: 600,
             }}
           >
@@ -231,7 +231,7 @@ export default function SitemapPage() {
               columnCount: 2,
               columnGap: "48px",
               fontFamily: "var(--font-body)",
-              color: "#1D1D1F",
+              color: "var(--theme-fg)",
               fontSize: "15px",
               lineHeight: "1.8",
             }}
@@ -252,7 +252,7 @@ export default function SitemapPage() {
                     fontWeight: 600,
                     fontSize: "17px",
                     marginBottom: "12px",
-                    color: "#1D1D1F",
+                    color: "var(--theme-fg)",
                   }}
                 >
                   {t[section.title]}
@@ -280,7 +280,7 @@ export default function SitemapPage() {
                               fontSize: "14px",
                               marginTop: "8px",
                               marginBottom: "6px",
-                              color: "#1D1D1F",
+                              color: "var(--theme-fg)",
                               opacity: 0.8,
                             }}
                           >
@@ -308,7 +308,7 @@ export default function SitemapPage() {
                         ) : (
                           <div
                             style={{
-                              color: "#1D1D1F",
+                              color: "var(--theme-fg)",
                               display: "block",
                               breakInside: "avoid",
                             }}
@@ -335,7 +335,7 @@ export default function SitemapPage() {
                     fontWeight: 600,
                     fontSize: "17px",
                     marginBottom: "12px",
-                    color: "#1D1D1F",
+                    color: "var(--theme-fg)",
                   }}
                 >
                   {t[section.title]}
@@ -362,7 +362,7 @@ export default function SitemapPage() {
                               fontSize: "14px",
                               marginTop: "8px",
                               marginBottom: "6px",
-                              color: "#1D1D1F",
+                              color: "var(--theme-fg)",
                               opacity: 0.8,
                             }}
                           >
@@ -388,7 +388,7 @@ export default function SitemapPage() {
                         ) : (
                           <div
                             style={{
-                              color: "#1D1D1F",
+                              color: "var(--theme-fg)",
                             }}
                           >
                             {t[item.label]} {t.inProgress}
