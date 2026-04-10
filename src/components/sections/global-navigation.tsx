@@ -175,11 +175,13 @@ const LanguageSelector = ({
     }
   };
 
-  const textColor = "var(--theme-fg)";
-  const bgColor = "var(--theme-nav-bg)";
-  const hoverBgColor = "var(--theme-pill-bg)";
-  const borderColor = "var(--theme-border)";
-  const selectedBgColor = "var(--theme-pill-bg)";
+  const textColor      = isDark ? "#FFFFFF" : "#1d1d1f";
+  const bgColor        = isDark ? "#121212" : "#FFFFFF";
+  const hoverBgColor   = isDark ? "#1e1e1e" : "#F5F5F7";
+  const borderColor    = isDark ? "#3F3F3F" : "#D3D3D4";
+  // Sélection : pill inversée (sombre sur clair, clair sur sombre)
+  const selectedBg     = isDark ? "#F5F5F5" : "#1d1d1f";
+  const selectedColor  = isDark ? "#1d1d1f" : "#FFFFFF";
 
   return (
     <div className="relative" ref={dropdownRef} style={{ margin: 0, padding: 0 }}>
@@ -238,8 +240,8 @@ const LanguageSelector = ({
                     fontWeight: isSelected ? 600 : 500,
                     fontSize: "14px",
                     padding: "8px 0",
-                    backgroundColor: isSelected ? selectedBgColor : "transparent",
-                    color: textColor,
+                    backgroundColor: isSelected ? selectedBg : "transparent",
+                    color: isSelected ? selectedColor : textColor,
                   }}
                   onMouseEnter={(e) => {
                     if (!isSelected) {
