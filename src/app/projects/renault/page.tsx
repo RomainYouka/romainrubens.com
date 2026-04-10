@@ -22,23 +22,34 @@ const ArrowRight = () => (
   </svg>
 );
 
-/* Losange Renault simplifié pour le pattern décoratif */
-const DiamondPattern = () => (
-  <svg width="100%" height="100%" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: "absolute", inset: 0, opacity: 0.06 }}>
-    {[0, 1, 2, 3, 4].map((row) =>
-      [0, 1, 2, 3, 4].map((col) => (
-        <g key={`${row}-${col}`} transform={`translate(${col * 140 - 40}, ${row * 140 - 40})`}>
-          <path
-            d="M60 10L110 60L60 110L10 60Z"
-            stroke="white"
-            strokeWidth="2"
-            fill="none"
-          />
-        </g>
-      ))
-    )}
-  </svg>
-);
+/* Pattern décoratif — logo Renault répété en grille */
+const RenaultPattern = ({ color = "white", opacity = 0.07 }: { color?: string; opacity?: number }) => {
+  const logoPath = "M28.2188 20.9227L28.1014 20.8892L18.1742 18.0331L19.2411 28.3856L19.2542 28.5104L19.1287 28.5183L13.1652 28.8564L13.043 28.8631L13.0382 28.7415L12.6448 18.3319L2.51813 22.7026L2.4005 22.753L2.358 22.6324L0.327259 16.9109L0.288391 16.7994L0.399469 16.7584L10.7034 13.0013L3.64886 4.63147L3.57223 4.54016L3.66378 4.46259L8.31906 0.532572L8.41591 0.450344L8.4926 0.552784L15.0505 9.35369L20.6917 0.32545L20.7609 0.214566L20.8652 0.293072L25.6881 3.91776L25.7823 3.98852L25.7135 4.0833L19.7036 12.3819L29.7147 14.8682L29.8331 14.8979L28.2188 20.9227Z";
+  const cols = 6;
+  const rows = 8;
+  const spacingX = 90;
+  const spacingY = 90;
+  const scale = 2.4;
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      style={{ position: "absolute", inset: 0, opacity, pointerEvents: "none" }}
+      preserveAspectRatio="xMidYMid slice"
+    >
+      {Array.from({ length: rows }).map((_, row) =>
+        Array.from({ length: cols }).map((_, col) => (
+          <g
+            key={`${row}-${col}`}
+            transform={`translate(${col * spacingX - 10}, ${row * spacingY - 10}) scale(${scale})`}
+          >
+            <path d={logoPath} fill={color} />
+          </g>
+        ))
+      )}
+    </svg>
+  );
+};
 
 export default function RenaultPage() {
   const router = useRouter();
@@ -50,49 +61,50 @@ export default function RenaultPage() {
   return (
     <main style={{ fontFamily: "var(--font-body)", backgroundColor: "#1d1d1f", overflowX: "hidden" }}>
 
-      {/* ── HERO ── Dark avec pattern losanges */}
+      {/* ── HERO ── Dark avec pattern Renault */}
       <section
-        className="relative w-full flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: "#1d1d1f", minHeight: "100svh" }}
+        className="relative w-full overflow-hidden"
+        style={{ backgroundColor: "#1d1d1f", minHeight: "100svh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
       >
-        {/* Pattern losanges en fond */}
-        <div className="absolute inset-0 overflow-hidden">
-          <DiamondPattern />
+        {/* Pattern logos Renault en fond */}
+        <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+          <RenaultPattern />
         </div>
 
         {/* Année top-right */}
         <span
-          className="absolute top-6 right-6 md:top-8 md:right-10"
-          style={{ fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em", zIndex: 1 }}
+          style={{ position: "absolute", top: 32, right: 40, fontSize: 14, fontWeight: 400, color: "rgba(255,255,255,0.4)", letterSpacing: "0.05em", zIndex: 1 }}
         >
           2026
         </span>
 
-        {/* Centre */}
-        <div className="relative flex flex-col items-center justify-center gap-8 md:gap-12 px-6 text-center" style={{ zIndex: 1 }}>
+        {/* Contenu centré — titre uniquement */}
+        <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center", padding: "0 24px" }}>
           {/* Logo + label */}
-          <div className="flex items-center gap-3">
-            <RenaultLogo className="w-6 h-6 md:w-7 md:h-7" color="#efdf00" />
-            <span style={{ fontSize: "clamp(14px, 1.5vw, 20px)", fontWeight: 400, color: "rgba(255,255,255,0.6)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+            <RenaultLogo color="#efdf00" />
+            <span style={{ fontSize: 16, fontWeight: 400, color: "rgba(255,255,255,0.55)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
               App Extension
             </span>
           </div>
 
           {/* Titre principal */}
-          <div className="flex flex-col items-center gap-2">
-            <span style={{ fontSize: "clamp(52px, 7vw, 110px)", fontWeight: 700, color: "#ffffff", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
-              Renault
-            </span>
-            <span style={{ fontSize: "clamp(18px, 2.2vw, 34px)", fontWeight: 400, color: "rgba(255,255,255,0.55)", lineHeight: 1.2 }}>
-              App Extension
-            </span>
-          </div>
-
-          {/* Flèche */}
-          <button onClick={scrollToContent} className="transition-transform hover:scale-110 active:scale-95 mt-4">
-            <ArrowDown />
-          </button>
+          <span style={{ fontSize: "clamp(52px, 7vw, 110px)", fontWeight: 700, color: "#ffffff", lineHeight: 0.95, letterSpacing: "-0.02em" }}>
+            Renault
+          </span>
+          <span style={{ fontSize: "clamp(18px, 2.2vw, 34px)", fontWeight: 400, color: "rgba(255,255,255,0.45)", lineHeight: 1.2 }}>
+            App Extension
+          </span>
         </div>
+
+        {/* Flèche — centrée horizontalement, ancrée en bas */}
+        <button
+          onClick={scrollToContent}
+          style={{ position: "absolute", bottom: 40, left: "50%", transform: "translateX(-50%)", zIndex: 1, cursor: "pointer", background: "none", border: "none", padding: 0 }}
+          className="transition-transform hover:scale-110 active:scale-95"
+        >
+          <ArrowDown />
+        </button>
       </section>
 
       {/* ── INTRODUCTION TEXTE ── */}
@@ -363,7 +375,7 @@ export default function RenaultPage() {
         >
           {/* Pattern losanges en fond */}
           <div className="absolute inset-0 overflow-hidden opacity-10 pointer-events-none" aria-hidden="true">
-            <DiamondPattern />
+            <RenaultPattern color="#1d1d1f" opacity={0.08} />
           </div>
 
           <div className="relative flex flex-col items-center gap-6" style={{ zIndex: 1 }}>
