@@ -7,7 +7,6 @@ import GlobalFooter from "@/components/sections/global-footer";
 import IntroSplash from "@/components/intro-splash";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { TimeThemePopup } from "@/components/TimeThemePopup";
-import { HomeThemeToast } from "@/components/HomeThemeToast";
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -49,7 +48,6 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       {children}
       {!isResumePage && <GlobalFooter />}
       <TimeThemePopup />
-      <HomeThemeToast />
     </>
   );
 }
