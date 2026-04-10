@@ -175,10 +175,11 @@ const LanguageSelector = ({
     }
   };
 
-  const textColor = isDark ? "#FFFFFF" : "#1d1d1f";
-  const bgColor = isDark ? "#1F1F1F" : "#FFFFFF";
-  const hoverBgColor = isDark ? "#2A2A2A" : "#F5F5F7";
-  const borderColor = isDark ? "#3F3F3F" : "#D3D3D4";
+  const textColor = "var(--theme-fg)";
+  const bgColor = "var(--theme-nav-bg)";
+  const hoverBgColor = "var(--theme-pill-bg)";
+  const borderColor = "var(--theme-border)";
+  const selectedBgColor = "var(--theme-pill-bg)";
 
   return (
     <div className="relative" ref={dropdownRef} style={{ margin: 0, padding: 0 }}>
@@ -234,11 +235,11 @@ const LanguageSelector = ({
                   className="w-full py-2 text-center transition-all duration-[200ms]"
                   style={{
                     fontFamily: "var(--font-body)",
-                    fontWeight: 500,
+                    fontWeight: isSelected ? 600 : 500,
                     fontSize: "14px",
                     padding: "8px 0",
-                    backgroundColor: isSelected ? textColor : "transparent",
-                    color: isSelected ? bgColor : textColor,
+                    backgroundColor: isSelected ? selectedBgColor : "transparent",
+                    color: textColor,
                   }}
                   onMouseEnter={(e) => {
                     if (!isSelected) {
