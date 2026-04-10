@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ChevronDown, Languages, Download, Check } from "lucide-react";
+import { Languages, Check } from "lucide-react";
 
 // Animated Burger Icon Component
 const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean, isDark: boolean }) => {
@@ -39,7 +38,6 @@ const LogoIcon = (props: React.ImgHTMLAttributes<HTMLImageElement> & { isDark?: 
       role="img"
       width={32}
       height={32}
-      style={{}}
       {...imgProps}
     />
   );
@@ -350,10 +348,7 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: "FR" | "
   );
 };
 
-import { useRef } from "react";
-
 const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
-  const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -452,9 +447,11 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     { name: currentTranslations.contact, href: "/contact" }
   ];
 
-  const prefersReducedMotion = typeof window !== 'undefined' ?
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches :
-    false;
+  const prefersReducedMotion = useMemo(() =>
+    typeof window !== 'undefined'
+      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      : false,
+    []);
 
   const textColor = isExplorationsPage ? "#FFFFFF" : "#1d1d1f";
   const navBgColor = isExplorationsPage ? "#121212" : "#FFFFFF";
@@ -467,8 +464,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
         className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ease-in-out ${
           isLightboxOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
-        style={{ 
-          fontFamily: "var(--font-body)",
+        style={{
           paddingTop: isScrolled ? "12px" : "0",
           paddingLeft: isScrolled ? "12px" : "0",
           paddingRight: isScrolled ? "12px" : "0"
@@ -504,7 +500,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                   <LogoIcon className="h-4 w-auto fill-current relative z-10" isDark={isExplorationsPage} iconSrc={logoIconSrc} />
                 </a>
                 
-                <div className="flex items-center h-full" style={{ gap: "40px" }}>
+                <div className="flex items-center h-full gap-10">
                   {navLinks.map((link) => (
                     <Link 
                       key={link.name} 
@@ -547,9 +543,9 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                   }}>
                   <LogoIcon className="h-3.5 w-auto fill-current relative z-10" isDark={isExplorationsPage} iconSrc={logoIconSrc} />
                 </a>
-                <div className="flex items-center gap-5" style={{ height: "36px" }}>
+                <div className="flex items-center h-9 gap-5">
                   <ResumeButton selectedLanguage={selectedLanguage} isDark={isExplorationsPage} />
-                  <div className="flex items-center justify-center" style={{ height: "36px" }}>
+                  <div className="flex items-center justify-center h-9">
                     <LanguageSelector
                       selectedLanguage={selectedLanguage}
                       onLanguageChange={handleLanguageChange}
@@ -559,8 +555,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                   </div>
                   <button
                     onClick={handleMenuToggle}
-                    className="flex items-center justify-center transition-opacity duration-200 hover:opacity-80"
-                    style={{ height: "36px", color: textColor }}
+                    className="flex items-center justify-center h-9 transition-opacity duration-200 hover:opacity-80"
+                    style={{ color: textColor }}
                     aria-label="Toggle menu">
                     <AnimatedBurgerIcon isOpen={isMenuOpen} isDark={isExplorationsPage} />
                   </button>
