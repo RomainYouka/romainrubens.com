@@ -9,16 +9,31 @@ import { useTheme } from "@/contexts/ThemeContext";
 type Language = "FR" | "EN" | "ՀԱՅ";
 
 const text = {
-  FR:  { title: "Changer le thème", body: "Passez en mode sombre ou clair à tout moment.", action: "Changer" },
-  EN:  { title: "Change theme",     body: "Switch to dark or light mode anytime.",          action: "Switch"  },
-  ՀԱՅ: { title: "Փոխել թեման",    body: "Ցանկացած պահի անցեք մութ կամ բաց ռեժիմի:",     action: "Փոխել"  },
+  FR:  {
+    title: "Personnaliser l'affichage",
+    body: "Choisissez le thème qui vous convient.",
+    toDark: "Mode sombre",
+    toLight: "Mode clair",
+  },
+  EN:  {
+    title: "Customise display",
+    body: "Choose the theme that suits you.",
+    toDark: "Dark mode",
+    toLight: "Light mode",
+  },
+  ՀԱՅ: {
+    title: "Հարմարեցնել ցուցադրումը",
+    body: "Ընտրեք ձեզ հարմար թեման:",
+    toDark: "Մութ ռեժիմ",
+    toLight: "Բաց ռեժիմ",
+  },
 };
 
-const SHOW_DELAY_MS   = 3000;  // apparaît 3s après l'arrivée
-const AUTO_DISMISS_MS = 11000; // disparaît automatiquement après 11s
+const SHOW_DELAY_MS   = 3000;
+const AUTO_DISMISS_MS = 11000;
 
 export function HomeThemeToast() {
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark, setTheme } = useTheme();
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const [lang, setLang] = useState<Language>("FR");
@@ -26,7 +41,6 @@ export function HomeThemeToast() {
   useEffect(() => {
     if (pathname !== "/") { setVisible(false); return; }
 
-    // Ne pas afficher si l'utilisateur a déjà une préférence ou a déjà vu ce toast
     if (localStorage.getItem("theme")) return;
     if (sessionStorage.getItem("homeToastDismissed")) return;
 
@@ -47,8 +61,8 @@ export function HomeThemeToast() {
     sessionStorage.setItem("homeToastDismissed", "1");
   };
 
-  const handleToggle = () => {
-    toggleTheme();
+  const handleSwitch = (target: "dark" | "light") => {
+    setTheme(target);
     dismiss();
   };
 
@@ -58,48 +72,101 @@ export function HomeThemeToast() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed bottom-24 right-4 md:bottom-8 md:right-6 z-[500] w-[260px]"
-          initial={{ opacity: 0, y: 16, scale: 0.95 }}
+          className="fixed bottom-24 right-4 md:bottom-8 md:right-6 z-[500] w-[280px]"
+          initial={{ opacity: 0, y: 20, scale: 0.92 }}
           animate={{ opacity: 1, y: 0,  scale: 1    }}
-          exit={{    opacity: 0, y: 16, scale: 0.95 }}
-          transition={{ duration: 0.28, ease: "easeOut" }}
+          exit={{    opacity: 0, y: 12, scale: 0.94 }}
+          transition={{ type: "spring", damping: 28, stiffness: 340, mass: 0.75 }}
         >
           <div
-            className="rounded-2xl p-4 shadow-xl"
+            className="overflow-hidden"
             style={{
-              backgroundColor: isDark ? "#1f1f1f" : "#ffffff",
-              border: `1px solid ${isDark ? "#3f3f3f" : "#d3d3d4"}`,
+              borderRadius: "20px",
+              backgroundColor: isDark ? "#161616" : "#ffffff",
+              border: `1px solid ${isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)"}`,
+              boxShadow: isDark
+                ? "0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset"
+                : "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
             }}
           >
-            {/* En-tête */}
-            <div className="flex items-start justify-between mb-1.5">
-              <span className="font-semibold text-sm" style={{ color: "var(--theme-fg)" }}>
-                {t.title}
-              </span>
-              <button
-                onClick={dismiss}
-                className="ml-2 opacity-40 hover:opacity-80 transition-opacity"
-                aria-label="Fermer"
-              >
-                <X className="h-3.5 w-3.5" style={{ color: "var(--theme-fg)" }} />
-              </button>
+            {/* Bande de couleur supérieure */}
+            <div
+              className="h-[3px] w-full"
+              style={{
+                background: "linear-gradient(90deg, #314DCB 0%, #7c3aed 100%)",
+              }}
+            />
+
+            <div className="p-4">
+              {/* En-tête */}
+              <div className="flex items-start justify-between mb-1">
+                <div className="flex items-center gap-2">
+                  <div
+                    className="flex items-center justify-center w-6 h-6 rounded-lg flex-shrink-0"
+                    style={{
+                      background: isDark
+                        ? "linear-gradient(135deg, #1e3a8a, #314DCB)"
+                        : "linear-gradient(135deg, #314DCB, #7c3aed)",
+                    }}
+                  >
+                    {isDark
+                      ? <Sun  className="w-3.5 h-3.5 text-white" strokeWidth={2} />
+                      : <Moon className="w-3.5 h-3.5 text-white" strokeWidth={2} />
+                    }
+                  </div>
+                  <span
+                    className="font-semibold text-[13px] leading-tight"
+                    style={{ color: isDark ? "#ffffff" : "#1d1d1f" }}
+                  >
+                    {t.title}
+                  </span>
+                </div>
+                <button
+                  onClick={dismiss}
+                  className="flex-shrink-0 ml-2 flex items-center justify-center w-5 h-5 rounded-full transition-all"
+                  style={{
+                    backgroundColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)",
+                    color: isDark ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.35)",
+                  }}
+                  aria-label="Fermer"
+                >
+                  <X className="h-2.5 w-2.5" strokeWidth={2.5} />
+                </button>
+              </div>
+
+              {/* Description */}
+              <p className="text-[12px] mb-3.5 pl-8" style={{ color: isDark ? "rgba(255,255,255,0.45)" : "#86868b" }}>
+                {t.body}
+              </p>
+
+              {/* Boutons côte à côte */}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleSwitch("dark")}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-[12px] font-medium transition-all duration-150 active:scale-95"
+                  style={
+                    isDark
+                      ? { backgroundColor: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)", border: "1px solid rgba(255,255,255,0.08)" }
+                      : { background: "linear-gradient(135deg, #1e3a8a, #314DCB)", color: "#ffffff", boxShadow: "0 2px 8px rgba(49,77,203,0.3)" }
+                  }
+                >
+                  <Moon className="w-3 h-3" strokeWidth={2} />
+                  {t.toDark}
+                </button>
+                <button
+                  onClick={() => handleSwitch("light")}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-[12px] font-medium transition-all duration-150 active:scale-95"
+                  style={
+                    !isDark
+                      ? { backgroundColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)", color: isDark ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.45)", border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}` }
+                      : { background: "linear-gradient(135deg, #e8e8e8, #ffffff)", color: "#1d1d1f", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }
+                  }
+                >
+                  <Sun className="w-3 h-3" strokeWidth={2} />
+                  {t.toLight}
+                </button>
+              </div>
             </div>
-
-            {/* Description */}
-            <p className="text-xs mb-3" style={{ color: "#86868b" }}>{t.body}</p>
-
-            {/* Bouton d'action */}
-            <button
-              onClick={handleToggle}
-              className="flex items-center gap-2 py-1.5 px-3 rounded-full text-xs font-medium transition-opacity hover:opacity-90"
-              style={{ backgroundColor: "var(--theme-btn-bg)", color: "var(--theme-btn-fg)" }}
-            >
-              {isDark
-                ? <Sun  className="h-3.5 w-3.5" strokeWidth={2} />
-                : <Moon className="h-3.5 w-3.5" strokeWidth={2} />
-              }
-              {t.action}
-            </button>
           </div>
         </motion.div>
       )}

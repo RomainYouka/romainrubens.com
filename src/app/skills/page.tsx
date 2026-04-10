@@ -105,19 +105,19 @@ export default function SkillsPage() {
     : [];
 
   return (
-    <main className="min-h-screen bg-[#F5F5F5] w-full" style={{ fontFamily: "var(--font-body)" }}>
+    <main className="min-h-screen w-full" style={{ backgroundColor: "var(--theme-bg-alt)", fontFamily: "var(--font-body)" }}>
       <section className="w-full max-w-5xl mx-auto px-4 md:px-8 py-20 md:py-32">
 
         <div className="mb-16 md:mb-20">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1d1d1f] mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: "var(--theme-fg)" }}>
             {t.title}
           </h1>
-          <p className="text-base md:text-lg text-[#666666] leading-relaxed max-w-2xl">
+          <p className="text-base md:text-lg leading-relaxed max-w-2xl" style={{ color: "var(--theme-muted)" }}>
             {t.subtitle}
           </p>
         </div>
 
-        <div className="mb-16 md:mb-20 p-6 md:p-8 bg-white border border-[#E5E5E5] rounded-lg">
+        <div className="mb-16 md:mb-20 p-6 md:p-8 rounded-lg border" style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-card-border)" }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {([1, 2, 4, 5] as const).map((rating) => (
               <div key={rating} className="flex flex-col items-center gap-3">
@@ -130,7 +130,7 @@ export default function SkillsPage() {
                     className="object-contain"
                   />
                 </div>
-                <p className="text-sm md:text-base text-center font-medium text-[#1d1d1f]">
+                <p className="text-sm md:text-base text-center font-medium" style={{ color: "var(--theme-fg)" }}>
                   {t.ratingLabels[rating]}
                 </p>
               </div>
@@ -140,21 +140,21 @@ export default function SkillsPage() {
 
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <p className="text-[#999999] text-base">{t.loading}</p>
+            <p className="text-base" style={{ color: "var(--theme-muted)" }}>{t.loading}</p>
           </div>
         )}
 
         {!loading && sortedCategories.map((category, idx) => (
           <div key={category.id} className={idx < sortedCategories.length - 1 ? "mb-16 md:mb-20" : "mb-0"}>
-            <h2 className="text-2xl md:text-3xl font-bold text-[#1d1d1f] mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8" style={{ color: "var(--theme-fg)" }}>
               {category.id === "design-system" && language === "FR"
                 ? t.designSystem
                 : category.names[language] || category.names.FR}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {category.skills.map((skill) => (
-                <div key={skill.id} className="flex items-center justify-between p-4 rounded-lg bg-white border border-[#E5E5E5]">
-                  <span className="text-sm md:text-base font-medium text-[#1d1d1f]">
+                <div key={skill.id} className="flex items-center justify-between p-4 rounded-lg border" style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-card-border)" }}>
+                  <span className="text-sm md:text-base font-medium" style={{ color: "var(--theme-fg)" }}>
                     {getSkillName(skill.names, language)}
                   </span>
                   <StarRating rating={skill.rating} />
@@ -166,7 +166,7 @@ export default function SkillsPage() {
 
         {!loading && data?.lastUpdated && (
           <div className="text-center mt-16">
-            <p className="text-xs md:text-sm text-[#999999]">
+            <p className="text-xs md:text-sm" style={{ color: "var(--theme-muted)" }}>
               {t.lastUpdatedPrefix} {data.lastUpdated}
             </p>
           </div>

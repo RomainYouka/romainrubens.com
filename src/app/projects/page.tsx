@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProjectSkeleton } from "@/components/ui/skeleton";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const BUTTON_IMAGE = "/bouton-aller-clair.png";
 
@@ -180,44 +181,32 @@ const scrollToSection = (sectionId: string) => {
 
 const NavigationButtons = ({ activeSection, language }: { activeSection: "mobile" | "web" | "divers"; language: Language }) => {
   const t = translations[language];
+  const sections: Array<{ id: "mobile" | "web" | "divers"; label: string }> = [
+    { id: "mobile",  label: t.mobileProjects },
+    { id: "web",     label: t.webProjects    },
+    { id: "divers",  label: t.miscProjects   },
+  ];
   return (
     <div className="grid grid-cols-3 gap-2 lg:gap-[17px] w-full">
-      <button
-        onClick={() => scrollToSection("section-mobile")}
-        className={`h-10 lg:h-12 rounded-[20px] transition-all duration-200 cursor-pointer flex items-center justify-center border ${
-          activeSection === "mobile" 
-            ? "bg-[#1d1d1f] border-transparent hover:bg-[#2d2d2f] active:bg-[#0d0d0f] active:scale-[0.98]" 
-            : "bg-[#F5F5F5] border-[#D0D0D0] hover:bg-[#e8e8e8] hover:scale-[1.02] active:bg-[#d8d8d8] active:scale-[0.98]"
-        }`}
-      >
-        <span className={`font-semibold text-[9px] sm:text-[11px] lg:text-[calc(10px+0.8vw)] tracking-[-0.02em] sm:tracking-[0] leading-tight text-center ${activeSection === "mobile" ? "text-[#F5F5F5]" : "text-[#1d1d1f]"}`}>
-          {t.mobileProjects}
-        </span>
-      </button>
-      <button
-        onClick={() => scrollToSection("section-web")}
-        className={`h-10 lg:h-12 rounded-[20px] transition-all duration-200 cursor-pointer flex items-center justify-center border ${
-          activeSection === "web" 
-            ? "bg-[#1d1d1f] border-transparent hover:bg-[#2d2d2f] active:bg-[#0d0d0f] active:scale-[0.98]" 
-            : "bg-[#F5F5F5] border-[#D0D0D0] hover:bg-[#e8e8e8] hover:scale-[1.02] active:bg-[#d8d8d8] active:scale-[0.98]"
-        }`}
-      >
-        <span className={`font-semibold text-[9px] sm:text-[11px] lg:text-[calc(10px+0.8vw)] tracking-[-0.02em] sm:tracking-[0] leading-tight text-center ${activeSection === "web" ? "text-[#F5F5F5]" : "text-[#1d1d1f]"}`}>
-          {t.webProjects}
-        </span>
-      </button>
-      <button
-        onClick={() => scrollToSection("section-divers")}
-        className={`h-10 lg:h-12 rounded-[20px] transition-all duration-200 cursor-pointer flex items-center justify-center border ${
-          activeSection === "divers" 
-            ? "bg-[#1d1d1f] border-transparent hover:bg-[#2d2d2f] active:bg-[#0d0d0f] active:scale-[0.98]" 
-            : "bg-[#F5F5F5] border-[#D0D0D0] hover:bg-[#e8e8e8] hover:scale-[1.02] active:bg-[#d8d8d8] active:scale-[0.98]"
-        }`}
-      >
-        <span className={`font-semibold text-[9px] sm:text-[11px] lg:text-[calc(10px+0.8vw)] tracking-[-0.02em] sm:tracking-[0] leading-tight text-center ${activeSection === "divers" ? "text-[#F5F5F5]" : "text-[#1d1d1f]"}`}>
-          {t.miscProjects}
-        </span>
-      </button>
+      {sections.map(({ id, label }) => {
+        const isActive = activeSection === id;
+        return (
+          <button
+            key={id}
+            onClick={() => scrollToSection(`section-${id}`)}
+            className="h-10 lg:h-12 rounded-[20px] transition-all duration-200 cursor-pointer flex items-center justify-center border active:scale-[0.98]"
+            style={{
+              backgroundColor: isActive ? "var(--theme-btn-bg)"  : "var(--theme-pill-bg)",
+              borderColor:     isActive ? "transparent"           : "var(--theme-pill-border)",
+              color:           isActive ? "var(--theme-btn-fg)"  : "var(--theme-fg)",
+            }}
+          >
+            <span className="font-semibold text-[9px] sm:text-[11px] lg:text-[calc(10px+0.8vw)] tracking-[-0.02em] sm:tracking-[0] leading-tight text-center">
+              {label}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 };
@@ -294,7 +283,8 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
   return (
     <motion.div
       onClick={handleClick}
-      className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] border border-[#D0D0D0] cursor-pointer block"
+      className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] cursor-pointer block"
+      style={{ border: "1px solid var(--theme-pill-border)" }}
       whileHover={{ scale: 1.02, boxShadow: isComingSoon ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 40px rgba(0,0,0,0.15)" }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -328,6 +318,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
 };
 
 export default function PortfolioPage() {
+  const { isDark } = useTheme();
   const router = useRouter();
   const [language, setLanguage] = useState<Language>("FR");
   const [hideInProgress, setHideInProgress] = useState(false);
@@ -412,7 +403,7 @@ export default function PortfolioPage() {
               duration: 0.25,
               ease: [0.32, 0.72, 0, 1],
             }}
-            style={{ backgroundColor: "#F5F5F5" }}
+            style={{ backgroundColor: "var(--theme-bg-alt)" }}
           />
         )}
       </AnimatePresence>
@@ -421,15 +412,17 @@ export default function PortfolioPage() {
         <div
           className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] items-center gap-3 px-5 py-3 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-opacity duration-200 ${isFooterVisible || hideToolbar ? "opacity-0 pointer-events-none" : "opacity-100"} ${isMobileMenuOpen ? "hidden md:flex" : "flex"}`}
           style={{
-            background: "linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.25) 50%, rgba(240,240,245,0.35) 100%)",
+            background: isDark
+              ? "linear-gradient(135deg, rgba(40,40,45,0.85) 0%, rgba(30,30,35,0.75) 100%)"
+              : "linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.25) 50%, rgba(240,240,245,0.35) 100%)",
             backdropFilter: "blur(24px) saturate(180%)",
             WebkitBackdropFilter: "blur(24px) saturate(180%)",
-            border: "1px solid rgba(255,255,255,0.5)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6)",
+            border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(255,255,255,0.5)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.1)",
             fontFamily: "var(--font-body)",
           }}
         >
-          <span className="text-[#1d1d1f] font-medium text-[11px] sm:text-[13px] md:text-[14px] whitespace-nowrap select-none">
+          <span className="font-medium text-[11px] sm:text-[13px] md:text-[14px] whitespace-nowrap select-none" style={{ color: "var(--theme-fg)" }}>
             {translations[language].hideInProgress}
           </span>
           <button
@@ -465,7 +458,7 @@ export default function PortfolioPage() {
         </div>
       )}
 
-      <div className="bg-white w-full min-h-screen flex justify-center py-5 md:mt-[20px] pb-32 md:pb-12">
+      <div className="w-full min-h-screen flex justify-center py-5 md:mt-[20px] pb-32 md:pb-12" style={{ backgroundColor: "var(--theme-bg)" }}>
         <div className="flex w-full max-w-[1234px] h-auto px-4 md:px-8 lg:px-12 xl:px-4 mt-16 md:mt-[40px] relative flex-col items-center gap-12 md:gap-[100px]">
           {!isHydrated ? (
             <div className="w-full flex flex-col gap-12 md:gap-[100px]">

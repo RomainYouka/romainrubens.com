@@ -23,6 +23,8 @@ export function useTheme() {
 
 function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", theme === "dark" ? "#121212" : "#ffffff");
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {

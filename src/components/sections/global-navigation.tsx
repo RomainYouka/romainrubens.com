@@ -381,13 +381,10 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     window.dispatchEvent(new CustomEvent("languageChange", { detail: validLang }));
   };
 
-  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+  const handleLogoClick = () => {
     setLogoAnimating(true);
     setTimeout(() => setLogoAnimating(false), 260);
-    if (onShowQuotes) {
-      onShowQuotes();
-    }
+    if (onShowQuotes) onShowQuotes();
   };
 
   useEffect(() => {

@@ -142,19 +142,18 @@ export default function ContactPage() {
 
   return (
     <main
-      className="min-h-screen bg-[#F5F5F5] pt-20 md:pt-24"
-      style={{
-        fontFamily: "var(--font-body)",
-      }}
+      className="min-h-screen pt-20 md:pt-24"
+      style={{ fontFamily: "var(--font-body)", backgroundColor: "var(--theme-bg-alt)" }}
     >
       <section className="relative min-h-screen flex items-center justify-center px-4 md:px-8 py-24">
         <div className="w-full max-w-md text-center">
           <h1
-            className={`font-bold text-[#1d1d1f] text-3xl md:text-5xl mb-12 md:mb-16 transition-all duration-500 ${
+            className={`font-bold text-3xl md:text-5xl mb-12 md:mb-16 transition-all duration-500 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{
               transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+              color: "var(--theme-fg)",
             }}
           >
             {currentTranslations.heading}
@@ -180,7 +179,7 @@ export default function ContactPage() {
             {/* View Resume Button */}
             <button
               onClick={handleViewResume}
-              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-4 px-6 font-semibold text-base rounded-full border transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: "var(--theme-card-bg)", color: "var(--theme-fg)", borderColor: "var(--theme-border)" }}
             >
               <PDFIcon className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.viewResume}</span>
@@ -189,7 +188,7 @@ export default function ContactPage() {
             {/* View LinkedIn Button */}
             <button
               onClick={handleLinkedIn}
-              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-4 px-6 font-semibold text-base rounded-full border transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: "var(--theme-card-bg)", color: "var(--theme-fg)", borderColor: "var(--theme-border)" }}
             >
               <LinkedInLogo className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.viewLinkedIn}</span>
@@ -198,7 +197,7 @@ export default function ContactPage() {
             {/* Email Button */}
             <button
               onClick={handleEmail}
-              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-4 px-6 font-semibold text-base rounded-full border transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: "var(--theme-card-bg)", color: "var(--theme-fg)", borderColor: "var(--theme-border)" }}
             >
               <GmailLogo className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.emailMe}</span>
@@ -207,7 +206,7 @@ export default function ContactPage() {
             {/* Read Medium Button */}
             <button
               onClick={handleMedium}
-              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-4 px-6 font-semibold text-base rounded-full border transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: "var(--theme-card-bg)", color: "var(--theme-fg)", borderColor: "var(--theme-border)" }}
             >
               <MediumLogo className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.readMedium}</span>
@@ -216,7 +215,7 @@ export default function ContactPage() {
             {/* Explore Pinterest Button */}
             <button
               onClick={handlePinterest}
-              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-4 px-6 font-semibold text-base rounded-full border transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: "var(--theme-card-bg)", color: "var(--theme-fg)", borderColor: "var(--theme-border)" }}
             >
               <PinterestLogo className="w-4 h-4 flex-shrink-0 overflow-visible" />
               <span>{currentTranslations.explorePinterest}</span>
@@ -225,7 +224,7 @@ export default function ContactPage() {
             {/* View Behance Button */}
             <button
               onClick={handleBehance}
-              className="w-full py-4 px-6 bg-white text-[#1d1d1f] font-semibold text-base rounded-full border border-[#d3d3d4] transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-4 px-6 font-semibold text-base rounded-full border transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: "var(--theme-card-bg)", color: "var(--theme-fg)", borderColor: "var(--theme-border)" }}
             >
               <BehanceLogo className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.viewBehance}</span>
