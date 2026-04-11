@@ -65,8 +65,8 @@ const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) =>
 
   const fullFill   = "#314DCB";
   const fullStroke = isDark ? "#5194FF" : "#314DCB";
-  const emptyFill  = isDark ? "#1D1D1F" : "#F5F5F5";
-  const emptyStroke = isDark ? "#1D1D1F" : "#F5F5F5";
+  const emptyFill  = isDark ? "#F5F5F5" : "#1D1D1F";
+  const emptyStroke = isDark ? "#F5F5F5" : "#1D1D1F";
 
   const starH  = size;
   const starW  = starH * (VB_W / VB_H);

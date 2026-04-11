@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const contactTranslations = {
   FR: {
@@ -77,6 +78,7 @@ export default function ContactPage() {
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
+  const { isDark } = useTheme();
 
   useEffect(() => {
     let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
@@ -173,6 +175,7 @@ export default function ContactPage() {
             <button
               onClick={handleDownloadPortfolio}
               className="w-full py-4 px-6 bg-[#314DCB] text-white font-semibold text-base rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              style={isDark ? { border: "1px solid #5194FF" } : undefined}
             >
               <PDFIcon className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.downloadPortfolio}</span>
