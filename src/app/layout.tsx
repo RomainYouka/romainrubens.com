@@ -97,7 +97,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased bg-white">
+      <body className="antialiased">
         {/* Lien d'évitement — critère RGAA 12.7 */}
         <a
           href="#main-content"

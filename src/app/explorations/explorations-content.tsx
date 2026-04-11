@@ -280,7 +280,7 @@ export default function ExplorationsPageContent() {
               <BlueBanner language={language} />
 
               <div className="w-full">
-                <div className="h-10 lg:h-12 rounded-[20px] flex items-center justify-center w-full border" style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-border)" }}>
+                <div className="h-10 lg:h-12 rounded-[20px] flex items-center justify-center w-full border" style={{ backgroundColor: "var(--theme-pill-bg)", borderColor: "var(--theme-border)" }}>
                   <span className="font-semibold text-[9px] sm:text-[11px] lg:text-[calc(10px+0.8vw)] leading-tight text-center" style={{ color: "var(--theme-fg)" }}>
                     {t.title}
                   </span>

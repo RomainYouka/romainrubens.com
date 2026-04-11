@@ -167,7 +167,7 @@ const GlobalFooter = () => {
           </button>
           <span style={{ color: "var(--theme-subtle)" }}>|</span>
           <button
-            onClick={() => router.push("/accessibilite")}
+            onClick={() => router.push("/accessibility")}
             style={{
               color: "var(--theme-subtle)",
               textDecoration: "none",

@@ -191,7 +191,7 @@ const getSections = (): Section[] => [
   {
     title: "accessibility",
     items: [
-      { label: "accessibility", href: "/accessibilite", isClickable: true }
+      { label: "accessibility", href: "/accessibility", isClickable: true }
     ]
   }
 ];
