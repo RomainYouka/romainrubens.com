@@ -18,7 +18,7 @@ export default function HeroLanding() {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
   const [showInitialCursor, setShowInitialCursor] = useState(false);
-  const [bgImage, setBgImage] = useState("https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/fond-romain-rubens-1762169393726.png?width=8000&height=8000&resize=contain");
+  const [bgImage, setBgImage] = useState("https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/fond-romain-rubens-1762169393726.png?width=1920&height=1080&resize=contain");
   const [userInteracted, setUserInteracted] = useState(false);
 
   const fullText = translations[selectedLanguage].text;
@@ -175,7 +175,8 @@ export default function HeroLanding() {
           fill
           className="object-cover"
           priority
-          quality={100}
+          quality={85}
+          sizes="100vw"
         />
       </div>
 

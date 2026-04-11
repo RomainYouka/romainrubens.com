@@ -101,10 +101,10 @@ function BeforeAfterSlider({ beforeImage, afterImage, beforeLabel, afterLabel }:
   return (
     <div ref={containerRef} className="relative w-full aspect-[16/10] overflow-hidden select-none rounded-xl shadow-2xl" style={{ cursor: hasStarted ? (isDragging ? 'grabbing' : 'col-resize') : 'default' }} onMouseDown={() => hasStarted && setIsDragging(true)} onMouseUp={() => setIsDragging(false)} onMouseLeave={() => setIsDragging(false)} onMouseMove={(e) => isDragging && handleMove(e.clientX)} onTouchStart={() => hasStarted && setIsDragging(true)} onTouchEnd={() => setIsDragging(false)} onTouchMove={(e) => isDragging && e.touches[0] && handleMove(e.touches[0].clientX)}>
       <div className="absolute inset-0">
-        <Image src={afterImage} alt={afterLabel} fill className="object-cover object-top pointer-events-none bg-[#f9f9f9]" unoptimized />
+        <Image src={afterImage} alt={afterLabel} fill className="object-cover object-top pointer-events-none bg-[#f9f9f9]" quality={85} />
       </div>
       <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`, transition: 'clip-path 1200ms cubic-bezier(0.4, 0, 0.2, 1)' }}>
-        <Image src={beforeImage} alt={beforeLabel} fill className="object-cover object-top pointer-events-none bg-[#f9f9f9]" unoptimized />
+        <Image src={beforeImage} alt={beforeLabel} fill className="object-cover object-top pointer-events-none bg-[#f9f9f9]" quality={85} />
       </div>
       <div className="absolute top-0 bottom-0 w-1 bg-[#FF6B6B] shadow-lg" style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)', transition: 'left 1200ms cubic-bezier(0.4, 0, 0.2, 1)' }}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-[#FF6B6B]/10 backdrop-blur-md rounded-full border-2 border-[#FF6B6B] shadow-xl flex items-center justify-center">

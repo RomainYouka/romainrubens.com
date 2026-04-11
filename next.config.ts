@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "**" },
       { protocol: "http", hostname: "**" },
     ],
-    qualities: [85, 90, 95, 100],
+    formats: ["image/avif", "image/webp"],
   },
 
   typescript: { ignoreBuildErrors: true },

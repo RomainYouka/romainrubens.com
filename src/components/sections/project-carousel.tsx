@@ -269,7 +269,7 @@ export default function ProjectCarousel() {
                     style={{
                       pointerEvents: (isLeft || isRight) ? "none" : "none"
                     }}
-                    quality={100} />
+                    quality={85} />
 
                 </div>);
 

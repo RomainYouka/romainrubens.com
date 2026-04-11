@@ -93,7 +93,7 @@ export default function NotFound() {
       <section className="relative w-full h-screen overflow-hidden bg-white">
         <div className="absolute inset-0 w-full h-full">
           <Image
-            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/fond-romain-rubens-1762169393726.png?width=8000&height=8000&resize=contain"
+            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/fond-romain-rubens-1762169393726.png?width=1920&height=1080&resize=contain"
             alt="Background"
             fill
             className="object-cover"
@@ -115,7 +115,7 @@ export default function NotFound() {
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
         <Image
-          src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/fond-romain-rubens-1762169393726.png?width=8000&height=8000&resize=contain"
+          src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/fond-romain-rubens-1762169393726.png?width=1920&height=1080&resize=contain"
           alt="Background"
           fill
           className="object-cover"

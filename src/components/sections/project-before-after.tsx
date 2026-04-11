@@ -123,7 +123,7 @@ function BeforeAfterSlider({
           fill
           className="object-contain pointer-events-none"
           draggable={false}
-          quality={100}
+          quality={85}
           sizes="(max-width: 768px) 100vw, 50vw" />
 
       </div>
@@ -143,7 +143,7 @@ function BeforeAfterSlider({
           fill
           className="object-contain pointer-events-none"
           draggable={false}
-          quality={100}
+          quality={85}
           sizes="(max-width: 768px) 100vw, 50vw" />
 
       </div>
