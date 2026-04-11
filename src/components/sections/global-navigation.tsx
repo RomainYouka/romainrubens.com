@@ -112,24 +112,29 @@ interface LangSelectorProps {
 const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, onOpen, onClose }: LangSelectorProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState<{ top: number; right: number }>({ top: 72, right: 16 });
+  const [dropPos, setDropPos] = useState<{ top: number; centerX: number }>({ top: 80, centerX: 0 });
   const LANGS: Language[] = ["FR", "EN", "ՀԱՅ"];
 
-  // Calcule la position du dropdown quand il s'ouvre
-  useEffect(() => {
-    if (isOpen && buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      setPos({
-        top: 72, // nav 64px + gap 8px (nav toujours étendue quand dropdown ouvert)
-        right: window.innerWidth - rect.right,
-      });
-    }
-  }, [isOpen]);
-
-  // Fermeture au clic extérieur
+  // Calcule la position (centrée sur le bouton) — deux fois pour couvrir l'animation d'expansion
   useEffect(() => {
     if (!isOpen) return;
+    const calc = () => {
+      if (!buttonRef.current) return;
+      const r = buttonRef.current.getBoundingClientRect();
+      setDropPos({ top: r.bottom + 8, centerX: r.left + r.width / 2 });
+    };
+    calc();
+    const t = setTimeout(calc, 400); // recalcul après animation nav
+    return () => clearTimeout(t);
+  }, [isOpen]);
+
+  // Fermeture au clic extérieur — délai pour éviter la fermeture immédiate
+  useEffect(() => {
+    if (!isOpen) return;
+    let armed = false;
+    const arm = setTimeout(() => { armed = true; }, 80);
     const handler = (e: MouseEvent) => {
+      if (!armed) return;
       if (
         !buttonRef.current?.contains(e.target as Node) &&
         !dropdownRef.current?.contains(e.target as Node)
@@ -138,7 +143,10 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
       }
     };
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    return () => {
+      clearTimeout(arm);
+      document.removeEventListener("mousedown", handler);
+    };
   }, [isOpen, onClose]);
 
   // Fermeture à Escape
@@ -149,21 +157,37 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
     return () => document.removeEventListener("keydown", handler);
   }, [isOpen, onClose]);
 
-  const handleSelect = (lang: string) => {
+  // Fermeture si l'utilisateur scrolle significativement (avec délai)
+  useEffect(() => {
+    if (!isOpen) return;
+    const startY = window.scrollY;
+    let canClose = false;
+    const timer = setTimeout(() => { canClose = true; }, 600);
+    const handler = () => {
+      if (canClose && Math.abs(window.scrollY - startY) > 30) onClose();
+    };
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handler);
+    };
+  }, [isOpen, onClose]);
+
+  const handleSelect = (lang: Language) => {
     onLanguageChange(lang);
     onClose();
   };
 
-  const textColor   = isDark ? "#FFFFFF" : "#1d1d1f";
-  const dropBg      = isDark ? "rgba(28, 28, 32, 0.96)" : "rgba(255, 255, 255, 0.96)";
-  const dropBorder  = isDark ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.09)";
-  const divider     = isDark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.06)";
-  const hoverBg     = isDark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.04)";
-  const selectedBg  = isDark ? "#314DCB" : "#1d1d1f";
+  const textColor  = isDark ? "#FFFFFF" : "#1d1d1f";
+  const dropBg     = isDark ? "rgba(26, 26, 30, 0.97)" : "rgba(252, 252, 254, 0.97)";
+  const dropBorder = isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.10)";
+  const divider    = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.07)";
+  const hoverBg    = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)";
+  const selectedBg = isDark ? "#314DCB" : "#1d1d1f";
 
   return (
     <>
-      {/* Bouton */}
+      {/* Bouton langue */}
       <button
         ref={buttonRef}
         onClick={() => (isOpen ? onClose() : onOpen())}
@@ -185,38 +209,38 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
         <Languages className="h-[18px] w-[18px]" strokeWidth={2.2} />
       </button>
 
-      {/* Dropdown — Dynamic Island style */}
+      {/* Dropdown — centré sur l'icône, sort de la nav comme une goutte */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             ref={dropdownRef}
             role="listbox"
             aria-label="Sélection de la langue"
-            initial={{ opacity: 0, scaleY: 0.4, scaleX: 0.75, y: -14, filter: "blur(8px)" }}
-            animate={{ opacity: 1, scaleY: 1, scaleX: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scaleY: 0.2, scaleX: 0.7, y: -10, filter: "blur(8px)" }}
+            initial={{ opacity: 0, scaleY: 0, x: "-50%", filter: "blur(6px)" }}
+            animate={{ opacity: 1, scaleY: 1, x: "-50%", filter: "blur(0px)" }}
+            exit={{ opacity: 0, scaleY: 0, x: "-50%", filter: "blur(4px)" }}
             transition={{
               type: "spring",
-              stiffness: 360,
-              damping: 24,
-              mass: 0.7,
+              stiffness: 380,
+              damping: 22,
+              mass: 0.65,
             }}
             style={{
               position: "fixed",
-              top: pos.top,
-              right: pos.right,
-              transformOrigin: "top right",
+              top: dropPos.top,
+              left: dropPos.centerX,
+              transformOrigin: "top center",
               backgroundColor: dropBg,
-              backdropFilter: "blur(18px)",
-              WebkitBackdropFilter: "blur(18px)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
               border: `1px solid ${dropBorder}`,
               borderRadius: 14,
               overflow: "hidden",
               zIndex: 1100,
-              minWidth: 56,
+              minWidth: 76,
               boxShadow: isDark
-                ? "0 12px 40px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.25)"
-                : "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
+                ? "0 16px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3)"
+                : "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.07)",
             }}
           >
             {LANGS.map((lang, idx) => {
@@ -230,7 +254,7 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
                   style={{
                     display: "block",
                     width: "100%",
-                    padding: "11px 18px",
+                    padding: "12px 20px",
                     textAlign: "center",
                     fontSize: 14,
                     fontFamily: "var(--font-body)",
@@ -306,30 +330,20 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // ── Auto-fermeture dropdown si scroll significatif ──
-  useEffect(() => {
-    if (!langOpen) return;
-    const handler = () => {
-      if (window.scrollY > 40) closeLangDropdown();
-    };
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, [langOpen]); // eslint-disable-line
-
-  // ── Ouvrir le dropdown (séquence : expand nav → ouvrir) ──
+  // ── Ouvrir le dropdown (si pillule → expand nav d'abord, puis afficher) ──
   const openLangDropdown = useCallback(() => {
     if (scrolledY) {
       setLangForceExpanded(true);
-      setTimeout(() => setLangOpen(true), 370);
+      setTimeout(() => setLangOpen(true), 380);
     } else {
       setLangOpen(true);
     }
   }, [scrolledY]);
 
-  // ── Fermer le dropdown (puis laisser la nav reprendre son état) ──
+  // ── Fermer le dropdown (puis laisser la nav reprendre son état pillule) ──
   const closeLangDropdown = useCallback(() => {
     setLangOpen(false);
-    setTimeout(() => setLangForceExpanded(false), 300);
+    setTimeout(() => setLangForceExpanded(false), 280);
   }, []);
 
   // ── Logo ──
