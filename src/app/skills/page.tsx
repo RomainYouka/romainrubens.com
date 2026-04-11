@@ -149,24 +149,24 @@ export default function SkillsPage() {
 
         <div className="mb-16 md:mb-20">
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 transition-all duration-500"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
             style={{
               color: "var(--theme-fg)",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(16px)",
-              transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+              transition: "opacity 500ms cubic-bezier(0.25,0.1,0.25,1), transform 500ms cubic-bezier(0.25,0.1,0.25,1)",
             }}
           >
             {t.title}
           </h1>
           <p
-            className="text-base md:text-lg leading-relaxed max-w-2xl transition-all duration-500"
+            className="text-base md:text-lg leading-relaxed max-w-2xl"
             style={{
               color: "var(--theme-muted)",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(12px)",
+              transition: "opacity 500ms cubic-bezier(0.25,0.1,0.25,1), transform 500ms cubic-bezier(0.25,0.1,0.25,1)",
               transitionDelay: "80ms",
-              transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
             }}
           >
             {t.subtitle}
@@ -174,14 +174,14 @@ export default function SkillsPage() {
         </div>
 
         <div
-          className="mb-16 md:mb-20 p-6 md:p-8 rounded-lg border transition-all duration-500"
+          className="mb-16 md:mb-20 p-6 md:p-8 rounded-lg border"
           style={{
             backgroundColor: "var(--theme-card-bg)",
             borderColor: "var(--theme-card-border)",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "scale(1)" : "scale(0.97)",
+            transition: "opacity 500ms cubic-bezier(0.25,0.1,0.25,1), transform 500ms cubic-bezier(0.25,0.1,0.25,1)",
             transitionDelay: "160ms",
-            transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
           }}
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
