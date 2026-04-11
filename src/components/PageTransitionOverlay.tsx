@@ -4,9 +4,7 @@ import { motion } from "framer-motion";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 
 const STRIPS = 8;
-const STRIP_DURATION = 0.55;
-const STRIP_STAGGER = 0.045;
-const TILE = 60; // taille d'une tuile en px
+const TILE = 60;
 
 const STAR_PATH =
   "M21.2637 4.08739L37.8817 26.3888L38.0898 26.3454L52.3654 3.49677L64.4675 12.5899" +
@@ -26,20 +24,22 @@ function makeTileBg(starColor: string, bgColor: string, offset = false) {
     backgroundImage: `url("data:image/svg+xml,${svg}")`,
     backgroundSize: `${TILE}px ${TILE}px`,
     backgroundRepeat: "repeat" as const,
-    // décalage demi-tuile sur les bandes impaires → effet pop-art en brique
     backgroundPosition: offset ? `${TILE / 2}px ${TILE / 2}px` : "0 0",
   };
 }
 
-// Précalculé une seule fois
+// Précalculé une seule fois — alternance sombre/bleu pop-art
 const STRIP_STYLES = Array.from({ length: STRIPS }).map((_, i) => {
   const isEven = i % 2 === 0;
   return makeTileBg(
-    isEven ? "#314DCB" : "#1d1d1f", // couleur étoile
-    isEven ? "#1d1d1f" : "#314DCB", // couleur fond tuile
-    !isEven                          // décalage sur bandes impaires
+    isEven ? "#314DCB" : "#1d1d1f",
+    isEven ? "#1d1d1f" : "#314DCB",
+    !isEven
   );
 });
+
+// Centre du logo dans la nav (~40px depuis la gauche, ~32px depuis le haut)
+const ORIGIN = "40px 32px";
 
 export function PageTransitionOverlay() {
   const { phase } = usePageTransition();
@@ -47,7 +47,18 @@ export function PageTransitionOverlay() {
   if (phase === "idle") return null;
 
   return (
-    <div
+    <motion.div
+      initial={{ clipPath: `circle(0px at ${ORIGIN})`, y: "0%" }}
+      animate={
+        phase === "out"
+          ? { clipPath: `circle(2500px at ${ORIGIN})`, y: "-100%" }
+          : { clipPath: `circle(2500px at ${ORIGIN})`, y: "0%" }
+      }
+      transition={
+        phase === "out"
+          ? { duration: 0.65, ease: [0.76, 0, 0.24, 1] }
+          : { duration: 0.72, ease: [0.76, 0, 0.24, 1] }
+      }
       style={{
         position: "fixed",
         inset: 0,
@@ -57,23 +68,15 @@ export function PageTransitionOverlay() {
       }}
     >
       {STRIP_STYLES.map((style, i) => (
-        <motion.div
+        <div
           key={i}
-          initial={{ y: "100%" }}
-          animate={{ y: phase === "out" ? "-100%" : "0%" }}
-          transition={{
-            duration: STRIP_DURATION,
-            delay: i * STRIP_STAGGER,
-            ease: [0.76, 0, 0.24, 1],
-          }}
           style={{
             flex: "1 0 0",
             marginRight: i < STRIPS - 1 ? "-1px" : "0",
-            willChange: "transform",
             ...style,
           }}
         />
       ))}
-    </div>
+    </motion.div>
   );
 }

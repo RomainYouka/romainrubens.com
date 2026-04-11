@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Languages, Check } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
+import { usePageTransition } from "@/contexts/PageTransitionContext";
 
 // Animated Burger Icon Component
 const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean, isDark: boolean }) => {
@@ -358,6 +359,7 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: "FR" | "
 const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const { isDark } = useTheme();
   const pathname = usePathname();
+  const { triggerTransition } = usePageTransition();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
@@ -386,10 +388,17 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     window.dispatchEvent(new CustomEvent("languageChange", { detail: validLang }));
   };
 
-  const handleLogoClick = () => {
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     setLogoAnimating(true);
     setTimeout(() => setLogoAnimating(false), 260);
-    if (onShowQuotes) onShowQuotes();
+    if (pathname === "/") {
+      // Déjà sur l'accueil → afficher les citations
+      if (onShowQuotes) onShowQuotes();
+    } else {
+      // Autre page → transition animée vers l'accueil
+      triggerTransition("/");
+    }
   };
 
   useEffect(() => {
