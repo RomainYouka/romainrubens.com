@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
@@ -106,6 +106,7 @@ export default function SkillsPage() {
   const [language, setLanguage] = useState<Language>("FR");
   const [data, setData] = useState<SkillsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("preferredLanguage") as Language;
@@ -125,6 +126,11 @@ export default function SkillsPage() {
       .catch(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    const t = setTimeout(() => setIsVisible(true), 50);
+    return () => clearTimeout(t);
+  }, []);
+
   const t = uiTranslations[language] || uiTranslations.FR;
   const sortedCategories = data?.categories
     ? [...data.categories].sort((a, b) => {
@@ -142,15 +148,42 @@ export default function SkillsPage() {
       <section className="w-full max-w-5xl mx-auto px-4 md:px-8 py-20 md:py-32">
 
         <div className="mb-16 md:mb-20">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: "var(--theme-fg)" }}>
+          <h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 transition-all duration-500"
+            style={{
+              color: "var(--theme-fg)",
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(16px)",
+              transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+            }}
+          >
             {t.title}
           </h1>
-          <p className="text-base md:text-lg leading-relaxed max-w-2xl" style={{ color: "var(--theme-muted)" }}>
+          <p
+            className="text-base md:text-lg leading-relaxed max-w-2xl transition-all duration-500"
+            style={{
+              color: "var(--theme-muted)",
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(12px)",
+              transitionDelay: "80ms",
+              transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+            }}
+          >
             {t.subtitle}
           </p>
         </div>
 
-        <div className="mb-16 md:mb-20 p-6 md:p-8 rounded-lg border" style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-card-border)" }}>
+        <div
+          className="mb-16 md:mb-20 p-6 md:p-8 rounded-lg border transition-all duration-500"
+          style={{
+            backgroundColor: "var(--theme-card-bg)",
+            borderColor: "var(--theme-card-border)",
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "scale(1)" : "scale(0.97)",
+            transitionDelay: "160ms",
+            transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
+          }}
+        >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {([1, 2, 4, 5] as const).map((rating) => (
               <div key={rating} className="flex flex-col items-center gap-3">
