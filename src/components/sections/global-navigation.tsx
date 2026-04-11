@@ -66,8 +66,8 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: Language
     document.body.removeChild(a);
   };
 
-  const bg     = isDark ? "#314DCB" : "#1d1d1f";
-  const border = isDark ? "#5194FF" : "transparent";
+  const bg     = "#314DCB";
+  const border = isDark ? "#5194FF" : "#314DCB";
 
   return (
     <button
@@ -173,7 +173,7 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
   const dropBorder = isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.10)";
   const divider    = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.07)";
   const hoverBg    = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)";
-  const selectedBg = isDark ? "#314DCB"              : "#1d1d1f";
+  const selectedBg = "#314DCB";
 
   return (
     <>
@@ -283,7 +283,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   // Nav en mode pillule uniquement si scrollé ET pas de dropdown / menu ouvert
-  const isScrolled = scrolledY && !langForceExpanded && !isMenuOpen;
+  const isScrolled = scrolledY && !langForceExpanded && !langOpen && !isMenuOpen;
 
   const isExplorationsPage = pathname === "/explorations";
   const logoIconSrc = isScrolled
@@ -420,7 +420,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
             WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
             borderRadius:  isScrolled ? "980px" : "0",
             borderBottom:  isScrolled ? "none" : `1px solid ${borderColor}`,
-            boxShadow:     isScrolled ? "0 4px 12px rgba(0,0,0,0.08)" : "none",
+            boxShadow:     isScrolled ? (isDark ? "0 4px 20px rgba(255,255,255,0.07)" : "0 4px 12px rgba(0,0,0,0.08)") : "none",
             transition:
               "background-color 380ms cubic-bezier(0.4,0,0.2,1), " +
               "border-radius 380ms cubic-bezier(0.4,0,0.2,1), " +
