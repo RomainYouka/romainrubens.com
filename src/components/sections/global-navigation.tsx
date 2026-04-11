@@ -102,9 +102,8 @@ const LanguageSelector = ({
     const updatePosition = () => {
       if (buttonRef.current) {
         const buttonRect = buttonRef.current.getBoundingClientRect();
-        const topPosition = 64;
         setDropdownPosition({
-          top: topPosition,
+          top: buttonRect.bottom + 4,
           left: buttonRect.left
         });
         setIsPositioned(true);
@@ -413,13 +412,6 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
 
   const handleLanguageDropdownToggle = (open: boolean) => {
     setLanguageDropdownOpen(open);
-    if (open) {
-      setIsScrolled(false);
-    } else {
-      if (!isMenuOpen) {
-        setIsScrolled(window.scrollY > 8);
-      }
-    }
   };
 
   const handleMenuToggle = () => {
