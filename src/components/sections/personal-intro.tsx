@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const translations = {
   FR: {
@@ -50,6 +51,7 @@ const pdfFileNames = {
 
 export default function PersonalIntro({ id = "personal-intro" }: { id?: string }) {
   const router = useRouter();
+  const { isDark } = useTheme();
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
@@ -346,6 +348,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                   }}
                   disabled={showOverlay}
                   className="bg-[#314DCB] text-white font-semibold rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 disabled:opacity-0 disabled:cursor-not-allowed inline-flex items-center py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
+                  style={isDark ? { border: "1px solid #5194FF" } : undefined}
                 >
                   {content.ctaProjects}
                   <ArrowRight className="ml-2 w-4 h-4 flex-shrink-0" />

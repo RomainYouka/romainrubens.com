@@ -391,7 +391,7 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(12px, 1.2vw, 14px)",
                 fontWeight: 600,
-                color: "#86868b",
+                color: "var(--theme-subtle)",
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
                 marginBottom: "clamp(8px, 1vw, 12px)"
@@ -460,7 +460,8 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
                     {section.title}
                   </span>
                   <ChevronDown 
-                    className={`w-5 h-5 text-[#86868b] transition-transform duration-300 flex-shrink-0 ${isOpen ? "rotate-180" : ""}`}
+                    className={`w-5 h-5 transition-transform duration-300 flex-shrink-0 ${isOpen ? "rotate-180" : ""}`}
+                  style={{ color: "var(--theme-subtle)" }}
                   />
                 </button>
                 
@@ -616,7 +617,7 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(14px, 1.2vw, 16px)",
                 fontWeight: 400,
-                color: "#86868b",
+                color: "var(--theme-subtle)",
                 lineHeight: 1.6,
                 marginBottom: "24px"
               }}

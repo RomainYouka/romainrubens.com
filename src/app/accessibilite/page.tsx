@@ -6,10 +6,10 @@ type Language = "FR" | "EN" | "ՀԱՅ";
 
 const translations = {
   FR: {
-    title: "Accessibilité",
+    title: "Accessibility",
     intro: "Ce site s'inscrit dans une démarche volontaire d'accessibilité numérique. Les choix de conception s'appuient sur les recommandations du RGAA 4 (Référentiel Général d'Amélioration de l'Accessibilité) et des WCAG 2.1, sans pour autant constituer une déclaration de conformité officielle.",
 
-    approachTitle: "Notre démarche",
+    approachTitle: "La démarche",
     approachText: "Une attention particulière est portée aux points suivants :",
     approachList: [
       "Navigation au clavier et gestion du focus",
@@ -28,9 +28,9 @@ const translations = {
     limitsTitle: "Limites connues",
     limitsText: "Certaines parties du site peuvent encore présenter des imperfections en matière d'accessibilité. Ce site est un portfolio en constante évolution, et des améliorations sont apportées de manière continue. Aucune conformité totale n'est revendiquée.",
 
-    contactTitle: "Une difficulté ? Contactez-nous",
-    contactText: "Si vous rencontrez une difficulté pour accéder à un contenu ou utiliser une fonctionnalité, vous pouvez le signaler à l'adresse suivante. Une réponse sera apportée dans les meilleurs délais.",
-    contactEmail: "report@romainrubens.com",
+    contactTitle: "Une difficulté ? Prendre contact",
+    contactText: "Pour signaler une difficulté d'accès à un contenu ou à une fonctionnalité, écrire à l'adresse suivante. Une réponse sera apportée dans les meilleurs délais.",
+    contactEmail: "contact@romainrubens.com",
 
     dateTitle: "Dernière mise à jour",
     dateText: "Avril 2026",
@@ -58,9 +58,9 @@ const translations = {
     limitsTitle: "Known limitations",
     limitsText: "Some parts of the site may still have accessibility imperfections. This site is an evolving portfolio, and improvements are made on an ongoing basis. No claim of full conformity is made.",
 
-    contactTitle: "Experiencing difficulties? Get in touch",
-    contactText: "If you experience difficulty accessing content or using a feature, you can report it at the address below. A response will be provided as soon as possible.",
-    contactEmail: "report@romainrubens.com",
+    contactTitle: "A difficulty? Get in touch",
+    contactText: "To report difficulty accessing content or using a feature, write to the address below. A response will be provided as soon as possible.",
+    contactEmail: "contact@romainrubens.com",
 
     dateTitle: "Last updated",
     dateText: "April 2026",
@@ -81,19 +81,19 @@ const translations = {
       "Հիմնական բովանդակությանն անցնելու հղում",
     ],
 
-    techTitle: "Օgtagорцvаc texnoloqianeр",
-    techText: "Կայqը mшakvum е hетевyal texnoloqianeрov.",
+    techTitle: "Օգտագործված տեխնոլոգիաները",
+    techText: "Կայքը կառուցված է հետևյալ տեխնոլոգիաներով.",
     techList: ["React 19", "Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4"],
 
-    limitsTitle: "Հայтni саhmanafaкoumneр",
-    limitsText: "Кayqi orosh мaseрum karог ен dеgbum hаsanelioуțyan kaтarelагoutyounneр: Аyd кayqə шаруnakaуtyounn шарауnak portfolio е, ev barelагoumneрn ирakanacrvoum en andrаdz: Лiovin hamapatasvanoуțyan oreve haуtsatroуm chi kaтarvoum:",
+    limitsTitle: "Հայտնի սահմանափակումներ",
+    limitsText: "Կայքի որոշ մասերում կարող են դեռ հայտնաբերվել հասանելիության թերություններ։ Կայքը շարունակ զարգացող portfolio է, և բարելավումներն ավելացվում են մշտապես։ Լիովին համապատասխանության որևէ հայտ չի ներկայացվում։",
 
-    contactTitle: "Khoнdир? Kapveq mer het",
-    contactText: "Ете baхarel eq kontentin matknelov кam goгcarkoutyoun оgtagорцelov, karogh eq hayshoumel hетevi hascein: Pahanjvoum е sрa voronq pahanj tnein:",
-    contactEmail: "report@romainrubens.com",
+    contactTitle: "Դժվարություն? Կապ հաստատել",
+    contactText: "Բովանդակությանը մուտք գործելու կամ գործառույթ օգտագործելու դժվարության դեպքում կարելի է հայտնել ստորև բերված հասցեին։ Հնարավոր ամենակարճ ժամկետում կտրվի պատասխան։",
+    contactEmail: "contact@romainrubens.com",
 
-    dateTitle: "Vervjin bнaкoum",
-    dateText: "Apрil 2026",
+    dateTitle: "Վերջին թարմացում",
+    dateText: "Ապրիլ 2026",
   },
 };
 

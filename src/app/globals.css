@@ -95,9 +95,9 @@
     --theme-pill-bg: #f5f5f5;
     --theme-pill-border: #d0d0d0;
     --theme-card-border: #e5e5e5;
-    --theme-btn-bg: #F5F5F5;
-    --theme-btn-fg: #1d1d1f;
-    --theme-btn-border: #1d1d1f;
+    --theme-btn-bg: #1d1d1f;
+    --theme-btn-fg: #ffffff;
+    --theme-btn-border: transparent;
     --theme-accent: #314DCB;
     --theme-subtle: #6e6e73;
   }
@@ -107,7 +107,7 @@
     --theme-bg: #1d1d1f;
     --theme-bg-alt: #1d1d1f;
     --theme-fg: #ffffff;
-    --theme-muted: #a0a0a5;
+    --theme-muted: #CCCCCC;
     --theme-border: #616161;
     --theme-nav-bg: #191919;
     --theme-nav-scrolled: rgba(25, 25, 25, 0.92);
@@ -115,9 +115,9 @@
     --theme-pill-bg: #343434;
     --theme-pill-border: #616161;
     --theme-card-border: #616161;
-    --theme-btn-bg: #314DCB;
-    --theme-btn-fg: #ffffff;
-    --theme-btn-border: #5194FF;
+    --theme-btn-bg: #F5F5F5;
+    --theme-btn-fg: #1d1d1f;
+    --theme-btn-border: transparent;
     --theme-accent: #5194FF;
     --theme-subtle: #CCCCCC;
   }
