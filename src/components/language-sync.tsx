@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { detectLanguage } from "@/lib/language";
 
 const langMap: Record<string, string> = {
   FR: "fr",
@@ -9,34 +10,20 @@ const langMap: Record<string, string> = {
 };
 
 function applyLang(code: string) {
-  const htmlLang = langMap[code] ?? "fr";
-  document.documentElement.setAttribute("lang", htmlLang);
+  document.documentElement.setAttribute("lang", langMap[code] ?? "en");
 }
 
 export function LanguageSync() {
   useEffect(() => {
-    // Check if user has a saved preference
-    const saved = localStorage.getItem("preferredLanguage");
-
-    if (saved) {
-      applyLang(saved);
-    } else {
-      // If no saved preference, try to match browser language
-      const browserLang = navigator.language.split('-')[0].toUpperCase();
-      let targetLang: "FR" | "EN" | "ՀԱՅ" = "FR"; // Default to FR
-
-      if (browserLang === "EN") {
-        targetLang = "EN";
-      } else if (browserLang === "HY") {
-        targetLang = "ՀԱՅ";
-      }
-
-      localStorage.setItem("preferredLanguage", targetLang);
-      applyLang(targetLang);
-      window.dispatchEvent(new CustomEvent("languageChange", { detail: targetLang }));
+    const lang = detectLanguage();
+    // Sauvegarder si pas déjà fait
+    if (!localStorage.getItem("preferredLanguage")) {
+      localStorage.setItem("preferredLanguage", lang);
     }
+    applyLang(lang);
+    // Notifier tous les composants de la langue initiale
+    window.dispatchEvent(new CustomEvent("languageChange", { detail: lang }));
 
-    // Listen for future language changes
     const handleLanguageChange = (event: CustomEvent<string>) => {
       applyLang(event.detail);
     };
