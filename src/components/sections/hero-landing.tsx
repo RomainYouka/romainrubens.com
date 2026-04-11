@@ -145,14 +145,13 @@ export default function HeroLanding() {
   }, [showScrollButton, userInteracted]);
 
   // ── Couleurs selon thème ─────────────────────────────────────────────────────
-  const bgColor    = isDark ? "#09091a"                  : "#f0f0f5";
-  const glassColor = isDark ? "rgba(9,9,26,0.22)"        : "rgba(240,240,245,0.18)";
-  const glassBlur  = isDark ? "20px"                     : "14px";
-  const textColor  = isDark ? "#ffffff"                  : "#1d1d1f";
-  const mutedColor = isDark ? "rgba(255,255,255,0.72)"   : "rgba(20,20,41,0.70)";
-  const opacityKf = isDark
-    ? [0.50, 0.75, 0.60, 0.50]
-    : [0.65, 0.88, 0.72, 0.65];
+  // La section hero est toujours en mode sombre, quel que soit le thème global
+  const bgColor    = "#09091a";
+  const glassColor = "rgba(9,9,26,0.22)";
+  const glassBlur  = "20px";
+  const textColor  = "#ffffff";
+  const mutedColor = "rgba(255,255,255,0.72)";
+  const opacityKf  = [0.50, 0.75, 0.60, 0.50];
 
   return (
     <section
