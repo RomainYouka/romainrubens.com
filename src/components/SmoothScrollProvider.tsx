@@ -9,6 +9,9 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   const pathname = usePathname();
 
   useEffect(() => {
+    // Pas de scroll smooth sur la page d'accueil (scroll natif spécifique)
+    if (pathname === "/") return;
+
     // Respecte prefers-reduced-motion
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;

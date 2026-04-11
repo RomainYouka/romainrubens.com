@@ -44,25 +44,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    // Pas de préférence → on décide selon l'heure
-    const h = new Date().getHours();
+    // Pas de préférence → toujours mode clair par défaut
+    setThemeState("light");
+    applyTheme("light");
 
-    if (h >= 19 || h < 6) {
-      // 19h–6h : mode sombre automatique
-      setThemeState("dark");
-      applyTheme("dark");
-    } else if ((h >= 17 && h < 19) || (h >= 6 && h < 8)) {
-      // 17h–19h ou 6h–8h : demander via popup (une seule fois par session)
-      setThemeState("light");
-      applyTheme("light");
-      if (!sessionStorage.getItem("themeAsked")) {
-        sessionStorage.setItem("themeAsked", "1");
-        setShowTimePopup(h >= 17 ? "evening" : "morning");
-      }
-    } else {
-      // Autres heures : mode clair, bouton disponible
-      setThemeState("light");
-      applyTheme("light");
+    // La nuit ou en transition soir/matin : proposer le mode sombre via popup
+    const h = new Date().getHours();
+    const isNight = h >= 19 || h < 6;
+    const isTransition = (h >= 17 && h < 19) || (h >= 6 && h < 8);
+
+    if ((isNight || isTransition) && !sessionStorage.getItem("themeAsked")) {
+      sessionStorage.setItem("themeAsked", "1");
+      setShowTimePopup(h >= 6 && h < 8 ? "morning" : "evening");
     }
 
     setMounted(true);
