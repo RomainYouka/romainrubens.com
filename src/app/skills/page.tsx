@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import { useTheme } from "@/contexts/ThemeContext";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
@@ -54,18 +54,51 @@ const getSkillName = (names: Skill["names"], language: Language): string => {
   return names[language] || names.EN;
 };
 
-const StarRating = ({ rating }: { rating: number }) => {
+// Path de l'étoile, normalisé sur un viewBox 179.728 × 172.595
+const STAR_PATH = "M168.126 124.883L167.147 124.601L108.471 107.718L114.781 168.913L114.888 169.955L113.843 170.014L78.3483 172.029L77.3309 172.087L77.2923 171.069L74.9662 109.539L15.081 135.382L14.1001 135.805L13.742 134.798L1.66023 100.746L1.3294 99.8115L2.26037 99.4725L63.2018 77.2499L21.4805 27.7533L20.836 26.9892L21.5992 26.3444L49.3062 2.95385L50.1177 2.26846L50.7529 3.12008L89.535 55.1644L122.883 1.7872L123.461 0.862422L124.332 1.51737L153.041 23.088L153.826 23.6785L153.25 24.4745L117.726 73.5158L176.898 88.2131L177.886 88.4588L168.126 124.883Z";
+const VB_W = 179.728;
+const VB_H = 172.595;
+
+const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) => {
+  const { isDark } = useTheme();
   const clamped = Math.min(5, Math.max(0, Math.round(rating)));
+
+  const fullFill   = "#314DCB";
+  const fullStroke = isDark ? "#5194FF" : "#314DCB";
+  const emptyFill  = isDark ? "#1D1D1F" : "#F5F5F5";
+  const emptyStroke = isDark ? "#1D1D1F" : "#F5F5F5";
+
+  const starH  = size;
+  const starW  = starH * (VB_W / VB_H);
+  const gap    = 2;
+  const totalW = starW * 5 + gap * 4;
+  const scale  = starH / VB_H;
+
   return (
-    <div className="relative w-20 h-5 flex-shrink-0">
-      <Image
-        src={`/skills/stars-${clamped}.png`}
-        alt={`${clamped} out of 5 stars`}
-        fill
-        sizes="80px"
-        className="object-contain"
-      />
-    </div>
+    <svg
+      width={totalW}
+      height={starH}
+      viewBox={`0 0 ${totalW} ${starH}`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style={{ flexShrink: 0 }}
+    >
+      {[1, 2, 3, 4, 5].map((i) => {
+        const isFull = i <= clamped;
+        const x = (i - 1) * (starW + gap);
+        return (
+          <path
+            key={i}
+            transform={`translate(${x}, 0) scale(${scale})`}
+            d={STAR_PATH}
+            fill={isFull ? fullFill : emptyFill}
+            stroke={isFull ? fullStroke : emptyStroke}
+            strokeWidth={2}
+          />
+        );
+      })}
+    </svg>
   );
 };
 
@@ -121,15 +154,7 @@ export default function SkillsPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {([1, 2, 4, 5] as const).map((rating) => (
               <div key={rating} className="flex flex-col items-center gap-3">
-                <div className="relative w-24 h-6">
-                  <Image
-                    src={`/skills/stars-${rating}.png`}
-                    alt={`${rating} stars`}
-                    fill
-                    sizes="96px"
-                    className="object-contain"
-                  />
-                </div>
+                <StarRating rating={rating} size={22} />
                 <p className="text-sm md:text-base text-center font-medium" style={{ color: "var(--theme-fg)" }}>
                   {t.ratingLabels[rating]}
                 </p>
@@ -157,7 +182,7 @@ export default function SkillsPage() {
                   <span className="text-sm md:text-base font-medium" style={{ color: "var(--theme-fg)" }}>
                     {getSkillName(skill.names, language)}
                   </span>
-                  <StarRating rating={skill.rating} />
+                  <StarRating rating={skill.rating} size={18} />
                 </div>
               ))}
             </div>
