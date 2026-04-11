@@ -23,19 +23,19 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
     (href: string) => {
       if (phase !== "idle") return;
 
-      setPhase("in"); // rideau monte et couvre l'écran
+      setPhase("in"); // lamelles montent et couvrent l'écran
 
       setTimeout(() => {
         router.push(href); // navigation pendant que l'écran est couvert
 
         setTimeout(() => {
-          setPhase("out"); // rideau continue sa montée, révèle la nouvelle page
+          setPhase("out"); // lamelles continuent leur montée, révèlent la nouvelle page
 
           setTimeout(() => {
-            setPhase("idle"); // nettoyage (panneau déjà hors écran)
-          }, 580);
-        }, 120);
-      }, 520);
+            setPhase("idle"); // nettoyage (lamelles déjà hors écran)
+          }, 750);
+        }, 100);
+      }, 780);
     },
     [phase, router]
   );

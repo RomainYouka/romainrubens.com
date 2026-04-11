@@ -3,27 +3,44 @@
 import { motion } from "framer-motion";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 
+const STRIPS = 10;
+const STRIP_DURATION = 0.48;
+const STRIP_STAGGER = 0.03;
+
 export function PageTransitionOverlay() {
   const { phase } = usePageTransition();
 
   if (phase === "idle") return null;
 
   return (
-    <motion.div
-      initial={{ y: "100%" }}
-      animate={{ y: phase === "out" ? "-100%" : "0%" }}
-      transition={{
-        duration: 0.52,
-        ease: [0.76, 0, 0.24, 1],
-      }}
+    <div
       style={{
         position: "fixed",
         inset: 0,
-        backgroundColor: "#1d1d1f",
         zIndex: 9999,
-        willChange: "transform",
         pointerEvents: "all",
+        display: "flex",
       }}
-    />
+    >
+      {Array.from({ length: STRIPS }).map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ y: "100%" }}
+          animate={{ y: phase === "out" ? "-100%" : "0%" }}
+          transition={{
+            duration: STRIP_DURATION,
+            delay: i * STRIP_STAGGER,
+            ease: [0.76, 0, 0.24, 1],
+          }}
+          style={{
+            flex: "1 0 0",
+            // léger chevauchement pour éviter les gaps sub-pixel entre bandes
+            marginRight: i < STRIPS - 1 ? "-1px" : "0",
+            backgroundColor: "#1d1d1f",
+            willChange: "transform",
+          }}
+        />
+      ))}
+    </div>
   );
 }
