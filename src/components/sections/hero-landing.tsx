@@ -4,6 +4,17 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import Lottie from "lottie-react";
+import { motion } from "framer-motion";
+
+// Blobs liquidglass — palette de l'animation de transition
+const BLOBS = [
+  { color: "#314DCB", size: 520, left: "12%",  top: "18%",  delay: 0,   duration: 5.2, x: [-18, 18, -18], y: [-12, 22, -12] },
+  { color: "#141e58", size: 580, left: "78%",  top: "68%",  delay: 1.8, duration: 6.8, x: [22, -22, 22],  y: [16, -18, 16]  },
+  { color: "#3a5cd8", size: 340, left: "76%",  top: "10%",  delay: 2.2, duration: 4.2, x: [-12, 12, -12], y: [-8,  14, -8]  },
+  { color: "#0d0d1c", size: 520, left: "38%",  top: "82%",  delay: 0.9, duration: 5.8, x: [12, -12, 12],  y: [22, -22, 22]  },
+  { color: "#243599", size: 400, left: "52%",  top: "44%",  delay: 3.4, duration: 4.6, x: [-22, 22, -22], y: [-14, 12, -14] },
+  { color: "#1a2880", size: 300, left: "22%",  top: "72%",  delay: 1.2, duration: 4.8, x: [10, -18, 10],  y: [-18, 10, -18] },
+];
 
 const translations = {
   FR: { text: "Hey, moi c'est Romain Rubens", button: "Découvrir" },
@@ -180,8 +191,54 @@ export default function HeroLanding() {
         />
       </div>
 
+      {/* Blobs liquidglass */}
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 2 }} aria-hidden="true">
+        {BLOBS.map((blob, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              x: blob.x,
+              y: blob.y,
+              scale: [1, 1.13, 1],
+              opacity: [0.38, 0.58, 0.38],
+            }}
+            transition={{
+              duration: blob.duration,
+              delay: blob.delay,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            style={{
+              position: "absolute",
+              left: blob.left,
+              top: blob.top,
+              width: `${blob.size}px`,
+              height: `${blob.size}px`,
+              borderRadius: "50%",
+              backgroundColor: blob.color,
+              filter: `blur(${Math.round(blob.size * 0.2)}px)`,
+              transform: "translate(-50%, -50%)",
+              willChange: "transform, opacity",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Couche verre dépoli */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 3,
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          backgroundColor: "rgba(10, 12, 30, 0.35)",
+        }}
+      />
+
       {/* Content Overlay */}
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center" style={{ zIndex: 10 }}>
         {/* Typing Animation Text - Center */}
         <div className="flex items-center justify-center flex-1">
           <h1

@@ -1,20 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
-
-// Blobs liquidglass — même palette que l'animation de transition
-const BLOBS = [
-  { color: "#314DCB", size: 520, left: "12%",  top: "18%",  delay: 0,   duration: 6.5, x: [-18, 18, -18], y: [-12, 22, -12] },
-  { color: "#141e58", size: 580, left: "78%",  top: "68%",  delay: 1.8, duration: 8.5, x: [22, -22, 22],  y: [16, -18, 16]  },
-  { color: "#3a5cd8", size: 340, left: "76%",  top: "10%",  delay: 2.2, duration: 5.2, x: [-12, 12, -12], y: [-8,  14, -8]  },
-  { color: "#0d0d1c", size: 520, left: "38%",  top: "82%",  delay: 0.9, duration: 7.2, x: [12, -12, 12],  y: [22, -22, 22]  },
-  { color: "#243599", size: 400, left: "52%",  top: "44%",  delay: 3.4, duration: 5.8, x: [-22, 22, -22], y: [-14, 12, -14] },
-  { color: "#1a2880", size: 300, left: "22%",  top: "72%",  delay: 1.2, duration: 6.0, x: [10, -18, 10],  y: [-18, 10, -18] },
-];
 
 const translations = {
   FR: {
@@ -295,60 +284,12 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
         className="w-full min-h-screen flex items-center"
         data-section="personal-intro"
         style={{
-          position: "relative",
-          overflow: "hidden",
           backgroundColor: isDark ? "#191919" : "#ffffff",
           paddingTop: "clamp(80px, 10vw, 120px)",
           paddingBottom: "clamp(80px, 10vw, 120px)",
         }}
       >
-        {/* Blobs liquidglass */}
-        <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0 }} aria-hidden="true">
-          {BLOBS.map((blob, i) => (
-            <motion.div
-              key={i}
-              animate={{
-                x: blob.x,
-                y: blob.y,
-                scale: [1, 1.13, 1],
-                opacity: isDark ? [0.42, 0.62, 0.42] : [0.13, 0.24, 0.13],
-              }}
-              transition={{
-                duration: blob.duration,
-                delay: blob.delay,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              style={{
-                position: "absolute",
-                left: blob.left,
-                top: blob.top,
-                width: `${blob.size}px`,
-                height: `${blob.size}px`,
-                borderRadius: "50%",
-                backgroundColor: blob.color,
-                filter: `blur(${Math.round(blob.size * 0.2)}px)`,
-                transform: "translate(-50%, -50%)",
-                willChange: "transform, opacity",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Couche verre dépoli */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 1,
-            backdropFilter: "blur(24px)",
-            WebkitBackdropFilter: "blur(24px)",
-            backgroundColor: isDark ? "rgba(25, 25, 25, 0.42)" : "rgba(255, 255, 255, 0.62)",
-          }}
-        />
-
-        <div className="w-full" style={{ position: "relative", zIndex: 2 }}>
+        <div className="w-full">
           <div
             className="container max-w-[900px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 w-full"
             style={{

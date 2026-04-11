@@ -201,12 +201,6 @@ const getSections = (): Section[] => [
 
 export default function SitemapPage() {
   const [language, setLanguage] = useState<Language>("FR");
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 50);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("preferredLanguage") as Language;
@@ -233,14 +227,11 @@ export default function SitemapPage() {
         <div className="w-full max-w-[1234px]">
           {/* Title */}
           <h1
-            className="text-3xl md:text-4xl font-semibold mb-12 md:mb-16 transition-all duration-500"
+            className="text-3xl md:text-4xl font-semibold mb-12 md:mb-16"
             style={{
               fontFamily: "var(--font-display)",
               color: "var(--theme-fg)",
               fontWeight: 600,
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(16px)",
-              transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
             }}
           >
             {t.title}
@@ -255,9 +246,6 @@ export default function SitemapPage() {
               color: "var(--theme-fg)",
               fontSize: "15px",
               lineHeight: "1.8",
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(12px)",
-              transition: "opacity 500ms cubic-bezier(0.25,0.1,0.25,1) 120ms, transform 500ms cubic-bezier(0.25,0.1,0.25,1) 120ms",
             }}
             className="hidden md:block"
           >
@@ -349,14 +337,7 @@ export default function SitemapPage() {
           </div>
 
           {/* Mobile single column */}
-          <div
-            className="md:hidden flex flex-col gap-6"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(12px)",
-              transition: "opacity 500ms cubic-bezier(0.25,0.1,0.25,1) 120ms, transform 500ms cubic-bezier(0.25,0.1,0.25,1) 120ms",
-            }}
-          >
+          <div className="md:hidden flex flex-col gap-6">
             {sections.map((section, sectionIndex) => (
               <div key={sectionIndex}>
                 {/* Section title */}

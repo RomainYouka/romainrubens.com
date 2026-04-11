@@ -99,12 +99,6 @@ const translations = {
 
 export default function AccessibilitePage() {
   const [language, setLanguage] = useState<Language>("FR");
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 50);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("preferredLanguage") as Language;
@@ -156,14 +150,11 @@ export default function AccessibilitePage() {
 
           {/* Titre */}
           <h1
-            className="text-3xl md:text-4xl font-semibold mb-6 md:mb-10 transition-all duration-500"
+            className="text-3xl md:text-4xl font-semibold mb-6 md:mb-10"
             style={{
               fontFamily: "var(--font-display)",
               color: "var(--theme-fg)",
               fontWeight: 600,
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(16px)",
-              transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
             }}
           >
             {t.title}
@@ -174,11 +165,9 @@ export default function AccessibilitePage() {
             style={{
               ...textStyle,
               marginBottom: "48px",
-              opacity: isVisible ? 0.85 : 0,
+              opacity: 0.85,
               fontSize: "16px",
               lineHeight: "1.8",
-              transform: isVisible ? "translateY(0)" : "translateY(12px)",
-              transition: "opacity 500ms cubic-bezier(0.25,0.1,0.25,1) 80ms, transform 500ms cubic-bezier(0.25,0.1,0.25,1) 80ms",
             }}
           >
             {t.intro}

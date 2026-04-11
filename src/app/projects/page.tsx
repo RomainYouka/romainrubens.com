@@ -283,6 +283,9 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
   return (
     <motion.div
       onClick={handleClick}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] cursor-pointer block"
       style={{ border: "1px solid var(--theme-pill-border)" }}
       whileHover={{ scale: 1.02, boxShadow: isComingSoon ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 40px rgba(0,0,0,0.15)" }}

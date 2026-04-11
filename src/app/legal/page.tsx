@@ -157,12 +157,6 @@ const translations = {
 
 export default function LegalPage() {
   const [language, setLanguage] = useState<Language>("FR");
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 50);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("preferredLanguage") as Language;
@@ -188,14 +182,11 @@ export default function LegalPage() {
         <div className="w-full max-w-[1234px]">
           {/* Title */}
           <h1
-            className="text-3xl md:text-4xl font-semibold mb-12 md:mb-16 transition-all duration-500"
+            className="text-3xl md:text-4xl font-semibold mb-12 md:mb-16"
             style={{
               fontFamily: "var(--font-display)",
               color: "var(--theme-fg)",
               fontWeight: 600,
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(16px)",
-              transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
             }}
           >
             {t.title}
