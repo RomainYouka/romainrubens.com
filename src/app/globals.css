@@ -160,7 +160,7 @@
   html { overflow-x: hidden; max-width: 100vw; background-color: #ffffff; }
   html[data-theme="dark"] { background-color: #1d1d1f; }
   html:has(:target) { scroll-behavior: auto; }
-  body { font-family: var(--font-body); font-size: 17px; line-height: 1.47059; font-weight: 400; letter-spacing: -0.022em; background-color: var(--theme-bg); color: var(--theme-fg); overflow-x: hidden; max-width: 100vw; position: relative; transition: background-color 0.3s ease, color 0.3s ease; }
+  body { font-family: var(--font-body); font-size: 17px; line-height: 1.47059; font-weight: 400; letter-spacing: -0.022em; background-color: var(--theme-bg); color: var(--theme-fg); overflow-x: hidden; max-width: 100vw; position: relative; }
   h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.005em; color: var(--foreground); }
   :lang(hy), [lang="hy"] { font-family: var(--font-armenian); }
   h1 { font-size: 56px; line-height: 1.07143; }
