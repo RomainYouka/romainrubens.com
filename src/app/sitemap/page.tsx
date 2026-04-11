@@ -24,8 +24,9 @@ const translations = {
     intratone: "Intratone",
     ios26: "iOS 26",
     waveswitch: "Wave Switch",
-    students: "Stratos",
+    students: "Students",
     googlemaps: "Google Maps",
+    googleplayios: "Google Play on iOS",
     renault: "Renault",
     // Web projects
     framasoft: "Framasoft",
@@ -59,8 +60,9 @@ const translations = {
     intratone: "Intratone",
     ios26: "iOS 26",
     waveswitch: "Wave Switch",
-    students: "Stratos",
+    students: "Students",
     googlemaps: "Google Maps",
+    googleplayios: "Google Play on iOS",
     renault: "Renault",
     // Web projects
     framasoft: "Framasoft",
@@ -94,8 +96,9 @@ const translations = {
     intratone: "Intratone",
     ios26: "iOS 26",
     waveswitch: "Wave Switch",
-    students: "Stratos",
+    students: "Students",
     googlemaps: "Google Maps",
+    googleplayios: "Google Play on iOS",
     renault: "Renault",
     // Web projects
     framasoft: "Framasoft",

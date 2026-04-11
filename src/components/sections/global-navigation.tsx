@@ -467,25 +467,25 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 z-[1000] ${
           isLightboxOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         style={{
           paddingTop: isScrolled ? "12px" : "0",
           paddingLeft: isScrolled ? "12px" : "0",
-          paddingRight: isScrolled ? "12px" : "0"
+          paddingRight: isScrolled ? "12px" : "0",
+          transition: "opacity 300ms ease-in-out"
         }}>
 
         <div
-          className={`transition-all duration-300 ease-in-out ${
-            isScrolled ? "shadow-[0_4px_12px_rgba(0,0,0,0.08)]" : ""
-          }`}
           style={{
             backgroundColor: isScrolled ? scrolledBgColor : navBgColor,
             backdropFilter: isScrolled ? "blur(12px)" : "none",
             WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
             borderRadius: isScrolled ? "980px" : "0",
-            borderBottom: isScrolled ? "none" : `1px solid ${borderColor}`
+            borderBottom: isScrolled ? "none" : `1px solid ${borderColor}`,
+            boxShadow: isScrolled ? "0 4px 12px rgba(0,0,0,0.08)" : "none",
+            transition: "background-color 300ms ease-in-out, border-radius 300ms ease-in-out, box-shadow 300ms ease-in-out"
           }}>
           <div className="mx-auto h-16 max-w-[1200px] px-6">
             <nav role="navigation" aria-label="Navigation principale" className="flex h-full w-full items-center justify-between">

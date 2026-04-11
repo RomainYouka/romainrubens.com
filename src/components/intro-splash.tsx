@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
-import Lottie from "lottie-react";
 
 const getGreetings = () => {
   const hour = new Date().getHours();
@@ -28,7 +27,6 @@ export default function IntroSplash() {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [animationPhase, setAnimationPhase] = useState<"enter" | "hold" | "exit">("enter");
   const [greeting, setGreeting] = useState({ hy: "Բարի լույս", en: "Good day", fr: "Bonjour" });
-  const [logoData, setLogoData] = useState<any>(null);
   const pathname = usePathname();
 
   const greetingSequence = [greeting.hy, greeting.en, greeting.fr];
@@ -41,14 +39,6 @@ export default function IntroSplash() {
       sessionStorage.removeItem("comingFromResume");
       document.body.style.overflow = "";
     }, 500);
-  }, []);
-
-  useEffect(() => {
-    // Load logo animation
-    fetch("/animations/logo-animation.json")
-      .then(res => res.json())
-      .then(data => setLogoData(data))
-      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -204,7 +194,7 @@ export default function IntroSplash() {
               e.stopPropagation();
               handleDismiss();
             }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white hover:text-white transition-colors duration-200"
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white hover:text-white transition-colors duration-200"
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "16px",
@@ -217,11 +207,6 @@ export default function IntroSplash() {
             }}
             aria-label="Skip introduction"
           >
-            {logoData && (
-              <div style={{ width: "28px", height: "28px", flexShrink: 0 }}>
-                <Lottie animationData={logoData} loop autoplay />
-              </div>
-            )}
             Skip
           </button>
         )}
