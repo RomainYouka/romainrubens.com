@@ -34,9 +34,8 @@ export function PageTransitionOverlay() {
           }}
           style={{
             flex: "1 0 0",
-            // léger chevauchement pour éviter les gaps sub-pixel entre bandes
             marginRight: i < STRIPS - 1 ? "-1px" : "0",
-            backgroundColor: "#1d1d1f",
+            backgroundColor: i % 2 === 0 ? "#1d1d1f" : "#314DCB",
             willChange: "transform",
           }}
         />
