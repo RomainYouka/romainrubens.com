@@ -8,6 +8,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   const lenisRef = useRef<Lenis | null>(null);
   const pathname = usePathname();
 
+  // Recréé à chaque changement de route : garantit l'activation/désactivation correcte
   useEffect(() => {
     // Pas de scroll smooth sur la page d'accueil (scroll natif spécifique)
     if (pathname === "/") return;
@@ -37,12 +38,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, []);
-
-  // Remonte en haut à chaque changement de route
-  useEffect(() => {
-    lenisRef.current?.scrollTo(0, { immediate: true });
-  }, [pathname]);
+  }, [pathname]); // ← pathname dans les deps : Lenis se recrée à chaque route
 
   return <>{children}</>;
 }
