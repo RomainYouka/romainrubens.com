@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { SITE_VERSION } from "@/lib/version";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
@@ -257,6 +258,18 @@ export default function LegalPage() {
             ))}
           </div>
 
+          {/* Version du site - desktop uniquement (affiché sous les colonnes) */}
+          <div
+            className="hidden md:block mt-8"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "13px",
+              color: "var(--theme-muted)",
+            }}
+          >
+            Version du site : {SITE_VERSION}
+          </div>
+
           {/* Mobile single column */}
           <div className="md:hidden flex flex-col gap-4">
             {t.sections.map((section, index) => (
@@ -314,6 +327,18 @@ export default function LegalPage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Version du site - mobile */}
+          <div
+            className="md:hidden mt-6"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "13px",
+              color: "var(--theme-muted)",
+            }}
+          >
+            Version du site : {SITE_VERSION}
           </div>
         </div>
       </div>

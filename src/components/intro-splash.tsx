@@ -196,11 +196,6 @@ export default function IntroSplash() {
             {currentText}
           </span>
 
-          {logoData && (
-            <div style={{ width: "80px", height: "80px" }}>
-              <Lottie animationData={logoData} loop autoplay />
-            </div>
-          )}
         </div>
 
         {!isFadingOut && (
@@ -209,7 +204,7 @@ export default function IntroSplash() {
               e.stopPropagation();
               handleDismiss();
             }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white hover:text-white transition-colors duration-200"
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 text-white hover:text-white transition-colors duration-200"
             style={{
               fontFamily: "var(--font-body)",
               fontSize: "16px",
@@ -222,6 +217,11 @@ export default function IntroSplash() {
             }}
             aria-label="Skip introduction"
           >
+            {logoData && (
+              <div style={{ width: "28px", height: "28px", flexShrink: 0 }}>
+                <Lottie animationData={logoData} loop autoplay />
+              </div>
+            )}
             Skip
           </button>
         )}

@@ -7,6 +7,8 @@ import GlobalFooter from "@/components/sections/global-footer";
 import IntroSplash from "@/components/intro-splash";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { TimeThemePopup } from "@/components/TimeThemePopup";
+import { PageTransitionProvider } from "@/contexts/PageTransitionContext";
+import { PageTransitionOverlay } from "@/components/PageTransitionOverlay";
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -55,7 +57,10 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
-      <LayoutContent>{children}</LayoutContent>
+      <PageTransitionProvider>
+        <LayoutContent>{children}</LayoutContent>
+        <PageTransitionOverlay />
+      </PageTransitionProvider>
     </ThemeProvider>
   );
 }

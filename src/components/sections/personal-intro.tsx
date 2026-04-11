@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
+import { usePageTransition } from "@/contexts/PageTransitionContext";
 
 const translations = {
   FR: {
@@ -50,13 +49,12 @@ const pdfFileNames = {
 };
 
 export default function PersonalIntro({ id = "personal-intro" }: { id?: string }) {
-  const router = useRouter();
   const { isDark } = useTheme();
+  const { triggerTransition } = usePageTransition();
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [showOverlay, setShowOverlay] = useState(false);
 
   const prefersReducedMotion =
     typeof window !== "undefined"
@@ -340,84 +338,14 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
               {/* CTA Button - Wider and responsive */}
               <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
                 <button
-                  onClick={() => {
-                    setShowOverlay(true);
-                    setTimeout(() => {
-                      router.push("/projects");
-                    }, 250);
-                  }}
-                  disabled={showOverlay}
-                  className="bg-[#314DCB] text-white font-semibold rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 disabled:opacity-0 disabled:cursor-not-allowed inline-flex items-center py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
+                  onClick={() => triggerTransition("/projects")}
+                  className="bg-[#314DCB] text-white font-semibold rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 inline-flex items-center py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
                   style={isDark ? { border: "1px solid #5194FF" } : undefined}
                 >
                   {content.ctaProjects}
                   <ArrowRight className="ml-2 w-4 h-4 flex-shrink-0" />
                 </button>
               </div>
-
-              {/* Genius overlay transition */}
-              <AnimatePresence>
-                {showOverlay && (
-                  <>
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        scale: 0,
-                        borderRadius: "50%",
-                      }}
-                      animate={{
-                        opacity: 0.5,
-                        scale: 1.5,
-                        borderRadius: "50%",
-                      }}
-                      exit={{
-                        opacity: 0,
-                      }}
-                      transition={{
-                        duration: 0.15,
-                        ease: "easeOut",
-                      }}
-                      style={{
-                        position: "fixed",
-                        top: "50%",
-                        left: "50%",
-                        x: "-50%",
-                        y: "-50%",
-                        width: "100vw",
-                        height: "100vh",
-                        backgroundColor: "#314DCB",
-                        filter: "blur(40px)",
-                        zIndex: 9998,
-                      }}
-                    />
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                      }}
-                      animate={{
-                        opacity: 1,
-                      }}
-                      exit={{
-                        opacity: 0,
-                      }}
-                      transition={{
-                        duration: 0.2,
-                        ease: [0.32, 0.72, 0, 1],
-                        delay: 0.05,
-                      }}
-                      style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100vw",
-                        height: "100vh",
-                        backgroundColor: "#314DCB",
-                        zIndex: 9999,
-                      }}
-                    />
-                  </>
-                )}
-              </AnimatePresence>
             </div>
           </div>
         </div>
