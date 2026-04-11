@@ -122,12 +122,6 @@
     --theme-subtle: #CCCCCC;
   }
 
-  /* ── Boutons fond #314DCB → contour #5194FF en mode sombre ── */
-  [data-theme="dark"] button.bg-\[#314DCB\],
-  [data-theme="dark"] a.bg-\[#314DCB\] {
-    border: 1px solid #5194FF;
-  }
-
   :root {
     --background: var(--color-bg-primary);
     --foreground: var(--color-text-primary-dark);
