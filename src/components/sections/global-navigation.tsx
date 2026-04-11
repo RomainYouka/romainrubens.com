@@ -110,31 +110,40 @@ interface LangSelectorProps {
 }
 
 const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, onOpen, onClose }: LangSelectorProps) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef  = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [dropPos, setDropPos] = useState<{ top: number; centerX: number }>({ top: 80, centerX: 0 });
+  const [dropPos, setDropPos] = useState<{ top: number; left: number }>({ top: 80, left: 0 });
   const LANGS: Language[] = ["FR", "EN", "ՀԱՅ"];
 
-  // Calcule la position (centrée sur le bouton) — deux fois pour couvrir l'animation d'expansion
+  // ── Calcule la position centrée sur le bouton ──────────────────────────────
+  // Appelé immédiatement ET après l'animation d'expansion de la nav (420ms)
   useEffect(() => {
     if (!isOpen) return;
     const calc = () => {
       if (!buttonRef.current) return;
       const r = buttonRef.current.getBoundingClientRect();
-      setDropPos({ top: r.bottom + 8, centerX: r.left + r.width / 2 });
+      const dropW = dropdownRef.current?.offsetWidth ?? 80;
+      setDropPos({
+        top:  r.bottom + 8,
+        left: r.left + r.width / 2 - dropW / 2,
+      });
     };
     calc();
-    const t = setTimeout(calc, 400); // recalcul après animation nav
+    const t = setTimeout(calc, 420);
     return () => clearTimeout(t);
   }, [isOpen]);
 
-  // Fermeture au clic extérieur — délai pour éviter la fermeture immédiate
+  // ── Click extérieur ────────────────────────────────────────────────────────
+  // IMPORTANT : deux instances de LanguageSelector coexistent (desktop + mobile).
+  // On ne traite le click-outside QUE si ce composant est visuellement actif
+  // (offsetParent !== null), sinon l'instance cachée ferme le dropdown par erreur.
   useEffect(() => {
     if (!isOpen) return;
     let armed = false;
-    const arm = setTimeout(() => { armed = true; }, 80);
+    const arm = setTimeout(() => { armed = true; }, 60);
     const handler = (e: MouseEvent) => {
       if (!armed) return;
+      if (!buttonRef.current?.offsetParent) return; // instance cachée → ignorer
       if (
         !buttonRef.current?.contains(e.target as Node) &&
         !dropdownRef.current?.contains(e.target as Node)
@@ -143,13 +152,10 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
       }
     };
     document.addEventListener("mousedown", handler);
-    return () => {
-      clearTimeout(arm);
-      document.removeEventListener("mousedown", handler);
-    };
+    return () => { clearTimeout(arm); document.removeEventListener("mousedown", handler); };
   }, [isOpen, onClose]);
 
-  // Fermeture à Escape
+  // ── Escape ─────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!isOpen) return;
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -157,37 +163,21 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
     return () => document.removeEventListener("keydown", handler);
   }, [isOpen, onClose]);
 
-  // Fermeture si l'utilisateur scrolle significativement (avec délai)
-  useEffect(() => {
-    if (!isOpen) return;
-    const startY = window.scrollY;
-    let canClose = false;
-    const timer = setTimeout(() => { canClose = true; }, 600);
-    const handler = () => {
-      if (canClose && Math.abs(window.scrollY - startY) > 30) onClose();
-    };
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("scroll", handler);
-    };
-  }, [isOpen, onClose]);
-
   const handleSelect = (lang: Language) => {
     onLanguageChange(lang);
     onClose();
   };
 
-  const textColor  = isDark ? "#FFFFFF" : "#1d1d1f";
-  const dropBg     = isDark ? "rgba(26, 26, 30, 0.97)" : "rgba(252, 252, 254, 0.97)";
+  const textColor  = isDark ? "#FFFFFF"              : "#1d1d1f";
+  const dropBg     = isDark ? "rgba(24,24,28,0.97)"  : "rgba(252,252,254,0.97)";
   const dropBorder = isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.10)";
   const divider    = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.07)";
   const hoverBg    = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)";
-  const selectedBg = isDark ? "#314DCB" : "#1d1d1f";
+  const selectedBg = isDark ? "#314DCB"              : "#1d1d1f";
 
   return (
     <>
-      {/* Bouton langue */}
+      {/* ── Bouton langue ── */}
       <button
         ref={buttonRef}
         onClick={() => (isOpen ? onClose() : onOpen())}
@@ -203,41 +193,36 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
         }}
         onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.65"; }}
         onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
-        onMouseDown={(e) => { e.currentTarget.style.transform = "scale(0.90)"; }}
-        onMouseUp={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
+        onMouseDown={(e)  => { e.currentTarget.style.transform = "scale(0.90)"; }}
+        onMouseUp={(e)    => { e.currentTarget.style.transform = "scale(1)"; }}
       >
         <Languages className="h-[18px] w-[18px]" strokeWidth={2.2} />
       </button>
 
-      {/* Dropdown — centré sur l'icône, sort de la nav comme une goutte */}
+      {/* ── Dropdown — sort de la nav vers le bas comme une goutte d'eau ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             ref={dropdownRef}
             role="listbox"
             aria-label="Sélection de la langue"
-            initial={{ opacity: 0, scaleY: 0, x: "-50%", filter: "blur(6px)" }}
-            animate={{ opacity: 1, scaleY: 1, x: "-50%", filter: "blur(0px)" }}
-            exit={{ opacity: 0, scaleY: 0, x: "-50%", filter: "blur(4px)" }}
-            transition={{
-              type: "spring",
-              stiffness: 380,
-              damping: 22,
-              mass: 0.65,
-            }}
+            initial={{ opacity: 0, scaleY: 0,   filter: "blur(6px)" }}
+            animate={{ opacity: 1, scaleY: 1,   filter: "blur(0px)" }}
+            exit={  { opacity: 0, scaleY: 0,   filter: "blur(4px)" }}
+            transition={{ type: "spring", stiffness: 380, damping: 22, mass: 0.65 }}
             style={{
-              position: "fixed",
-              top: dropPos.top,
-              left: dropPos.centerX,
-              transformOrigin: "top center",
-              backgroundColor: dropBg,
-              backdropFilter: "blur(20px)",
+              position:             "fixed",
+              top:                  dropPos.top,
+              left:                 dropPos.left,
+              transformOrigin:      "top center",
+              backgroundColor:      dropBg,
+              backdropFilter:       "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
-              border: `1px solid ${dropBorder}`,
-              borderRadius: 14,
-              overflow: "hidden",
-              zIndex: 1100,
-              minWidth: 76,
+              border:               `1px solid ${dropBorder}`,
+              borderRadius:         14,
+              overflow:             "hidden",
+              zIndex:               1100,
+              minWidth:             80,
               boxShadow: isDark
                 ? "0 16px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3)"
                 : "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.07)",
@@ -252,18 +237,18 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
                   aria-selected={isSel}
                   onClick={() => handleSelect(lang)}
                   style={{
-                    display: "block",
-                    width: "100%",
-                    padding: "12px 20px",
-                    textAlign: "center",
-                    fontSize: 14,
-                    fontFamily: "var(--font-body)",
-                    fontWeight: isSel ? 600 : 500,
-                    background: isSel ? selectedBg : "transparent",
-                    color: isSel ? "#ffffff" : textColor,
-                    border: "none",
-                    cursor: "pointer",
-                    transition: "background 140ms ease",
+                    display:      "block",
+                    width:        "100%",
+                    padding:      "12px 22px",
+                    textAlign:    "center",
+                    fontSize:     14,
+                    fontFamily:   "var(--font-body)",
+                    fontWeight:   isSel ? 600 : 500,
+                    background:   isSel ? selectedBg : "transparent",
+                    color:        isSel ? "#ffffff"  : textColor,
+                    border:       "none",
+                    cursor:       "pointer",
+                    transition:   "background 140ms ease",
                     borderBottom: idx < LANGS.length - 1 ? `1px solid ${divider}` : "none",
                   }}
                   onMouseEnter={(e) => { if (!isSel) e.currentTarget.style.background = hoverBg; }}
