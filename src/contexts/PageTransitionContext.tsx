@@ -4,35 +4,40 @@ import React, { createContext, useContext, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 type TransitionPhase = "idle" | "in" | "out";
+export type TransitionDirection = "up" | "down";
 
 interface PageTransitionContextType {
   phase: TransitionPhase;
-  triggerTransition: (href: string) => void;
+  direction: TransitionDirection;
+  triggerTransition: (href: string, direction?: TransitionDirection) => void;
 }
 
 const PageTransitionContext = createContext<PageTransitionContextType>({
   phase: "idle",
+  direction: "up",
   triggerTransition: () => {},
 });
 
 export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
   const [phase, setPhase] = useState<TransitionPhase>("idle");
+  const [direction, setDirection] = useState<TransitionDirection>("up");
   const router = useRouter();
 
   const triggerTransition = useCallback(
-    (href: string) => {
+    (href: string, dir: TransitionDirection = "up") => {
       if (phase !== "idle") return;
 
-      setPhase("in"); // lamelles montent et couvrent l'écran
+      setDirection(dir);
+      setPhase("in");
 
       setTimeout(() => {
-        router.push(href); // navigation pendant que l'écran est couvert
+        router.push(href);
 
         setTimeout(() => {
-          setPhase("out"); // lamelles continuent leur montée, révèlent la nouvelle page
+          setPhase("out");
 
           setTimeout(() => {
-            setPhase("idle"); // nettoyage (lamelles déjà hors écran)
+            setPhase("idle");
           }, 750);
         }, 100);
       }, 780);
@@ -41,7 +46,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   );
 
   return (
-    <PageTransitionContext.Provider value={{ phase, triggerTransition }}>
+    <PageTransitionContext.Provider value={{ phase, direction, triggerTransition }}>
       {children}
     </PageTransitionContext.Provider>
   );

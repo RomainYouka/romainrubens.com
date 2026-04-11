@@ -339,7 +339,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     if (pathname === "/") {
       if (onShowQuotes) onShowQuotes();
     } else {
-      triggerTransition("/");
+      triggerTransition("/", "down");
     }
   }, [pathname, onShowQuotes, triggerTransition]);
 
