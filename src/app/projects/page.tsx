@@ -120,7 +120,8 @@ const mobileProjects = [
 const webProjects = [
   {
     id: 2,
-    image: "/projects/blocks/framasoft.webp",
+    image: "/projects/blocks/framasoft-light.png",
+    darkImage: "/projects/blocks/framasoft-dark.png",
     year: "2024",
     slug: "framasoft",
     externalUrl: undefined as string | undefined,
@@ -128,7 +129,8 @@ const webProjects = [
   },
   {
     id: 1,
-    image: "/projects/blocks/ayooapi.webp",
+    image: "/projects/blocks/ayooapi-light.png",
+    darkImage: "/projects/blocks/ayooapi-dark.png",
     year: "2026",
     slug: "ayooapi",
     externalUrl: undefined as string | undefined,
@@ -139,7 +141,8 @@ const webProjects = [
 const diversProjects = [
   {
     id: 1,
-    image: "/projects/blocks/namequest.webp",
+    image: "/projects/blocks/namequest-light.png",
+    darkImage: "/projects/blocks/namequest-dark.png",
     year: "2025",
     slug: "namequest",
     externalUrl: undefined as string | undefined,
@@ -147,7 +150,8 @@ const diversProjects = [
   },
   {
     id: 2,
-    image: "/projects/blocks/vahan.webp",
+    image: "/projects/blocks/vahan-light.png",
+    darkImage: "/projects/blocks/vahan-dark.png",
     year: "2024",
     slug: "vahansoghomonian",
     externalUrl: undefined as string | undefined,
@@ -155,7 +159,8 @@ const diversProjects = [
   },
   {
     id: 3,
-    image: "/projects/blocks/chaussez-vous-ou-pas.webp",
+    image: "/projects/blocks/chaussez-vous-ou-pas-light.png",
+    darkImage: "/projects/blocks/chaussez-vous-ou-pas-dark.png",
     year: "2026",
     slug: "chaussez-vous-ou-pas",
     externalUrl: undefined as string | undefined,
@@ -519,6 +524,7 @@ export default function PortfolioPage() {
                     <ProjectCard
                       key={project.id}
                       image={project.image}
+                      darkImage={"darkImage" in project ? project.darkImage : undefined}
                       year={project.year}
                       slug={project.slug}
                       onNavigate={handleNavigate}
@@ -541,6 +547,7 @@ export default function PortfolioPage() {
                     <ProjectCard
                       key={project.id}
                       image={project.image}
+                      darkImage={"darkImage" in project ? project.darkImage : undefined}
                       year={project.year}
                       slug={project.slug}
                       onNavigate={handleNavigate}
