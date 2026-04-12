@@ -6,7 +6,7 @@ type Language = "FR" | "EN" | "ՀԱՅ";
 
 const translations = {
   FR: {
-    title: "Accessibility",
+    title: "Accessibilité",
     intro: "Ce site s'inscrit dans une démarche volontaire d'accessibilité numérique. Les choix de conception s'appuient sur les recommandations du RGAA 4 (Référentiel Général d'Amélioration de l'Accessibilité) et des WCAG 2.1, sans pour autant constituer une déclaration de conformité officielle.",
 
     approachTitle: "La démarche",

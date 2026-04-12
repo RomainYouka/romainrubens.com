@@ -35,27 +35,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Vérifier s'il y a une préférence sauvegardée
     const saved = localStorage.getItem("theme") as Theme | null;
+    const currentTheme: Theme = saved === "dark" || saved === "light" ? saved : "light";
 
-    if (saved === "dark" || saved === "light") {
-      // L'utilisateur a déjà une préférence explicite → on la respecte
-      setThemeState(saved);
-      applyTheme(saved);
-      setMounted(true);
-      return;
-    }
+    setThemeState(currentTheme);
+    applyTheme(currentTheme);
 
-    // Pas de préférence → toujours mode clair par défaut
-    setThemeState("light");
-    applyTheme("light");
+    // Proposer le mode sombre si : mode clair actif + heure nocturne/transition + pas déjà proposé cette session
+    if (currentTheme === "light" && !sessionStorage.getItem("themeAsked")) {
+      const h = new Date().getHours();
+      const isNight = h >= 19 || h < 6;
+      const isTransition = (h >= 17 && h < 19) || (h >= 6 && h < 8);
 
-    // La nuit ou en transition soir/matin : proposer le mode sombre via popup
-    const h = new Date().getHours();
-    const isNight = h >= 19 || h < 6;
-    const isTransition = (h >= 17 && h < 19) || (h >= 6 && h < 8);
-
-    if ((isNight || isTransition) && !sessionStorage.getItem("themeAsked")) {
-      sessionStorage.setItem("themeAsked", "1");
-      setShowTimePopup(h >= 6 && h < 8 ? "morning" : "evening");
+      if (isNight || isTransition) {
+        sessionStorage.setItem("themeAsked", "1");
+        setShowTimePopup(h >= 6 && h < 8 ? "morning" : "evening");
+      }
     }
 
     setMounted(true);

@@ -284,7 +284,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
         className="w-full min-h-screen flex items-center"
         data-section="personal-intro"
         style={{
-          backgroundColor: isDark ? "#191919" : "#ffffff",
+          backgroundColor: isDark ? "#191919" : "#F5F5F5",
           paddingTop: "clamp(80px, 10vw, 120px)",
           paddingBottom: "clamp(80px, 10vw, 120px)",
         }}
