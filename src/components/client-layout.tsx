@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { TimeThemePopup } from "@/components/TimeThemePopup";
 import { PageTransitionProvider } from "@/contexts/PageTransitionContext";
 import { PageTransitionOverlay } from "@/components/PageTransitionOverlay";
+import { ThemeSwitchOverlay } from "@/components/ThemeSwitchOverlay";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
@@ -62,6 +63,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <SmoothScrollProvider>
           <LayoutContent>{children}</LayoutContent>
           <PageTransitionOverlay />
+          <ThemeSwitchOverlay />
         </SmoothScrollProvider>
       </PageTransitionProvider>
     </ThemeProvider>
