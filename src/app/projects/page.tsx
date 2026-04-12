@@ -266,9 +266,10 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, isComingSoon, language, isPriority }: ProjectCardProps) => {
   const [isClicked, setIsClicked] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const { isDark } = useTheme();
   const t = translations[language];
-  const resolvedImage = isDark && darkImage ? darkImage : image;
+  const resolvedImage = isDark && darkImage && !imgError ? darkImage : image;
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     triggerHapticFeedback();
@@ -304,6 +305,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, is
         priority={isPriority}
         fetchPriority={isPriority ? "high" : "auto"}
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+        onError={() => setImgError(true)}
       />
       <div className="flex items-end justify-between p-0 h-full pl-[26px] pr-[13px] pb-[13px] relative z-10">
         <span className="font-light text-[var(--theme-subtle)] text-[9px] tracking-[0] leading-[normal] select-none">
