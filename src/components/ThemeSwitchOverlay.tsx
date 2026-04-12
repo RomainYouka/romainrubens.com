@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 function BulbAnimation({ lit }: { lit: boolean }) {
@@ -110,7 +110,13 @@ export function ThemeSwitchOverlay() {
     }
   }, [themeTransition]);
 
-  const isDarkTransition = themeTransition === "toDark";
+  // Pour toLight : fond sombre au départ → s'éclaircit quand l'ampoule s'allume
+  // Pour toDark : fond toujours sombre
+  const bgColor = useMemo(() => {
+    if (themeTransition === "toDark") return "#191919";
+    if (themeTransition === "toLight") return bulbLit ? "#F5F5F5" : "#191919";
+    return "#191919";
+  }, [themeTransition, bulbLit]);
 
   return (
     <AnimatePresence>
@@ -118,9 +124,9 @@ export function ThemeSwitchOverlay() {
         <motion.div
           key={themeTransition}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: 1, backgroundColor: bgColor }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.28, ease: "easeInOut" }}
+          transition={{ opacity: { duration: 0.28, ease: "easeInOut" }, backgroundColor: { duration: 0.42, ease: "easeInOut" } }}
           style={{
             position: "fixed",
             inset: 0,
@@ -129,7 +135,6 @@ export function ThemeSwitchOverlay() {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: isDarkTransition ? "#191919" : "#F5F5F5",
             pointerEvents: "all",
           }}
         >

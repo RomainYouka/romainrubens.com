@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProjectSkeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@/contexts/ThemeContext";
+import { BehanceRedirectOverlay } from "@/components/BehanceRedirectOverlay";
 
 
 type Language = "FR" | "EN" | "ՀԱՅ";
@@ -255,13 +256,14 @@ interface ProjectCardProps {
   year: string;
   slug: string;
   onNavigate: (slug: string, rect: DOMRect) => void;
+  onExternalNavigate: (url: string) => void;
   externalUrl?: string;
   isComingSoon?: boolean;
   language: Language;
   isPriority?: boolean;
 }
 
-const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, isComingSoon, language, isPriority }: ProjectCardProps) => {
+const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavigate, externalUrl, isComingSoon, language, isPriority }: ProjectCardProps) => {
   const [isClicked, setIsClicked] = useState(false);
   const [imgError, setImgError] = useState(false);
   const { isDark } = useTheme();
@@ -274,7 +276,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, is
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     triggerHapticFeedback();
     if (externalUrl) {
-      window.location.assign(externalUrl);
+      onExternalNavigate(externalUrl);
       return;
     }
     if (isComingSoon) {
@@ -283,7 +285,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, is
     }
     const rect = e.currentTarget.getBoundingClientRect();
     onNavigate(slug, rect);
-  }, [externalUrl, slug, onNavigate, isComingSoon]);
+  }, [externalUrl, slug, onNavigate, onExternalNavigate, isComingSoon]);
 
   return (
     <motion.div
@@ -340,6 +342,7 @@ export default function PortfolioPage() {
     rect: DOMRect;
     image: string;
   } | null>(null);
+  const [behanceRedirect, setBehanceRedirect] = useState<string | null>(null);
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("preferredLanguage") as Language;
@@ -374,13 +377,13 @@ export default function PortfolioPage() {
 
   const allProjects = [...mobileProjects, ...webProjects, ...diversProjects];
 
+  const handleExternalNavigate = useCallback((url: string) => {
+    setBehanceRedirect(url);
+  }, []);
+
   const handleNavigate = useCallback((slug: string, rect: DOMRect) => {
     const project = allProjects.find(p => p.slug === slug);
     if (project) {
-      if (project.externalUrl) {
-        window.location.assign(project.externalUrl);
-        return;
-      }
       setExpandingCard({ slug, rect, image: project.image });
       setTimeout(() => {
         router.push(`/projects/${slug}`);
@@ -390,6 +393,12 @@ export default function PortfolioPage() {
 
   return (
     <>
+      <BehanceRedirectOverlay
+        url={behanceRedirect}
+        language={language}
+        onDismiss={() => setBehanceRedirect(null)}
+      />
+
       <AnimatePresence>
         {expandingCard && (
           <motion.div
@@ -491,6 +500,7 @@ export default function PortfolioPage() {
                       year={project.year}
                       slug={project.slug}
                       onNavigate={handleNavigate}
+                      onExternalNavigate={handleExternalNavigate}
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
@@ -512,6 +522,7 @@ export default function PortfolioPage() {
                       year={project.year}
                       slug={project.slug}
                       onNavigate={handleNavigate}
+                      onExternalNavigate={handleExternalNavigate}
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
@@ -533,6 +544,7 @@ export default function PortfolioPage() {
                       year={project.year}
                       slug={project.slug}
                       onNavigate={handleNavigate}
+                      onExternalNavigate={handleExternalNavigate}
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
