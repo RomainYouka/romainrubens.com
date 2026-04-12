@@ -46,8 +46,8 @@ const translations = {
 const mobileProjects = [
   {
     id: 1,
-    image: "/projects/blocks/intratone.webp",
-    darkImage: "/projects/blocks/intratone-dark.webp",
+    image: "/projects/blocks/intratone-light.png",
+    darkImage: "/projects/blocks/intratone-dark.png",
     year: "",
     slug: "intratone",
     externalUrl: undefined as string | undefined,
@@ -56,8 +56,9 @@ const mobileProjects = [
   },
   {
     id: 2,
-    image: "/projects/blocks/ios26.webp",
-    year: "2025",
+    image: "/projects/blocks/ios26-light.png",
+    darkImage: "/projects/blocks/ios26-dark.png",
+    year: "",
     slug: "ios26",
     externalUrl: undefined as string | undefined,
     isComingSoon: false,
@@ -65,8 +66,9 @@ const mobileProjects = [
   },
   {
     id: 3,
-    image: "/projects/blocks/waveswitch.webp",
-    year: "2025",
+    image: "/projects/blocks/waveswitch-light.png",
+    darkImage: "/projects/blocks/waveswitch-dark.png",
+    year: "",
     slug: "waveswitch",
     externalUrl: undefined as string | undefined,
     isComingSoon: false,
@@ -74,8 +76,9 @@ const mobileProjects = [
   },
   {
     id: 4,
-    image: "/projects/blocks/google-maps.webp",
-    year: "2026",
+    image: "/projects/blocks/googlemaps-light.png",
+    darkImage: "/projects/blocks/googlemaps-dark.png",
+    year: "",
     slug: "googlemaps",
     externalUrl: "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension",
     isComingSoon: false,
@@ -83,8 +86,8 @@ const mobileProjects = [
   },
   {
     id: 7,
-    image: "/projects/blocks/googleplay-ios.webp",
-    darkImage: "/projects/blocks/googleplay-ios-dark.webp",
+    image: "/projects/blocks/googleplayios-light.png",
+    darkImage: "/projects/blocks/googleplayios-dark.png",
     year: "",
     slug: "googleplayios",
     externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
@@ -94,7 +97,7 @@ const mobileProjects = [
   {
     id: 6,
     image: "/projects/blocks/renault.webp",
-    year: "2026",
+    year: "",
     slug: "renault",
     externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
     isComingSoon: false,
@@ -102,8 +105,9 @@ const mobileProjects = [
   },
   {
     id: 5,
-    image: "/projects/blocks/students-new.webp",
-    year: "2025",
+    image: "/projects/blocks/stratos-light.png",
+    darkImage: "/projects/blocks/stratos-dark.png",
+    year: "",
     slug: "stratos",
     externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
     isComingSoon: false,
