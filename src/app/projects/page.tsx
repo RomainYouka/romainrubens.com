@@ -47,7 +47,7 @@ const mobileProjects = [
   {
     id: 1,
     image: "/projects/blocks/intratone.webp",
-    darkImage: "/projects/blocks/intratone-dark.png",
+    darkImage: "/projects/blocks/intratone-dark.webp",
     year: "",
     slug: "intratone",
     externalUrl: undefined as string | undefined,
@@ -84,7 +84,7 @@ const mobileProjects = [
   {
     id: 7,
     image: "/projects/blocks/googleplay-ios.webp",
-    darkImage: "/projects/blocks/googleplay-ios-dark.png",
+    darkImage: "/projects/blocks/googleplay-ios-dark.webp",
     year: "",
     slug: "googleplayios",
     externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
@@ -269,6 +269,9 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, is
   const [imgError, setImgError] = useState(false);
   const { isDark } = useTheme();
   const t = translations[language];
+
+  useEffect(() => { setImgError(false); }, [isDark]);
+
   const resolvedImage = isDark && darkImage && !imgError ? darkImage : image;
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
