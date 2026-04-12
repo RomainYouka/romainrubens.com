@@ -70,23 +70,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const newTheme = theme === "light" ? "dark" : "light";
 
     if (newTheme === "dark") {
-      // Lights OFF : flicker → obscurité → révélation thème sombre
+      // Ampoule s'éteint → thème switch sous l'overlay → overlay disparaît
       setThemeTransition("toDark");
-      setTimeout(() => {
-        setTheme(newTheme);
-      }, 520);
-      setTimeout(() => {
-        setThemeTransition(null);
-        transitionLock.current = false;
-      }, 950);
+      setTimeout(() => setTheme(newTheme), 550);
+      setTimeout(() => setThemeTransition(null), 880);
+      setTimeout(() => { transitionLock.current = false; }, 1200);
     } else {
-      // Lights ON : switch immédiat + flash chaud qui se dissipe
+      // Thème switch immédiat → ampoule s'allume → overlay disparaît
       setTheme(newTheme);
       setThemeTransition("toLight");
-      setTimeout(() => {
-        setThemeTransition(null);
-        transitionLock.current = false;
-      }, 650);
+      setTimeout(() => setThemeTransition(null), 880);
+      setTimeout(() => { transitionLock.current = false; }, 1200);
     }
   }, [theme, setTheme]);
 
