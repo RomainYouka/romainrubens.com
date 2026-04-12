@@ -29,9 +29,10 @@ const mobileLabels = {
   ՀԱՅ: { dark: "Մութ ռեժիմ", light: "Բաց ռեժիմ"  },
 };
 
-export function ThemeToggleMobile({ selectedLanguage, borderColor }: {
+export function ThemeToggleMobile({ selectedLanguage, borderColor, onClose }: {
   selectedLanguage: "FR" | "EN" | "ՀԱՅ";
   borderColor: string;
+  onClose?: () => void;
 }) {
   const { isDark, toggleTheme } = useTheme();
   const labels = mobileLabels[selectedLanguage];
@@ -39,7 +40,7 @@ export function ThemeToggleMobile({ selectedLanguage, borderColor }: {
   return (
     <div className="border-t pt-4" style={{ borderColor }}>
       <button
-        onClick={toggleTheme}
+        onClick={() => { toggleTheme(); onClose?.(); }}
         className="flex items-center gap-3 py-3 w-full transition-opacity hover:opacity-80"
         style={{ color: "var(--theme-fg)" }}
         aria-label={isDark ? labels.light : labels.dark}

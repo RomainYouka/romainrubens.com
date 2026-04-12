@@ -520,7 +520,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
               </Link>
             ))}
           </div>
-          <ThemeToggleMobile selectedLanguage={selectedLanguage} borderColor={borderColor} />
+          <ThemeToggleMobile selectedLanguage={selectedLanguage} borderColor={borderColor} onClose={() => setIsMenuOpen(false)} />
         </div>
       </div>
     </>
