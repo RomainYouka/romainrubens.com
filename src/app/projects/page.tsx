@@ -48,7 +48,8 @@ const mobileProjects = [
   {
     id: 1,
     image: "/projects/blocks/intratone.webp",
-    year: "2026",
+    darkImage: "/projects/blocks/intratone-dark.png",
+    year: "",
     slug: "intratone",
     externalUrl: undefined as string | undefined,
     isComingSoon: false,
@@ -253,6 +254,7 @@ const GreenBanner = ({ language }: { language: Language }) => {
 
 interface ProjectCardProps {
   image: string;
+  darkImage?: string;
   year: string;
   slug: string;
   onNavigate: (slug: string, rect: DOMRect) => void;
@@ -262,9 +264,11 @@ interface ProjectCardProps {
   isPriority?: boolean;
 }
 
-const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon, language, isPriority }: ProjectCardProps) => {
+const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, isComingSoon, language, isPriority }: ProjectCardProps) => {
   const [isClicked, setIsClicked] = useState(false);
+  const { isDark } = useTheme();
   const t = translations[language];
+  const resolvedImage = isDark && darkImage ? darkImage : image;
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     triggerHapticFeedback();
@@ -293,7 +297,7 @@ const ProjectCard = ({ image, year, slug, onNavigate, externalUrl, isComingSoon,
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
       <Image
-        src={image}
+        src={resolvedImage}
         alt={slug}
         fill
         className="object-cover"
@@ -481,6 +485,7 @@ export default function PortfolioPage() {
                     <ProjectCard
                       key={project.id}
                       image={project.image}
+                      darkImage={"darkImage" in project ? project.darkImage : undefined}
                       year={project.year}
                       slug={project.slug}
                       onNavigate={handleNavigate}
