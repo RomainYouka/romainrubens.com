@@ -76,9 +76,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setTimeout(() => setThemeTransition(null), 880);
       setTimeout(() => { transitionLock.current = false; }, 1200);
     } else {
-      // Thème switch immédiat → ampoule s'allume → overlay disparaît
-      setTheme(newTheme);
+      // Overlay apparaît d'abord (fond sombre) → ampoule s'allume → thème switche sous l'overlay → overlay disparaît
       setThemeTransition("toLight");
+      setTimeout(() => setTheme(newTheme), 550);
       setTimeout(() => setThemeTransition(null), 880);
       setTimeout(() => { transitionLock.current = false; }, 1200);
     }
