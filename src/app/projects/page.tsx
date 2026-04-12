@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ProjectSkeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@/contexts/ThemeContext";
 
-const BUTTON_IMAGE = "/bouton-aller-clair.png";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
@@ -312,7 +311,10 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, is
           {year}
         </span>
         <div className="w-8 h-8 md:w-10 md:h-10 p-0 pointer-events-none flex-shrink-0">
-          <img alt="Bouton retour" src={BUTTON_IMAGE} className="w-full h-full object-contain" style={{ imageRendering: "auto" }} />
+          <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            <circle cx="27" cy="27" r="26.0723" transform="rotate(180 27 27)" fill={isDark ? "#191919" : "white"} stroke="#9C9C9C" strokeWidth="1.8553"/>
+            <path d="M23.32 34.3633L30.0142 27.6691L30.6836 26.9996L23.32 19.636" stroke="#9C9C9C" strokeWidth="3.71061"/>
+          </svg>
         </div>
       </div>
       {isComingSoon && (
