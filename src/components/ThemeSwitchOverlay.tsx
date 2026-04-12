@@ -91,52 +91,58 @@ function BulbAnimation({ lit }: { lit: boolean }) {
   );
 }
 
-export function ThemeSwitchOverlay() {
-  const { themeTransition } = useTheme();
-  const [bulbLit, setBulbLit] = useState(false);
+// Ce composant se remonte à chaque transition grâce au key dans AnimatePresence.
+// bulbLit s'initialise donc toujours à la bonne valeur dès le premier rendu :
+//   toDark  → isDark=true  → bulbLit=true  (allumée dès le début)
+//   toLight → isDark=false → bulbLit=false (éteinte dès le début)
+function TransitionScreen({ isDark }: { isDark: boolean }) {
+  const [bulbLit, setBulbLit] = useState(isDark);
 
   useEffect(() => {
-    if (themeTransition === "toDark") {
-      // Ampoule allumée → s'éteint après 380ms
-      setBulbLit(true);
+    if (isDark) {
+      // Allumée au départ → s'éteint après 380 ms
       const t = setTimeout(() => setBulbLit(false), 380);
       return () => clearTimeout(t);
-    }
-    if (themeTransition === "toLight") {
-      // Ampoule éteinte → s'allume après 330ms
-      setBulbLit(false);
+    } else {
+      // Éteinte au départ → s'allume après 330 ms
       const t = setTimeout(() => setBulbLit(true), 330);
       return () => clearTimeout(t);
     }
-  }, [themeTransition]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // toDark → fond noir, toLight → fond blanc (constant, pas d'animation de fond)
-  const isDarkTransition = themeTransition === "toDark";
-  const bg = isDarkTransition ? "#191919" : "#F5F5F5";
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.28, ease: "easeInOut" }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 99998,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: isDark ? "#191919" : "#F5F5F5",
+        pointerEvents: "all",
+      }}
+    >
+      <BulbAnimation lit={bulbLit} />
+    </motion.div>
+  );
+}
+
+export function ThemeSwitchOverlay() {
+  const { themeTransition } = useTheme();
 
   return (
     <AnimatePresence>
       {themeTransition && (
-        <motion.div
+        <TransitionScreen
           key={themeTransition}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.28, ease: "easeInOut" }}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 99998,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: bg,
-            pointerEvents: "all",
-          }}
-        >
-          <BulbAnimation lit={bulbLit} />
-        </motion.div>
+          isDark={themeTransition === "toDark"}
+        />
       )}
     </AnimatePresence>
   );

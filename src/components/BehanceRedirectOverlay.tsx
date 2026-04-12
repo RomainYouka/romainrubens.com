@@ -136,15 +136,9 @@ export function BehanceRedirectOverlay({
                   ? "0 0 0 1px rgba(49,77,203,0.5), 0 16px 48px rgba(49,77,203,0.4)"
                   : "0 0 0 1px rgba(49,77,203,0.2), 0 16px 40px rgba(49,77,203,0.25)",
               }}
-              initial={{ scale: 0.68, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{
-                delay: 0.06,
-                duration: 0.42,
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.06, duration: 0.3 }}
             >
               <svg width="42" height="42" viewBox="0 0 76 76" fill="none">
                 <path d={RR_STAR_PATH} fill="white" />
@@ -196,15 +190,9 @@ export function BehanceRedirectOverlay({
                   ? "0 0 0 1px rgba(23,105,255,0.5), 0 16px 48px rgba(23,105,255,0.4)"
                   : "0 0 0 1px rgba(23,105,255,0.2), 0 16px 40px rgba(23,105,255,0.25)",
               }}
-              initial={{ scale: 0.68, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{
-                delay: 0.18,
-                duration: 0.42,
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.18, duration: 0.3 }}
             >
               <BehanceMark />
             </motion.div>
