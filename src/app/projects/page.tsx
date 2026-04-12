@@ -95,6 +95,16 @@ const mobileProjects = [
     isPriority: false,
   },
   {
+    id: 6,
+    image: "/projects/blocks/renault-light.png",
+    darkImage: "/projects/blocks/renault-dark.png",
+    year: "",
+    slug: "renault",
+    externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
+    isComingSoon: false,
+    isPriority: false,
+  },
+  {
     id: 5,
     image: "/projects/blocks/stratos-light.png",
     darkImage: "/projects/blocks/stratos-dark.png",
