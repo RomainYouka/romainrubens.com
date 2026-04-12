@@ -84,7 +84,8 @@ const mobileProjects = [
   {
     id: 7,
     image: "/projects/blocks/googleplay-ios.webp",
-    year: "2026",
+    darkImage: "/projects/blocks/googleplay-ios-dark.png",
+    year: "",
     slug: "googleplayios",
     externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
     isComingSoon: false,
