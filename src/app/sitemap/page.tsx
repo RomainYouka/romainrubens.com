@@ -164,16 +164,6 @@ const getSections = (): Section[] => [
     ]
   },
   {
-    title: "explorations",
-    items: [
-      { label: "explorations", href: "/explorations", isSubItem: false, isClickable: true },
-      { label: "vibecoding", href: "/explorations/vibecoding", isSubItem: true, isClickable: false },
-      { label: "idorensburg", href: "/explorations/idorensburg", isSubItem: true, isClickable: false },
-      { label: "greenhouse", href: "/explorations/greenhouse", isSubItem: true, isClickable: false },
-      { label: "cuizin", href: "/explorations/cuizin", isSubItem: true, isClickable: false },
-    ]
-  },
-  {
     title: "contact",
     items: [
       { label: "contact", href: "/contact", isClickable: true }

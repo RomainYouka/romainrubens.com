@@ -35,9 +35,9 @@ const LogoIcon = (props: React.ImgHTMLAttributes<HTMLImageElement> & { isDark?: 
 
 // ─── Traductions nav ─────────────────────────────────────────────────────────
 const translations = {
-  FR: { home: "Accueil", projects: "Projets", skills: "Compétences", explorations: "Explorations", contact: "Contact", resume: "CV" },
-  EN: { home: "Home", projects: "Projects", skills: "Skills", explorations: "Explorations", contact: "Contact", resume: "Resume" },
-  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", skills: "Հմտություններ", explorations: "Հետազոտություններ", contact: "Կապ", resume: "Ռեզյումե" },
+  FR: { home: "Accueil", projects: "Projets", skills: "Compétences", contact: "Contact", resume: "CV" },
+  EN: { home: "Home", projects: "Projects", skills: "Skills", contact: "Contact", resume: "Resume" },
+  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", skills: "Հմտություններ", contact: "Կապ", resume: "Ռեզյումե" },
 };
 
 // ─── Bouton CV ───────────────────────────────────────────────────────────────
@@ -379,7 +379,6 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     { name: t.home,         href: "/" },
     { name: t.projects,     href: "/projects" },
     { name: t.skills,       href: "/skills" },
-    { name: t.explorations, href: "/explorations" },
     { name: t.contact,      href: "/contact" },
   ];
 
