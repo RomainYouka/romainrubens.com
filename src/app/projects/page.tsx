@@ -306,10 +306,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, externalUrl, is
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
         onError={() => setImgError(true)}
       />
-      <div className="flex items-end justify-between p-0 h-full pl-[26px] pr-[13px] pb-[13px] relative z-10">
-        <span className="font-light text-[var(--theme-subtle)] text-[9px] tracking-[0] leading-[normal] select-none">
-          {year}
-        </span>
+      <div className="flex items-end justify-end p-0 h-full pr-[13px] pb-[13px] relative z-10">
         <div className="w-8 h-8 md:w-10 md:h-10 p-0 pointer-events-none flex-shrink-0">
           <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
             <circle cx="27" cy="27" r="26.0723" transform="rotate(180 27 27)" fill={isDark ? "#191919" : "white"} stroke="#9C9C9C" strokeWidth="1.8553"/>

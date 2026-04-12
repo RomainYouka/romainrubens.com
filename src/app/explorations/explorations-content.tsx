@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExplorationSkeleton } from "@/components/ui/skeleton";
+import { useTheme } from "@/contexts/ThemeContext";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
@@ -135,12 +136,12 @@ interface ProjectCardProps {
   onNavigate: (slug: string, rect: DOMRect) => void;
   isComingSoon?: boolean;
   language: Language;
-  buttonImage: string;
   isPriority?: boolean;
 }
 
-const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, buttonImage, isPriority }: ProjectCardProps) => {
+const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, isPriority }: ProjectCardProps) => {
   const [isClicked, setIsClicked] = useState(false);
+  const { isDark } = useTheme();
   const t = translations[language];
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -179,16 +180,12 @@ const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, buttonIm
         fetchPriority={isPriority ? "high" : "auto"}
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
       />
-      <div className="flex items-end justify-between p-0 h-full pl-[26px] pr-[13px] pb-[13px] relative z-10">
-        <span className="font-light text-transparent text-[9px] tracking-[0] leading-[normal] select-none">
-        </span>
+      <div className="flex items-end justify-end p-0 h-full pr-[13px] pb-[13px] relative z-10">
         <div className="w-8 h-8 md:w-10 md:h-10 p-0 pointer-events-none flex-shrink-0">
-          <img
-            alt="Bouton retour"
-            src={buttonImage}
-            className="w-full h-full object-contain"
-            style={{ imageRendering: "auto" }}
-          />
+          <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            <circle cx="27" cy="27" r="26.0723" transform="rotate(180 27 27)" fill={isDark ? "#191919" : "white"} stroke="#9C9C9C" strokeWidth="1.8553"/>
+            <path d="M23.32 34.3633L30.0142 27.6691L30.6836 26.9996L23.32 19.636" stroke="#9C9C9C" strokeWidth="3.71061"/>
+          </svg>
         </div>
       </div>
       {isComingSoon && (
@@ -237,7 +234,6 @@ export default function ExplorationsPageContent() {
   }, []);
 
   const t = translations[language];
-  const BUTTON_IMAGE = "/bouton-aller-sombre.png";
 
   return (
     <main id="main-content" className="min-h-screen selection:bg-blue-500/30" style={{ backgroundColor: "var(--theme-bg)" }}>
@@ -296,7 +292,6 @@ export default function ExplorationsPageContent() {
                     onNavigate={handleNavigate}
                     isComingSoon={project.isComingSoon}
                     language={language}
-                    buttonImage={BUTTON_IMAGE}
                     isPriority={index < 2}
                   />
                 ))}
