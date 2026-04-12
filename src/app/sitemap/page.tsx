@@ -154,7 +154,6 @@ const getSections = (): Section[] => [
       { label: "namequest", href: "/projects/namequest", isSubItem: true, isClickable: true },
       { label: "vahansoghomonian", href: "/projects/vahansoghomonian", isSubItem: true, isClickable: true },
       { label: "chaussezVousOuPas", href: "/projects/chaussez-vous-ou-pas", isSubItem: true, isClickable: true },
-      { label: "sansnom", href: "/projects/sansnom", isSubItem: true, isClickable: false },
     ]
   },
   {

@@ -155,14 +155,6 @@ const diversProjects = [
     externalUrl: undefined as string | undefined,
     isComingSoon: false,
   },
-  {
-    id: 4,
-    image: "/projects/blocks/sansnom.webp",
-    year: "2026",
-    slug: "sansnom",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: true,
-  },
 ];
 
 const triggerHapticFeedback = () => {
