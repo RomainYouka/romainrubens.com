@@ -11,6 +11,7 @@ import { PageTransitionProvider } from "@/contexts/PageTransitionContext";
 import { PageTransitionOverlay } from "@/components/PageTransitionOverlay";
 import { ThemeSwitchOverlay } from "@/components/ThemeSwitchOverlay";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
+import StarScrollTop from "@/components/StarScrollTop";
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -64,6 +65,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <LayoutContent>{children}</LayoutContent>
           <PageTransitionOverlay />
           <ThemeSwitchOverlay />
+          <StarScrollTop />
         </SmoothScrollProvider>
       </PageTransitionProvider>
     </ThemeProvider>
