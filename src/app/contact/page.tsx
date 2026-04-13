@@ -110,7 +110,10 @@ export default function ContactPage() {
 
   const currentTranslations = contactTranslations[selectedLanguage];
 
+  const wink = () => window.dispatchEvent(new CustomEvent("blob-wink"));
+
   const handleDownloadPortfolio = () => {
+    wink();
     Analytics.portfolioDownload(selectedLanguage);
     const link = document.createElement("a");
     link.href = "/resume/RUBENS Romain (Portfolio).pdf";
@@ -121,32 +124,38 @@ export default function ContactPage() {
   };
 
   const handleViewResume = () => {
+    wink();
     Analytics.resumeView(selectedLanguage);
     localStorage.setItem("resumeLanguage", selectedLanguage);
     router.push("/resume");
   };
 
   const handleLinkedIn = () => {
+    wink();
     Analytics.contactClick("linkedin");
     window.open("https://www.linkedin.com/in/romain-rubens-ba660323b/", "_blank", "noopener,noreferrer");
   };
 
   const handleEmail = () => {
+    wink();
     Analytics.contactClick("email");
     window.location.href = "mailto:hello@romainrubens.com?subject=Contact — romainrubens.com";
   };
 
   const handleMedium = () => {
+    wink();
     Analytics.contactClick("medium");
     window.open("https://medium.com/@romainrubens/01-un-jour-je-serai-designer-d8662f384749", "_blank", "noopener,noreferrer");
   };
 
   const handlePinterest = () => {
+    wink();
     Analytics.contactClick("pinterest");
     window.open("https://www.pinterest.com/rubensromain/_created", "_blank", "noopener,noreferrer");
   };
 
   const handleBehance = () => {
+    wink();
     Analytics.contactClick("behance");
     window.open("https://www.behance.net/rubensromain", "_blank", "noopener,noreferrer");
   };

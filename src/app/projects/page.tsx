@@ -281,6 +281,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     triggerHapticFeedback();
     if (externalUrl) {
+      window.dispatchEvent(new CustomEvent("blob-wink"));
       onExternalNavigate(externalUrl);
       return;
     }
@@ -288,6 +289,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
       setIsClicked(prev => !prev);
       return;
     }
+    window.dispatchEvent(new CustomEvent("blob-wink"));
     const rect = e.currentTarget.getBoundingClientRect();
     onNavigate(slug, rect);
   }, [externalUrl, slug, onNavigate, onExternalNavigate, isComingSoon]);
