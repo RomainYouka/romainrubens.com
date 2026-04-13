@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
+import { Analytics } from "@/lib/analytics";
 
 const contactTranslations = {
   FR: {
@@ -110,6 +111,7 @@ export default function ContactPage() {
   const currentTranslations = contactTranslations[selectedLanguage];
 
   const handleDownloadPortfolio = () => {
+    Analytics.portfolioDownload(selectedLanguage);
     const link = document.createElement("a");
     link.href = "/resume/RUBENS Romain (Portfolio).pdf";
     link.download = "RUBENS_Romain_Portfolio.pdf";
@@ -119,27 +121,33 @@ export default function ContactPage() {
   };
 
   const handleViewResume = () => {
+    Analytics.resumeView(selectedLanguage);
     localStorage.setItem("resumeLanguage", selectedLanguage);
     router.push("/resume");
   };
 
   const handleLinkedIn = () => {
+    Analytics.contactClick("linkedin");
     window.open("https://www.linkedin.com/in/romain-rubens-ba660323b/", "_blank", "noopener,noreferrer");
   };
 
   const handleEmail = () => {
+    Analytics.contactClick("email");
     window.location.href = "mailto:hello@romainrubens.com?subject=Contact — romainrubens.com";
   };
 
   const handleMedium = () => {
+    Analytics.contactClick("medium");
     window.open("https://medium.com/@romainrubens/01-un-jour-je-serai-designer-d8662f384749", "_blank", "noopener,noreferrer");
   };
 
   const handlePinterest = () => {
+    Analytics.contactClick("pinterest");
     window.open("https://www.pinterest.com/rubensromain/_created", "_blank", "noopener,noreferrer");
   };
 
   const handleBehance = () => {
+    Analytics.contactClick("behance");
     window.open("https://www.behance.net/rubensromain", "_blank", "noopener,noreferrer");
   };
 

@@ -122,6 +122,27 @@
     --theme-subtle: #CCCCCC;
   }
 
+  /* ── Contraste élevé (accessibilité) ── */
+  [data-contrast="high"] {
+    --theme-bg: #FFFFFF;
+    --theme-bg-alt: #FFFFFF;
+    --theme-fg: #000000;
+    --theme-muted: #000000;
+    --theme-border: #000000;
+    --theme-nav-bg: #FFFFFF;
+    --theme-nav-scrolled: rgba(255, 255, 255, 0.99);
+    --theme-card-bg: #000000;
+    --theme-pill-bg: #000000;
+    --theme-pill-border: #000000;
+    --theme-card-border: #000000;
+    --theme-btn-bg: #000000;
+    --theme-btn-fg: #FFFFFF;
+    --theme-btn-border: #000000;
+    --theme-accent: #0000CC;
+    --theme-subtle: #000000;
+  }
+  html[data-contrast="high"] { background-color: #FFFFFF; }
+
   :root {
     --background: var(--color-bg-primary);
     --foreground: var(--color-text-primary-dark);

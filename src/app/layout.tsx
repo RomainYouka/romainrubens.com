@@ -75,10 +75,11 @@ export default function RootLayout({
     <html lang="fr" className={`${googleSans.variable} ${googleSansFlex.variable} ${notoSansArmenian.variable}`}>
       <head>
         {/* Anti-flash : applique le thème et la couleur du navigateur avant le rendu React */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}var c=localStorage.getItem('highContrast');document.documentElement.setAttribute('data-contrast',c==='1'?'high':'normal');}catch(e){}})()` }} />
         <meta name="theme-color" content="#ffffff" />
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://slelguoygbfzlpylpxfs.supabase.co" />
+        <link rel="preconnect" href="https://cloud.umami.is" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -118,6 +119,15 @@ export default function RootLayout({
           data-debug="true"
           data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
         />
+        {process.env.NEXT_PUBLIC_UMAMI_ID && (
+          <Script
+            src="https://cloud.umami.is/script.js"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_ID}
+            data-domains="romainrubens.com"
+            data-do-not-track="true"
+            strategy="afterInteractive"
+          />
+        )}
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

@@ -9,6 +9,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 import { detectLanguage, type Language } from "@/lib/language";
+import { Analytics } from "@/lib/analytics";
 
 // ─── Animated burger ────────────────────────────────────────────────────────
 const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean; isDark: boolean }) => {
@@ -303,10 +304,11 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
 
   const handleLanguageChange = useCallback((lang: string) => {
     const l = lang as Language;
+    Analytics.languageChange(selectedLanguage, l);
     setSelectedLanguage(l);
     localStorage.setItem("preferredLanguage", l);
     window.dispatchEvent(new CustomEvent("languageChange", { detail: l }));
-  }, []);
+  }, [selectedLanguage]);
 
   // ── Scroll detection ──
   useEffect(() => {
