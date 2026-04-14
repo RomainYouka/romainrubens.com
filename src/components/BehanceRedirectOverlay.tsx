@@ -70,11 +70,7 @@ export function BehanceRedirectOverlay({
     }
     hasRedirected.current = false;
     const timer = setTimeout(() => {
-      if (!hasRedirected.current) {
-        hasRedirected.current = true;
-        window.open(url, "_blank", "noopener,noreferrer");
-        onDismiss();
-      }
+      onDismiss();
     }, 1550);
     return () => clearTimeout(timer);
   }, [url, onDismiss]);
