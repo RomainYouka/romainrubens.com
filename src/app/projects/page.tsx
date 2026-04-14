@@ -20,7 +20,6 @@ const translations = {
     returnDate: "En cours de réalisation",
     strateSoon: "Bientôt disponible",
     strateWorkInProgress: "Cette page est en travaux",
-    hideInProgress: "Masquer les Projets en cours",
   },
   EN: {
     mobileProjects: "Mobile projects",
@@ -30,7 +29,6 @@ const translations = {
     returnDate: "Work in progress",
     strateSoon: "Coming soon",
     strateWorkInProgress: "Work in progress",
-    hideInProgress: "Hide ongoing projects",
   },
   ՀԱՅ: {
     mobileProjects: "Բջջային նախագծեր",
@@ -40,7 +38,6 @@ const translations = {
     returnDate: "Ընթացքում է",
     strateSoon: "Շուտով",
     strateWorkInProgress: "Այս էջը ներկայումս վերանորոգվում է",
-    hideInProgress: "Թաքցնել ընթացիկ նախագծերը",
   },
 };
 
@@ -201,7 +198,7 @@ const NavigationButtons = ({ activeSection, language }: { activeSection: "mobile
             className="h-10 lg:h-12 rounded-[20px] transition-all duration-200 cursor-pointer flex items-center justify-center border active:scale-[0.98]"
             style={{
               backgroundColor: isActive ? "var(--theme-btn-bg)"  : "var(--theme-pill-bg)",
-              borderColor:     isActive ? "var(--theme-btn-border)" : "var(--theme-pill-border)",
+              borderColor:     "var(--theme-pill-border)",
               color:           isActive ? "var(--theme-btn-fg)"  : "var(--theme-fg)",
             }}
           >
@@ -339,7 +336,6 @@ export default function PortfolioPage() {
   const { isDark } = useTheme();
   const router = useRouter();
   const [language, setLanguage] = useState<Language>("FR");
-  const [hideInProgress, setHideInProgress] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
@@ -433,55 +429,6 @@ export default function PortfolioPage() {
         )}
       </AnimatePresence>
 
-      {isHydrated && (
-        <div
-          className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] items-center gap-3 px-5 py-3 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] transition-opacity duration-200 ${isFooterVisible || hideToolbar ? "opacity-0 pointer-events-none" : "opacity-100"} ${isMobileMenuOpen ? "hidden md:flex" : "flex"}`}
-          style={{
-            background: isDark
-              ? "linear-gradient(135deg, rgba(40,40,45,0.85) 0%, rgba(30,30,35,0.75) 100%)"
-              : "linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.25) 50%, rgba(240,240,245,0.35) 100%)",
-            backdropFilter: "blur(24px) saturate(180%)",
-            WebkitBackdropFilter: "blur(24px) saturate(180%)",
-            border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(255,255,255,0.5)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.1)",
-            fontFamily: "var(--font-body)",
-          }}
-        >
-          <span className="font-medium text-[11px] sm:text-[13px] md:text-[14px] whitespace-nowrap select-none" style={{ color: "var(--theme-fg)" }}>
-            {translations[language].hideInProgress}
-          </span>
-          <button
-            onClick={() => {
-              triggerHapticFeedback();
-              setHideInProgress(prev => !prev);
-            }}
-            className="relative flex-shrink-0 transition-all duration-200 ease-in-out rounded-full flex items-center"
-            style={{
-              width: "44px",
-              height: "26px",
-              background: hideInProgress ? "#314DCB" : "#1d1d1f",
-              border: "1px solid rgba(255,255,255,0.1)",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.12)",
-              padding: "0 2px",
-              boxSizing: "border-box",
-            }}
-            role="switch"
-            aria-checked={hideInProgress}
-            aria-label={translations[language].hideInProgress}
-          >
-            <span
-              className="block rounded-full transition-transform duration-200 ease-in-out"
-              style={{
-                width: "20px",
-                height: "20px",
-                background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,240,245,0.85) 100%)",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8)",
-                transform: hideInProgress ? "translateX(18px)" : "translateX(0px)",
-              }}
-            />
-          </button>
-        </div>
-      )}
 
       <main id="main-content" className="w-full min-h-screen flex justify-center py-5 md:mt-[20px] pb-32 md:pb-12" style={{ backgroundColor: "var(--theme-bg)" }}>
         <div className="flex w-full max-w-[1234px] h-auto px-4 md:px-8 lg:px-12 xl:px-4 mt-16 md:mt-[40px] relative flex-col items-center gap-12 md:gap-[100px]">
@@ -498,8 +445,7 @@ export default function PortfolioPage() {
                 <NavigationButtons activeSection="mobile" language={language} />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
                   {sortProjects(mobileProjects)
-                    .filter(p => !hideInProgress || !p.isComingSoon)
-                    .map((project, index) => (
+                                        .map((project, index) => (
                     <ProjectCard
                       key={project.id}
                       image={project.image}
@@ -521,8 +467,7 @@ export default function PortfolioPage() {
                 <NavigationButtons activeSection="web" language={language} />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
                   {sortProjects(webProjects)
-                    .filter(p => !hideInProgress || !p.isComingSoon)
-                    .map((project, index) => (
+                                        .map((project, index) => (
                     <ProjectCard
                       key={project.id}
                       image={project.image}
@@ -544,8 +489,7 @@ export default function PortfolioPage() {
                 <NavigationButtons activeSection="divers" language={language} />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
                   {sortProjects(diversProjects)
-                    .filter(p => !hideInProgress || !p.isComingSoon)
-                    .map((project, index) => (
+                                        .map((project, index) => (
                     <ProjectCard
                       key={project.id}
                       image={project.image}

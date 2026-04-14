@@ -72,10 +72,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const transitionLock = useRef(false);
 
   useEffect(() => {
-    const savedContrast = localStorage.getItem("highContrast") === "1";
-    setIsHighContrast(savedContrast);
-    document.documentElement.setAttribute("data-contrast", savedContrast ? "high" : "normal");
-
     const saved = localStorage.getItem("theme") as Theme | null;
     const currentTheme: Theme = saved === "dark" || saved === "light" ? saved : "light";
 

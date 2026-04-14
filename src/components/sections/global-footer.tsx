@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 
 const footerTranslations = {
@@ -12,8 +12,6 @@ const footerTranslations = {
     legal: "Mentions légales",
     sitemap: "Plan du site",
     accessibility: "Accessibilité",
-    contrastOn: "Contraste élevé : activé",
-    contrastOff: "Contraste élevé",
   },
   EN: {
     copyright: "© 2026 Romain Rubens. All rights reserved.",
@@ -22,8 +20,6 @@ const footerTranslations = {
     legal: "Legal Notice",
     sitemap: "Site Map",
     accessibility: "Accessibility",
-    contrastOn: "High contrast: on",
-    contrastOff: "High contrast",
   },
   ՀԱՅ: {
     copyright: "© 2026 Ռոման Ռուբենս. Բոլոր իրավունքները պաշտպանված են.",
@@ -32,19 +28,13 @@ const footerTranslations = {
     legal: "Իրավական տեղեկություններ",
     sitemap: "Կայքի քարտեզ",
     accessibility: "Հասանելիություն",
-    contrastOn: "Բարձր հակադրություն՝ միացված",
-    contrastOff: "Բարձր հակադրություն",
   },
 };
 
 const GlobalFooter = () => {
-  const pathname = usePathname();
   const router = useRouter();
-  const { isHighContrast, toggleHighContrast } = useTheme();
+  useTheme(); // keep context connected
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
-
-  // Masqué sur les sous-pages projets (ex: /projects/framasoft)
-  const isProjectSubPage = /^\/projects\/.+/.test(pathname);
 
   useEffect(() => {
     let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
@@ -198,38 +188,6 @@ const GlobalFooter = () => {
             {currentTranslations.accessibility}
           </button>
 
-          {!isProjectSubPage && (
-            <>
-              <span style={{ color: "var(--theme-subtle)" }}>|</span>
-              <button
-                onClick={toggleHighContrast}
-                aria-pressed={isHighContrast}
-                style={{
-                  color: isHighContrast ? "var(--theme-accent)" : "var(--theme-subtle)",
-                  fontWeight: isHighContrast ? 700 : "inherit",
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  background: "none",
-                  border: "none",
-                  padding: 0,
-                  font: "inherit",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "4px",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--theme-accent)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = isHighContrast ? "var(--theme-accent)" : "var(--theme-subtle)";
-                }}
-              >
-                {isHighContrast
-                  ? currentTranslations.contrastOn
-                  : currentTranslations.contrastOff}
-              </button>
-            </>
-          )}
         </div>
       </div>
     </footer>

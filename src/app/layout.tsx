@@ -75,7 +75,7 @@ export default function RootLayout({
     <html lang="fr" className={`${googleSans.variable} ${googleSansFlex.variable} ${notoSansArmenian.variable}`}>
       <head>
         {/* Anti-flash : applique le thème et la couleur du navigateur avant le rendu React */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}var c=localStorage.getItem('highContrast');document.documentElement.setAttribute('data-contrast',c==='1'?'high':'normal');}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}}catch(e){}})()` }} />
         <meta name="theme-color" content="#ffffff" />
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://slelguoygbfzlpylpxfs.supabase.co" />

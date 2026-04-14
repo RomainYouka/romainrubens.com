@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "@/contexts/ThemeContext";
 
 // Blob/potato shape — viewBox 0 0 64 64
 const BLOB_PATH =
@@ -15,6 +16,7 @@ const PUPIL_R = 4.5;
 const MAX_OFFSET = 3.5;
 
 export default function StarScrollTop() {
+  const { isDark } = useTheme();
   const [visible, setVisible] = useState(false);
   // Temporarily shown for wink even when scrollY < 300
   const [winkVisible, setWinkVisible] = useState(false);
@@ -22,10 +24,19 @@ export default function StarScrollTop() {
   const [winking, setWinking] = useState(false);
   const [pupil, setPupil] = useState({ x: 0, y: 0 });
   const buttonRef = useRef<HTMLButtonElement>(null);
+  // Prevents scroll listener from re-showing button while scrolling to top
+  const wasClickedRef = useRef(false);
 
   // Show when scrolled past 300px
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 300);
+    const onScroll = () => {
+      if (wasClickedRef.current) {
+        // Clear lock once near top, then sync normally
+        if (window.scrollY < 50) wasClickedRef.current = false;
+        return;
+      }
+      setVisible(window.scrollY > 300);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -65,9 +76,8 @@ export default function StarScrollTop() {
   }, []);
 
   const handleClick = useCallback(() => {
-    // Hide immediately — scroll listener re-shows if user scrolls down again
+    wasClickedRef.current = true;
     setVisible(false);
-    // scrollTo handles concurrent calls correctly (restarts if already scrolling)
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
@@ -104,8 +114,8 @@ export default function StarScrollTop() {
             height: 60,
             borderRadius: "50%",
             // --theme-accent = #314DCB light / #5194FF dark / #000 high-contrast
-            backgroundColor: "var(--theme-accent)",
-            border: "none",
+            backgroundColor: "#314DCB",
+            border: isDark ? "2px solid #5194FF" : "none",
             cursor: "pointer",
             padding: 0,
             display: "flex",
