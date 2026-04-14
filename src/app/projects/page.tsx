@@ -381,6 +381,7 @@ export default function PortfolioPage() {
   const allProjects = [...mobileProjects, ...webProjects, ...diversProjects];
 
   const handleExternalNavigate = useCallback((url: string) => {
+    window.open(url, "_blank", "noopener,noreferrer");
     setBehanceRedirect(url);
   }, []);
 
