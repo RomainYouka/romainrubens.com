@@ -124,7 +124,6 @@ export default function RootLayout({
             src="https://cloud.umami.is/script.js"
             data-website-id={process.env.NEXT_PUBLIC_UMAMI_ID}
             data-domains="romainrubens.com"
-            data-do-not-track="true"
             strategy="afterInteractive"
           />
         )}
