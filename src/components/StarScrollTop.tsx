@@ -78,6 +78,9 @@ export default function StarScrollTop() {
   const handleClick = useCallback(() => {
     wasClickedRef.current = true;
     setVisible(false);
+    // Lenis intercepte window.scrollTo — on dispatch l'événement dédié
+    // Fallback window.scrollTo pour les pages sans Lenis (ex: accueil)
+    window.dispatchEvent(new Event("lenis-scroll-to-top"));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 

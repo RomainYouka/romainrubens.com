@@ -26,6 +26,10 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     lenisRef.current = lenis;
 
+    // Permet à n'importe quel composant de déclencher un scroll to top via Lenis
+    const onScrollToTop = () => lenis.scrollTo(0, { immediate: false });
+    window.addEventListener("lenis-scroll-to-top", onScrollToTop);
+
     let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
@@ -35,6 +39,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     return () => {
       cancelAnimationFrame(rafId);
+      window.removeEventListener("lenis-scroll-to-top", onScrollToTop);
       lenis.destroy();
       lenisRef.current = null;
     };
