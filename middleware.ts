@@ -37,7 +37,7 @@ export function middleware(request: NextRequest) {
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://slelguoygbfzlpylpxfs.supabase.co https://cloud.umami.is",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
+      "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
       "img-src 'self' data: https:",
       "connect-src 'self' https://slelguoygbfzlpylpxfs.supabase.co https://ipapi.co https://api.sunrise-sunset.org https://cloud.umami.is",
       "frame-ancestors 'none'",
