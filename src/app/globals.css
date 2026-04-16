@@ -138,10 +138,65 @@
     --theme-btn-bg: #000000;
     --theme-btn-fg: #FFFFFF;
     --theme-btn-border: #000000;
-    --theme-accent: #0000CC;
+    --theme-accent: #000000;
     --theme-subtle: #000000;
+    /* Surcharge --foreground utilisé par h1-h6 et p */
+    --foreground: #000000;
+    --color-text-primary-dark: #000000;
   }
   html[data-contrast="high"] { background-color: #FFFFFF; }
+
+  /* Forcer texte noir sur les zones blanches */
+  [data-contrast="high"] h1,
+  [data-contrast="high"] h2,
+  [data-contrast="high"] h3,
+  [data-contrast="high"] h4,
+  [data-contrast="high"] h5,
+  [data-contrast="high"] h6,
+  [data-contrast="high"] p,
+  [data-contrast="high"] span,
+  [data-contrast="high"] a,
+  [data-contrast="high"] button,
+  [data-contrast="high"] label {
+    color: #000000;
+  }
+
+  /* Forcer texte BLANC sur les fonds noirs (cards, pills) */
+  [data-contrast="high"] [style*="theme-card-bg"],
+  [data-contrast="high"] [style*="theme-card-bg"] *,
+  [data-contrast="high"] [style*="theme-pill-bg"],
+  [data-contrast="high"] [style*="theme-pill-bg"] * {
+    color: #FFFFFF !important;
+  }
+
+  /* Boutons avec fond noir → texte blanc */
+  [data-contrast="high"] [style*="theme-btn-bg"],
+  [data-contrast="high"] [style*="theme-btn-bg"] * {
+    color: #FFFFFF !important;
+  }
+
+  /* Textes gris/sombres hardcodés → noir forcé */
+  [data-contrast="high"] [style*="color: #86"],
+  [data-contrast="high"] [style*="color: #6e"],
+  [data-contrast="high"] [style*="color: #8e"],
+  [data-contrast="high"] [style*="color: #ae"],
+  [data-contrast="high"] [style*="color: rgb(134"],
+  [data-contrast="high"] [style*="color: rgba(0,0,0"] {
+    color: #000000 !important;
+  }
+
+  /* Éléments bleus hardcodés → noir */
+  [data-contrast="high"] [style*="#314DCB"],
+  [data-contrast="high"] [style*="#5194FF"],
+  [data-contrast="high"] [style*="#1769FF"] {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+  }
+  [data-contrast="high"] [style*="#314DCB"] *,
+  [data-contrast="high"] [style*="#5194FF"] *,
+  [data-contrast="high"] [style*="#1769FF"] * {
+    color: #FFFFFF !important;
+  }
 
   :root {
     --background: var(--color-bg-primary);
@@ -178,6 +233,61 @@
     --sidebar-border: var(--color-sidebar-border);
     --sidebar-ring: var(--color-sidebar-ring);
   }
+  /* OpenDyslexic — mode dyslexique */
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/opendyslexic@latest/fonts/OpenDyslexic-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/opendyslexic@latest/fonts/OpenDyslexic-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/opendyslexic@latest/fonts/OpenDyslexic-Italic.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  /* Activation du mode dyslexique */
+  html[data-dyslexic="true"] body,
+  html[data-dyslexic="true"] p,
+  html[data-dyslexic="true"] span,
+  html[data-dyslexic="true"] a,
+  html[data-dyslexic="true"] button,
+  html[data-dyslexic="true"] input,
+  html[data-dyslexic="true"] textarea,
+  html[data-dyslexic="true"] label,
+  html[data-dyslexic="true"] li,
+  html[data-dyslexic="true"] td,
+  html[data-dyslexic="true"] th,
+  html[data-dyslexic="true"] h1,
+  html[data-dyslexic="true"] h2,
+  html[data-dyslexic="true"] h3,
+  html[data-dyslexic="true"] h4,
+  html[data-dyslexic="true"] h5,
+  html[data-dyslexic="true"] h6 {
+    font-family: 'OpenDyslexic', sans-serif !important;
+    letter-spacing: 0.01em;
+    word-spacing: 0.1em;
+    line-height: 1.6;
+  }
+  /* Exclusion du texte arménien */
+  html[data-dyslexic="true"] :lang(hy),
+  html[data-dyslexic="true"] [lang="hy"],
+  html[data-dyslexic="true"] [lang="hy"] * {
+    font-family: var(--font-armenian) !important;
+    letter-spacing: normal;
+    word-spacing: normal;
+  }
+
   html { overflow-x: hidden; max-width: 100vw; background-color: #ffffff; }
   html[data-theme="dark"] { background-color: #1d1d1f; }
   html:has(:target) { scroll-behavior: auto; }

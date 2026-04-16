@@ -313,6 +313,21 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
         onError={() => setImgError(true)}
       />
+      {externalUrl && (
+        <div className="absolute top-[11px] left-[11px] z-10 pointer-events-none">
+          <div style={{
+            width: 28, height: 28,
+            borderRadius: 8,
+            backgroundColor: "var(--theme-bg)",
+            border: "1px solid var(--theme-pill-border)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.5 1.5H11.5M11.5 1.5V5.5M11.5 1.5L5.5 7.5M5 2.5H2C1.72 2.5 1.5 2.72 1.5 3V11C1.5 11.28 1.72 11.5 2 11.5H10C10.28 11.5 10.5 11.28 10.5 11V8" stroke="var(--theme-pill-border)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      )}
       <div className="flex items-end justify-end p-0 h-full pr-[13px] pb-[13px] relative z-10">
         <div className="w-8 h-8 md:w-10 md:h-10 p-0 pointer-events-none flex-shrink-0">
           <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">

@@ -16,6 +16,8 @@ interface ThemeContextValue {
   themeTransition: ThemeTransition;
   isHighContrast: boolean;
   toggleHighContrast: () => void;
+  isDyslexic: boolean;
+  toggleDyslexic: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -69,6 +71,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [showTimePopup, setShowTimePopup] = useState<"evening" | "morning" | null>(null);
   const [themeTransition, setThemeTransition] = useState<ThemeTransition>(null);
   const [isHighContrast, setIsHighContrast] = useState(false);
+  const [isDyslexic, setIsDyslexic] = useState(false);
   const transitionLock = useRef(false);
 
   useEffect(() => {
@@ -127,6 +130,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       });
     }
 
+    const savedDyslexic = localStorage.getItem("dyslexic") === "1";
+    if (savedDyslexic) {
+      setIsDyslexic(true);
+      document.documentElement.setAttribute("data-dyslexic", "true");
+    }
+
     setMounted(true);
   }, []);
 
@@ -167,20 +176,29 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const toggleDyslexic = useCallback(() => {
+    setIsDyslexic((prev) => {
+      const next = !prev;
+      localStorage.setItem("dyslexic", next ? "1" : "0");
+      document.documentElement.setAttribute("data-dyslexic", next ? "true" : "false");
+      return next;
+    });
+  }, []);
+
   const dismissTimePopup = useCallback(() => {
     setShowTimePopup(null);
   }, []);
 
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: "light", isDark: false, toggleTheme, setTheme, showTimePopup: null, dismissTimePopup, themeTransition: null, isHighContrast: false, toggleHighContrast }}>
+      <ThemeContext.Provider value={{ theme: "light", isDark: false, toggleTheme, setTheme, showTimePopup: null, dismissTimePopup, themeTransition: null, isHighContrast: false, toggleHighContrast, isDyslexic: false, toggleDyslexic }}>
         {children}
       </ThemeContext.Provider>
     );
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme, setTheme, showTimePopup, dismissTimePopup, themeTransition, isHighContrast, toggleHighContrast }}>
+    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme, setTheme, showTimePopup, dismissTimePopup, themeTransition, isHighContrast, toggleHighContrast, isDyslexic, toggleDyslexic }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
+import { usePathname } from "next/navigation";
 
 const footerTranslations = {
   FR: {
@@ -12,6 +13,8 @@ const footerTranslations = {
     legal: "Mentions légales",
     sitemap: "Plan du site",
     accessibility: "Accessibilité",
+    dyslexicOn: "Mode dyslexique",
+    dyslexicOff: "Mode dyslexique",
   },
   EN: {
     copyright: "© 2026 Romain Rubens. All rights reserved.",
@@ -20,6 +23,8 @@ const footerTranslations = {
     legal: "Legal Notice",
     sitemap: "Site Map",
     accessibility: "Accessibility",
+    dyslexicOn: "Dyslexic mode",
+    dyslexicOff: "Dyslexic mode",
   },
   ՀԱՅ: {
     copyright: "© 2026 Ռոման Ռուբենս. Բոլոր իրավունքները պաշտպանված են.",
@@ -28,12 +33,15 @@ const footerTranslations = {
     legal: "Իրավական տեղեկություններ",
     sitemap: "Կայքի քարտեզ",
     accessibility: "Հասանելիություն",
+    dyslexicOn: "Դիսլեքսիկ ռեժիմ",
+    dyslexicOff: "Դիսլեքսիկ ռեժիմ",
   },
 };
 
 const GlobalFooter = () => {
   const router = useRouter();
-  useTheme(); // keep context connected
+  const pathname = usePathname();
+  const { isDyslexic, toggleDyslexic } = useTheme();
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
 
   useEffect(() => {
@@ -186,6 +194,28 @@ const GlobalFooter = () => {
             }}
           >
             {currentTranslations.accessibility}
+          </button>
+          <span style={{ color: "var(--theme-subtle)" }}>|</span>
+          <button
+            onClick={toggleDyslexic}
+            aria-pressed={isDyslexic}
+            style={{
+              color: isDyslexic ? "var(--theme-accent)" : "var(--theme-subtle)",
+              textDecoration: "none",
+              cursor: "pointer",
+              background: "none",
+              border: "none",
+              padding: 0,
+              font: "inherit",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "var(--theme-accent)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = isDyslexic ? "var(--theme-accent)" : "var(--theme-subtle)";
+            }}
+          >
+            {isDyslexic ? currentTranslations.dyslexicOff : currentTranslations.dyslexicOn}
           </button>
 
         </div>
