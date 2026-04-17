@@ -5,7 +5,7 @@ import { Analytics } from "@/lib/analytics";
 
 type Theme = "light" | "dark";
 export type ThemeTransition = "toLight" | "toDark" | null;
-export type AccentColor = "blue" | "pink" | "green" | "orange";
+export type AccentColor = "blue" | "pink" | "green" | "orange" | "mono";
 
 interface ThemeContextValue {
   theme: Theme;
@@ -140,7 +140,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
 
     const savedAccent = localStorage.getItem("accentColor") as AccentColor | null;
-    if (savedAccent && ["blue", "pink", "green", "orange"].includes(savedAccent)) {
+    if (savedAccent && ["blue", "pink", "green", "orange", "mono"].includes(savedAccent)) {
       setAccentColorState(savedAccent);
       applyAccent(savedAccent);
     }

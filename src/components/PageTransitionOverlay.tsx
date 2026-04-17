@@ -50,6 +50,16 @@ const STRIP_GRADIENTS: Record<AccentColor, string[]> = {
     "linear-gradient(180deg, #c86800 0%, #dc7a00 100%)",
     "linear-gradient(180deg, #e08840 0%, #FFA269 100%)",
   ],
+  mono: [
+    "linear-gradient(180deg, #080809 0%, #131318 100%)",
+    "linear-gradient(180deg, #111111 0%, #1a1a1a 100%)",
+    "linear-gradient(180deg, #1a1a1a 0%, #242424 100%)",
+    "linear-gradient(180deg, #242424 0%, #303030 100%)",
+    "linear-gradient(180deg, #303030 0%, #3e3e3e 100%)",
+    "linear-gradient(180deg, #3e3e3e 0%, #505050 100%)",
+    "linear-gradient(180deg, #505050 0%, #626262 100%)",
+    "linear-gradient(180deg, #626262 0%, #767676 100%)",
+  ],
 };
 
 export function PageTransitionOverlay() {

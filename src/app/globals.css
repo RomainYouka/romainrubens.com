@@ -131,6 +131,8 @@
   [data-theme="dark"][data-accent="green"]       { --theme-accent: #53C999; --theme-accent-gradient: #2d9970; }
   [data-accent="orange"]                         { --theme-accent: #B24400; --theme-accent-gradient: #7a2c00; }
   [data-theme="dark"][data-accent="orange"]      { --theme-accent: #FFA269; --theme-accent-gradient: #cc6d3a; }
+  [data-accent="mono"]                           { --theme-accent: #1d1d1f; --theme-accent-gradient: #000000; }
+  [data-theme="dark"][data-accent="mono"]        { --theme-accent: #f5f5f5; --theme-accent-gradient: #e0e0e0; }
 
   /* ── Contraste élevé (accessibilité) ── */
   [data-contrast="high"] {

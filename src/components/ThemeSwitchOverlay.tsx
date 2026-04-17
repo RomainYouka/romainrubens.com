@@ -10,6 +10,7 @@ const ACCENT_GLOW: Record<AccentColor, { r: number; g: number; b: number }> = {
   pink:   { r: 255, g: 55,  b: 108 },
   green:  { r: 83,  g: 201, b: 153 },
   orange: { r: 255, g: 162, b: 105 },
+  mono:   { r: 120, g: 120, b: 120 },
 };
 
 function BulbAnimation({ lit, accentColor }: { lit: boolean; accentColor: AccentColor }) {

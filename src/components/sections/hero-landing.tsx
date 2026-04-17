@@ -4,9 +4,15 @@ import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
+import type { AccentColor } from "@/contexts/ThemeContext";
 
-// ─── Palette — identique pour les deux modes ─────────────────────────────────
-const PALETTE = ["#141429", "#121C3B", "#162973", "#1D389F", "#2446C0", "#2651CD", "#3461E5"];
+const PALETTE_MAP: Record<AccentColor, string[]> = {
+  blue:   ["#141429", "#121C3B", "#162973", "#1D389F", "#2446C0", "#2651CD", "#3461E5"],
+  pink:   ["#1a0008", "#2d000f", "#4a0018", "#700025", "#96003A", "#B2003A", "#d4004a"],
+  green:  ["#060f0c", "#0a1f18", "#0d2a1e", "#103a2a", "#155038", "#1a6848", "#28a070"],
+  orange: ["#1a0c00", "#2e1800", "#4a2800", "#6e3c00", "#8c5000", "#b26000", "#e08040"],
+  mono:   ["#111111", "#1d1d1d", "#2a2a2a", "#383838", "#484848", "#5a5a5a", "#6e6e6e"],
+};
 
 // 24 blobs en grille 6×4 — couverture totale gauche/droite/coins.
 const BLOBS = [
@@ -47,7 +53,8 @@ const translations = {
 };
 
 export default function HeroLanding() {
-  const { isDark } = useTheme();
+  const { isDark, accentColor } = useTheme();
+  const PALETTE = PALETTE_MAP[accentColor];
 
   const [displayedText,     setDisplayedText]     = useState("");
   const [selectedLanguage,  setSelectedLanguage]  = useState<"FR" | "EN" | "ՀԱՅ">("FR");
