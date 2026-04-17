@@ -124,8 +124,8 @@
   }
 
   /* ── Accents couleur ── */
-  :root                                          { --theme-accent-gradient: #1e3a8a; }
-  [data-theme="dark"]                            { --theme-accent-gradient: #3a72d4; }
+  :root                                          { --theme-accent-gradient: #1e3a8a; --theme-accent-fg: #ffffff; }
+  [data-theme="dark"]                            { --theme-accent-gradient: #3a72d4; --theme-accent-fg: #ffffff; }
   [data-accent="pink"]                           { --theme-accent: #B2003A; --theme-accent-gradient: #7a0020; }
   [data-theme="dark"][data-accent="pink"]        { --theme-accent: #FF376C; --theme-accent-gradient: #cc1852; }
   [data-accent="green"]                          { --theme-accent: #004430; --theme-accent-gradient: #002618; }
@@ -133,7 +133,7 @@
   [data-accent="orange"]                         { --theme-accent: #B24400; --theme-accent-gradient: #7a2c00; }
   [data-theme="dark"][data-accent="orange"]      { --theme-accent: #FFA269; --theme-accent-gradient: #cc6d3a; }
   [data-accent="mono"]                           { --theme-accent: #1d1d1f; --theme-accent-gradient: #000000; }
-  [data-theme="dark"][data-accent="mono"]        { --theme-accent: #f5f5f5; --theme-accent-gradient: #e0e0e0; }
+  [data-theme="dark"][data-accent="mono"]        { --theme-accent: #f5f5f5; --theme-accent-gradient: #e0e0e0; --theme-accent-fg: #1d1d1f; }
 
   /* ── Contraste élevé (accessibilité) ── */
   [data-contrast="high"] {

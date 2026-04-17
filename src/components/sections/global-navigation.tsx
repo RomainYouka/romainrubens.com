@@ -115,7 +115,7 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: Language
       aria-label={`Download ${t.resume}`}
       className="relative flex items-center justify-center font-medium text-sm no-underline disabled:cursor-not-allowed"
       style={{
-        backgroundColor: "var(--theme-accent)", color: "#ffffff",
+        backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)",
         border: `1px solid var(--theme-accent)`,
         borderRadius: 980, padding: "8px 16px", height: 36, minWidth: 95, width: 95,
         transition: "opacity 180ms ease, background-color 180ms ease, transform 180ms ease",
@@ -392,7 +392,7 @@ const ColorPicker = ({ accentColor, onAccentChange, isDark, isOpen, onOpen, onCl
                 const isSel = opt.id === accentColor;
                 const swatch = isDark ? opt.dark : opt.light;
                 const bg = opt.mono
-                  ? "conic-gradient(#1d1d1f 0deg 180deg, #f5f5f5 180deg 360deg)"
+                  ? "linear-gradient(to right, #1d1d1f 50%, #f5f5f5 50%)"
                   : swatch;
                 return (
                   <button
@@ -444,7 +444,7 @@ const ColorPickerMobile = ({ accentColor, onAccentChange, isDark, selectedLangua
             const isSel = opt.id === accentColor;
             const swatch = isDark ? opt.dark : opt.light;
             const bg = opt.mono
-              ? "conic-gradient(#1d1d1f 0deg 180deg, #f5f5f5 180deg 360deg)"
+              ? "linear-gradient(to right, #1d1d1f 50%, #f5f5f5 50%)"
               : swatch;
             return (
               <button

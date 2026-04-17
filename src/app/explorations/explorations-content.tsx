@@ -84,11 +84,12 @@ const BlueBanner = ({ language }: { language: Language }) => {
     <>
       <div className="hidden lg:block w-full rounded-[12px] flex items-center justify-center py-3" style={{ backgroundColor: "var(--theme-accent)" }}>
         <p
-          className="text-white text-center font-semibold text-base leading-snug px-6 whitespace-nowrap"
+          className="text-center font-semibold text-base leading-snug px-6 whitespace-nowrap"
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 600,
             letterSpacing: "0px",
+            color: "var(--theme-accent-fg)",
           }}
         >
           {blueBannerTextDesktop[language]}
@@ -97,11 +98,12 @@ const BlueBanner = ({ language }: { language: Language }) => {
 
       <div className="hidden md:flex lg:hidden w-full rounded-[12px] items-center justify-center py-2.5" style={{ backgroundColor: "var(--theme-accent)" }}>
         <p
-          className="text-white text-center font-semibold text-[11px] leading-snug px-3 whitespace-pre-line"
+          className="text-center font-semibold text-[11px] leading-snug px-3 whitespace-pre-line"
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 600,
             letterSpacing: "0px",
+            color: "var(--theme-accent-fg)",
           }}
         >
           {blueBannerTextTablet[language]}
@@ -110,11 +112,12 @@ const BlueBanner = ({ language }: { language: Language }) => {
 
       <div className="md:hidden w-full rounded-[12px] flex items-center justify-center py-2.5" style={{ backgroundColor: "var(--theme-accent)" }}>
         <p
-          className="text-white text-center font-semibold text-[9px] leading-snug px-3 whitespace-pre-line"
+          className="text-center font-semibold text-[9px] leading-snug px-3 whitespace-pre-line"
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 600,
             letterSpacing: "0px",
+            color: "var(--theme-accent-fg)",
           }}
         >
           {blueBannerTextMobile[language]}

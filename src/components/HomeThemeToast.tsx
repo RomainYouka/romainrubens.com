@@ -145,7 +145,7 @@ export function HomeThemeToast() {
                   style={
                     isDark
                       ? { backgroundColor: "#343434", color: "rgba(255,255,255,0.55)", border: "1px solid #616161" }
-                      : { background: "linear-gradient(135deg, var(--theme-accent-gradient), var(--theme-accent))", color: "#ffffff", boxShadow: "0 2px 8px rgba(0,0,0,0.25)" }
+                      : { background: "linear-gradient(135deg, var(--theme-accent-gradient), var(--theme-accent))", color: "var(--theme-accent-fg)", boxShadow: "0 2px 8px rgba(0,0,0,0.25)" }
                   }
                 >
                   <Moon className="w-3 h-3" strokeWidth={2} />
