@@ -133,7 +133,7 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: Language
         }`}
         style={{ backgroundColor: "var(--theme-accent)" }}
       >
-        <Check className="w-5 h-5 text-white" strokeWidth={2.5} />
+        <Check className="w-5 h-5" style={{ color: "var(--theme-accent-fg)" }} strokeWidth={2.5} />
       </div>
     </button>
   );
@@ -266,7 +266,7 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
                     fontFamily:   "var(--font-body)",
                     fontWeight:   isSel ? 600 : 500,
                     background:   isSel ? "var(--theme-accent)" : "transparent",
-                    color:        isSel ? "#ffffff" : textColor,
+                    color:        isSel ? "var(--theme-accent-fg)" : textColor,
                     border:       "none",
                     cursor:       "pointer",
                     transition:   "background 140ms ease",

@@ -137,7 +137,7 @@ export function BehanceRedirectOverlay({
               transition={{ delay: 0.06, duration: 0.3 }}
             >
               <svg width="42" height="42" viewBox="0 0 76 76" fill="none">
-                <path d={RR_STAR_PATH} fill="white" />
+                <path d={RR_STAR_PATH} style={{ fill: "var(--theme-accent-fg)" }} />
               </svg>
             </motion.div>
 

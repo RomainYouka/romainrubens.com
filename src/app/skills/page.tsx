@@ -65,8 +65,8 @@ const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) =>
 
   const fullFill   = "var(--theme-accent)";
   const fullStroke = "var(--theme-accent)";
-  const emptyFill  = isDark ? "#F5F5F5" : "#1D1D1F";
-  const emptyStroke = isDark ? "#F5F5F5" : "#1D1D1F";
+  const emptyFill  = isDark ? "#505050" : "#D0D0D0";
+  const emptyStroke = isDark ? "#505050" : "#D0D0D0";
 
   const starH  = size;
   const starW  = starH * (VB_W / VB_H);
