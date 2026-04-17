@@ -77,9 +77,9 @@ const LogoInline = ({ isScrolled, className, ...rest }: { isScrolled: boolean; c
 
 // ─── Traductions nav ─────────────────────────────────────────────────────────
 const translations = {
-  FR:  { home: "Accueil", projects: "Projets",    skills: "Compétences",   contact: "Contact", resume: "CV",     accentLabel: "Couleur principale" },
-  EN:  { home: "Home",    projects: "Projects",   skills: "Skills",        contact: "Contact", resume: "Resume", accentLabel: "Main color"         },
-  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե", accentLabel: "Հիմնական գույն"  },
+  FR:  { home: "Accueil", projects: "Projets",    skills: "Compétences",   contact: "Contact", resume: "CV",     lab: "Lab", accentLabel: "Couleur principale" },
+  EN:  { home: "Home",    projects: "Projects",   skills: "Skills",        contact: "Contact", resume: "Resume", lab: "Lab", accentLabel: "Main color"         },
+  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե", lab: "Լաբ", accentLabel: "Հիմնական գույն"  },
 };
 
 // ─── Bouton CV ───────────────────────────────────────────────────────────────
@@ -589,6 +589,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     { name: t.projects, href: "/projects" },
     { name: t.skills,   href: "/skills" },
     { name: t.contact,  href: "/contact" },
+    { name: t.lab,      href: "/lab", accent: true },
   ];
 
   const logoProps = {
@@ -650,14 +651,24 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                       href={link.href}
                       className="flex items-center h-full font-medium text-sm px-3 no-underline hover:underline focus-visible:underline"
                       style={{
-                        color: textColor,
-                        textDecorationColor: textColor,
+                        color: link.accent ? "var(--theme-accent)" : textColor,
+                        textDecorationColor: link.accent ? "var(--theme-accent)" : textColor,
                         textDecorationThickness: "1px",
                         textUnderlineOffset: "2px",
                         transition: "opacity 180ms ease",
+                        position: "relative",
                       }}
                     >
                       {link.name}
+                      {link.accent && (
+                        <span style={{
+                          position: "absolute", top: "30%", right: 2,
+                          width: 5, height: 5, borderRadius: "50%",
+                          background: "var(--theme-accent)",
+                          boxShadow: "0 0 6px var(--theme-accent)",
+                          animation: "pulse 2s ease infinite",
+                        }} />
+                      )}
                     </Link>
                   ))}
 
@@ -729,10 +740,22 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                 key={link.name}
                 href={link.href}
                 className="py-4 text-lg font-medium border-b hover:opacity-80 transition-opacity"
-                style={{ color: textColor, borderColor }}
+                style={{
+                  color: link.accent ? "var(--theme-accent)" : textColor,
+                  borderColor,
+                  display: "flex", alignItems: "center", gap: 8,
+                }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
+                {link.accent && (
+                  <span style={{
+                    width: 6, height: 6, borderRadius: "50%", flexShrink: 0,
+                    background: "var(--theme-accent)",
+                    boxShadow: "0 0 6px var(--theme-accent)",
+                    animation: "pulse 2s ease infinite",
+                  }} />
+                )}
               </Link>
             ))}
           </div>

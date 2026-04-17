@@ -59,6 +59,7 @@
 
   @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
   @keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--theme-accent); } 50% { opacity: 0.45; box-shadow: 0 0 2px var(--theme-accent); } }
   @keyframes linkedin-pulse { 0%, 100% { border-width: 2px; } 50% { border-width: 1px; } }
   @keyframes logo-sheen { from { left: -120%; } to { left: 100%; } }
   @keyframes genieOpen {
