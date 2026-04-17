@@ -116,9 +116,8 @@ export default function StarScrollTop() {
             width: 60,
             height: 60,
             borderRadius: "50%",
-            // --theme-accent = #314DCB light / #5194FF dark / #000 high-contrast
-            backgroundColor: "#314DCB",
-            border: isDark ? "2px solid #5194FF" : "none",
+            backgroundColor: "var(--theme-accent)",
+            border: "none",
             cursor: "pointer",
             padding: 0,
             display: "flex",

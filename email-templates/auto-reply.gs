@@ -206,11 +206,15 @@ function getHtmlBody(firstName, lang, emailDate) {
 
 // ─── Logique principale ────────────────────────────────────────────────────────
 
+// Date à partir de laquelle le script traite les emails (format YYYY/MM/DD).
+// Mettre la date du jour de l'installation pour ne pas traiter les anciens emails.
+const START_DATE = "2026/04/14";
+
 function checkAndReply() {
   let label = GmailApp.getUserLabelByName(LABEL_NAME);
   if (!label) label = GmailApp.createLabel(LABEL_NAME);
 
-  const query = `deliveredto:${WATCH_ADDRESS} -label:${LABEL_NAME}`;
+  const query = `deliveredto:${WATCH_ADDRESS} -label:${LABEL_NAME} after:${START_DATE}`;
   const threads = GmailApp.search(query, 0, 20);
 
   for (const thread of threads) {

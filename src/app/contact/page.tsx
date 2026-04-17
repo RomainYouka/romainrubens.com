@@ -191,8 +191,8 @@ export default function ContactPage() {
             {/* Download Portfolio Button */}
             <button
               onClick={handleDownloadPortfolio}
-              className="w-full py-4 px-6 bg-[#314DCB] text-white font-semibold text-base rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
-              style={isDark ? { border: "1px solid #5194FF" } : undefined}
+              className="w-full py-4 px-6 text-white font-semibold text-base rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
+              style={{ backgroundColor: "var(--theme-accent)" }}
             >
               <PDFIcon className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.downloadPortfolio}</span>

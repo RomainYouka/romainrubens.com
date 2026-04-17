@@ -82,7 +82,7 @@ const blueBannerTextMobile = {
 const BlueBanner = ({ language }: { language: Language }) => {
   return (
     <>
-      <div className="hidden lg:block w-full bg-[#314DCB] rounded-[12px] flex items-center justify-center py-3">
+      <div className="hidden lg:block w-full rounded-[12px] flex items-center justify-center py-3" style={{ backgroundColor: "var(--theme-accent)" }}>
         <p
           className="text-white text-center font-semibold text-base leading-snug px-6 whitespace-nowrap"
           style={{
@@ -95,7 +95,7 @@ const BlueBanner = ({ language }: { language: Language }) => {
         </p>
       </div>
 
-      <div className="hidden md:flex lg:hidden w-full bg-[#314DCB] rounded-[12px] items-center justify-center py-2.5">
+      <div className="hidden md:flex lg:hidden w-full rounded-[12px] items-center justify-center py-2.5" style={{ backgroundColor: "var(--theme-accent)" }}>
         <p
           className="text-white text-center font-semibold text-[11px] leading-snug px-3 whitespace-pre-line"
           style={{
@@ -108,7 +108,7 @@ const BlueBanner = ({ language }: { language: Language }) => {
         </p>
       </div>
 
-      <div className="md:hidden w-full bg-[#314DCB] rounded-[12px] flex items-center justify-center py-2.5">
+      <div className="md:hidden w-full rounded-[12px] flex items-center justify-center py-2.5" style={{ backgroundColor: "var(--theme-accent)" }}>
         <p
           className="text-white text-center font-semibold text-[9px] leading-snug px-3 whitespace-pre-line"
           style={{

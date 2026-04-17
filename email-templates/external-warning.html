@@ -1,0 +1,77 @@
+<!--
+  Bannière avertissement email externe
+  ─────────────────────────────────────
+  Remplace les champs [EN MAJUSCULES] selon le contexte.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+  @media (prefers-color-scheme: dark) {
+    .warn-card   { background-color: #1c1c1e !important; border-color: #3a3a3c !important; }
+    .warn-header { background-color: #5194FF !important; }
+    .warn-body   { color: #aeaeb2 !important; }
+    .warn-strong { color: #f2f2f7 !important; }
+    .warn-btn    { background-color: #1a2147 !important; color: #5194FF !important; border-color: #314DCB !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:transparent;">
+
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"
+  style="width:100%;max-width:600px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;margin-bottom:24px;">
+  <tr>
+    <td>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"
+        class="warn-card"
+        style="border-radius:12px;overflow:hidden;border:1px solid #e5e5ea;
+               box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+
+        <!-- Header bleu -->
+        <tr>
+          <td class="warn-header"
+            style="background-color:#314DCB;padding:10px 20px;">
+            <p style="margin:0;font-size:11px;font-weight:700;color:#ffffff;
+                      text-transform:uppercase;letter-spacing:0.08em;">
+              <img src="https://romainrubens.com/icons/android-chrome-192x192.png" width="13" height="13" alt=""
+                   style="display:inline;vertical-align:middle;border-radius:3px;margin:0 4px 1px 0;
+                          filter:brightness(0) invert(1);">Expéditeur externe
+            </p>
+          </td>
+        </tr>
+
+        <!-- Message -->
+        <tr>
+          <td style="padding:14px 20px 10px;">
+            <p class="warn-body" style="margin:0;font-size:13px;line-height:1.6;color:#3c3c43;">
+              <strong class="warn-strong" style="color:#0f0f12;">[NOM OU EMAIL EXPÉDITEUR]</strong>
+              ne fait pas partie de l'organisation
+              <img src="https://romainrubens.com/icons/android-chrome-192x192.png" width="12" height="12" alt="" style="display:inline;vertical-align:middle;border-radius:3px;margin:0 3px 1px 0;"><strong class="warn-strong" style="color:#0f0f12;">Romain Rubens</strong>
+              et n'est pas dans vos contacts.
+              Ne partagez pas d'informations sensibles.
+            </p>
+          </td>
+        </tr>
+
+        <!-- Bouton + note -->
+        <tr>
+          <td style="padding:0 20px 14px;">
+            <a class="warn-btn"
+              href="mailto:internalcybersupport@romainrubens.com?body=Attention%20%3A%20cette%20adresse%20est%20r%C3%A9serv%C3%A9e%20%C3%A0%20un%20usage%20interne.%20Tout%20message%20provenant%20d%27une%20source%20externe%20sera%20automatiquement%20rejet%C3%A9%20et%20ne%20sera%20pas%20trait%C3%A9."
+              style="display:inline-block;font-size:12px;font-weight:600;color:#314DCB;
+                     text-decoration:none;border:1px solid #d0d7f5;border-radius:8px;
+                     padding:6px 14px;background-color:#f0f3ff;">
+              &rarr;&nbsp; Examiner
+            </a>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
