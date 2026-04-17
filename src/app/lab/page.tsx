@@ -1,28 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 
-type Phase = "recede" | "imac" | "sky" | "sf" | "window" | "cowork" | "done";
+type Phase = "recede" | "sfwindow" | "clouds" | "forest" | "earth" | "dark" | "done";
+type Language = "FR" | "EN" | "ՀԱՅ";
 
-const STARS = Array.from({ length: 110 }, (_, i) => ({
-  x: ((i * 7919 + 1327) % 9973) / 9973 * 100,
-  y: ((i * 6271 + 2341) % 9967) / 9967 * 100,
-  r: 0.6 + (i % 4) * 0.45,
-  op: 0.2 + (i % 7) * 0.1,
-  tw: 1 + (i % 4) * 0.65,
-}));
-
-const CLOUDS = [
-  { x: 4,  y: 12, w: 340, blur: 48, op: 0.92 },
-  { x: 28, y: 44, w: 260, blur: 36, op: 0.85 },
-  { x: 55, y: 8,  w: 400, blur: 60, op: 0.88 },
-  { x: 70, y: 58, w: 300, blur: 42, op: 0.80 },
-  { x: -6, y: 52, w: 440, blur: 64, op: 0.75 },
-  { x: 42, y: 70, w: 220, blur: 30, op: 0.90 },
-  { x: 15, y: 28, w: 380, blur: 52, op: 0.84 },
-];
+// ─── Letterbox bars ───────────────────────────────────────────────────────────
+function Letterbox() {
+  return (
+    <>
+      <motion.div
+        initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }}
+        style={{ position: "fixed", top: 0, left: 0, right: 0, height: "9vh", background: "#000", transformOrigin: "top", zIndex: 10005, pointerEvents: "none" }}
+      />
+      <motion.div
+        initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} exit={{ scaleY: 0 }}
+        style={{ position: "fixed", bottom: 0, left: 0, right: 0, height: "9vh", background: "#000", transformOrigin: "bottom", zIndex: 10005, pointerEvents: "none" }}
+      />
+    </>
+  );
+}
 
 // ─── Scene 1: Page recedes ────────────────────────────────────────────────────
 function RecedeScene({ isDark }: { isDark: boolean }) {
@@ -61,7 +60,7 @@ function RecedeScene({ isDark }: { isDark: boolean }) {
           <div style={{ width: 180, height: 12, borderRadius: 6, background: isDark ? "#2a2a2a" : "#efefef", marginBottom: 14 }} />
           <div style={{ width: "65%", height: 44, borderRadius: 8, background: isDark ? "#222" : "#f4f4f4", marginBottom: 18 }} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
-            {[0,1,2].map(i => <div key={i} style={{ height: 110, borderRadius: 10, background: isDark ? "#242424" : "#efefef" }} />)}
+            {[0, 1, 2].map(i => <div key={i} style={{ height: 110, borderRadius: 10, background: isDark ? "#242424" : "#efefef" }} />)}
           </div>
         </div>
       </motion.div>
@@ -69,614 +68,958 @@ function RecedeScene({ isDark }: { isDark: boolean }) {
   );
 }
 
-// ─── Scene 2: iMac on desk ────────────────────────────────────────────────────
-function IMacDeskScene({ isLeaving, isDark }: { isLeaving: boolean; isDark: boolean }) {
+// ─── Scene 2: SF Skyscraper Window Exit ──────────────────────────────────────
+function SFWindowScene() {
   return (
     <motion.div
-      style={{
-        position: "absolute", inset: 0,
-        background: isDark
-          ? "radial-gradient(ellipse at 50% 95%, #0c0c15 0%, #050508 100%)"
-          : "radial-gradient(ellipse at 50% 95%, #e0e0ec 0%, #ccccd8 100%)",
-        overflow: "hidden",
-      }}
-      animate={isLeaving ? { y: [0, 50], scale: [1, 0.88], opacity: [1, 0] } : {}}
-      transition={{ duration: 1.0, ease: [0.4, 0, 1, 1] }}
+      style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#000" }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.9 }}
     >
-      {/* Ceiling/wall */}
-      <div style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: "50%",
-        background: isDark
-          ? "linear-gradient(180deg, #040408 0%, #0c0c15 100%)"
-          : "linear-gradient(180deg, #d8d8e8 0%, #e0e0ec 100%)",
-      }} />
-      {/* Window light glow */}
-      <div style={{
-        position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)",
-        width: "28vw", height: "38vh",
-        background: `radial-gradient(ellipse at 50% 20%, ${isDark ? "rgba(50,90,200,0.18)" : "rgba(160,200,255,0.45)"} 0%, transparent 70%)`,
-        filter: "blur(40px)", pointerEvents: "none",
-      }} />
-      {/* Desk */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: "35%",
-        background: isDark
-          ? "linear-gradient(180deg, #191920 0%, #0e0e14 100%)"
-          : "linear-gradient(180deg, #c8bfae 0%, #a8a090 100%)",
-        borderTop: `1px solid ${isDark ? "#252530" : "#b8b0a0"}`,
-      }} />
-      {/* Screen glow on desk */}
-      <div style={{
-        position: "absolute", bottom: "33%", left: "50%", transform: "translateX(-50%)",
-        width: "min(480px, 52vw)", height: 28,
-        background: `radial-gradient(ellipse, ${isDark ? "rgba(60,100,255,0.28)" : "rgba(49,77,203,0.16)"} 0%, transparent 80%)`,
-        filter: "blur(14px)", pointerEvents: "none",
-      }} />
-
-      {/* iMac */}
+      {/* SF city video */}
       <motion.div
-        initial={{ opacity: 0, y: 55, scale: 0.88 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
-        style={{ position: "absolute", bottom: "29%", left: "50%", transform: "translateX(-50%)" }}
+        style={{ position: "absolute", inset: "-5%" }}
+        animate={{ scale: [1.0, 1.8] }}
+        transition={{ duration: 3.5, ease: [0.5, 0, 1, 1] }}
       >
-        <svg viewBox="0 0 560 330" style={{ width: "min(500px, 52vw)", display: "block", filter: "drop-shadow(0 24px 56px rgba(0,0,0,0.6))" }}>
-          <defs>
-            <linearGradient id="if" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={isDark ? "#ccccd2" : "#e8e8ee"} />
-              <stop offset="100%" stopColor={isDark ? "#a8a8b0" : "#c8c8d0"} />
-            </linearGradient>
-            <linearGradient id="isbg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor={isDark ? "#141428" : "#dde0f4"} />
-              <stop offset="100%" stopColor={isDark ? "#08081a" : "#c8cee8"} />
-            </linearGradient>
-            <linearGradient id="ich" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={isDark ? "#b0b0b8" : "#ccccD4"} />
-              <stop offset="100%" stopColor={isDark ? "#989898" : "#bcbcc4"} />
-            </linearGradient>
-            <linearGradient id="ist" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={isDark ? "#b0b0b8" : "#d0d0d8"} />
-              <stop offset="100%" stopColor={isDark ? "#808088" : "#b0b0b8"} />
-            </linearGradient>
-          </defs>
-          {/* Body */}
-          <rect x="12" y="10" width="536" height="260" rx="14" fill="url(#if)" />
-          <rect x="17" y="14" width="526" height="253" rx="11" fill="#080810" />
-          {/* Screen */}
-          <rect x="18" y="15" width="524" height="232" rx="10" fill="url(#isbg)" />
-          {/* Nav bar */}
-          <rect x="22" y="18" width="516" height="20" rx="0" fill={isDark ? "rgba(18,18,35,0.9)" : "rgba(240,242,255,0.9)"} />
-          <rect x="168" y="21" width="224" height="13" rx="6.5" fill={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} />
-          <text x="280" y="31" textAnchor="middle" fontSize="6" fill={isDark ? "rgba(255,255,255,0.32)" : "rgba(0,0,0,0.28)"} fontFamily="-apple-system,sans-serif">romainrubens.com/lab</text>
-          {/* Content */}
-          <rect x="28" y="48" width="95" height="7" rx="3.5" fill={isDark ? "rgba(255,255,255,0.13)" : "rgba(0,0,0,0.09)"} />
-          <rect x="28" y="62" width="210" height="52" rx="7" fill={isDark ? "rgba(80,120,255,0.16)" : "rgba(49,77,203,0.1)"} />
-          <rect x="252" y="62" width="130" height="52" rx="7" fill={isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)"} />
-          <rect x="396" y="62" width="146" height="52" rx="7" fill={isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)"} />
-          <rect x="28" y="128" width="48" height="5" rx="2.5" fill={isDark ? "rgba(80,120,255,0.5)" : "rgba(49,77,203,0.4)"} />
-          {[0,1,2,3].map(i => <rect key={i} x={28} y={140 + i * 12} width={420 + (i%2)*36} height={5} rx="2.5" fill={isDark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.05)"} />)}
-          {[0,1,2].map(i => <rect key={i} x={28 + i * 180} y="190" width="168" height="44" rx="6" fill={isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)"} />)}
-          {/* Chin */}
-          <rect x="12" y="256" width="536" height="34" rx="0" fill="url(#ich)" />
-          <rect x="12" y="282" width="536" height="8" rx="0 0 10 10" fill={isDark ? "#8a8a94" : "#b4b4bc"} />
-          {/* Stand */}
-          <rect x="242" y="290" width="76" height="22" rx="4" fill="url(#ist)" />
-          <ellipse cx="280" cy="320" rx="138" ry="11" fill={isDark ? "#7a7a82" : "#a8a8b0"} />
-          <ellipse cx="280" cy="316" rx="134" ry="8" fill={isDark ? "#9898a0" : "#bebec6"} />
-        </svg>
+        <video autoPlay muted playsInline
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.88) saturate(1.25) blur(1.5px)" }}
+        >
+          <source src="/videos/lab/sf.mp4" type="video/mp4" />
+        </video>
       </motion.div>
 
-      {/* Keyboard */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.65 }} transition={{ delay: 0.7, duration: 0.6 }}
+      {/* Interior - ceiling/floor */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: "linear-gradient(180deg, rgba(0,0,0,0.75) 0%, transparent 20%, transparent 76%, rgba(0,0,0,0.6) 100%)",
+      }} />
+      {/* Side walls */}
+      <div style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "8%", background: "rgba(6,8,18,0.88)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "8%", background: "rgba(6,8,18,0.88)", pointerEvents: "none" }} />
+
+      {/* Curtain wall mullions */}
+      <motion.svg
+        viewBox="0 0 100 100" preserveAspectRatio="none"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+        animate={{ opacity: [1, 1, 0] }}
+        transition={{ duration: 3.5, times: [0, 0.62, 1] }}
+      >
+        {[8, 26, 44, 62, 80, 92].map((x, i) => (
+          <rect key={`v${i}`} x={x} y={0} width={i === 0 || i === 5 ? 2 : 1} height={100}
+            fill={`rgba(150,162,190,${i === 0 || i === 5 ? 0.85 : 0.55})`} />
+        ))}
+        {[10, 35, 60, 85, 90].map((y, i) => (
+          <rect key={`h${i}`} x={8} y={y} width={84} height={i === 0 || i === 4 ? 1.6 : 0.7}
+            fill={`rgba(150,162,190,${i === 0 || i === 4 ? 0.8 : 0.42})`} />
+        ))}
+        {[8, 26, 44, 62].map((x, xi) =>
+          [10, 35, 60].map((y, yi) => (
+            <line key={`s${xi}${yi}`} x1={x + 2} y1={y + 2} x2={x + 7} y2={y + 10}
+              stroke="rgba(255,255,255,0.16)" strokeWidth="1.2" />
+          ))
+        )}
+      </motion.svg>
+
+      {/* Glass reflection sweep */}
+      <motion.div
         style={{
-          position: "absolute", bottom: "16%", left: "50%", transform: "translateX(-50%)",
-          width: "min(250px, 26vw)", height: 9, borderRadius: 4,
-          background: isDark ? "#282832" : "#e0e0e8",
-          boxShadow: isDark ? "0 2px 8px rgba(0,0,0,0.5)" : "0 2px 8px rgba(0,0,0,0.1)",
+          position: "absolute", inset: 0, pointerEvents: "none",
+          background: "linear-gradient(135deg, rgba(200,220,255,0.14) 0%, transparent 45%, rgba(200,220,255,0.06) 100%)",
         }}
+        animate={{ opacity: [1, 0] }}
+        transition={{ duration: 3.5, ease: "easeIn" }}
       />
-      {/* Mouse */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.65 }} transition={{ delay: 0.85, duration: 0.6 }}
-        style={{
-          position: "absolute", bottom: "13%",
-          left: "calc(50% + min(145px, 15vw))",
-          width: "min(42px, 4.5vw)", height: "min(58px, 6.5vw)",
-          borderRadius: 22,
-          background: isDark ? "#282830" : "#e4e4ec",
-          boxShadow: isDark ? "0 2px 8px rgba(0,0,0,0.4)" : "0 2px 6px rgba(0,0,0,0.1)",
-        }}
+
+      {/* White flash — exiting the window */}
+      <motion.div
+        style={{ position: "absolute", inset: 0, background: "#fff", pointerEvents: "none" }}
+        animate={{ opacity: [0, 0, 1] }}
+        transition={{ duration: 3.5, times: [0, 0.72, 1] }}
       />
     </motion.div>
   );
 }
 
-// ─── Scene 3: Sky / clouds ────────────────────────────────────────────────────
-function SkyScene({ isLeaving, isDark }: { isLeaving: boolean; isDark: boolean }) {
+// ─── Scene 3: Flying through clouds ──────────────────────────────────────────
+function CloudsScene() {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => { if (ref.current) ref.current.playbackRate = 2.2; }, []);
+
   return (
     <motion.div
-      style={{
-        position: "absolute", inset: 0,
-        background: isDark
-          ? "linear-gradient(180deg, #020208 0%, #090918 100%)"
-          : "linear-gradient(180deg, #2a5cc8 0%, #5a90e8 50%, #80b8f8 100%)",
-        overflow: "hidden",
-      }}
-      animate={isLeaving ? { scale: [1, 1.25], y: [0, -60], opacity: [1, 0] } : {}}
-      transition={{ duration: 0.9, ease: [0.4, 0, 1, 1] }}
+      style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#08101a" }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
     >
-      {/* Stars - night */}
-      {isDark && STARS.map((s, i) => (
-        <motion.div key={i} style={{
-          position: "absolute", left: `${s.x}%`, top: `${s.y}%`,
-          width: s.r * 2, height: s.r * 2, borderRadius: "50%",
-          background: "#ffffff", opacity: s.op,
-        }}
-          animate={{ opacity: [s.op, s.op * 0.25, s.op] }}
-          transition={{ duration: s.tw, repeat: Infinity, ease: "easeInOut", delay: (i * 0.04) % 2.5 }}
-        />
-      ))}
-      {/* Moon */}
-      {isDark && (
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.2 }}
-          style={{
-            position: "absolute", top: "10%", right: "14%",
-            width: 64, height: 64, borderRadius: "50%",
-            background: "radial-gradient(circle at 32% 32%, #f5f5e0, #d8d8b0)",
-            boxShadow: "0 0 50px rgba(220,220,160,0.45), 0 0 90px rgba(180,180,120,0.2)",
-          }}
-        />
-      )}
-      {/* Sun haze - day */}
-      {!isDark && (
-        <div style={{
-          position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
-          width: "100%", height: "45%",
-          background: "radial-gradient(ellipse at 50% 0%, rgba(255,240,180,0.65) 0%, transparent 70%)",
-        }} />
-      )}
-      {/* Clouds rushing upward */}
-      {CLOUDS.map((c, i) => (
-        <motion.div key={i}
-          style={{
-            position: "absolute",
-            left: `${c.x}%`, top: `${c.y}%`,
-            width: c.w, height: c.w * 0.44,
-            borderRadius: "50%",
-            background: isDark ? `rgba(160,170,210,${c.op * 0.2})` : `rgba(255,255,255,${c.op})`,
-            filter: `blur(${c.blur}px)`,
-          }}
-          animate={{ y: [0, -140 - i * 18], x: [0, (i % 2 === 0 ? -1 : 1) * 24] }}
-          transition={{ duration: 2.0, ease: "easeIn", repeat: Infinity, repeatType: "loop", delay: i * 0.2 }}
-        />
-      ))}
+      <motion.div
+        style={{ position: "absolute", inset: "-5%" }}
+        animate={{ scale: [1.0, 1.12] }}
+        transition={{ duration: 6, ease: [0.4, 0, 1, 1] }}
+      >
+        <video ref={ref} autoPlay muted playsInline
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "brightness(1.1) contrast(1.06) saturate(0.88)" }}
+        >
+          <source src="/videos/lab/clouds.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
+
+      {/* Vignette */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: "radial-gradient(ellipse at center, transparent 32%, rgba(0,0,0,0.65) 100%)",
+      }} />
+
       {/* Speed lines */}
-      {Array.from({ length: 16 }, (_, i) => (
+      {Array.from({ length: 14 }, (_, i) => (
         <motion.div key={i}
           style={{
-            position: "absolute",
-            left: `${((i * 7 + 3) % 94)}%`, top: 0,
-            width: 1, height: "100%",
-            background: isDark
-              ? "linear-gradient(180deg, transparent 0%, rgba(160,180,255,0.18) 50%, transparent 100%)"
-              : "linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%)",
+            position: "absolute", left: `${(i * 7 + 3) % 95}%`, top: 0,
+            width: 1, height: "100%", pointerEvents: "none",
+            background: "linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%)",
           }}
           animate={{ y: ["-100%", "100%"] }}
-          transition={{ duration: 0.7 + (i % 4) * 0.14, repeat: Infinity, ease: "linear", delay: i * 0.07 }}
+          transition={{ duration: 0.32 + (i % 4) * 0.06, repeat: Infinity, ease: "linear", delay: i * 0.04 }}
         />
       ))}
     </motion.div>
   );
 }
 
-// ─── Scene 4: San Francisco ───────────────────────────────────────────────────
-function SFScene({ isLeaving, isDark }: { isLeaving: boolean; isDark: boolean }) {
+// ─── Scene 4: Forest — mist evaporating ──────────────────────────────────────
+function ForestScene() {
   return (
     <motion.div
-      style={{
-        position: "absolute", inset: 0,
-        background: isDark
-          ? "linear-gradient(180deg, #03040e 0%, #080d1c 55%, #0d1020 100%)"
-          : "linear-gradient(180deg, #3a6ace 0%, #6898e0 55%, #7aA8c8 100%)",
-        overflow: "hidden",
-      }}
-      animate={isLeaving ? { scale: [1, 1.5], opacity: [1, 0] } : {}}
-      transition={{ duration: 0.7, ease: [0.4, 0, 1, 1] }}
+      style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#0a120a" }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 1.6 }}
     >
-      {/* Stars at night */}
-      {isDark && STARS.slice(0, 65).map((s, i) => (
-        <div key={i} style={{
-          position: "absolute", left: `${s.x}%`, top: `${s.y * 0.55}%`,
-          width: s.r * 1.4, height: s.r * 1.4,
-          borderRadius: "50%", background: "#fff", opacity: s.op * 0.65,
-        }} />
-      ))}
-      {/* Bay water */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: "20%",
-        background: isDark
-          ? "linear-gradient(180deg, #080c18 0%, #04060e 100%)"
-          : "linear-gradient(180deg, #4868a0 0%, #2a4070 100%)",
-      }} />
-      {/* Reflections in water */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: "18%",
-        background: isDark
-          ? "repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(255,255,255,0.03) 3px, rgba(255,255,255,0.03) 4px)"
-          : "repeating-linear-gradient(0deg, transparent 0px, transparent 4px, rgba(255,255,255,0.07) 4px, rgba(255,255,255,0.07) 5px)",
-      }} />
-
-      {/* SF Skyline */}
-      <motion.svg
-        viewBox="0 0 1200 500"
-        style={{ position: "absolute", bottom: "18%", width: "100%", height: "auto" }}
-        initial={{ y: 90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1, scale: [1, 1.08] }}
-        transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1] }}
+      <motion.div
+        style={{ position: "absolute", inset: "-5%" }}
+        animate={{ scale: [1.07, 1.0] }}
+        transition={{ duration: 5.5, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Background buildings */}
-        {[
-          [20, 80, 140], [110, 60, 160], [180, 100, 120], [290, 80, 200],
-          [860, 90, 150], [960, 70, 170], [1060, 110, 130], [1150, 60, 100],
-        ].map(([x, w, h], i) => (
-          <rect key={i} x={x} y={500 - h} width={w} height={h}
-            fill={isDark ? `rgba(100,108,140,${0.45 + (i%3)*0.08})` : `rgba(140,155,180,${0.5 + (i%3)*0.08})`} />
-        ))}
-        {/* Mid buildings */}
-        {[
-          [380, 75, 180], [460, 80, 240], [700, 90, 210], [800, 65, 190],
-        ].map(([x, w, h], i) => (
-          <rect key={i} x={x} y={500 - h} width={w} height={h}
-            fill={isDark ? `rgba(80,90,125,${0.55 + i*0.03})` : `rgba(120,140,168,${0.6 + i*0.03})`} />
-        ))}
-        {/* 555 California - stepped */}
-        <rect x="548" y="220" width="110" height="280" fill={isDark ? "rgba(90,95,138,0.75)" : "rgba(110,125,158,0.72)"} />
-        <rect x="558" y="180" width="90" height="40" fill={isDark ? "rgba(95,100,142,0.7)" : "rgba(115,130,162,0.68)"} />
-        {/* Transamerica Pyramid */}
-        <polygon points="668,500 768,500 718,162" fill={isDark ? "rgba(200,205,228,0.85)" : "rgba(200,210,225,0.88)"} />
-        <rect x="706" y="212" width="10" height="80" fill={isDark ? "rgba(200,205,228,0.6)" : "rgba(200,210,225,0.6)"} />
-        <rect x="718" y="212" width="10" height="80" fill={isDark ? "rgba(200,205,228,0.6)" : "rgba(200,210,225,0.6)"} />
-        {/* Windows on pyramid */}
-        {Array.from({ length: 14 }, (_, i) => {
-          const row = Math.floor(i / 2);
-          const col = i % 2;
-          return <rect key={i} x={690 + col * 16} y={380 - row * 24} width={10} height={14}
-            fill={isDark ? "rgba(255,240,160,0.65)" : "rgba(255,255,255,0.55)"} />;
-        })}
-        {/* Salesforce Tower - tallest, tapered */}
-        <path d="M 780 500 L 860 500 L 856 350 L 835 140 L 820 130 L 805 140 L 784 350 Z"
-          fill={isDark ? "rgba(160,175,220,0.88)" : "rgba(170,185,215,0.9)"} />
-        <line x1="820" y1="130" x2="820" y2="95" stroke={isDark ? "rgba(160,175,220,0.7)" : "rgba(170,185,215,0.75)"} strokeWidth="4" />
-        <circle cx="820" cy="94" r="4" fill={isDark ? "rgba(255,200,100,0.8)" : "rgba(255,200,100,0.6)"} />
-        {/* Salesforce windows */}
-        {Array.from({ length: 20 }, (_, i) => {
-          const col = i % 4;
-          const row = Math.floor(i / 4);
-          return <rect key={i} x={790 + col * 14} y={420 - row * 50} width={10} height={20}
-            fill={isDark ? "rgba(255,240,160,0.7)" : "rgba(255,255,255,0.6)"} />;
-        })}
-        {/* Bay Bridge hint (far right) */}
-        <path d="M 1050 420 Q 1100 380 1150 420" stroke={isDark ? "rgba(140,150,190,0.5)" : "rgba(160,175,200,0.55)"} strokeWidth="3" fill="none" />
-        <line x1="1100" y1="380" x2="1100" y2="500" stroke={isDark ? "rgba(140,150,190,0.4)" : "rgba(160,175,200,0.45)"} strokeWidth="2" />
-        {/* Ground line */}
-        <rect x="0" y="496" width="1200" height="4" fill={isDark ? "#08090f" : "#5070a0"} />
-      </motion.svg>
-    </motion.div>
-  );
-}
+        <video autoPlay muted playsInline
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.9) saturate(1.12)" }}
+        >
+          <source src="/videos/lab/forest.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
 
-// ─── Scene 5: Glass window entry ──────────────────────────────────────────────
-function WindowScene({ isDark }: { isDark: boolean }) {
-  return (
-    <motion.div
-      style={{
-        position: "absolute", inset: 0,
-        background: isDark ? "#060810" : "#4070b8",
-        overflow: "hidden",
-        display: "flex", alignItems: "center", justifyContent: "center",
-      }}
-    >
+      {/* Mist evaporating */}
       <motion.div
         style={{
-          border: isDark ? "3px solid rgba(160,190,255,0.65)" : "3px solid rgba(255,255,255,0.82)",
-          borderRadius: 5, overflow: "hidden", position: "relative",
-          boxShadow: isDark
-            ? "0 0 70px rgba(100,140,255,0.32), inset 0 0 40px rgba(80,120,255,0.1)"
-            : "0 0 70px rgba(180,220,255,0.65), inset 0 0 40px rgba(200,230,255,0.25)",
+          position: "absolute", inset: 0, pointerEvents: "none",
+          background: "radial-gradient(ellipse 130% 80% at 50% 18%, rgba(255,255,255,0.92) 0%, rgba(240,246,255,0.65) 42%, rgba(215,232,255,0.18) 68%, transparent 100%)",
         }}
-        initial={{ width: "min(340px, 48vw)", height: "min(460px, 62vh)" }}
-        animate={{ width: "220vw", height: "220vh", borderRadius: 0, borderWidth: 0, opacity: [1, 1, 0] }}
-        transition={{ duration: 1.5, ease: [0.4, 0, 1, 1] }}
-      >
-        {/* Glass reflection */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(140deg, rgba(255,255,255,0.22) 0%, transparent 45%, rgba(255,255,255,0.08) 100%)",
-        }} />
-        {/* Interior behind glass */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: isDark
-            ? "radial-gradient(ellipse at 50% 85%, #141420 0%, #080810 100%)"
-            : "radial-gradient(ellipse at 50% 85%, #f0f0fa 0%, #e0e0f0 100%)",
-          opacity: 0.88,
-        }} />
-        {/* Frame dividers (curtain wall) */}
-        <div style={{ position: "absolute", top: "50%", left: 0, right: 0, height: 3,
-          background: isDark ? "rgba(160,190,255,0.55)" : "rgba(255,255,255,0.75)" }} />
-        <div style={{ position: "absolute", top: 0, bottom: 0, left: "50%", width: 3,
-          background: isDark ? "rgba(160,190,255,0.55)" : "rgba(255,255,255,0.75)" }} />
-        {/* Desk silhouette */}
-        <div style={{
-          position: "absolute", bottom: "8%", left: "50%", transform: "translateX(-50%)",
-          width: "55%", height: 10,
-          background: isDark ? "rgba(50,50,70,0.7)" : "rgba(160,155,145,0.7)",
-          borderRadius: 3,
-        }} />
-      </motion.div>
-      {/* Flash */}
+        animate={{ opacity: [1, 0.55, 0] }}
+        transition={{ duration: 5, times: [0, 0.38, 1], ease: "easeOut" }}
+      />
+
+      {/* Vignette */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: "radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,0.5) 100%)",
+      }} />
+
+      {/* Dark earth appearing at bottom */}
       <motion.div
-        style={{ position: "absolute", inset: 0, background: "#ffffff", pointerEvents: "none" }}
-        animate={{ opacity: [0, 0, 0.9, 0] }}
-        transition={{ duration: 1.5, times: [0, 0.62, 0.78, 1] }}
+        style={{
+          position: "absolute", inset: 0, pointerEvents: "none",
+          background: "radial-gradient(ellipse 90% 55% at 50% 90%, #05040202 0%, rgba(0,0,0,0.0) 40%)",
+        }}
+        animate={{ opacity: [0, 0, 1] }}
+        transition={{ duration: 5.5, times: [0, 0.68, 1] }}
       />
     </motion.div>
   );
 }
 
-// ─── Scene 6: Coworking ───────────────────────────────────────────────────────
-function CoworkScene({ isDark }: { isDark: boolean }) {
+// ─── Scene 5: Zoom into dark earth ───────────────────────────────────────────
+function EarthScene() {
   return (
     <motion.div
-      style={{
-        position: "absolute", inset: 0,
-        background: isDark
-          ? "radial-gradient(ellipse at 50% 100%, #111118 0%, #070710 100%)"
-          : "radial-gradient(ellipse at 50% 100%, #eaeaf4 0%, #d8d8e8 100%)",
-        overflow: "hidden",
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#000", display: "flex", alignItems: "center", justifyContent: "center" }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 0.7 }}
     >
-      {/* Window wall with SF view */}
-      <div style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: "52%",
-        display: "flex", gap: "2%", padding: "4% 4% 0",
-        alignItems: "stretch",
-      }}>
-        {[0,1,2,3].map(i => (
-          <div key={i} style={{
-            flex: 1,
-            border: isDark ? "1px solid rgba(100,130,200,0.22)" : "1px solid rgba(160,190,220,0.55)",
-            background: isDark ? "rgba(30,40,90,0.14)" : "rgba(160,200,235,0.38)",
-            borderRadius: 3, position: "relative", overflow: "hidden",
-          }}>
-            <div style={{
-              position: "absolute", bottom: "18%", left: 0, right: 0, height: "28%",
-              background: isDark ? "rgba(70,80,120,0.35)" : "rgba(50,80,130,0.22)",
-              clipPath: "polygon(0 40%, 12% 0%, 22% 55%, 38% 12%, 50% 0%, 62% 22%, 76% 8%, 88% 28%, 100% 18%, 100% 100%, 0 100%)",
-            }} />
-            <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0, height: "18%",
-              background: isDark ? "rgba(10,15,30,0.6)" : "rgba(60,90,140,0.25)",
-            }} />
-          </div>
-        ))}
-      </div>
-      {/* Ceiling */}
-      <div style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: "6%",
-        background: isDark ? "#0c0c14" : "#d8d8e4",
-      }} />
-      {/* Desk */}
-      <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0, height: "52%",
-        background: isDark
-          ? "linear-gradient(180deg, #1a1a24 0%, #10101a 100%)"
-          : "linear-gradient(180deg, #ccc0ae 0%, #b0a898 100%)",
-        borderTop: `1px solid ${isDark ? "#2a2a36" : "#b0a898"}`,
-      }} />
-
-      {/* MacBook */}
       <motion.div
-        style={{ position: "absolute", bottom: "32%", left: "50%", transform: "translateX(-50%)" }}
-        animate={{ scale: [1, 7], y: [0, 70] }}
-        transition={{ duration: 1.9, ease: [0.4, 0, 1, 1], delay: 0.5 }}
-      >
-        <svg viewBox="0 0 400 240" style={{ width: "min(340px, 38vw)", display: "block", filter: "drop-shadow(0 16px 36px rgba(0,0,0,0.55))" }}>
-          <defs>
-            <linearGradient id="mbl" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={isDark ? "#c8c8ce" : "#e0e0e8"} />
-              <stop offset="100%" stopColor={isDark ? "#a0a0a8" : "#c0c0c8"} />
-            </linearGradient>
-            <linearGradient id="mbsbg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor={isDark ? "#141428" : "#dde0f4"} />
-              <stop offset="100%" stopColor={isDark ? "#08081a" : "#c8cee8"} />
-            </linearGradient>
-            <linearGradient id="mbb" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={isDark ? "#a8a8b0" : "#c8c8d0"} />
-              <stop offset="100%" stopColor={isDark ? "#888890" : "#a0a0a8"} />
-            </linearGradient>
-          </defs>
-          <rect x="8" y="4" width="384" height="216" rx="10" fill="url(#mbl)" />
-          <rect x="12" y="8" width="376" height="209" rx="8" fill="#050508" />
-          <rect x="13" y="9" width="374" height="207" rx="7" fill="url(#mbsbg)" />
-          <rect x="17" y="12" width="366" height="18" rx="0" fill={isDark ? "rgba(18,18,35,0.9)" : "rgba(240,242,255,0.9)"} />
-          <rect x="148" y="15" width="104" height="11" rx="5.5" fill={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"} />
-          <text x="200" y="23.5" textAnchor="middle" fontSize="5" fill={isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.28)"} fontFamily="-apple-system,sans-serif">romainrubens.com/lab</text>
-          <rect x="17" y="38" width="72" height="6" rx="3" fill={isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.09)"} />
-          <text x="17" y="68" fontSize="18" fontWeight="900" fill={isDark ? "rgba(255,255,255,0.9)" : "rgba(0,0,20,0.88)"} fontFamily="system-ui,sans-serif">Lab.</text>
-          {[0,1,2].map(i => <rect key={i} x={17 + i * 124} y="80" width="116" height="74" rx="6" fill={isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)"} />)}
-          <circle cx="200" cy="118" r="8" fill={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)"} />
-          <rect x="4" y="220" width="392" height="14" rx="3" fill="url(#mbb)" />
-          <rect x="8" y="218" width="384" height="3" rx="1.5" fill={isDark ? "#505058" : "#888890"} />
-        </svg>
-      </motion.div>
-      {/* Coffee cup */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.55 }} transition={{ delay: 0.4, duration: 0.6 }}
         style={{
-          position: "absolute", bottom: "28%",
-          left: "calc(50% + min(220px, 24vw))",
-          width: 26, height: 30, borderRadius: "0 0 5px 5px",
-          background: isDark ? "#252530" : "#ddd4c0",
-          border: isDark ? "1px solid #353540" : "1px solid #c8c0b0",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, #1c1408 0%, #0e0c06 45%, #050402 75%, #000 100%)",
+          boxShadow: "0 0 120px 40px rgba(0,0,0,1)",
         }}
+        animate={{ width: ["55vmin", "400vmax"], height: ["55vmin", "400vmax"] }}
+        transition={{ duration: 2, ease: [0.4, 0, 1, 1] }}
+      />
+    </motion.div>
+  );
+}
+
+// ─── Scene 6: Darkness → light ───────────────────────────────────────────────
+function DarkScene() {
+  return (
+    <motion.div
+      style={{ position: "absolute", inset: 0, background: "#000", display: "flex", alignItems: "center", justifyContent: "center" }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.div
+        style={{
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(255,252,240,1) 0%, rgba(255,245,200,0.85) 25%, rgba(255,240,180,0.3) 65%, transparent 100%)",
+        }}
+        animate={{
+          width:  ["0px", "0px", "8px", "2px", "14px", "5px", "250vmax"],
+          height: ["0px", "0px", "8px", "2px", "14px", "5px", "250vmax"],
+          opacity: [0, 0, 1, 0.3, 1, 0.75, 1],
+        }}
+        transition={{ duration: 1.5, times: [0, 0.18, 0.34, 0.47, 0.61, 0.73, 1], ease: "easeOut" }}
       />
     </motion.div>
   );
 }
 
 // ─── Experiments ─────────────────────────────────────────────────────────────
+const LAB_COPY = {
+  FR: {
+    eyebrow: "Laboratoire UX/UI — designer codé",
+    title: ["Le laboratoire", "d'un designer", "UX/UI."],
+    intro:
+      "Une page-manifeste pour montrer comment je pense, code et polis une interface: structure, contraste, couleur, animation et précision d'exécution.",
+    pills: ["Systèmes visuels", "Couleur active", "Motion calibrée", "Prototypes vivants"],
+    boardEyebrow: "Comment c'est fait",
+    boardTitle: "Precision board",
+    boardLines: [
+      "Grille d'abord, style ensuite.",
+      "Chaque couleur sert un rythme visuel.",
+      "L'animation guide avant de séduire.",
+      "Le code reste lisible, modulable, mesuré.",
+    ],
+    metrics: [
+      { value: "0.5px", label: "tolérance visuelle" },
+      { value: "12fps→60fps", label: "budget motion contrôlé" },
+      { value: "3 couches", label: "hiérarchie couleur" },
+      { value: "100%", label: "intention sur chaque détail" },
+    ],
+    experimentsTitle: "Chantiers du laboratoire",
+    experimentsIntro:
+      "Des pistes concrètes pour un designer UX/UI qui code: outils visuels, moteurs de style, tests d'interaction, surfaces de narration.",
+    protocolTitle: "Méthode de fabrication",
+    protocolIntro:
+      "Apprendre, appliquer, coder: chaque étude suit une boucle courte, observable et raffinée jusqu'à ce que l'interface devienne nette.",
+    standardsTitle: "Standards internes",
+    standardsIntro:
+      "Le but n'est pas d'ajouter des effets. Le but est de construire une présence visuelle cohérente, précise et mémorable.",
+    motionTitle: "Motion direction",
+    motionIntro:
+      "Une animation utile doit clarifier la hiérarchie, renforcer le geste et conserver une sensation de maîtrise.",
+    outputLabel: "Sortie",
+    skip: "Passer",
+    status: { WIP: "En cours", SOON: "Bientôt", CONCEPT: "Concept" },
+    footer: "Lab en évolution continue — designer UX/UI, code, système, couleur, mouvement.",
+  },
+  EN: {
+    eyebrow: "UX/UI laboratory — designer coded",
+    title: ["The laboratory", "of a UX/UI", "designer."],
+    intro:
+      "A manifesto page to show how I think, code and polish an interface: structure, contrast, color, animation and execution quality.",
+    pills: ["Visual systems", "Active color", "Calibrated motion", "Living prototypes"],
+    boardEyebrow: "How it is built",
+    boardTitle: "Precision board",
+    boardLines: [
+      "Grid first, style second.",
+      "Every color supports visual rhythm.",
+      "Animation guides before it dazzles.",
+      "Code stays readable, modular and measured.",
+    ],
+    metrics: [
+      { value: "0.5px", label: "visual tolerance" },
+      { value: "12fps→60fps", label: "controlled motion budget" },
+      { value: "3 layers", label: "color hierarchy" },
+      { value: "100%", label: "intent on every detail" },
+    ],
+    experimentsTitle: "Lab tracks",
+    experimentsIntro:
+      "Concrete paths for a UX/UI designer who codes: visual tools, style engines, interaction tests and narrative surfaces.",
+    protocolTitle: "Build method",
+    protocolIntro:
+      "Learn, apply, code: every study follows a short, observable loop until the interface feels sharp.",
+    standardsTitle: "Internal standards",
+    standardsIntro:
+      "The goal is not to stack effects. The goal is to build a visual presence that feels coherent, precise and memorable.",
+    motionTitle: "Motion direction",
+    motionIntro:
+      "Useful animation should clarify hierarchy, reinforce gesture and keep a sense of control.",
+    outputLabel: "Output",
+    skip: "Skip",
+    status: { WIP: "In progress", SOON: "Soon", CONCEPT: "Concept" },
+    footer: "Lab in continuous evolution — UX/UI designer, code, system, color, motion.",
+  },
+  ՀԱՅ: {
+    eyebrow: "UX/UI լաբորատորիա — դիզայների կողմից կոդավորված",
+    title: ["UX/UI", "դիզայների", "լաբորատորիա."],
+    intro:
+      "Մանիֆեստային էջ, որը ցույց է տալիս, թե ինչպես եմ մտածում, կոդավորում և հղկում ինտերֆեյսը՝ կառուցվածք, հակադրություն, գույն, անիմացիա և կատարման ճշգրտություն։",
+    pills: ["Տեսողական համակարգեր", "Ակտիվ գույն", "Կշռված motion", "Կենդանի պրոտոտիպեր"],
+    boardEyebrow: "Ինչպես է կառուցված",
+    boardTitle: "Precision board",
+    boardLines: [
+      "Նախ ցանցը, հետո ոճը։",
+      "Յուրաքանչյուր գույն սպասարկում է ռիթմը։",
+      "Անիմացիան նախ ուղղորդում է, հետո տպավորում։",
+      "Կոդը մնում է ընթեռնելի, ճկուն և չափված։",
+    ],
+    metrics: [
+      { value: "0.5px", label: "տեսողական հանդուրժողականություն" },
+      { value: "12fps→60fps", label: "վերահսկվող motion բյուջե" },
+      { value: "3 շերտ", label: "գունային հիերարխիա" },
+      { value: "100%", label: "մտադրություն ամեն դետալում" },
+    ],
+    experimentsTitle: "Լաբորատոր ուղղություններ",
+    experimentsIntro:
+      "Գործնական հետքեր UX/UI դիզայների համար, ով նաև կոդավորում է՝ տեսողական գործիքներ, ոճի շարժիչներ, փոխազդեցության թեստեր և պատմողական մակերեսներ։",
+    protocolTitle: "Կառուցման մեթոդ",
+    protocolIntro:
+      "Սովորել, կիրառել, կոդավորել․ յուրաքանչյուր փորձարկում անցնում է կարճ և տեսանելի ցիկլով, մինչև ինտերֆեյսը դառնա հստակ։",
+    standardsTitle: "Ներքին ստանդարտներ",
+    standardsIntro:
+      "Նպատակը պարզապես էֆեկտներ ավելացնելը չէ։ Նպատակը համահունչ, ճշգրիտ և հիշվող տեսողական ներկայություն կառուցելն է։",
+    motionTitle: "Motion ուղղություն",
+    motionIntro:
+      "Օգտակար անիմացիան պետք է պարզեցնի հիերարխիան, ուժեղացնի ժեստը և պահպանի վերահսկվող զգացողություն։",
+    outputLabel: "Արդյունք",
+    skip: "Բաց թողնել",
+    status: { WIP: "Ընթացքում", SOON: "Շուտով", CONCEPT: "Կոնցեպտ" },
+    footer: "Lab-ը շարունակաբար զարգանում է — UX/UI դիզայներ, կոդ, համակարգ, գույն, շարժում։",
+  },
+} as const;
+
 const EXPERIMENTS = [
-  { id: "chromatic", title: "Chromatic Engine", desc: "Systèmes de couleurs génératifs. Algorithmes, palettes, harmonie mathématique.", status: "WIP" as const, icon: "◉", no: "01" },
-  { id: "typo",      title: "Typo Lab",         desc: "Expériences typographiques. Variation d'axes, display cinétique, rythme.", status: "WIP" as const, icon: "Aa", no: "02" },
-  { id: "motion",    title: "Motion Catalog",   desc: "Bibliothèque de patterns d'animation. Physique, transitions, easing.", status: "SOON" as const, icon: "→", no: "03" },
-  { id: "form",      title: "Form Study",       desc: "Interfaces brutalistes. Formulaires comme langage de design.", status: "CONCEPT" as const, icon: "□", no: "04" },
-  { id: "signal",    title: "Signal",           desc: "Visualisation de données en temps réel. Graphes génératifs.", status: "CONCEPT" as const, icon: "∿", no: "05" },
-  { id: "glitch",    title: "Glitch Machine",   desc: "Art génératif, corruptions visuelles contrôlées.", status: "WIP" as const, icon: "⌬", no: "06" },
+  {
+    id: "chromatic",
+    title: "Chromatic Engine",
+    desc: {
+      FR: "Un moteur de palettes pour tester contraste, tension et hiérarchie avant même le premier écran final.",
+      EN: "A palette engine to test contrast, tension and hierarchy before the first final screen.",
+      ՀԱՅ: "Գունապնակների շարժիչ՝ հակադրությունը, լարվածությունը և հիերարխիան փորձարկելու համար դեռևս վերջնական էկրանից առաջ։",
+    },
+    output: {
+      FR: "Nuanciers, règles d'accent, rapports de contraste.",
+      EN: "Color ramps, accent rules, contrast ratios.",
+      ՀԱՅ: "Գունաշարեր, accent-ի կանոններ, հակադրության հարաբերակցություններ։",
+    },
+    status: "WIP" as const,
+    icon: "◉",
+    no: "01",
+  },
+  {
+    id: "typo",
+    title: "Typo Lab",
+    desc: {
+      FR: "Études de rythmes typographiques, échelles expressives et systèmes de titrage qui tiennent à l'écran.",
+      EN: "Studies in typographic rhythm, expressive scales and headline systems that hold on screen.",
+      ՀԱՅ: "Տառատեսակային ռիթմերի, արտահայտիչ չափաշարերի և վերնագրային համակարգերի ուսումնասիրություն, որոնք աշխատում են էկրանին։",
+    },
+    output: {
+      FR: "Titres display, ratios, règles de respiration.",
+      EN: "Display headlines, ratios, breathing rules.",
+      ՀԱՅ: "Display վերնագրեր, հարաբերակցություններ, շնչառության կանոններ։",
+    },
+    status: "WIP" as const,
+    icon: "Aa",
+    no: "02",
+  },
+  {
+    id: "motion",
+    title: "Motion Catalog",
+    desc: {
+      FR: "Bibliothèque de transitions et de comportements: vitesse, inertie, coupe nette, continuité visuelle.",
+      EN: "A library of transitions and behaviors: speed, inertia, sharp cuts and visual continuity.",
+      ՀԱՅ: "Անցումների և վարքագծերի գրադարան՝ արագություն, իներցիա, հստակ կտրումներ և տեսողական շարունակականություն։",
+    },
+    output: {
+      FR: "Courbes, timings, règles de déclenchement.",
+      EN: "Curves, timings, trigger rules.",
+      ՀԱՅ: "Կորեր, timing-ներ, գործարկման կանոններ։",
+    },
+    status: "SOON" as const,
+    icon: "→",
+    no: "03",
+  },
+  {
+    id: "form",
+    title: "Form Study",
+    desc: {
+      FR: "Des interfaces plus radicales où le formulaire devient composition, rythme et personnalité de marque.",
+      EN: "More radical interfaces where the form becomes composition, rhythm and brand personality.",
+      ՀԱՅ: "Ավելի կտրուկ ինտերֆեյսներ, որտեղ form-ը դառնում է կոմպոզիցիա, ռիթմ և բրենդի անհատականություն։",
+    },
+    output: {
+      FR: "Patterns de saisie, microcopie, structure.",
+      EN: "Input patterns, microcopy, structure.",
+      ՀԱՅ: "Մուտքագրման pattern-ներ, microcopy, կառուցվածք։",
+    },
+    status: "CONCEPT" as const,
+    icon: "□",
+    no: "04",
+  },
+  {
+    id: "signal",
+    title: "Signal",
+    desc: {
+      FR: "Des visualisations vivantes pour raconter un état système sans perdre la lisibilité ni le calme.",
+      EN: "Living visualizations that tell a system state without losing readability or calm.",
+      ՀԱՅ: "Կենդանի վիզուալիզացիաներ՝ համակարգի վիճակը պատմելու համար առանց ընթեռնելիությունն ու հանգստությունը կորցնելու։",
+    },
+    output: {
+      FR: "Graphes, pulses, surfaces de monitoring.",
+      EN: "Graphs, pulses, monitoring surfaces.",
+      ՀԱՅ: "Գրաֆիկներ, pulse-եր, monitoring մակերեսներ։",
+    },
+    status: "CONCEPT" as const,
+    icon: "∿",
+    no: "05",
+  },
+  {
+    id: "glitch",
+    title: "Glitch Machine",
+    desc: {
+      FR: "Des accidents visuels contrôlés pour injecter de l'énergie sans sacrifier la lisibilité du système.",
+      EN: "Controlled visual accidents that inject energy without sacrificing system legibility.",
+      ՀԱՅ: "Վերահսկվող տեսողական խափանումներ, որոնք էներգիա են տալիս՝ առանց համակարգի ընթեռնելիությունը զոհաբերելու։",
+    },
+    output: {
+      FR: "Textures, ruptures, artefacts dirigés.",
+      EN: "Textures, ruptures, directed artifacts.",
+      ՀԱՅ: "Տեքստուրաներ, խզումներ, ուղղորդված արտեֆակտներ։",
+    },
+    status: "WIP" as const,
+    icon: "⌬",
+    no: "06",
+  },
 ];
 
-// ─── Lab content ─────────────────────────────────────────────────────────────
-function LabContent() {
+const PROTOCOL = [
+  {
+    no: "01",
+    title: { FR: "Observer", EN: "Observe", ՀԱՅ: "Դիտարկել" },
+    text: {
+      FR: "Je récolte des références, des contraintes et des irritants réels avant de dessiner quoi que ce soit.",
+      EN: "I gather references, constraints and real friction points before drawing anything.",
+      ՀԱՅ: "Մինչ որևէ բան նկարելը՝ հավաքում եմ հղումներ, սահմանափակումներ և իրական friction կետեր։",
+    },
+  },
+  {
+    no: "02",
+    title: { FR: "Structurer", EN: "Structure", ՀԱՅ: "Կառուցել" },
+    text: {
+      FR: "Je pose une grille, des ratios et une hiérarchie pour que l'impact visuel reste maîtrisé.",
+      EN: "I set a grid, ratios and hierarchy so the visual impact stays controlled.",
+      ՀԱՅ: "Սահմանում եմ ցանց, հարաբերակցություններ և հիերարխիա, որպեսզի տեսողական ազդեցությունը վերահսկելի մնա։",
+    },
+  },
+  {
+    no: "03",
+    title: { FR: "Animer", EN: "Animate", ՀԱՅ: "Անիմացնել" },
+    text: {
+      FR: "Le mouvement sert la lecture: entrée, accent, relais, disparition. Rien n'est décoratif par défaut.",
+      EN: "Motion serves reading: entry, accent, relay, exit. Nothing is decorative by default.",
+      ՀԱՅ: "Շարժումը ծառայում է ընթերցմանը՝ մուտք, շեշտադրում, փոխանցում, ելք։ Լռելյայն ոչինչ զուտ դեկոր չէ։",
+    },
+  },
+  {
+    no: "04",
+    title: { FR: "Polir", EN: "Polish", ՀԱՅ: "Հղկել" },
+    text: {
+      FR: "Je réécris le code et j'épure les détails jusqu'à ce que l'expérience paraisse évidente.",
+      EN: "I rewrite code and refine details until the experience feels obvious.",
+      ՀԱՅ: "Վերագրում եմ կոդը և մաքրում դետալները, մինչև փորձառությունը դառնա ինքնաբացատրելի։",
+    },
+  },
+];
+
+const STANDARDS = [
+  {
+    value: "Grid / contrast / cadence",
+    text: {
+      FR: "Chaque écran doit rester fort même sans image, grâce à sa structure.",
+      EN: "Every screen should stay strong even without imagery, thanks to structure.",
+      ՀԱՅ: "Յուրաքանչյուր էկրան պետք է ուժեղ մնա նույնիսկ առանց պատկերների՝ իր կառուցվածքի շնորհիվ։",
+    },
+  },
+  {
+    value: "Color as signal",
+    text: {
+      FR: "La couleur sert à orienter, pas à maquiller.",
+      EN: "Color is there to direct, not to disguise.",
+      ՀԱՅ: "Գույնը պետք է ուղղորդի, ոչ թե պարզապես զարդարի։",
+    },
+  },
+  {
+    value: "Motion as syntax",
+    text: {
+      FR: "L'animation indique une relation spatiale ou une priorité d'usage.",
+      EN: "Animation should indicate a spatial relationship or a usage priority.",
+      ՀԱՅ: "Անիմացիան պետք է ցույց տա տարածական կապ կամ օգտագործման առաջնահերթություն։",
+    },
+  },
+  {
+    value: "Readable code",
+    text: {
+      FR: "Une interface forte vaut plus quand son implémentation reste claire.",
+      EN: "A strong interface matters more when its implementation stays clear.",
+      ՀԱՅ: "Ուժեղ ինտերֆեյսն ավելի արժեքավոր է, երբ դրա իրականացումը մնում է պարզ։",
+    },
+  },
+];
+
+function getReveal(shouldReduceMotion: boolean, delay = 0, y = 24) {
+  if (shouldReduceMotion) return {};
+  return {
+    initial: { opacity: 0, y },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.72, ease: [0.16, 1, 0.3, 1], delay },
+  };
+}
+
+function LabContent({ language, shouldReduceMotion }: { language: Language; shouldReduceMotion: boolean }) {
   const { isDark } = useTheme();
-  const dotColor = isDark ? "rgba(255,255,255,0.038)" : "rgba(0,0,0,0.04)";
-  const border = isDark ? "#262630" : "#1d1d1f";
+  const t = LAB_COPY[language];
+  const dotColor = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.08)";
+  const ink = "var(--theme-fg)";
+  const bg = "var(--theme-bg)";
+  const panel = "var(--theme-card-bg)";
+  const border = ink;
+  const accent = "var(--theme-accent)";
+  const accentFg = "var(--theme-accent-fg)";
+  const muted = "var(--theme-muted)";
+  const softPanel = isDark ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.72)";
+  const hardShadow = isDark ? "10px 10px 0 rgba(0,0,0,0.45)" : "10px 10px 0 rgba(29,29,31,0.96)";
+  const halftone = `radial-gradient(circle, ${dotColor} 1.6px, transparent 1.6px)`;
+  const stripe = `repeating-linear-gradient(135deg, transparent 0 16px, ${isDark ? "rgba(255,255,255,0.05)" : "rgba(29,29,31,0.06)"} 16px 32px)`;
+  const statuses = t.status;
 
   return (
-    <div
+    <main
       id="main-content"
       style={{
         minHeight: "100vh",
-        background: "var(--theme-bg)",
-        color: "var(--theme-fg)",
+        background: bg,
+        color: ink,
         fontFamily: "var(--font-body)",
-        backgroundImage: `radial-gradient(circle, ${dotColor} 1.2px, transparent 1.2px)`,
-        backgroundSize: "22px 22px",
+        backgroundImage: `${halftone}, linear-gradient(180deg, ${isDark ? "#111118" : "#ffffff"} 0%, ${bg} 58%)`,
+        backgroundSize: "18px 18px, auto",
+        overflow: "hidden",
       }}
     >
-      {/* Hero */}
-      <div style={{ padding: "clamp(96px, 13vw, 136px) clamp(20px, 5vw, 56px) 40px", maxWidth: 1200, margin: "0 auto" }}>
-        <div style={{
-          display: "inline-block", fontSize: "clamp(10px, 1vw, 12px)",
-          letterSpacing: "0.28em", textTransform: "uppercase",
-          color: "var(--theme-accent)", fontWeight: 700,
-          border: "2px solid var(--theme-accent)",
-          padding: "4px 14px", borderRadius: 0, marginBottom: 26,
-        }}>
-          Espace expérimental — 2024→
-        </div>
-        <h1 style={{
-          fontSize: "clamp(60px, 11vw, 120px)",
-          fontFamily: "var(--font-display)", fontWeight: 900,
-          letterSpacing: "-0.04em", lineHeight: 0.9, margin: "0 0 24px",
-          textShadow: `3px 3px 0 var(--theme-accent)`,
-        }}>
-          Lab<span style={{ color: "var(--theme-accent)" }}>.</span>
-        </h1>
-        <p style={{
-          fontSize: "clamp(14px, 1.7vw, 17px)", color: "var(--theme-muted)",
-          maxWidth: 480, lineHeight: 1.68, margin: 0,
-        }}>
-          Territoire d'expérimentation. Des prototypes, des systèmes en construction, et des questions sans réponse — encore.
-        </p>
-      </div>
-
-      {/* Thick divider */}
-      <div style={{ margin: "0 clamp(20px, 5vw, 56px)", height: 3, background: "var(--theme-fg)" }} />
-
-      {/* Grid — comic panel borders */}
-      <div style={{
-        padding: "0 clamp(20px, 5vw, 56px) 100px",
-        maxWidth: 1200, margin: "0 auto",
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))",
-      }}>
-        {EXPERIMENTS.map((exp) => (
-          <motion.div
-            key={exp.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: parseInt(exp.no) * 0.08 }}
-            style={{
-              border: `2px solid ${border}`,
-              marginTop: -2, marginLeft: -2,
-              padding: "28px 26px 24px",
-              position: "relative",
-              cursor: exp.status === "WIP" ? "pointer" : "default",
-            }}
-            whileHover={exp.status === "WIP" ? {
-              backgroundColor: isDark ? "rgba(255,255,255,0.02)" : "rgba(0,0,0,0.015)",
-            } : {}}
-          >
-            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.22em", color: "var(--theme-muted)", marginBottom: 14 }}>
-              {exp.no}
-            </div>
-            <div style={{ fontSize: 34, lineHeight: 1, marginBottom: 14, color: "var(--theme-accent)", fontFamily: "var(--font-display)", fontWeight: 700 }}>
-              {exp.icon}
-            </div>
-            <h2 style={{ fontSize: "clamp(17px, 1.9vw, 21px)", fontFamily: "var(--font-display)", fontWeight: 700, letterSpacing: "-0.02em", margin: "0 0 9px", lineHeight: 1.2 }}>
-              {exp.title}
-            </h2>
-            <p style={{ fontSize: 13, color: "var(--theme-muted)", lineHeight: 1.62, margin: "0 0 20px" }}>
-              {exp.desc}
-            </p>
+      <div style={{ position: "relative", maxWidth: 1280, margin: "0 auto", padding: "clamp(92px, 12vw, 132px) clamp(20px, 4.4vw, 52px) 84px" }}>
+        <motion.section
+          className="lab-hero"
+          {...getReveal(shouldReduceMotion)}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1.08fr) minmax(320px, 0.92fr)",
+            gap: 28,
+            alignItems: "stretch",
+            marginBottom: 28,
+          }}
+        >
+          <div style={{
+            border: `3px solid ${border}`,
+            background: stripe,
+            boxShadow: hardShadow,
+            padding: "clamp(24px, 4vw, 40px)",
+            position: "relative",
+          }}>
             <div style={{
-              display: "inline-flex", alignItems: "center",
-              fontSize: 9.5, letterSpacing: "0.2em", fontWeight: 700,
-              textTransform: "uppercase", borderRadius: 0,
-              background: exp.status === "WIP" ? "var(--theme-accent)" : "transparent",
-              color: exp.status === "WIP" ? "var(--theme-accent-fg)" : exp.status === "SOON" ? "var(--theme-accent)" : "var(--theme-muted)",
-              border: exp.status !== "WIP" ? `1.5px solid ${exp.status === "SOON" ? "var(--theme-accent)" : "var(--theme-border)"}` : "none",
-              padding: "3px 10px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              border: `2px solid ${border}`,
+              background: accent,
+              color: accentFg,
+              padding: "7px 12px",
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              marginBottom: 22,
             }}>
-              {exp.status === "WIP" ? "En cours" : exp.status === "SOON" ? "Bientôt" : "Concept"}
+              <span>{t.eyebrow}</span>
+            </div>
+            <h1 style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(54px, 9vw, 110px)",
+              lineHeight: 0.9,
+              letterSpacing: "-0.05em",
+              margin: "0 0 22px",
+              textTransform: "uppercase",
+            }}>
+              {t.title[0]}
+              <br />
+              <span style={{ color: accent, textShadow: `4px 4px 0 ${ink}` }}>{t.title[1]}</span>
+              <br />
+              {t.title[2]}
+            </h1>
+            <p style={{
+              maxWidth: 620,
+              fontSize: "clamp(15px, 1.9vw, 19px)",
+              lineHeight: 1.58,
+              color: muted,
+              margin: "0 0 26px",
+            }}>
+              {t.intro}
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {t.pills.map((pill, index) => (
+                <motion.div
+                  key={pill}
+                  {...getReveal(shouldReduceMotion, index * 0.05, 10)}
+                  style={{
+                    border: `2px solid ${border}`,
+                    background: index % 2 === 0 ? panel : accent,
+                    color: index % 2 === 0 ? ink : accentFg,
+                    padding: "10px 14px",
+                    fontSize: 11,
+                    fontWeight: 800,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {pill}
+                </motion.div>
+              ))}
+            </div>
+            <motion.div
+              aria-hidden="true"
+              animate={shouldReduceMotion ? {} : { x: ["-15%", "105%"] }}
+              transition={shouldReduceMotion ? {} : { duration: 2.8, repeat: Infinity, ease: "linear" }}
+              style={{ position: "absolute", left: 0, bottom: 18, width: 120, height: 7, background: accent }}
+            />
+          </div>
+
+          <motion.div
+            {...getReveal(shouldReduceMotion, 0.08)}
+            style={{
+              border: `3px solid ${border}`,
+              background: panel,
+              boxShadow: hardShadow,
+              padding: 18,
+              display: "grid",
+              gridTemplateRows: "auto 1fr auto",
+              gap: 14,
+              minHeight: 420,
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+              <div>
+                <div style={{ fontSize: 10, color: muted, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 6 }}>
+                  {t.boardEyebrow}
+                </div>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 800, lineHeight: 1 }}>
+                  {t.boardTitle}
+                </div>
+              </div>
+              <div style={{
+                transform: "rotate(-4deg)",
+                border: `2px solid ${border}`,
+                background: accent,
+                color: accentFg,
+                padding: "8px 12px",
+                fontSize: 10,
+                fontWeight: 800,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+              }}>
+                Pop art / UX
+              </div>
+            </div>
+
+            <div className="lab-board-grid" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 12, alignItems: "stretch" }}>
+              <div style={{
+                border: `3px solid ${border}`,
+                background: `linear-gradient(135deg, ${accent} 0%, ${accent} 24%, ${softPanel} 24%, ${softPanel} 100%)`,
+                minHeight: 230,
+                padding: 18,
+                position: "relative",
+                overflow: "hidden",
+              }}>
+                <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 18 }}>
+                  Designer-coded interface
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 14 }}>
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} style={{ height: 76, border: `2px solid ${border}`, background: i === 0 ? ink : panel }} />
+                  ))}
+                </div>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(40px, 6vw, 74px)", lineHeight: 0.9, letterSpacing: "-0.06em", textTransform: "uppercase" }}>
+                  UX<br />UI
+                </div>
+                <motion.div
+                  aria-hidden="true"
+                  animate={shouldReduceMotion ? {} : { rotate: [0, 6, -4, 0], scale: [1, 1.02, 1] }}
+                  transition={shouldReduceMotion ? {} : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                  style={{
+                    position: "absolute", right: -18, bottom: -26,
+                    width: 130, height: 130, borderRadius: "50%",
+                    border: `3px solid ${border}`, background: bg,
+                    display: "grid", placeItems: "center",
+                    fontFamily: "var(--font-display)", fontSize: 30, fontWeight: 800,
+                  }}
+                >
+                  01
+                </motion.div>
+              </div>
+
+              <div style={{ display: "grid", gap: 12 }}>
+                {t.boardLines.map((line, index) => (
+                  <motion.div
+                    key={line}
+                    {...getReveal(shouldReduceMotion, index * 0.04, 12)}
+                    style={{
+                      border: `2px solid ${border}`,
+                      background: index % 2 === 0 ? softPanel : bg,
+                      padding: "14px 14px 16px",
+                    }}
+                  >
+                    <div style={{ fontSize: 10, color: muted, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+                    <div style={{ fontSize: 14, lineHeight: 1.45, fontWeight: 700 }}>{line}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div className="lab-metrics" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 10 }}>
+              {t.metrics.map((metric) => (
+                <div key={metric.label} style={{ border: `2px solid ${border}`, background: bg, padding: "12px 10px" }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(18px, 2vw, 26px)", fontWeight: 800, lineHeight: 1 }}>
+                    {metric.value}
+                  </div>
+                  <div style={{ marginTop: 8, fontSize: 10, color: muted, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", lineHeight: 1.4 }}>
+                    {metric.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
-        ))}
+        </motion.section>
+
+        <motion.section
+          {...getReveal(shouldReduceMotion, 0.05)}
+          style={{
+            border: `3px solid ${border}`,
+            background: accent,
+            color: accentFg,
+            boxShadow: hardShadow,
+            padding: "18px clamp(18px, 2.5vw, 26px)",
+            marginBottom: 30,
+          }}
+        >
+          <div className="lab-ribbon" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 14, fontSize: 12, fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase" }}>
+            <div>Precision</div>
+            <div>Visual syntax</div>
+            <div>Motion standards</div>
+            <div>Pop attitude</div>
+          </div>
+        </motion.section>
+
+        <section style={{ marginBottom: 36 }}>
+          <motion.div {...getReveal(shouldReduceMotion, 0.06)} style={{ marginBottom: 18 }}>
+            <div style={{ fontSize: 11, color: muted, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>
+              {t.experimentsTitle}
+            </div>
+            <p style={{ maxWidth: 760, margin: 0, fontSize: 16, lineHeight: 1.65, color: muted }}>
+              {t.experimentsIntro}
+            </p>
+          </motion.div>
+
+          <div className="lab-experiments-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))", gap: 18 }}>
+            {EXPERIMENTS.map((exp, index) => (
+              <motion.article
+                key={exp.id}
+                {...getReveal(shouldReduceMotion, index * 0.05)}
+                whileHover={shouldReduceMotion ? {} : { y: -5, rotate: index % 2 === 0 ? -0.3 : 0.3 }}
+                style={{ border: `3px solid ${border}`, background: index % 2 === 0 ? panel : softPanel, boxShadow: hardShadow, padding: 20, position: "relative", overflow: "hidden" }}
+              >
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, marginBottom: 18 }}>
+                  <div>
+                    <div style={{ fontSize: 10, color: muted, fontWeight: 800, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 10 }}>
+                      {exp.no}
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <div style={{ width: 48, height: 48, border: `2px solid ${border}`, background: accent, color: accentFg, display: "grid", placeItems: "center", fontSize: 24, fontFamily: "var(--font-display)", fontWeight: 800 }}>
+                        {exp.icon}
+                      </div>
+                      <h2 style={{ margin: 0, fontSize: 24, lineHeight: 1, fontFamily: "var(--font-display)", letterSpacing: "-0.03em", textTransform: "uppercase" }}>
+                        {exp.title}
+                      </h2>
+                    </div>
+                  </div>
+                  <div style={{ transform: "rotate(-4deg)", border: `2px solid ${exp.status === "WIP" ? accent : border}`, background: exp.status === "WIP" ? accent : bg, color: exp.status === "WIP" ? accentFg : ink, padding: "8px 10px", fontSize: 10, fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                    {statuses[exp.status]}
+                  </div>
+                </div>
+                <p style={{ margin: "0 0 16px", fontSize: 14, lineHeight: 1.62, color: muted }}>{exp.desc[language]}</p>
+                <div style={{ borderTop: `2px solid ${border}`, paddingTop: 14, display: "grid", gap: 10 }}>
+                  <div style={{ fontSize: 10, fontWeight: 800, color: muted, letterSpacing: "0.18em", textTransform: "uppercase" }}>{t.outputLabel}</div>
+                  <div style={{ fontSize: 14, lineHeight: 1.55, fontWeight: 700 }}>{exp.output[language]}</div>
+                </div>
+                <motion.div
+                  aria-hidden="true"
+                  animate={shouldReduceMotion ? {} : { x: ["-100%", "0%", "100%"] }}
+                  transition={shouldReduceMotion ? {} : { duration: 3.4 + index * 0.2, repeat: Infinity, ease: "linear" }}
+                  style={{ position: "absolute", left: 0, bottom: 0, width: "42%", height: 6, background: accent }}
+                />
+              </motion.article>
+            ))}
+          </div>
+        </section>
+
+        <section className="lab-bottom-grid" style={{ display: "grid", gridTemplateColumns: "minmax(0, 0.92fr) minmax(0, 1.08fr)", gap: 24, marginBottom: 36 }}>
+          <motion.div {...getReveal(shouldReduceMotion, 0.04)} style={{ border: `3px solid ${border}`, background: panel, boxShadow: hardShadow, padding: "20px 20px 24px" }}>
+            <div style={{ fontSize: 11, color: muted, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>{t.protocolTitle}</div>
+            <p style={{ margin: "0 0 18px", fontSize: 15, lineHeight: 1.62, color: muted }}>{t.protocolIntro}</p>
+            <div style={{ display: "grid", gap: 12 }}>
+              {PROTOCOL.map((step, index) => (
+                <motion.div key={step.no} {...getReveal(shouldReduceMotion, index * 0.05, 10)} style={{ border: `2px solid ${border}`, background: index % 2 === 0 ? bg : softPanel, padding: "14px 14px 16px" }}>
+                  <div style={{ fontSize: 10, color: muted, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 10 }}>{step.no}</div>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: 24, lineHeight: 1, marginBottom: 8, textTransform: "uppercase" }}>{step.title[language]}</div>
+                  <div style={{ fontSize: 14, lineHeight: 1.58, color: muted }}>{step.text[language]}</div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div {...getReveal(shouldReduceMotion, 0.08)} style={{ border: `3px solid ${border}`, background: stripe, boxShadow: hardShadow, padding: "20px 20px 24px", display: "grid", gap: 16 }}>
+            <div>
+              <div style={{ fontSize: 11, color: muted, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>{t.standardsTitle}</div>
+              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.62, color: muted }}>{t.standardsIntro}</p>
+            </div>
+            <div style={{ display: "grid", gap: 12 }}>
+              {STANDARDS.map((item, index) => (
+                <div className="lab-standard-row" key={item.value} style={{ display: "grid", gridTemplateColumns: "minmax(120px, 150px) 1fr", gap: 14, border: `2px solid ${border}`, background: index % 2 === 0 ? bg : panel, padding: 14 }}>
+                  <div style={{ border: `2px solid ${border}`, background: accent, color: accentFg, fontSize: 10, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", padding: "10px 12px", alignSelf: "start" }}>{item.value}</div>
+                  <div style={{ fontSize: 14, lineHeight: 1.58, color: muted }}>{item.text[language]}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+
+        <motion.section {...getReveal(shouldReduceMotion, 0.05)} style={{ border: `3px solid ${border}`, background: panel, boxShadow: hardShadow, padding: "20px 20px 24px", marginBottom: 20 }}>
+          <div style={{ fontSize: 11, color: muted, fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>{t.motionTitle}</div>
+          <p style={{ margin: "0 0 18px", fontSize: 15, lineHeight: 1.62, color: muted, maxWidth: 760 }}>{t.motionIntro}</p>
+          <div className="lab-motion-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 14 }}>
+            {[
+              { title: "Entry", value: "240ms", width: "72%" },
+              { title: "Relay", value: "420ms", width: "88%" },
+              { title: "Exit", value: "180ms", width: "56%" },
+            ].map((item, index) => (
+              <div key={item.title} style={{ border: `2px solid ${border}`, background: index === 1 ? softPanel : bg, padding: 14 }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 12 }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: 22, lineHeight: 1, textTransform: "uppercase" }}>{item.title}</div>
+                  <div style={{ fontSize: 10, color: muted, fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase" }}>{item.value}</div>
+                </div>
+                <div style={{ height: 18, border: `2px solid ${border}`, background: panel, overflow: "hidden" }}>
+                  <motion.div
+                    animate={shouldReduceMotion ? {} : { x: ["-8%", "6%", "-8%"] }}
+                    transition={shouldReduceMotion ? {} : { duration: 2 + index * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ width: item.width, height: "100%", background: accent }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        <div style={{ borderTop: `3px solid ${border}`, paddingTop: 16, fontSize: 11, color: muted, fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase" }}>
+          {t.footer}
+        </div>
       </div>
 
-      <div style={{
-        borderTop: `2px solid ${border}`,
-        padding: "18px clamp(20px, 5vw, 56px) 56px",
-        fontSize: 10, color: "var(--theme-muted)",
-        letterSpacing: "0.12em", textTransform: "uppercase",
-      }}>
-        D'autres expérimentations arrivent → 2025
-      </div>
-    </div>
+      <style jsx>{`
+        @media (max-width: 980px) {
+          .lab-hero, .lab-bottom-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 760px) {
+          .lab-board-grid, .lab-standard-row { grid-template-columns: 1fr !important; }
+          .lab-metrics, .lab-ribbon, .lab-motion-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 540px) {
+          .lab-metrics, .lab-ribbon, .lab-motion-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </main>
   );
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function LabPage() {
   const [phase, setPhase] = useState<Phase>("recede");
+  const [language, setLanguage] = useState<Language>("FR");
   const { isDark } = useTheme();
+  const shouldReduceMotion = useReducedMotion();
+
+  // Preload videos
+  useEffect(() => {
+    ["/videos/lab/sf.mp4", "/videos/lab/clouds.mp4", "/videos/lab/forest.mp4"].forEach(src => {
+      const v = document.createElement("video");
+      v.src = src; v.preload = "auto"; v.muted = true; v.load();
+    });
+  }, []);
 
   useEffect(() => {
+    const saved = localStorage.getItem("preferredLanguage") as Language | null;
+    if (saved && ["FR", "EN", "ՀԱՅ"].includes(saved)) setLanguage(saved);
+  }, []);
+
+  useEffect(() => {
+    const handle = (e: CustomEvent<Language>) => setLanguage(e.detail);
+    window.addEventListener("languageChange", handle as EventListener);
+    return () => window.removeEventListener("languageChange", handle as EventListener);
+  }, []);
+
+  useEffect(() => {
+    if (shouldReduceMotion) { setPhase("done"); return; }
+    const alreadySeen = sessionStorage.getItem("labIntroSeen");
+    if (alreadySeen === "1") { setPhase("done"); return; }
+    sessionStorage.setItem("labIntroSeen", "1");
+
     const timers = [
-      setTimeout(() => setPhase("imac"),   1000),
-      setTimeout(() => setPhase("sky"),    3000),
-      setTimeout(() => setPhase("sf"),     5500),
-      setTimeout(() => setPhase("window"), 8400),
-      setTimeout(() => setPhase("cowork"), 10000),
-      setTimeout(() => setPhase("done"),   12200),
+      setTimeout(() => setPhase("sfwindow"), 2000),
+      setTimeout(() => setPhase("clouds"),   5500),
+      setTimeout(() => setPhase("forest"),   11500),
+      setTimeout(() => setPhase("earth"),    17000),
+      setTimeout(() => setPhase("dark"),     19000),
+      setTimeout(() => setPhase("done"),     20500),
     ];
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [shouldReduceMotion]);
 
   if (phase === "done") {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }}>
-        <LabContent />
+        <LabContent language={language} shouldReduceMotion={!!shouldReduceMotion} />
       </motion.div>
     );
   }
 
+  const showLetterbox = ["sfwindow", "clouds", "forest"].includes(phase);
+
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: 10000, overflow: "hidden" }}>
-      {/* Skip */}
+      <AnimatePresence>
+        {showLetterbox && <Letterbox key="lb" />}
+      </AnimatePresence>
+
       <motion.button
-        initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} transition={{ delay: 1.4 }}
+        initial={{ opacity: 0 }} animate={{ opacity: 0.55 }} transition={{ delay: 1.5 }}
         whileHover={{ opacity: 1 }}
         onClick={() => setPhase("done")}
         style={{
@@ -689,49 +1032,39 @@ export default function LabPage() {
           cursor: "pointer", fontFamily: "var(--font-body)",
         }}
       >
-        Passer
+        {LAB_COPY[language].skip}
       </motion.button>
 
       <AnimatePresence mode="sync">
         {phase === "recede" && (
           <motion.div key="recede" style={{ position: "absolute", inset: 0 }}
-            exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
+            exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
             <RecedeScene isDark={isDark} />
           </motion.div>
         )}
-        {phase === "imac" && (
-          <motion.div key="imac" style={{ position: "absolute", inset: 0 }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}>
-            <IMacDeskScene isLeaving={false} isDark={isDark} />
+        {phase === "sfwindow" && (
+          <motion.div key="sfwindow" style={{ position: "absolute", inset: 0 }}>
+            <SFWindowScene />
           </motion.div>
         )}
-        {phase === "sky" && (
-          <motion.div key="sky" style={{ position: "absolute", inset: 0 }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.7 }}>
-            <SkyScene isLeaving={false} isDark={isDark} />
+        {phase === "clouds" && (
+          <motion.div key="clouds" style={{ position: "absolute", inset: 0 }}>
+            <CloudsScene />
           </motion.div>
         )}
-        {phase === "sf" && (
-          <motion.div key="sf" style={{ position: "absolute", inset: 0 }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}>
-            <SFScene isLeaving={false} isDark={isDark} />
+        {phase === "forest" && (
+          <motion.div key="forest" style={{ position: "absolute", inset: 0 }}>
+            <ForestScene />
           </motion.div>
         )}
-        {phase === "window" && (
-          <motion.div key="window" style={{ position: "absolute", inset: 0 }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}>
-            <WindowScene isDark={isDark} />
+        {phase === "earth" && (
+          <motion.div key="earth" style={{ position: "absolute", inset: 0 }}>
+            <EarthScene />
           </motion.div>
         )}
-        {phase === "cowork" && (
-          <motion.div key="cowork" style={{ position: "absolute", inset: 0 }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}>
-            <CoworkScene isDark={isDark} />
+        {phase === "dark" && (
+          <motion.div key="dark" style={{ position: "absolute", inset: 0 }}>
+            <DarkScene />
           </motion.div>
         )}
       </AnimatePresence>
