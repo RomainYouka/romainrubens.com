@@ -13,8 +13,8 @@ const ACCENT_GLOW: Record<AccentColor, { r: number; g: number; b: number }> = {
   mono:   { r: 120, g: 120, b: 120 },
 };
 
-function BulbAnimation({ lit, accentColor }: { lit: boolean; accentColor: AccentColor }) {
-  const c = ACCENT_GLOW[accentColor];
+function BulbAnimation({ lit }: { lit: boolean }) {
+  const c = { r: 49, g: 77, b: 203 };
   const outerGlow = `radial-gradient(circle, rgba(${c.r},${c.g},${c.b},0.32) 0%, rgba(${c.r},${c.g},${c.b},0.1) 50%, transparent 70%)`;
   const innerGlow = `radial-gradient(circle, rgba(${c.r},${c.g},${c.b},0.5) 0%, transparent 70%)`;
 
@@ -117,7 +117,7 @@ function TransitionScreen({ isDark, accentColor }: { isDark: boolean; accentColo
         pointerEvents: "all",
       }}
     >
-      <BulbAnimation lit={bulbLit} accentColor={accentColor} />
+      <BulbAnimation lit={bulbLit} />
     </motion.div>
   );
 }

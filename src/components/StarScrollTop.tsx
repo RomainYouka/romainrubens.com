@@ -135,8 +135,8 @@ export default function StarScrollTop() {
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
-              {/* Potato/blob body — semi-transparent white overlay */}
-              <path d={BLOB_PATH} fill="rgba(255,255,255,0.15)" />
+              {/* Potato/blob body */}
+              <path d={BLOB_PATH} fill={isDark ? "rgba(0,0,0,0.32)" : "rgba(255,255,255,0.18)"} />
 
               {/* Left eye — winks on "blob-wink" event */}
               <g style={winkStyle}>
