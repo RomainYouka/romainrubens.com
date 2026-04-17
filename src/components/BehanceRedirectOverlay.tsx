@@ -127,10 +127,10 @@ export function BehanceRedirectOverlay({
                 width: 84,
                 height: 84,
                 borderRadius: 22,
-                backgroundColor: "#314DCB",
+                backgroundColor: "var(--theme-accent)",
                 boxShadow: isDark
-                  ? "0 0 0 1px rgba(49,77,203,0.5), 0 16px 48px rgba(49,77,203,0.4)"
-                  : "0 0 0 1px rgba(49,77,203,0.2), 0 16px 40px rgba(49,77,203,0.25)",
+                  ? "0 0 0 1px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.3)"
+                  : "0 0 0 1px rgba(0,0,0,0.1), 0 16px 40px rgba(0,0,0,0.15)",
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

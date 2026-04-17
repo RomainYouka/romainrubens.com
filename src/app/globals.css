@@ -122,6 +122,14 @@
     --theme-subtle: #CCCCCC;
   }
 
+  /* ── Accents couleur ── */
+  [data-accent="pink"]                          { --theme-accent: #B2003A; }
+  [data-theme="dark"][data-accent="pink"]       { --theme-accent: #FF376C; }
+  [data-accent="green"]                         { --theme-accent: #004430; }
+  [data-theme="dark"][data-accent="green"]      { --theme-accent: #53C999; }
+  [data-accent="orange"]                        { --theme-accent: #B24400; }
+  [data-theme="dark"][data-accent="orange"]     { --theme-accent: #FFA269; }
+
   /* ── Contraste élevé (accessibilité) ── */
   [data-contrast="high"] {
     --theme-bg: #FFFFFF;
