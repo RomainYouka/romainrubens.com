@@ -5,6 +5,7 @@ import { Analytics } from "@/lib/analytics";
 
 type Theme = "light" | "dark";
 export type ThemeTransition = "toLight" | "toDark" | null;
+export type AccentColor = "blue" | "pink" | "green" | "orange" | "mono";
 
 interface ThemeContextValue {
   theme: Theme;
@@ -18,6 +19,8 @@ interface ThemeContextValue {
   toggleHighContrast: () => void;
   isDyslexic: boolean;
   toggleDyslexic: () => void;
+  accentColor: AccentColor;
+  setAccentColor: (color: AccentColor) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -30,8 +33,8 @@ export function useTheme() {
 
 type SunTimes =
   | { kind: "normal"; sunrise: Date; sunset: Date }
-  | { kind: "polar_day" }   // soleil ne se couche jamais (été polaire)
-  | { kind: "polar_night" }; // soleil ne se lève jamais (hiver polaire)
+  | { kind: "polar_day" }
+  | { kind: "polar_night" };
 
 async function getSunTimes(): Promise<SunTimes | null> {
   try {
@@ -46,7 +49,7 @@ async function getSunTimes(): Promise<SunTimes | null> {
     if (!sunRes.ok) return null;
     const sun = await sunRes.json();
     if (sun.status !== "OK") return null;
-    const dayLength = sun.results.day_length; // secondes
+    const dayLength = sun.results.day_length;
     if (dayLength === 86400) return { kind: "polar_day" };
     if (dayLength === 0) return { kind: "polar_night" };
     return {
@@ -65,6 +68,14 @@ function applyTheme(theme: Theme) {
   if (meta) meta.setAttribute("content", theme === "dark" ? "#191919" : "#ffffff");
 }
 
+function applyAccent(color: AccentColor) {
+  if (color === "blue") {
+    document.documentElement.removeAttribute("data-accent");
+  } else {
+    document.documentElement.setAttribute("data-accent", color);
+  }
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
@@ -72,55 +83,47 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [themeTransition, setThemeTransition] = useState<ThemeTransition>(null);
   const [isHighContrast, setIsHighContrast] = useState(false);
   const [isDyslexic, setIsDyslexic] = useState(false);
+  const [accentColor, setAccentColorState] = useState<AccentColor>("blue");
   const transitionLock = useRef(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("theme") as Theme | null;
     const currentTheme: Theme = saved === "dark" || saved === "light" ? saved : "light";
-
     setThemeState(currentTheme);
     applyTheme(currentTheme);
 
     if (!sessionStorage.getItem("themeAsked")) {
-      const WINDOW_MS = 15 * 60 * 1000; // ±15 minutes
+      const WINDOW_MS = 15 * 60 * 1000;
       getSunTimes().then((sun) => {
         if (sessionStorage.getItem("themeAsked")) return;
         sessionStorage.setItem("themeAsked", "1");
 
         if (sun) {
-          if (sun.kind === "polar_day") {
-            // Jour permanent : il fait toujours jour → rien à faire
-          } else if (sun.kind === "polar_night") {
-            // Nuit permanente : passer en sombre automatiquement
+          if (sun.kind === "polar_night") {
             if (currentTheme === "light") setTheme("dark");
-          } else {
+          } else if (sun.kind === "normal") {
             const now = Date.now();
             const sunriseMs = sun.sunrise.getTime();
             const sunsetMs = sun.sunset.getTime();
             const nearSunrise = Math.abs(now - sunriseMs) <= WINDOW_MS;
             const nearSunset = Math.abs(now - sunsetMs) <= WINDOW_MS;
-            const isMidnightToSunrise = now < sunriseMs; // minuit → aube
-            const isEveningToMidnight = now > sunsetMs;  // coucher → minuit
+            const isMidnightToSunrise = now < sunriseMs;
+            const isEveningToMidnight = now > sunsetMs;
 
             if (nearSunrise) {
-              // Soleil se lève → proposer le mode clair si l'user est en sombre
               if (currentTheme === "dark") setShowTimePopup("morning");
             } else if (nearSunset) {
-              // Soleil se couche → proposer le mode sombre si l'user est en clair
               if (currentTheme === "light") setShowTimePopup("evening");
             } else if (isMidnightToSunrise && currentTheme === "light") {
-              // Milieu de la nuit jusqu'à l'aube → passer en sombre automatiquement
               setTheme("dark");
             } else if (isEveningToMidnight && currentTheme === "light") {
-              // Après le coucher mais avant minuit → proposer le mode sombre
               setShowTimePopup("evening");
             }
           }
         } else {
-          // Fallback si les APIs échouent
           const h = new Date().getHours();
           if (h >= 0 && h < 6 && currentTheme === "light") {
-            setTheme("dark"); // Profonde nuit → auto sombre
+            setTheme("dark");
           } else if (h >= 6 && h < 8 && currentTheme === "dark") {
             setShowTimePopup("morning");
           } else if (h >= 19 && currentTheme === "light") {
@@ -134,6 +137,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (savedDyslexic) {
       setIsDyslexic(true);
       document.documentElement.setAttribute("data-dyslexic", "true");
+    }
+
+    const savedAccent = localStorage.getItem("accentColor") as AccentColor | null;
+    if (savedAccent && ["blue", "pink", "green", "orange", "mono"].includes(savedAccent)) {
+      setAccentColorState(savedAccent);
+      applyAccent(savedAccent);
     }
 
     setMounted(true);
@@ -153,13 +162,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     Analytics.themeToggle(newTheme);
 
     if (newTheme === "dark") {
-      // Ampoule s'éteint → thème switch sous l'overlay → overlay disparaît
       setThemeTransition("toDark");
       setTimeout(() => setTheme(newTheme), 550);
       setTimeout(() => setThemeTransition(null), 880);
       setTimeout(() => { transitionLock.current = false; }, 1200);
     } else {
-      // Overlay apparaît d'abord (fond sombre) → ampoule s'allume → thème switche sous l'overlay → overlay disparaît
       setThemeTransition("toLight");
       setTimeout(() => setTheme(newTheme), 550);
       setTimeout(() => setThemeTransition(null), 880);
@@ -185,20 +192,26 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const setAccentColor = useCallback((color: AccentColor) => {
+    setAccentColorState(color);
+    localStorage.setItem("accentColor", color);
+    applyAccent(color);
+  }, []);
+
   const dismissTimePopup = useCallback(() => {
     setShowTimePopup(null);
   }, []);
 
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: "light", isDark: false, toggleTheme, setTheme, showTimePopup: null, dismissTimePopup, themeTransition: null, isHighContrast: false, toggleHighContrast, isDyslexic: false, toggleDyslexic }}>
+      <ThemeContext.Provider value={{ theme: "light", isDark: false, toggleTheme, setTheme, showTimePopup: null, dismissTimePopup, themeTransition: null, isHighContrast: false, toggleHighContrast, isDyslexic: false, toggleDyslexic, accentColor: "blue", setAccentColor }}>
         {children}
       </ThemeContext.Provider>
     );
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme, setTheme, showTimePopup, dismissTimePopup, themeTransition, isHighContrast, toggleHighContrast, isDyslexic, toggleDyslexic }}>
+    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme, setTheme, showTimePopup, dismissTimePopup, themeTransition, isHighContrast, toggleHighContrast, isDyslexic, toggleDyslexic, accentColor, setAccentColor }}>
       {children}
     </ThemeContext.Provider>
   );

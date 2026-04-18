@@ -164,7 +164,7 @@ export default function IntroSplash() {
         aria-modal="true"
         aria-label="Welcome greeting"
       >
-        <div 
+        <div
           className="flex flex-col items-center justify-center gap-4"
           style={{
             minHeight: "120px",

@@ -63,10 +63,10 @@ const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) =>
   const { isDark } = useTheme();
   const clamped = Math.min(5, Math.max(0, Math.round(rating)));
 
-  const fullFill   = "#314DCB";
-  const fullStroke = isDark ? "#5194FF" : "#314DCB";
-  const emptyFill  = isDark ? "#F5F5F5" : "#1D1D1F";
-  const emptyStroke = isDark ? "#F5F5F5" : "#1D1D1F";
+  const fullFill   = "var(--theme-accent)";
+  const fullStroke = "var(--theme-accent)";
+  const emptyFill  = isDark ? "#505050" : "#D0D0D0";
+  const emptyStroke = isDark ? "#505050" : "#D0D0D0";
 
   const starH  = size;
   const starW  = starH * (VB_W / VB_H);
@@ -92,8 +92,7 @@ const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) =>
             key={i}
             transform={`translate(${x}, 0) scale(${scale})`}
             d={STAR_PATH}
-            fill={isFull ? fullFill : emptyFill}
-            stroke={isFull ? fullStroke : emptyStroke}
+            style={{ fill: isFull ? fullFill : emptyFill, stroke: isFull ? fullStroke : emptyStroke }}
             strokeWidth={2}
           />
         );

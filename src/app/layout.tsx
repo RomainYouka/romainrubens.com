@@ -75,7 +75,7 @@ export default function RootLayout({
     <html lang="fr" className={`${googleSans.variable} ${googleSansFlex.variable} ${notoSansArmenian.variable}`}>
       <head>
         {/* Anti-flash : applique le thème et la couleur du navigateur avant le rendu React */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var a=localStorage.getItem('accentColor');if(a&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}}catch(e){}})()` }} />
         <meta name="theme-color" content="#ffffff" />
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://slelguoygbfzlpylpxfs.supabase.co" />
@@ -102,8 +102,8 @@ export default function RootLayout({
         {/* Lien d'évitement — critère RGAA 12.7 */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:text-white focus:text-sm focus:font-semibold focus:no-underline"
-          style={{ backgroundColor: "#314DCB" }}
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold focus:no-underline"
+          style={{ backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)" }}
         >
           Aller au contenu principal
         </a>

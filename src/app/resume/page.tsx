@@ -132,9 +132,9 @@ export default function ResumePage() {
 
   const getButtonColor = (lang: Language) => {
     if (isMobile && clickedBtn === lang) {
-      return "#314DCB";
+      return "var(--theme-accent)";
     }
-    return language === lang ? "#314DCB" : "#1d1d1f";
+    return language === lang ? "var(--theme-accent)" : "#1d1d1f";
   };
 
   const getTextColor = (lang: Language) => {
@@ -315,7 +315,7 @@ export default function ResumePage() {
               }}
               onMouseEnter={!isMobile ? (e) => {
                 if (language !== lang) {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#314DCB";
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--theme-accent)";
                 }
               } : undefined}
               onMouseLeave={!isMobile ? (e) => {
@@ -351,8 +351,8 @@ export default function ResumePage() {
             marginTop: "-2.5px"
           }}
           onMouseEnter={!isMobile ? (e) => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#314DCB";
-            (e.currentTarget as HTMLButtonElement).style.borderColor = "#314DCB";
+            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--theme-accent)";
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--theme-accent)";
           } : undefined}
           onMouseLeave={!isMobile ? (e) => {
             (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#1d1d1f";

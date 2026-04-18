@@ -127,17 +127,17 @@ export function BehanceRedirectOverlay({
                 width: 84,
                 height: 84,
                 borderRadius: 22,
-                backgroundColor: "#314DCB",
+                backgroundColor: "var(--theme-accent)",
                 boxShadow: isDark
-                  ? "0 0 0 1px rgba(49,77,203,0.5), 0 16px 48px rgba(49,77,203,0.4)"
-                  : "0 0 0 1px rgba(49,77,203,0.2), 0 16px 40px rgba(49,77,203,0.25)",
+                  ? "0 0 0 1px rgba(0,0,0,0.3), 0 16px 48px rgba(0,0,0,0.3)"
+                  : "0 0 0 1px rgba(0,0,0,0.1), 0 16px 40px rgba(0,0,0,0.15)",
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.06, duration: 0.3 }}
             >
               <svg width="42" height="42" viewBox="0 0 76 76" fill="none">
-                <path d={RR_STAR_PATH} fill="white" />
+                <path d={RR_STAR_PATH} style={{ fill: "var(--theme-accent-fg)" }} />
               </svg>
             </motion.div>
 

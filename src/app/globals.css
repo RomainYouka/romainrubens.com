@@ -59,6 +59,8 @@
 
   @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
   @keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--theme-accent); } 50% { opacity: 0.45; box-shadow: 0 0 2px var(--theme-accent); } }
+  @keyframes lab-border-spin { to { transform: rotate(1turn); } }
   @keyframes linkedin-pulse { 0%, 100% { border-width: 2px; } 50% { border-width: 1px; } }
   @keyframes logo-sheen { from { left: -120%; } to { left: 100%; } }
   @keyframes genieOpen {
@@ -121,6 +123,19 @@
     --theme-accent: #5194FF;
     --theme-subtle: #CCCCCC;
   }
+
+  /* ── Accents couleur ── */
+  :root                                          { --theme-accent-gradient: #1e3a8a; --theme-accent-fg: #ffffff; }
+  [data-theme="dark"]                            { --theme-accent-gradient: #3a72d4; --theme-accent-fg: #ffffff; }
+  [data-theme="dark"]:not([data-accent])         { --theme-accent: #314DCB; --theme-accent-gradient: #1e3a8a; }
+  [data-accent="pink"]                           { --theme-accent: #B2003A; --theme-accent-gradient: #7a0020; }
+  [data-theme="dark"][data-accent="pink"]        { --theme-accent: #FF376C; --theme-accent-gradient: #cc1852; }
+  [data-accent="green"]                          { --theme-accent: #004430; --theme-accent-gradient: #002618; }
+  [data-theme="dark"][data-accent="green"]       { --theme-accent: #53C999; --theme-accent-gradient: #2d9970; }
+  [data-accent="orange"]                         { --theme-accent: #B24400; --theme-accent-gradient: #7a2c00; }
+  [data-theme="dark"][data-accent="orange"]      { --theme-accent: #FFA269; --theme-accent-gradient: #cc6d3a; }
+  [data-accent="mono"]                           { --theme-accent: #1d1d1f; --theme-accent-gradient: #000000; }
+  [data-theme="dark"][data-accent="mono"]        { --theme-accent: #f5f5f5; --theme-accent-gradient: #e0e0e0; --theme-accent-fg: #1d1d1f; }
 
   /* ── Contraste élevé (accessibilité) ── */
   [data-contrast="high"] {

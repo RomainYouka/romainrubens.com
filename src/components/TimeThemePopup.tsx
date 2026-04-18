@@ -136,10 +136,10 @@ export function TimeThemePopup() {
               className="flex items-center justify-center w-12 h-12 rounded-2xl mb-5"
               style={{
                 background: isEvening
-                  ? "linear-gradient(135deg, #1e3a8a 0%, #314DCB 100%)"
+                  ? "linear-gradient(135deg, var(--theme-accent-gradient) 0%, var(--theme-accent) 100%)"
                   : "linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)",
                 boxShadow: isEvening
-                  ? "0 8px 24px rgba(49,77,203,0.4)"
+                  ? "0 8px 24px rgba(0,0,0,0.3)"
                   : "0 8px 24px rgba(124,58,237,0.4)",
               }}
             >
@@ -156,11 +156,11 @@ export function TimeThemePopup() {
                 className="w-full py-3.5 rounded-[14px] text-sm font-semibold transition-all duration-150 active:scale-[0.98]"
                 style={{
                   background: isEvening
-                    ? "linear-gradient(135deg, #1e3a8a 0%, #314DCB 100%)"
+                    ? "linear-gradient(135deg, var(--theme-accent-gradient) 0%, var(--theme-accent) 100%)"
                     : "linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)",
                   color: "#ffffff",
                   boxShadow: isEvening
-                    ? "0 4px 14px rgba(49,77,203,0.4)"
+                    ? "0 4px 14px rgba(0,0,0,0.25)"
                     : "0 4px 14px rgba(124,58,237,0.35)",
                 }}
               >
@@ -226,10 +226,10 @@ export function TimeThemePopup() {
             className="flex items-center justify-center w-12 h-12 rounded-2xl mb-5"
             style={{
               background: isEvening
-                ? "linear-gradient(135deg, #1e3a8a 0%, #314DCB 100%)"
+                ? "linear-gradient(135deg, var(--theme-accent-gradient) 0%, var(--theme-accent) 100%)"
                 : "linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)",
               boxShadow: isEvening
-                ? "0 8px 24px rgba(49,77,203,0.4)"
+                ? "0 8px 24px rgba(0,0,0,0.3)"
                 : "0 8px 24px rgba(124,58,237,0.4)",
             }}
           >
@@ -256,11 +256,11 @@ export function TimeThemePopup() {
               className="w-full py-3.5 rounded-[14px] text-sm font-semibold transition-all duration-150 active:scale-[0.98]"
               style={{
                 background: isEvening
-                  ? "linear-gradient(135deg, #1e3a8a 0%, #314DCB 100%)"
+                  ? "linear-gradient(135deg, var(--theme-accent-gradient) 0%, var(--theme-accent) 100%)"
                   : "linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)",
                 color: "#ffffff",
                 boxShadow: isEvening
-                  ? "0 4px 14px rgba(49,77,203,0.4)"
+                  ? "0 4px 14px rgba(0,0,0,0.25)"
                   : "0 4px 14px rgba(124,58,237,0.35)",
               }}
             >
