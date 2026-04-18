@@ -78,7 +78,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var a=localStorage.getItem('accentColor');if(a&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}}catch(e){}})()` }} />
         <meta name="theme-color" content="#ffffff" />
         {/* Preconnect for performance */}
-        <link rel="preconnect" href="https://slelguoygbfzlpylpxfs.supabase.co" />
+        <link rel="preconnect" href="https://hxhketfuzhwtrvmvnzln.supabase.co" />
         <link rel="preconnect" href="https://cloud.umami.is" />
         <script
           type="application/ld+json"
@@ -116,8 +116,6 @@ export default function RootLayout({
           data-message-type="ROUTE_CHANGE"
           data-include-search-params="true"
           data-only-in-iframe="true"
-          data-debug="true"
-          data-custom-data='{"appName": "YourApp", "version": "1.0.0", "greeting": "hi"}'
         />
         {process.env.NEXT_PUBLIC_UMAMI_ID && (
           <Script

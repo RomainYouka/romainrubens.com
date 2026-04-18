@@ -63,6 +63,7 @@ const COPY: Record<Language, {
 export function LabPopup({ isOpen, onClose, language, anchorRect }: LabPopupProps) {
   const { isDark } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
+  const triggerRef = useRef<Element | null>(null);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [viewportWidth, setViewportWidth] = useState(1440);
@@ -77,12 +78,17 @@ export function LabPopup({ isOpen, onClose, language, anchorRect }: LabPopupProp
 
   useEffect(() => {
     if (!isOpen) return;
+    triggerRef.current = document.activeElement;
     setEmail("");
     setStatus("idle");
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const t = window.setTimeout(() => inputRef.current?.focus(), 260);
-    return () => { window.clearTimeout(t); document.body.style.overflow = prev; };
+    return () => {
+      window.clearTimeout(t);
+      document.body.style.overflow = prev;
+      (triggerRef.current as HTMLElement | null)?.focus();
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -324,6 +330,7 @@ export function LabPopup({ isOpen, onClose, language, anchorRect }: LabPopupProp
                           type="email"
                           required
                           value={email}
+                          aria-describedby={status === "error" ? "lab-form-error" : undefined}
                           onChange={(e) => {
                             setEmail(e.target.value);
                             if (status === "error") setStatus("idle");
@@ -371,6 +378,8 @@ export function LabPopup({ isOpen, onClose, language, anchorRect }: LabPopupProp
                       <AnimatePresence>
                         {status === "error" && (
                           <motion.p
+                            id="lab-form-error"
+                            role="alert"
                             initial={{ opacity: 0, y: 4 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
