@@ -14,42 +14,8 @@ const ACCENT_GLOW: Record<AccentColor, { r: number; g: number; b: number }> = {
 };
 
 function BulbAnimation({ lit }: { lit: boolean }) {
-  const c = { r: 49, g: 77, b: 203 };
-  const outerGlow = `radial-gradient(circle, rgba(${c.r},${c.g},${c.b},0.32) 0%, rgba(${c.r},${c.g},${c.b},0.1) 50%, transparent 70%)`;
-  const innerGlow = `radial-gradient(circle, rgba(${c.r},${c.g},${c.b},0.5) 0%, transparent 70%)`;
-
   return (
     <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
-
-      {/* Halo extérieur — couleur accent */}
-      <motion.div
-        animate={{ opacity: lit ? 1 : 0, scale: lit ? 1 : 0.2 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        style={{
-          position: "absolute",
-          width: "240px",
-          height: "240px",
-          borderRadius: "50%",
-          background: outerGlow,
-          filter: "blur(14px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Halo proche — couleur accent */}
-      <motion.div
-        animate={{ opacity: lit ? 0.7 : 0, scale: lit ? 1 : 0.3 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-        style={{
-          position: "absolute",
-          width: "130px",
-          height: "130px",
-          borderRadius: "50%",
-          background: innerGlow,
-          filter: "blur(6px)",
-          pointerEvents: "none",
-        }}
-      />
 
       {/* Ampoule SVG */}
       <svg width="96" height="140" viewBox="0 0 96 140" fill="none" xmlns="http://www.w3.org/2000/svg">
