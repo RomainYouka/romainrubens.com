@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
-
-type Language = "FR" | "EN" | "ՀԱՅ";
+import { detectLanguage, type Language } from "@/lib/language";
 
 const RR_STAR_PATH =
   "M21.2637 4.08739L37.8817 26.3888L38.0898 26.3454L52.3654 3.49677L64.4675 12.5899L49.1889 33.6824L49.3474 33.824L74.6759 40.115L70.7839 54.6401L45.7033 47.424L45.4704 47.5599L48.1731 73.7679L33.2104 74.6175L32.2146 48.2718L32.0561 48.1302L6.39732 59.2027L1.30436 44.8482L27.3245 35.3599L27.3989 35.0824L9.58414 13.9477L21.2637 4.08739Z";
@@ -42,19 +41,12 @@ const i18n: Record<Language, {
     sub:          "Փորձարկման, ինտերակտիվ նախատիպերի և ստեղծագործական հետազոտությունների տարածություն։ Թողեք ձեր հասցեն, որպեսզի ծանուցվեք բացման ժամանակ։",
     placeholder:  "ձեր@email.com",
     cta:          "Ծանուցե՛ք ինձ",
-    success:      "Շնորհակалություն!",
-    successSub:   "Կծանուցվեք Լաբի բացման ժամանակ։",
-    errorInvalid: "ԱնValid e-mail.",
-    errorFail:    "Սhկalka. Կrpin.",
+    success:      "Շնորհակալություն!",
+    successSub:   "կխբագլուլիք Լաբի բացման ժամանակ:",
+    errorInvalid: "Անվավեր էլ. հասցևկ:",
+    errorFail:    "Սկհալկ. կրկին կրկևլ:",
   },
 };
-
-function detectLanguage(): Language {
-  if (typeof window === "undefined") return "FR";
-  const stored = localStorage.getItem("preferredLanguage");
-  if (stored === "FR" || stored === "EN" || stored === "ՀԱՅ") return stored;
-  return "FR";
-}
 
 export default function LabPage() {
   const { isDark, accentColor } = useTheme();
