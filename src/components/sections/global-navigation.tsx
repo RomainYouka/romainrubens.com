@@ -11,6 +11,7 @@ import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 import { detectLanguage, type Language } from "@/lib/language";
 import { Analytics } from "@/lib/analytics";
+import { LabPopup } from "@/components/LabPopup";
 
 // ─── Accent options ──────────────────────────────────────────────────────────
 const ACCENT_OPTIONS: { id: AccentColor; light: string; dark: string; mono?: boolean }[] = [
@@ -79,7 +80,7 @@ const LogoInline = ({ isScrolled, className, ...rest }: { isScrolled: boolean; c
 const translations = {
   FR:  { home: "Accueil", projects: "Projets",    skills: "Compétences",   contact: "Contact", resume: "CV",     lab: "Lab", soon: "Bientôt",  accentLabel: "Couleur principale" },
   EN:  { home: "Home",    projects: "Projects",   skills: "Skills",        contact: "Contact", resume: "Resume", lab: "Lab", soon: "Soon",      accentLabel: "Main color"         },
-  ՀԱՅ: { home: "Գlxavar", projects: "Նaxagitzer", skills: "Հmtouthyunner", contact: "Կap",     resume: "Ռezyume", lab: "Լab", soon: "Շուտով",  accentLabel: "Himnakan guyn"     },
+  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե", lab: "Լաբ", soon: "Շուտով", accentLabel: "Հիմնական գույն"  },
 };
 
 // ─── Bouton CV ───────────────────────────────────────────────────────────────
@@ -491,13 +492,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => detectLanguage());
   const [logoAnimating, setLogoAnimating] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [showLabSoon, setShowLabSoon] = useState(false);
+  const [isLabPopupOpen, setIsLabPopupOpen] = useState(false);
 
-  useEffect(() => {
-    if (!showLabSoon) return;
-    const timer = setTimeout(() => setShowLabSoon(false), 2500);
-    return () => clearTimeout(timer);
-  }, [showLabSoon]);
 
   const isScrolled = scrolledY && !langForceExpanded && !langOpen && !isMenuOpen && !colorPickerOpen;
 
@@ -567,6 +563,10 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
+  const handleLabClick = useCallback(() => {
+    setIsLabPopupOpen(true);
+  }, []);
+
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     window.dispatchEvent(new CustomEvent("menuStateChange", { detail: isMenuOpen }));
@@ -598,7 +598,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     { name: t.projects, href: "/projects" },
     { name: t.skills,   href: "/skills" },
     { name: t.contact,  href: "/contact" },
-    { name: t.lab,      href: "/lab", accent: true, isSoon: true },
+    { name: t.lab, accent: true, opensLabPopup: true },
   ];
 
   const logoProps = {
@@ -654,10 +654,11 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                 </a>
 
                 <div className="flex items-center h-full gap-10">
-                  {navLinks.map((link) => link.isSoon ? (
+                  {navLinks.map((link) => link.opensLabPopup ? (
                     <button
                       key={link.name}
-                      onClick={() => setShowLabSoon(true)}
+                      type="button"
+                      onClick={handleLabClick}
                       className="flex items-center h-full font-medium text-sm px-3 no-underline hover:underline focus-visible:underline"
                       style={{
                         color: "var(--theme-accent)",
@@ -759,46 +760,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
         </div>
       </header>
 
-      {/* ── Overlay "Bientôt" ── */}
-      <AnimatePresence>
-        {showLabSoon && (
-          <motion.div
-            key="lab-soon"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22, ease: "easeInOut" }}
-            onClick={() => setShowLabSoon(false)}
-            style={{
-              position: "fixed", inset: 0, zIndex: 99999,
-              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-              backgroundColor: isDark ? "rgba(25,25,25,0.94)" : "rgba(245,245,245,0.94)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              cursor: "pointer",
-            }}
-          >
-            <motion.p
-              initial={{ scale: 0.72, opacity: 0, y: 24 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.72, opacity: 0, y: 24 }}
-              transition={{ type: "spring", stiffness: 340, damping: 24, delay: 0.06 }}
-              style={{
-                margin: 0,
-                fontSize: "clamp(64px, 14vw, 128px)",
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                color: "var(--theme-accent)",
-                lineHeight: 1,
-                letterSpacing: "-0.03em",
-                userSelect: "none",
-              }}
-            >
-              {t.soon}
-            </motion.p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* ── Popup Laboratoire ── */}
+      <LabPopup isOpen={isLabPopupOpen} onClose={() => setIsLabPopupOpen(false)} />
 
       {/* ── Menu mobile overlay ── */}
       <div
@@ -809,10 +772,11 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
       >
         <div className="h-full overflow-y-auto px-6 pt-8 flex flex-col justify-between pb-8">
           <div className="flex flex-col gap-1">
-            {navLinks.map((link) => link.isSoon ? (
+            {navLinks.map((link) => link.opensLabPopup ? (
               <button
                 key={link.name}
-                onClick={() => { setIsMenuOpen(false); setShowLabSoon(true); }}
+                type="button"
+                onClick={() => { setIsMenuOpen(false); setIsLabPopupOpen(true); }}
                 className="py-4 text-lg font-medium border-b hover:opacity-80 transition-opacity text-left"
                 style={{
                   color: "var(--theme-accent)",
