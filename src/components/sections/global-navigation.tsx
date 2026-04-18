@@ -79,7 +79,7 @@ const LogoInline = ({ isScrolled, className, ...rest }: { isScrolled: boolean; c
 const translations = {
   FR:  { home: "Accueil", projects: "Projets",    skills: "Compétences",   contact: "Contact", resume: "CV",     lab: "Lab", soon: "Bientôt",  accentLabel: "Couleur principale" },
   EN:  { home: "Home",    projects: "Projects",   skills: "Skills",        contact: "Contact", resume: "Resume", lab: "Lab", soon: "Soon",      accentLabel: "Main color"         },
-  ՀԱՅ: { home: "Գlxavar", projects: "Նaxagitzer", skills: "Հmtouthyunner", contact: "Կap",     resume: "Ռezyume", lab: "Լab", soon: "Շoutonv", accentLabel: "Himnakan guyn"     },
+  ՀԱՅ: { home: "Գlxavar", projects: "Նaxagitzer", skills: "Հmtouthyunner", contact: "Կap",     resume: "Ռezyume", lab: "Լab", soon: "Շուտով",  accentLabel: "Himnakan guyn"     },
 };
 
 // ─── Bouton CV ───────────────────────────────────────────────────────────────
