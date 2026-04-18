@@ -1,21 +1,81 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
+import type { Language } from "@/lib/language";
 
 interface LabPopupProps {
   isOpen: boolean;
   onClose: () => void;
+  language: Language;
+  anchorRect: { left: number; width: number; bottom: number } | null;
 }
 
 type Status = "idle" | "loading" | "success" | "error";
 
-export function LabPopup({ isOpen, onClose }: LabPopupProps) {
+const COPY: Record<Language, {
+  title: string;
+  text: string;
+  placeholder: string;
+  cta: string;
+  loading: string;
+  success: string;
+  error: string;
+  disclaimer: string;
+  close: string;
+}> = {
+  FR: {
+    title: "Bientôt",
+    text: "Laissez votre adresse email pour être informé(e) dès son ouverture.",
+    placeholder: "votre@email.com",
+    cta: "Être informé(e)",
+    loading: "Envoi…",
+    success: "Merci. Vous serez informé(e) dès l’ouverture.",
+    error: "Une erreur est survenue. Réessayez.",
+    disclaimer: "Votre adresse email ne sera jamais vendue ni partagée. Elle sera utilisée uniquement pour vous notifier de l’ouverture du Lab, puis supprimée.",
+    close: "Fermer",
+  },
+  EN: {
+    title: "Soon",
+    text: "Leave your email address to be notified as soon as it opens.",
+    placeholder: "your@email.com",
+    cta: "Notify me",
+    loading: "Sending…",
+    success: "Thank you. You’ll be notified as soon as it opens.",
+    error: "Something went wrong. Please try again.",
+    disclaimer: "Your email address will never be sold or shared. It will only be used to notify you when the Lab opens, then deleted.",
+    close: "Close",
+  },
+  ՀԱՅ: {
+    title: "Շուտով",
+    text: "Թողեք ձեր էլ. հասցեն, որպեսզի տեղեկանաք բացվելուն պես։",
+    placeholder: "ձեր@email.com",
+    cta: "Տեղեկացնել ինձ",
+    loading: "Ուղարկում…",
+    success: "Շնորհակալություն։ Դուք կտեղեկացվեք բացվելուն պես։",
+    error: "Սխալ տեղի ունեցավ։ Փորձեք կրկին։",
+    disclaimer: "Ձեր էլ. հասցեն երբեք չի վաճառվի կամ փոխանցվի։ Այն կօգտագործվի միայն Lab-ի բացման մասին տեղեկացնելու համար, ապա կհեռացվի։",
+    close: "Փակել",
+  },
+};
+
+export function LabPopup({ isOpen, onClose, language, anchorRect }: LabPopupProps) {
   const { isDark } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [viewportWidth, setViewportWidth] = useState(1440);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const updateViewportWidth = () => setViewportWidth(window.innerWidth);
+    updateViewportWidth();
+    window.addEventListener("resize", updateViewportWidth);
+
+    return () => window.removeEventListener("resize", updateViewportWidth);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -23,8 +83,15 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
     setEmail("");
     setStatus("idle");
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const timer = window.setTimeout(() => inputRef.current?.focus(), 220);
-    return () => window.clearTimeout(timer);
+
+    return () => {
+      window.clearTimeout(timer);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -67,9 +134,34 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
     }
   }, [email]);
 
-  const panelBackground = isDark ? "rgba(24,24,28,0.92)" : "rgba(255,255,255,0.94)";
+  const isMobile = viewportWidth < 1024;
+  const copy = COPY[language];
+  const panelBackground = isDark ? "rgba(24,24,28,0.94)" : "rgba(255,255,255,0.96)";
   const borderColor = isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)";
   const inputBackground = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.03)";
+
+  const desktopLayout = useMemo(() => {
+    const width = Math.min(420, Math.max(320, viewportWidth - 32));
+
+    if (!anchorRect) {
+      return {
+        width,
+        left: Math.max(16, Math.round((viewportWidth - width) / 2)),
+        top: 88,
+      };
+    }
+
+    const left = Math.min(
+      Math.max(16, Math.round(anchorRect.left + anchorRect.width / 2 - width / 2)),
+      viewportWidth - width - 16
+    );
+
+    return {
+      width,
+      left,
+      top: Math.round(anchorRect.bottom + 14),
+    };
+  }, [anchorRect, viewportWidth]);
 
   return (
     <AnimatePresence>
@@ -78,7 +170,7 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
           <motion.button
             key="lab-backdrop"
             type="button"
-            aria-label="Fermer la fenêtre"
+            aria-label={copy.close}
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -97,21 +189,22 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
           />
 
           <motion.div
-            key="lab-modal"
+            key={isMobile ? "lab-modal-mobile" : "lab-modal-desktop"}
             role="dialog"
             aria-modal="true"
             aria-labelledby="lab-popup-title"
-            initial={{ opacity: 0, scale: 0.94, y: 18 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: 12 }}
-            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            initial={isMobile ? { opacity: 0, y: 28 } : { opacity: 0, scale: 0.96, y: -8 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, scale: 1, y: 0 }}
+            exit={isMobile ? { opacity: 0, y: 18 } : { opacity: 0, scale: 0.98, y: -4 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             style={{
               position: "fixed",
-              top: "50%",
-              left: "50%",
               zIndex: 99991,
-              width: "min(560px, calc(100vw - 32px))",
-              transform: "translate(-50%, -50%)",
+              width: isMobile ? "auto" : desktopLayout.width,
+              left: isMobile ? 16 : desktopLayout.left,
+              right: isMobile ? 16 : "auto",
+              top: isMobile ? "auto" : desktopLayout.top,
+              bottom: isMobile ? 16 : "auto",
               borderRadius: 24,
               border: `1px solid ${borderColor}`,
               background: panelBackground,
@@ -128,17 +221,17 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
               }}
             />
 
-            <div style={{ padding: "28px 28px 24px", position: "relative" }}>
+            <div style={{ padding: isMobile ? "24px 20px 20px" : "24px 24px 20px", position: "relative" }}>
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Fermer"
+                aria-label={copy.close}
                 style={{
                   position: "absolute",
-                  top: 18,
-                  right: 18,
-                  width: 36,
-                  height: 36,
+                  top: 16,
+                  right: 16,
+                  width: 34,
+                  height: 34,
                   borderRadius: 999,
                   border: `1px solid ${borderColor}`,
                   background: isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)",
@@ -154,30 +247,29 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
               <h2
                 id="lab-popup-title"
                 style={{
-                  margin: "0 0 14px",
+                  margin: "0 0 12px",
                   color: "var(--theme-fg)",
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(34px, 6vw, 52px)",
+                  fontSize: isMobile ? "clamp(30px, 8vw, 40px)" : "clamp(32px, 4vw, 42px)",
                   fontWeight: 700,
                   letterSpacing: "-0.04em",
-                  lineHeight: 0.95,
+                  lineHeight: 0.96,
+                  paddingRight: 40,
                 }}
               >
-                Bientôt
+                {copy.title}
               </h2>
 
               <p
                 style={{
-                  margin: "0 0 24px",
+                  margin: "0 0 20px",
                   color: "var(--theme-muted)",
-                  fontSize: 15,
-                  lineHeight: 1.65,
-                  maxWidth: 420,
+                  fontSize: 14.5,
+                  lineHeight: 1.6,
+                  maxWidth: 360,
                 }}
               >
-                Le Lab est en cours de préparation.
-                <br />
-                Laissez votre adresse email pour être informé(e) dès son ouverture.
+                {copy.text}
               </p>
 
               {status === "success" ? (
@@ -188,14 +280,14 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
                     borderRadius: 18,
                     border: `1px solid ${borderColor}`,
                     background: isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.02)",
-                    padding: "20px 18px",
+                    padding: "18px 16px",
                     color: "var(--theme-fg)",
-                    fontSize: 15,
+                    fontSize: 14.5,
                     fontWeight: 600,
                     lineHeight: 1.55,
                   }}
                 >
-                  Merci. Vous serez informé(e) dès l’ouverture.
+                  {copy.success}
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit}>
@@ -203,7 +295,7 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
                     style={{
                       display: "flex",
                       gap: 10,
-                      flexWrap: "wrap",
+                      flexDirection: isMobile ? "column" : "row",
                       alignItems: "stretch",
                     }}
                   >
@@ -216,9 +308,9 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
                         setEmail(event.target.value);
                         if (status === "error") setStatus("idle");
                       }}
-                      placeholder="votre@email.com"
+                      placeholder={copy.placeholder}
                       style={{
-                        flex: "1 1 240px",
+                        flex: "1 1 auto",
                         minWidth: 0,
                         height: 48,
                         borderRadius: 999,
@@ -248,7 +340,7 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
                         opacity: status === "loading" ? 0.7 : 1,
                       }}
                     >
-                      {status === "loading" ? "Envoi…" : "Être informé(e)"}
+                      {status === "loading" ? copy.loading : copy.cta}
                     </button>
                   </div>
 
@@ -261,7 +353,7 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
                         lineHeight: 1.5,
                       }}
                     >
-                      Une erreur est survenue. Réessayez.
+                      {copy.error}
                     </p>
                   )}
                 </form>
@@ -269,17 +361,15 @@ export function LabPopup({ isOpen, onClose }: LabPopupProps) {
 
               <p
                 style={{
-                  margin: "18px 0 0",
-                  paddingTop: 16,
+                  margin: "16px 0 0",
+                  paddingTop: 14,
                   borderTop: `1px solid ${borderColor}`,
                   color: "var(--theme-muted)",
                   fontSize: 11.5,
                   lineHeight: 1.6,
                 }}
               >
-                Votre adresse email ne sera jamais vendue ni partagée.
-                <br />
-                Elle sera utilisée uniquement pour vous notifier de l’ouverture du Lab, puis supprimée.
+                {copy.disclaimer}
               </p>
             </div>
           </motion.div>

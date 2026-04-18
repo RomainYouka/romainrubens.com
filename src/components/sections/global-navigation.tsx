@@ -493,6 +493,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const [logoAnimating, setLogoAnimating] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [isLabPopupOpen, setIsLabPopupOpen] = useState(false);
+  const [labPopupAnchorRect, setLabPopupAnchorRect] = useState<{ left: number; width: number; bottom: number } | null>(null);
 
 
   const isScrolled = scrolledY && !langForceExpanded && !langOpen && !isMenuOpen && !colorPickerOpen;
@@ -563,7 +564,14 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  const handleLabClick = useCallback(() => {
+  const handleLabClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setLabPopupAnchorRect({ left: rect.left, width: rect.width, bottom: rect.bottom });
+    setIsLabPopupOpen(true);
+  }, []);
+
+  const handleMobileLabClick = useCallback(() => {
+    setLabPopupAnchorRect(null);
     setIsLabPopupOpen(true);
   }, []);
 
@@ -761,7 +769,12 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
       </header>
 
       {/* ── Popup Laboratoire ── */}
-      <LabPopup isOpen={isLabPopupOpen} onClose={() => setIsLabPopupOpen(false)} />
+      <LabPopup
+        isOpen={isLabPopupOpen}
+        onClose={() => setIsLabPopupOpen(false)}
+        language={selectedLanguage}
+        anchorRect={labPopupAnchorRect}
+      />
 
       {/* ── Menu mobile overlay ── */}
       <div
@@ -776,7 +789,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
               <button
                 key={link.name}
                 type="button"
-                onClick={() => { setIsMenuOpen(false); setIsLabPopupOpen(true); }}
+                onClick={() => { setIsMenuOpen(false); handleMobileLabClick(); }}
                 className="py-4 text-lg font-medium border-b hover:opacity-80 transition-opacity text-left"
                 style={{
                   color: "var(--theme-accent)",
