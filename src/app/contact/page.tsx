@@ -9,6 +9,7 @@ const contactTranslations = {
   FR: {
     heading: "Prenez contact",
     downloadPortfolio: "Télécharger mon Portfolio (.pdf)",
+    bookCall: "Prendre un rendez-vous",
     viewResume: "Voir mon CV",
     viewLinkedIn: "Voir mon LinkedIn",
     emailMe: "M'envoyer un mail",
@@ -19,6 +20,7 @@ const contactTranslations = {
   EN: {
     heading: "Get in touch",
     downloadPortfolio: "Download my Portfolio (.pdf)",
+    bookCall: "Book a meeting",
     viewResume: "View my Resume",
     viewLinkedIn: "View my LinkedIn",
     emailMe: "Email me",
@@ -29,6 +31,7 @@ const contactTranslations = {
   ՀԱՅ: {
     heading: "Կապ հաստատեք",
     downloadPortfolio: "Ներբեռնել իմ Պորտֆոլիո (.pdf)",
+    bookCall: "Ժամանակ հատկացնել",
     viewResume: "Տեսնել իմ CV",
     viewLinkedIn: "Տեսնել իմ LinkedIn",
     emailMe: "Ուղարկել ինձ էլ․փոստ",
@@ -37,6 +40,15 @@ const contactTranslations = {
     viewBehance: "Տեսնել իմ Behance",
   },
 };
+
+const CalendarIcon = ({ className }: { className?: string }) => (
+  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
 
 const PDFIcon = ({ className }: { className?: string }) => (
   <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,6 +135,12 @@ export default function ContactPage() {
     document.body.removeChild(link);
   };
 
+  const handleBookCall = () => {
+    wink();
+    Analytics.contactClick("cal");
+    window.open("https://www.cal.eu/romainrubens", "_blank", "noopener,noreferrer");
+  };
+
   const handleViewResume = () => {
     wink();
     Analytics.resumeView(selectedLanguage);
@@ -196,6 +214,15 @@ export default function ContactPage() {
             >
               <PDFIcon className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.downloadPortfolio}</span>
+            </button>
+
+            {/* Book a Call Button */}
+            <button
+              onClick={handleBookCall}
+              className="w-full py-4 px-6 font-semibold text-base rounded-full border transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: "var(--theme-card-bg)", color: "var(--theme-fg)", borderColor: "var(--theme-border)" }}
+            >
+              <CalendarIcon className="w-4 h-4 flex-shrink-0" />
+              <span>{currentTranslations.bookCall}</span>
             </button>
 
             {/* View Resume Button */}
