@@ -55,7 +55,7 @@
   --color-accent-orange: #e87352;
   --font-display: "Google Sans Flex", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
   --font-body: "Google Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
-  --font-armenian: "Noto Sans Armenian", -apple-system, system-ui, sans-serif;
+  --font-armenian: var(--font-body);
 
   @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
   @keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }

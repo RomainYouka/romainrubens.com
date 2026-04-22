@@ -4,10 +4,10 @@ import Script from "next/script";
 import IntroSplashWrapper from "@/components/intro-splash-wrapper";
 import ClientLayout from "@/components/client-layout";
 import { LanguageSync } from "@/components/language-sync";
-import { Google_Sans, Google_Sans_Flex, Noto_Sans_Armenian } from "next/font/google";
+import { Google_Sans, Google_Sans_Flex } from "next/font/google";
 
 const googleSans = Google_Sans({
-  subsets: ["latin"],
+  subsets: ["latin", "armenian"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
@@ -19,14 +19,6 @@ const googleSansFlex = Google_Sans_Flex({
   variable: "--font-display",
   display: "swap",
   fallback: ["-apple-system", "BlinkMacSystemFont", "SF Pro Display", "system-ui", "sans-serif"],
-});
-
-const notoSansArmenian = Noto_Sans_Armenian({
-  subsets: ["armenian"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-armenian",
-  display: "swap",
-  fallback: ["-apple-system", "system-ui", "sans-serif"],
 });
 
 const siteUrlMeta = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
@@ -72,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${googleSans.variable} ${googleSansFlex.variable} ${notoSansArmenian.variable}`}>
+    <html lang="fr" className={`${googleSans.variable} ${googleSansFlex.variable}`}>
       <head>
         {/* Anti-flash : applique le thème et la couleur du navigateur avant le rendu React */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var a=localStorage.getItem('accentColor');if(a&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}}catch(e){}})()` }} />
