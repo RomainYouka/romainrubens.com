@@ -209,6 +209,7 @@ export function LabPopup({ isOpen, onClose, language, anchorRect }: LabPopupProp
                   animationDuration: "4s",
                   animationTimingFunction: "linear",
                   animationIterationCount: "infinite",
+                  animationPlayState: "running",
                 }}
               />
 

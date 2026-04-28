@@ -60,7 +60,7 @@
   @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
   @keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }
   @keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--theme-accent); } 50% { opacity: 0.45; box-shadow: 0 0 2px var(--theme-accent); } }
-  @keyframes lab-border-spin { to { transform: rotate(1turn); } }
+  @keyframes lab-border-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   @keyframes linkedin-pulse { 0%, 100% { border-width: 2px; } 50% { border-width: 1px; } }
   @keyframes logo-sheen { from { left: -120%; } to { left: 100%; } }
   @keyframes genieOpen {
@@ -80,6 +80,10 @@
   @keyframes blurIn { from { filter: blur(0px); opacity: 1; } to { filter: blur(6px); opacity: 0.7; } }
   @keyframes blurOut { from { filter: blur(6px); opacity: 0.7; } to { filter: blur(0px); opacity: 1; } }
 }
+
+/* Keyframes utilisés en inline styles (hors Tailwind) */
+@keyframes lab-border-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--theme-accent); } 50% { opacity: 0.45; box-shadow: 0 0 2px var(--theme-accent); } }
 
 @layer base {
   *, ::after, ::before, ::backdrop, ::file-selector-button { border-color: var(--color-border); }
