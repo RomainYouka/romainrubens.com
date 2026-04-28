@@ -40,7 +40,7 @@ export const Analytics = {
     track("behance_redirect", { project }),
 
   /** Clic sur un lien de contact */
-  contactClick: (type: "email" | "linkedin" | "behance" | "medium" | "pinterest") =>
+  contactClick: (type: "email" | "linkedin" | "behance" | "medium" | "pinterest" | "cal") =>
     track("contact_click", { type }),
 
   /** Téléchargement du portfolio PDF */

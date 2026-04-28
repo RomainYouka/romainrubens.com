@@ -11,7 +11,6 @@ import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 import { detectLanguage, type Language } from "@/lib/language";
 import { Analytics } from "@/lib/analytics";
-import { LabPopup } from "@/components/LabPopup";
 
 // ─── Accent options ──────────────────────────────────────────────────────────
 const ACCENT_OPTIONS: { id: AccentColor; light: string; dark: string; mono?: boolean }[] = [
@@ -492,8 +491,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => detectLanguage());
   const [logoAnimating, setLogoAnimating] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [isLabPopupOpen, setIsLabPopupOpen] = useState(false);
-  const [labPopupAnchorRect, setLabPopupAnchorRect] = useState<{ left: number; width: number; bottom: number } | null>(null);
+  const [showLabSoon, setShowLabSoon] = useState(false);
 
 
   const isScrolled = scrolledY && !langForceExpanded && !langOpen && !isMenuOpen && !colorPickerOpen;
@@ -564,16 +562,14 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  const handleLabClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setLabPopupAnchorRect({ left: rect.left, width: rect.width, bottom: rect.bottom });
-    setIsLabPopupOpen(true);
-  }, []);
+  const handleLabClick = useCallback(() => setShowLabSoon(true), []);
+  const handleMobileLabClick = useCallback(() => { setIsMenuOpen(false); setShowLabSoon(true); }, []);
 
-  const handleMobileLabClick = useCallback(() => {
-    setLabPopupAnchorRect(null);
-    setIsLabPopupOpen(true);
-  }, []);
+  useEffect(() => {
+    if (!showLabSoon) return;
+    const timer = setTimeout(() => setShowLabSoon(false), 2500);
+    return () => clearTimeout(timer);
+  }, [showLabSoon]);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
@@ -606,7 +602,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     { name: t.projects, href: "/projects" },
     { name: t.skills,   href: "/skills" },
     { name: t.contact,  href: "/contact" },
-    { name: t.lab, accent: true, opensLabPopup: true },
+    { name: t.lab, accent: true, isSoon: true },
   ];
 
   const logoProps = {
@@ -662,7 +658,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                 </a>
 
                 <div className="flex items-center h-full gap-10">
-                  {navLinks.map((link) => link.opensLabPopup ? (
+                  {navLinks.map((link) => link.isSoon ? (
                     <button
                       key={link.name}
                       type="button"
@@ -768,13 +764,46 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
         </div>
       </header>
 
-      {/* ── Popup Laboratoire ── */}
-      <LabPopup
-        isOpen={isLabPopupOpen}
-        onClose={() => setIsLabPopupOpen(false)}
-        language={selectedLanguage}
-        anchorRect={labPopupAnchorRect}
-      />
+      {/* ── Overlay "Bientôt" Lab ── */}
+      <AnimatePresence>
+        {showLabSoon && (
+          <motion.div
+            key="lab-soon"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: "easeInOut" }}
+            onClick={() => setShowLabSoon(false)}
+            style={{
+              position: "fixed", inset: 0, zIndex: 99999,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              backgroundColor: isDark ? "rgba(25,25,25,0.94)" : "rgba(245,245,247,0.94)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              cursor: "pointer",
+            }}
+          >
+            <motion.p
+              initial={{ scale: 0.72, opacity: 0, y: 24 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.88, opacity: 0, y: -12 }}
+              transition={{ type: "spring", stiffness: 340, damping: 24, delay: 0.06 }}
+              style={{
+                margin: 0,
+                fontSize: "clamp(64px, 14vw, 128px)",
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                color: "var(--theme-accent)",
+                lineHeight: 1,
+                letterSpacing: "-0.03em",
+                userSelect: "none",
+              }}
+            >
+              {t.soon}
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Menu mobile overlay ── */}
       <div
@@ -785,11 +814,11 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
       >
         <div className="h-full overflow-y-auto px-6 pt-8 flex flex-col justify-between pb-8">
           <div className="flex flex-col gap-1">
-            {navLinks.map((link) => link.opensLabPopup ? (
+            {navLinks.map((link) => link.isSoon ? (
               <button
                 key={link.name}
                 type="button"
-                onClick={() => { setIsMenuOpen(false); handleMobileLabClick(); }}
+                onClick={handleMobileLabClick}
                 className="py-4 text-lg font-medium border-b hover:opacity-80 transition-opacity text-left"
                 style={{
                   color: "var(--theme-accent)",
