@@ -660,7 +660,7 @@
     {
       "id": "czd9s9u4",
       "names": {
-        "FR": "Écosystème de Maison Connectée",
+        "FR": "Écosystème de Maison Intelligente",
         "EN": "Smart Home Ecosystem",
         "ՀԱՅ": "Խելացի տուն էկոհամակարգ"
       },
@@ -669,9 +669,9 @@
         {
           "id": "a7otof9p",
           "names": {
-            "EN": "Apple HomeKit",
-            "FR": "Apple HomeKit",
-            "ՀԱՅ": "Apple HomeKit"
+            "EN": "Apple Home",
+            "FR": "Apple Home",
+            "ՀԱՅ": "Apple Home"
           },
           "rating": 5
         },
