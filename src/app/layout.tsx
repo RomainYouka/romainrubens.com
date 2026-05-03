@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import Script from "next/script";
 import IntroSplashWrapper from "@/components/intro-splash-wrapper";
 import ClientLayout from "@/components/client-layout";
