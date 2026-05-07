@@ -307,13 +307,14 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
             >
               {/* Title */}
               <h2
+                className="personal-intro-title"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(28px, 5vw, 56px)",
+                  fontSize: "clamp(28px, 4.6vw, 52px)",
                   fontWeight: 600,
                   color: "var(--theme-fg)",
                   lineHeight: 1.15,
-                  letterSpacing: "-0.018em",
+                  letterSpacing: 0,
                   marginBottom: "clamp(24px, 3vw, 40px)",
                 }}
               >
@@ -354,6 +355,13 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
           </div>
         </div>
       </section>
+      <style>{`
+        @media (min-width: 760px) {
+          .personal-intro-title {
+            white-space: nowrap;
+          }
+        }
+      `}</style>
     </>
   );
 }
