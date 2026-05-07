@@ -491,7 +491,6 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => detectLanguage());
   const [logoAnimating, setLogoAnimating] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [showLabSoon, setShowLabSoon] = useState(false);
 
 
   const isScrolled = scrolledY && !langForceExpanded && !langOpen && !isMenuOpen && !colorPickerOpen;
@@ -562,14 +561,11 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  const handleLabClick = useCallback(() => setShowLabSoon(true), []);
-  const handleMobileLabClick = useCallback(() => { setIsMenuOpen(false); setShowLabSoon(true); }, []);
-
-  useEffect(() => {
-    if (!showLabSoon) return;
-    const timer = setTimeout(() => setShowLabSoon(false), 2500);
-    return () => clearTimeout(timer);
-  }, [showLabSoon]);
+  const handleLabClick = useCallback(() => triggerTransition("/lab", "up"), [triggerTransition]);
+  const handleMobileLabClick = useCallback(() => {
+    setIsMenuOpen(false);
+    triggerTransition("/lab", "up");
+  }, [triggerTransition]);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
@@ -763,47 +759,6 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
           </div>
         </div>
       </header>
-
-      {/* ── Overlay "Bientôt" Lab ── */}
-      <AnimatePresence>
-        {showLabSoon && (
-          <motion.div
-            key="lab-soon"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.22, ease: "easeInOut" }}
-            onClick={() => setShowLabSoon(false)}
-            style={{
-              position: "fixed", inset: 0, zIndex: 99999,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              backgroundColor: isDark ? "rgba(25,25,25,0.94)" : "rgba(245,245,247,0.94)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              cursor: "pointer",
-            }}
-          >
-            <motion.p
-              initial={{ scale: 0.72, opacity: 0, y: 24 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.88, opacity: 0, y: -12 }}
-              transition={{ type: "spring", stiffness: 340, damping: 24, delay: 0.06 }}
-              style={{
-                margin: 0,
-                fontSize: "clamp(64px, 14vw, 128px)",
-                fontFamily: "var(--font-display)",
-                fontWeight: 700,
-                color: "var(--theme-accent)",
-                lineHeight: 1,
-                letterSpacing: "-0.03em",
-                userSelect: "none",
-              }}
-            >
-              {t.soon}
-            </motion.p>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* ── Menu mobile overlay ── */}
       <div

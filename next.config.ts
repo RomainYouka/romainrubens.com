@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         destination: "/icons/icon.svg",
         permanent: true,
       },
+      {
+        source: "/lab/world",
+        destination: "/lab",
+        permanent: false,
+      },
     ];
   },
   async headers() {
@@ -19,15 +24,26 @@ const nextConfig: NextConfig = {
       "/resume/RUBENS_Romain_Logo_Guidelines_EN.pdf",
     ];
 
-    return legacyLogoHeaders.map((source) => ({
-      source,
-      headers: [
-        {
-          key: "X-Robots-Tag",
-          value: "noindex, noimageindex, noarchive",
-        },
-      ],
-    }));
+    return [
+      ...legacyLogoHeaders.map((source) => ({
+        source,
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, noimageindex, noarchive",
+          },
+        ],
+      })),
+      {
+        source: "/lab/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noarchive",
+          },
+        ],
+      },
+    ];
   },
   images: {
     // Seuls les domaines réellement utilisés sont autorisés

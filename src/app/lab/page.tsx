@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import { detectLanguage, type Language } from "@/lib/language";
@@ -11,56 +10,46 @@ const RR_STAR_PATH =
 
 const i18n: Record<Language, {
   eyebrow: string; headline: string; sub: string;
-  worldTitle: string; worldSub: string; worldCta: string;
   placeholder: string; cta: string; success: string;
   successSub: string; errorInvalid: string; errorFail: string;
 }> = {
   FR: {
     eyebrow:      "Bientôt disponible",
-    headline:     "Le Laboratoire",
+    headline:     "Le Lab",
     sub:          "Un espace d'expérimentation, de prototypes interactifs et d'explorations créatives. Laissez votre adresse pour être averti(e) à l'ouverture.",
-    worldTitle:   "Comment le monde influence qui je suis",
-    worldSub:     "Un atlas interactif des villes qui ont formé ma vision du design, des interfaces et de la vie connectée.",
-    worldCta:     "Explorer",
     placeholder:  "votre@email.com",
     cta:          "Me tenir informé(e)",
     success:      "Merci !",
-    successSub:   "Vous serez averti(e) dès l'ouverture du Laboratoire.",
+    successSub:   "Vous serez averti(e) dès l'ouverture du Lab.",
     errorInvalid: "Adresse e-mail invalide.",
     errorFail:    "Erreur lors de l'envoi. Réessayez.",
   },
   EN: {
     eyebrow:      "Coming soon",
-    headline:     "The Laboratory",
+    headline:     "The Lab",
     sub:          "A space for experimentation, interactive prototypes and creative explorations. Leave your address to be notified at launch.",
-    worldTitle:   "How the world shapes who I am",
-    worldSub:     "An interactive atlas of the cities that shaped my view of design, interfaces and connected life.",
-    worldCta:     "Explore",
     placeholder:  "your@email.com",
     cta:          "Notify me",
     success:      "Thank you!",
-    successSub:   "You'll be notified when the Laboratory opens.",
+    successSub:   "You'll be notified when the Lab opens.",
     errorInvalid: "Invalid email address.",
     errorFail:    "Error sending. Please try again.",
   },
   ՀԱՅ: {
     eyebrow:      "Շուտով",
-    headline:     "Լաբորատորիա",
+    headline:     "Lab",
     sub:          "Փորձարկման, ինտերակտիվ նախատիպերի և ստեղծագործական հետազոտությունների տարածություն։ Թողեք ձեր հասցեն, որպեսզի ծանուցվեք բացման ժամանակ։",
-    worldTitle:   "Ինչպես աշխարհը ձևավորում է ինձ",
-    worldSub:     "Ինտերակտիվ ատլաս այն քաղաքների մասին, որոնք ձևավորել են դիզայնի, ինտերֆեյսների և կապակցված կյանքի իմ տեսլականը։",
-    worldCta:     "Ուսումնասիրել",
     placeholder:  "ձեր@email.com",
     cta:          "Ծանուցե՛ք ինձ",
     success:      "Շնորհակալություն!",
-    successSub:   "կխբագլուլիք Լաբի բացման ժամանակ:",
+    successSub:   "կծանուցվեք Lab-ի բացման ժամանակ:",
     errorInvalid: "Անվավեր էլ. հասցևկ:",
     errorFail:    "Սկհալկ. կրկին կրկևլ:",
   },
 };
 
 export default function LabPage() {
-  const { isDark, accentColor } = useTheme();
+  const { isDark } = useTheme();
   const [lang, setLang] = useState<Language>("FR");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "invalid">("idle");
@@ -148,7 +137,7 @@ export default function LabPage() {
             fontFamily: "var(--font-body)",
             fontSize: 11,
             fontWeight: 600,
-            letterSpacing: "0.18em",
+            letterSpacing: 0,
             textTransform: "uppercase",
             color: "var(--theme-accent)",
             marginBottom: "0.75rem",
@@ -166,7 +155,7 @@ export default function LabPage() {
             fontFamily: "var(--font-display)",
             fontSize: "clamp(48px, 10vw, 80px)",
             fontWeight: 700,
-            letterSpacing: "-0.03em",
+            letterSpacing: 0,
             lineHeight: 1,
             color: fg,
             marginBottom: "1.5rem",
@@ -190,52 +179,6 @@ export default function LabPage() {
         >
           {t.sub}
         </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.28, duration: 0.42 }}
-          style={{ marginBottom: "1rem" }}
-        >
-          <Link
-            href="/lab/world"
-            style={{
-              display: "block",
-              textAlign: "left",
-              padding: "1.35rem",
-              borderRadius: 20,
-              backgroundColor: cardBg,
-              border: `1px solid ${borderColor}`,
-              textDecoration: "none",
-              color: fg,
-              boxShadow: isDark
-                ? "0 22px 70px rgba(0,0,0,0.22)"
-                : "0 22px 70px rgba(0,0,0,0.08)",
-            }}
-          >
-            <div
-              aria-hidden="true"
-              style={{
-                height: 116,
-                borderRadius: 14,
-                marginBottom: "1rem",
-                background:
-                  "radial-gradient(circle at 32% 42%, rgba(125,211,252,0.72), transparent 16%), radial-gradient(circle at 58% 38%, rgba(255,255,255,0.34), transparent 22%), linear-gradient(135deg, #0f172a, #1f2937 48%, #030712)",
-                border: `1px solid ${borderColor}`,
-                overflow: "hidden",
-              }}
-            />
-            <p style={{ margin: "0 0 0.35rem", color: "var(--theme-accent)", fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-              {t.worldCta}
-            </p>
-            <h2 style={{ margin: "0 0 0.45rem", color: fg, fontFamily: "var(--font-display)", fontSize: 24, lineHeight: 1.1, letterSpacing: 0 }}>
-              {t.worldTitle}
-            </h2>
-            <p style={{ margin: 0, color: muted, fontFamily: "var(--font-body)", fontSize: 15, lineHeight: 1.5, letterSpacing: 0 }}>
-              {t.worldSub}
-            </p>
-          </Link>
-        </motion.div>
 
         {/* Form / Success */}
         <AnimatePresence mode="wait">
