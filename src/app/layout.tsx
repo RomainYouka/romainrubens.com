@@ -23,7 +23,7 @@ const googleSansFlex = Google_Sans_Flex({
 });
 
 const siteUrlMeta = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
-const defaultTitle = "Romain Rubens - UX/UI Designer · Smart home";
+const defaultTitle = "Romain Rubens - UX/UI Designer · Smart Ecosystems";
 const defaultDescription =
   "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.";
 const logoImage = "/icons/icon.svg";
@@ -95,7 +95,7 @@ export default function RootLayout({
               "image": `${siteUrlMeta}${logoImage}`,
               "logo": `${siteUrlMeta}${logoImage}`,
               "description": defaultDescription,
-              "jobTitle": "UX/UI Designer · Smart home",
+              "jobTitle": "UX/UI Designer · Smart Ecosystems",
               "sameAs": [
                 "https://www.linkedin.com/in/romain-rubens-ba660323b/",
                 "https://www.behance.net/rubensromain"

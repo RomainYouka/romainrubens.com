@@ -9,6 +9,21 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/icons/logo-animation_20260414110105.gif",
+        destination: "/icons/icon.svg",
+        permanent: true,
+      },
+      {
+        source: "/icons/logo-star-animated.gif",
+        destination: "/icons/icon.svg",
+        permanent: true,
+      },
+      {
+        source: "/animations/logo-animation.json",
+        destination: "/icons/icon.svg",
+        permanent: true,
+      },
+      {
         source: "/lab/world",
         destination: "/lab",
         permanent: false,
