@@ -23,31 +23,42 @@ const googleSansFlex = Google_Sans_Flex({
 });
 
 const siteUrlMeta = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
+const defaultTitle = "Romain Rubens - UX/UI Designer · Smart home";
+const defaultDescription =
+  "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.";
+const logoImage = "/icons/icon.svg";
 
 export const metadata: Metadata = {
+  applicationName: "Romain Rubens",
   title: {
-    default: "Romain Rubens — Designer UX/UI",
-    template: "%s — Romain Rubens",
+    default: defaultTitle,
+    template: "%s - Romain Rubens",
   },
-  description: "Portfolio de Romain Rubens, étudiant en design industriel spécialisé UX/UI et design d'interaction.",
+  description: defaultDescription,
   metadataBase: new URL(siteUrlMeta),
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
     shortcut: "/favicon.ico",
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     siteName: "Romain Rubens",
-    title: "Romain Rubens — Designer UX/UI",
-    description: "Portfolio de Romain Rubens, étudiant en design industriel spécialisé UX/UI et design d'interaction.",
+    title: defaultTitle,
+    description: defaultDescription,
     url: siteUrlMeta,
-    images: [{ url: "/icons/icon.svg", width: 512, height: 512, alt: "Romain Rubens" }],
+    images: [{ url: logoImage, width: 701, height: 76, alt: "Logo Romain Rubens" }],
   },
   twitter: {
     card: "summary",
-    title: "Romain Rubens — Designer UX/UI",
-    description: "Portfolio de Romain Rubens, étudiant en design industriel spécialisé UX/UI et design d'interaction.",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [logoImage],
   },
 };
 
@@ -81,8 +92,10 @@ export default function RootLayout({
               "@type": "Person",
               "name": "Romain Rubens",
               "url": siteUrlMeta,
-              "image": `${siteUrlMeta}/icons/icon.svg`,
-              "jobTitle": "Designer UX/UI",
+              "image": `${siteUrlMeta}${logoImage}`,
+              "logo": `${siteUrlMeta}${logoImage}`,
+              "description": defaultDescription,
+              "jobTitle": "UX/UI Designer · Smart home",
               "sameAs": [
                 "https://www.linkedin.com/in/romain-rubens-ba660323b/",
                 "https://www.behance.net/rubensromain"

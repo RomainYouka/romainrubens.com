@@ -5,7 +5,8 @@ import { Copy, Check, ExternalLink } from "lucide-react";
 
 export default function LogoAssetsPage() {
   const [copied, setCopied] = useState(false);
-  const logoUrl = typeof window !== "undefined" ? `${window.location.origin}/icons/logo-rubens.png` : "";
+  const logoPath = "/icons/icon.svg";
+  const logoUrl = typeof window !== "undefined" ? `${window.location.origin}${logoPath}` : "";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(logoUrl);
@@ -17,12 +18,12 @@ export default function LogoAssetsPage() {
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6">
       <div className="max-w-md w-full space-y-8 text-center">
         <div className="space-y-2">
-          <h1 className="text-2xl font-semibold text-[#1d1d1f]">Asset Logo PNG</h1>
-          <p className="text-sm text-[#666666]">Voici le lien direct vers votre logo pour votre signature mail.</p>
+          <h1 className="text-2xl font-semibold text-[#1d1d1f]">Logo Romain Rubens</h1>
+          <p className="text-sm text-[#666666]">Lien direct vers le logo principal utilisé par le site.</p>
         </div>
 
         <div className="bg-[#f5f5f7] rounded-2xl p-8 flex items-center justify-center border border-[#d2d2d7]">
-          <img src="/icons/logo-rubens.png" alt="Romain Rubens Logo" className="h-12 w-auto" width="400" height="100" />
+          <img src={logoPath} alt="Logo Romain Rubens" className="h-12 w-auto max-w-full" width="701" height="76" />
         </div>
 
         <div className="space-y-4">
@@ -48,7 +49,7 @@ export default function LogoAssetsPage() {
               {copied ? "Copié !" : "Copier le lien"}
             </button>
             <a
-              href="/icons/logo-rubens.png"
+              href={logoPath}
               target="_blank"
               className="flex-1 bg-white border border-[#d2d2d7] text-[#1d1d1f] rounded-xl py-3 text-sm font-medium hover:bg-[#f5f5f7] transition-colors flex items-center justify-center gap-2"
             >

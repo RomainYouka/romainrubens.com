@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 const footerTranslations = {
   FR: {
     copyright: "© 2026 Romain Rubens. Tous droits réservés.",
-    logoGuide: "Guide d'utilisation du logo (ancienne version)",
     reportProblem: "Signaler un problème",
     legal: "Mentions légales",
     sitemap: "Plan du site",
@@ -18,7 +17,6 @@ const footerTranslations = {
   },
   EN: {
     copyright: "© 2026 Romain Rubens. All rights reserved.",
-    logoGuide: "Logo usage guidelines (old)",
     reportProblem: "Report a problem",
     legal: "Legal Notice",
     sitemap: "Site Map",
@@ -28,7 +26,6 @@ const footerTranslations = {
   },
   ՀԱՅ: {
     copyright: "© 2026 Ռոման Ռուբենս. Բոլոր իրավունքները պաշտպանված են.",
-    logoGuide: "Լոգոյի օգտագործման ուղեցույց (հին)",
     reportProblem: "Տեղեկացնել խնդրի վերաբերյալ",
     legal: "Իրավական տեղեկություններ",
     sitemap: "Կայքի քարտեզ",
@@ -71,14 +68,6 @@ const GlobalFooter = () => {
   const textColor  = "var(--theme-fg)";
   const borderColor = "var(--theme-border)";
 
-  const pdfFiles = {
-    FR: "/resume/RUBENS_Romain_Logo_Guidelines_FR.pdf",
-    EN: "/resume/RUBENS_Romain_Logo_Guidelines_EN.pdf",
-    ՀԱՅ: "/resume/RUBENS_Romain_Logo_Guidelines_EN.pdf",
-  };
-  
-  const pdfUrl = pdfFiles[selectedLanguage];
-
   return (
     <>
     <footer
@@ -97,25 +86,6 @@ const GlobalFooter = () => {
 
         {/* Footer links section */}
         <div className="flex flex-wrap items-center justify-start md:justify-center gap-1 text-[10px] md:text-xs" style={{ color: "var(--theme-subtle)" }}>
-          <a
-            href={pdfUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "var(--theme-subtle)",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = "var(--theme-accent)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = "var(--theme-subtle)";
-            }}
-          >
-            {currentTranslations.logoGuide}
-          </a>
-          <span style={{ color: "var(--theme-subtle)" }}>|</span>
           <a
             href="mailto:report@romainrubens.com"
             style={{
