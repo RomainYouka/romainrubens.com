@@ -7,6 +7,9 @@ type Theme = "light" | "dark";
 export type ThemeTransition = "toLight" | "toDark" | null;
 export type AccentColor = "blue" | "pink" | "green" | "orange" | "mono";
 
+const SUPPORTED_ACCENTS: AccentColor[] = ["blue", "pink", "green", "orange", "mono"];
+const ACCENT_SESSION_KEY = "accentColorSessionInitialized";
+
 interface ThemeContextValue {
   theme: Theme;
   isDark: boolean;
@@ -139,11 +142,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.setAttribute("data-dyslexic", "true");
     }
 
+    const isAccentInitialized = sessionStorage.getItem(ACCENT_SESSION_KEY) === "1";
     const savedAccent = localStorage.getItem("accentColor") as AccentColor | null;
-    if (savedAccent && ["blue", "pink", "green", "orange", "mono"].includes(savedAccent)) {
-      setAccentColorState(savedAccent);
-      applyAccent(savedAccent);
+    const nextAccent =
+      isAccentInitialized && savedAccent && SUPPORTED_ACCENTS.includes(savedAccent)
+        ? savedAccent
+        : "blue";
+
+    if (!isAccentInitialized) {
+      sessionStorage.setItem(ACCENT_SESSION_KEY, "1");
+      localStorage.setItem("accentColor", "blue");
     }
+
+    setAccentColorState(nextAccent);
+    applyAccent(nextAccent);
 
     setMounted(true);
   }, []);

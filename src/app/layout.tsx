@@ -27,6 +27,7 @@ const defaultTitle = "Romain Rubens - UX/UI Designer · Smart Ecosystems";
 const defaultDescription =
   "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.";
 const logoImage = "/icons/icon.svg";
+const initialThemeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var k='accentColorSessionInitialized';var supported={blue:1,pink:1,green:1,orange:1,mono:1};var initialized=sessionStorage.getItem(k)==='1';var a=localStorage.getItem('accentColor');if(!initialized){sessionStorage.setItem(k,'1');localStorage.setItem('accentColor','blue');document.documentElement.removeAttribute('data-accent');}else if(a&&supported[a]&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}else{document.documentElement.removeAttribute('data-accent');}}catch(e){}})()`;
 
 export const metadata: Metadata = {
   applicationName: "Romain Rubens",
@@ -79,7 +80,7 @@ export default function RootLayout({
     <html lang="fr" className={`${googleSans.variable} ${googleSansFlex.variable}`}>
       <head>
         {/* Anti-flash : applique le thème et la couleur du navigateur avant le rendu React */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var a=localStorage.getItem('accentColor');if(a&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: initialThemeScript }} />
         <meta name="theme-color" content="#ffffff" />
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://hxhketfuzhwtrvmvnzln.supabase.co" />
