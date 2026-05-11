@@ -3,9 +3,12 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
+  const isResumePdf =
+    request.nextUrl.pathname.startsWith('/resume/') &&
+    request.nextUrl.pathname.toLowerCase().endsWith('.pdf');
 
   // Empêche le clickjacking (chargement dans un iframe)
-  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Frame-Options', isResumePdf ? 'SAMEORIGIN' : 'DENY');
 
   // Empêche le MIME-type sniffing
   response.headers.set('X-Content-Type-Options', 'nosniff');
@@ -40,7 +43,7 @@ export function middleware(request: NextRequest) {
       "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
       "img-src 'self' data: https:",
       "connect-src 'self' https://slelguoygbfzlpylpxfs.supabase.co https://ipapi.co https://api.sunrise-sunset.org https://cloud.umami.is",
-      "frame-ancestors 'none'",
+      isResumePdf ? "frame-ancestors 'self'" : "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
     ].join('; ')

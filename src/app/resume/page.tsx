@@ -2,26 +2,23 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, FileText, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
 const translations = {
   FR: {
     portfolio: "Accéder au Portfolio",
-    viewCV: "Voir le CV",
     cvTitle: "Curriculum Vitae",
     cvSubtitle: "Romain Rubens"
   },
   EN: {
     portfolio: "Access to Portfolio",
-    viewCV: "View Resume",
     cvTitle: "Resume",
     cvSubtitle: "Romain Rubens"
   },
   ՀԱՅ: {
     portfolio: "Դիտել պորտֆոլիոն",
-    viewCV: "Դիտել Կենսագրությունը",
     cvTitle: "Կենսագրություն",
     cvSubtitle: "Ռոման Ռուբենս"
   }
@@ -112,10 +109,6 @@ export default function ResumePage() {
     return pdfMap[language];
   };
 
-  const handleViewPdf = () => {
-    window.open(getPdfUrl(), "_blank");
-  };
-
   const getSeparatorConfig = () => {
     if (language === "EN") {
       return { left: false, right: false };
@@ -146,122 +139,37 @@ export default function ResumePage() {
 
   return (
     <div style={{ width: "100%", height: "100vh", overflow: "hidden", backgroundColor: isMobile ? "#f5f5f5" : "#ffffff", margin: 0, padding: 0, position: "relative" }}>
-      {isMobile ? (
-        <div
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: "0",
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          backgroundColor: "#ffffff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        <iframe
+          key={`pdf-${language}`}
+          src={getPdfUrl()}
+          title={`${translations[language].cvTitle} - ${translations[language].cvSubtitle}`}
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: "70px",
+            border: "none",
+            margin: 0,
+            padding: 0,
+            display: "block",
             width: "100%",
-            height: "calc(100vh - 70px)",
-            overflow: "hidden",
-            backgroundColor: "#f5f5f5",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px"
+            height: "100%"
           }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              gap: "24px"
-            }}
-          >
-            <div
-              style={{
-                width: "80px",
-                height: "80px",
-                borderRadius: "50%",
-                backgroundColor: "#1d1d1f",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <FileText size={40} color="#ffffff" strokeWidth={1.5} />
-            </div>
-            
-            <div>
-              <h1 style={{ 
-                fontSize: "24px", 
-                fontWeight: 700, 
-                color: "#333333", 
-                margin: "0 0 8px 0",
-                letterSpacing: "-0.02em"
-              }}>
-                {translations[language].cvTitle}
-              </h1>
-              <p style={{ 
-                fontSize: "16px", 
-                color: "#666666", 
-                margin: 0 
-              }}>
-                {translations[language].cvSubtitle}
-              </p>
-            </div>
-            
-            <button
-              onClick={handleViewPdf}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "16px 32px",
-                borderRadius: "9999px",
-                backgroundColor: "#1d1d1f",
-                color: "#FFFFFF",
-                border: "none",
-                fontSize: "16px",
-                fontWeight: 600,
-                cursor: "pointer",
-                transition: "background-color 0.2s ease"
-              }}
-            >
-              {translations[language].viewCV}
-              <ExternalLink size={18} strokeWidth={2} />
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: "0",
-            width: "100%",
-            height: "100%",
-            overflow: "hidden",
-            backgroundColor: "#ffffff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-          <iframe
-            key={`pdf-${language}`}
-            src={getPdfUrl()}
-            style={{ 
-              border: "none", 
-              margin: 0, 
-              padding: 0,
-              display: "block",
-              width: "100%",
-              height: "100%"
-            }}
-            loading="lazy"
-          />
-        </div>
-      )}
+          loading="lazy"
+        />
+      </div>
 
       <div
         style={{
