@@ -22,6 +22,7 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     const legacyLogoHeaders = [
+      "/icons/logo-rubens.png",
       "/icons/logo-animation_20260414110105.gif",
       "/icons/logo-star-animated.gif",
       "/animations/logo-animation.json",

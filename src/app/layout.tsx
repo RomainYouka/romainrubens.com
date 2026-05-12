@@ -27,6 +27,7 @@ const defaultTitle = "Romain Rubens - UX/UI Designer · Smart Ecosystems";
 const defaultDescription =
   "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.";
 const logoImage = "/icons/icon.svg";
+const absoluteLogoImage = `${siteUrlMeta}${logoImage}`;
 const initialThemeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var k='accentColorSessionInitialized';var supported={blue:1,pink:1,green:1,orange:1,mono:1};var initialized=sessionStorage.getItem(k)==='1';var a=localStorage.getItem('accentColor');if(!initialized){sessionStorage.setItem(k,'1');localStorage.setItem('accentColor','blue');document.documentElement.removeAttribute('data-accent');}else if(a&&supported[a]&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}else{document.documentElement.removeAttribute('data-accent');}}catch(e){}})()`;
 
 export const metadata: Metadata = {
@@ -39,6 +40,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrlMeta),
   icons: {
     icon: [
+      { url: logoImage, type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "any" },
       { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -53,13 +55,25 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: defaultDescription,
     url: siteUrlMeta,
-    images: [{ url: logoImage, width: 701, height: 76, alt: "Logo Romain Rubens" }],
+    images: [{ url: absoluteLogoImage, width: 701, height: 76, alt: "Romain Rubens - UX/UI Designer · Smart Ecosystems" }],
   },
   twitter: {
     card: "summary",
     title: defaultTitle,
     description: defaultDescription,
-    images: [logoImage],
+    images: [absoluteLogoImage],
+  },
+  alternates: {
+    canonical: siteUrlMeta,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
   },
 };
 
@@ -85,6 +99,7 @@ export default function RootLayout({
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://hxhketfuzhwtrvmvnzln.supabase.co" />
         <link rel="preconnect" href="https://cloud.umami.is" />
+        <link rel="image_src" href={absoluteLogoImage} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -93,8 +108,8 @@ export default function RootLayout({
               "@type": "Person",
               "name": "Romain Rubens",
               "url": siteUrlMeta,
-              "image": `${siteUrlMeta}${logoImage}`,
-              "logo": `${siteUrlMeta}${logoImage}`,
+              "image": absoluteLogoImage,
+              "logo": absoluteLogoImage,
               "description": defaultDescription,
               "jobTitle": "UX/UI Designer · Smart Ecosystems",
               "sameAs": [

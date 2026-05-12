@@ -144,7 +144,7 @@ export function TimeThemePopup() {
               }}
             >
               {isEvening
-                ? <Moon className="w-6 h-6 text-white" strokeWidth={1.8} />
+                ? <Moon className="w-6 h-6" style={{ color: "var(--theme-accent-fg)" }} strokeWidth={1.8} />
                 : <Sun className="w-6 h-6 text-white" strokeWidth={1.8} />
               }
             </div>
@@ -158,7 +158,7 @@ export function TimeThemePopup() {
                   background: isEvening
                     ? "linear-gradient(135deg, var(--theme-accent-gradient) 0%, var(--theme-accent) 100%)"
                     : "linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)",
-                  color: "#ffffff",
+                  color: isEvening ? "var(--theme-accent-fg)" : "#ffffff",
                   boxShadow: isEvening
                     ? "0 4px 14px rgba(0,0,0,0.25)"
                     : "0 4px 14px rgba(124,58,237,0.35)",
@@ -233,10 +233,10 @@ export function TimeThemePopup() {
                 : "0 8px 24px rgba(124,58,237,0.4)",
             }}
           >
-            {isEvening
-              ? <Moon className="w-6 h-6 text-white" strokeWidth={1.8} />
-              : <Sun className="w-6 h-6 text-white" strokeWidth={1.8} />
-            }
+              {isEvening
+                ? <Moon className="w-6 h-6" style={{ color: "var(--theme-accent-fg)" }} strokeWidth={1.8} />
+                : <Sun className="w-6 h-6 text-white" strokeWidth={1.8} />
+              }
           </div>
 
           {/* Titre */}
@@ -258,7 +258,7 @@ export function TimeThemePopup() {
                 background: isEvening
                   ? "linear-gradient(135deg, var(--theme-accent-gradient) 0%, var(--theme-accent) 100%)"
                   : "linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)",
-                color: "#ffffff",
+                color: isEvening ? "var(--theme-accent-fg)" : "#ffffff",
                 boxShadow: isEvening
                   ? "0 4px 14px rgba(0,0,0,0.25)"
                   : "0 4px 14px rgba(124,58,237,0.35)",

@@ -2,6 +2,19 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  const legacyLogoRedirects = new Set([
+    '/icons/logo-rubens.png',
+    '/animations/logo-animation.json',
+  ]);
+
+  if (legacyLogoRedirects.has(request.nextUrl.pathname)) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/icons/icon.svg';
+    const response = NextResponse.redirect(url, 308);
+    response.headers.set('X-Robots-Tag', 'noindex, noimageindex, noarchive');
+    return response;
+  }
+
   const response = NextResponse.next();
   const isResumePdf =
     request.nextUrl.pathname.startsWith('/resume/') &&

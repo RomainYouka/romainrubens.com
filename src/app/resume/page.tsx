@@ -132,7 +132,7 @@ export default function ResumePage() {
 
   const getTextColor = (lang: Language) => {
     if (language === lang) {
-      return "#FFFFFF";
+      return "var(--theme-accent-fg)";
     }
     return "#FFFFFF";
   };
@@ -224,6 +224,7 @@ export default function ResumePage() {
               onMouseEnter={!isMobile ? (e) => {
                 if (language !== lang) {
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--theme-accent)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "var(--theme-accent-fg)";
                 }
               } : undefined}
               onMouseLeave={!isMobile ? (e) => {
@@ -261,10 +262,12 @@ export default function ResumePage() {
           onMouseEnter={!isMobile ? (e) => {
             (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--theme-accent)";
             (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--theme-accent)";
+            (e.currentTarget as HTMLButtonElement).style.color = "var(--theme-accent-fg)";
           } : undefined}
           onMouseLeave={!isMobile ? (e) => {
             (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#1d1d1f";
             (e.currentTarget as HTMLButtonElement).style.borderColor = "#1d1d1f";
+            (e.currentTarget as HTMLButtonElement).style.color = "#FFFFFF";
           } : undefined}
         >
           {translations[language].portfolio}

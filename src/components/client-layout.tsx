@@ -13,6 +13,8 @@ import { ThemeSwitchOverlay } from "@/components/ThemeSwitchOverlay";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import StarScrollTop from "@/components/StarScrollTop";
 
+const defaultTitle = "Romain Rubens - UX/UI Designer · Smart Ecosystems";
+
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isResumePage = pathname === "/resume";
@@ -26,6 +28,9 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
     };
 
     const updateDocumentLanguage = (language: string) => {
+      if (pathname === "/") {
+        document.title = defaultTitle;
+      }
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription) {
         metaDescription.setAttribute("content", metaDescriptions[language] || metaDescriptions.FR);
@@ -42,7 +47,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
     };
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
     return () => window.removeEventListener("languageChange", handleLanguageChange as EventListener);
-  }, []);
+  }, [pathname]);
 
   // Masquer le footer sur la page CV
   useEffect(() => {

@@ -4,6 +4,12 @@
   "description": "UX/UI, interaction design et smart ecosystems.",
   "icons": [
     {
+      "src": "/icons/icon.svg",
+      "sizes": "701x76",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
       "src": "/icons/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
