@@ -133,15 +133,6 @@ const webProjects = [
     externalUrl: undefined as string | undefined,
     isComingSoon: true,
   },
-  {
-    id: 1,
-    image: "/projects/blocks/ayooapi-light.png",
-    darkImage: "/projects/blocks/ayooapi-dark.png",
-    year: "2026",
-    slug: "ayooapi",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: true,
-  },
 ];
 
 const diversProjects = [

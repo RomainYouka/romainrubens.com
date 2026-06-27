@@ -95,23 +95,6 @@ export default function IntratoneTeaser() {
           </p>
         </div>
 
-        {/* Ayoo Teaser */}
-        <div className="w-full flex flex-col items-center">
-          <div className="relative w-full max-w-[1000px] aspect-[2/1] mb-4">
-            <Image
-              src="/ayooapi/ayoo-teaser.png"
-              alt="Ayoo Project Teaser"
-              fill
-              className="object-contain"
-            />
-          </div>
-          <p 
-            className="w-full max-w-[1000px] text-right text-gray-500 font-light"
-            style={{ fontFamily: "var(--font-body)", fontSize: "clamp(14px, 1.2vw, 16px)" }}
-          >
-            {translations[selectedLanguage]}
-          </p>
-        </div>
       </div>
     </section>
   );

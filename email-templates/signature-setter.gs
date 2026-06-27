@@ -23,7 +23,7 @@ function setSignature() {
     '.sig-site    { color: #5194FF !important; }' +
     '.sig-social  { color: #aeaeb2 !important; }' +
     '.sig-dot     { color: #48484a !important; }' +
-    '.sig-star    { filter: brightness(0) saturate(100%) invert(47%) sepia(69%) saturate(500%) hue-rotate(196deg) brightness(110%) !important; }' +
+    '.sig-star    { filter: brightness(0) invert(1) !important; }' +
     '}' +
     '</style>' +
 

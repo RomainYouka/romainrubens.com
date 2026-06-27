@@ -79,6 +79,26 @@ function applyAccent(color: AccentColor) {
   }
 }
 
+function updateAccentFavicon() {
+  requestAnimationFrame(() => {
+    const accent = getComputedStyle(document.documentElement).getPropertyValue("--theme-accent").trim() || "#314DCB";
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384"><path fill="${accent}" d="M170.667 384V243.2L71.4667 342.933L41.0667 312.533L140.8 213.333H0V170.667H140.8L41.0667 71.4667L71.4667 41.0667L170.667 140.8V0H213.333V140.8L312.533 41.0667L342.933 71.4667L243.2 170.667H384V213.333H243.2L342.933 312.533L312.533 342.933L213.333 243.2V384H170.667Z"/></svg>`;
+    let icon = document.querySelector<HTMLLinkElement>('link[data-accent-favicon="true"]')
+      ?? document.querySelector<HTMLLinkElement>('link[rel~="icon"][type="image/svg+xml"]');
+
+    if (!icon) {
+      icon = document.createElement("link");
+      icon.rel = "icon";
+      icon.type = "image/svg+xml";
+      icon.dataset.accentFavicon = "true";
+      document.head.appendChild(icon);
+    }
+
+    icon.dataset.accentFavicon = "true";
+    icon.href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  });
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
@@ -156,6 +176,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     setAccentColorState(nextAccent);
     applyAccent(nextAccent);
+    updateAccentFavicon();
 
     setMounted(true);
   }, []);
@@ -164,6 +185,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setThemeState(t);
     applyTheme(t);
     localStorage.setItem("theme", t);
+    updateAccentFavicon();
   }, []);
 
   const toggleTheme = useCallback(() => {
@@ -208,6 +230,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setAccentColorState(color);
     localStorage.setItem("accentColor", color);
     applyAccent(color);
+    updateAccentFavicon();
   }, []);
 
   const dismissTimePopup = useCallback(() => {

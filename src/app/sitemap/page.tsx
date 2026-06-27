@@ -30,7 +30,7 @@ const translations = {
     renault: "Renault",
     // Web projects
     framasoft: "Framasoft",
-    ayooapi: "AYOO API",
+    goupil: "Goupil",
     // Diverse projects
     namequest: "NameQuest",
     vahansoghomonian: "Vahan Soghomonian",
@@ -66,7 +66,7 @@ const translations = {
     renault: "Renault",
     // Web projects
     framasoft: "Framasoft",
-    ayooapi: "AYOO API",
+    goupil: "Goupil",
     // Diverse projects
     namequest: "NameQuest",
     vahansoghomonian: "Vahan Soghomonian",
@@ -102,7 +102,7 @@ const translations = {
     renault: "Renault",
     // Web projects
     framasoft: "Framasoft",
-    ayooapi: "AYOO API",
+    goupil: "Goupil",
     // Diverse projects
     namequest: "NameQuest",
     vahansoghomonian: "Vahan Soghomonian",
@@ -151,7 +151,7 @@ const getSections = (): Section[] => [
       { label: "googleplayios", href: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "webProjects", href: "#", isSubItem: true },
       { label: "framasoft", href: "/projects/framasoft", isSubItem: true, isClickable: true },
-      { label: "ayooapi", href: "/projects/ayooapi", isSubItem: true, isClickable: false },
+      { label: "goupil", href: "/projects/goupil", isSubItem: true, isClickable: false },
       { label: "diverseProjects", href: "#", isSubItem: true },
       { label: "namequest", href: "/projects/namequest", isSubItem: true, isClickable: true },
       { label: "vahansoghomonian", href: "/projects/vahansoghomonian", isSubItem: true, isClickable: true },

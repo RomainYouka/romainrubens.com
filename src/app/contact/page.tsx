@@ -2,13 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "@/contexts/ThemeContext";
 import { Analytics } from "@/lib/analytics";
 
 const contactTranslations = {
   FR: {
     heading: "Prenez contact",
-    downloadPortfolio: "Télécharger mon Portfolio (.pdf)",
     bookCall: "Prendre un rendez-vous",
     viewResume: "Voir mon CV",
     viewLinkedIn: "Voir mon LinkedIn",
@@ -19,7 +17,6 @@ const contactTranslations = {
   },
   EN: {
     heading: "Get in touch",
-    downloadPortfolio: "Download my Portfolio (.pdf)",
     bookCall: "Book a meeting",
     viewResume: "View my Resume",
     viewLinkedIn: "View my LinkedIn",
@@ -30,7 +27,6 @@ const contactTranslations = {
   },
   ՀԱՅ: {
     heading: "Կապ հաստատեք",
-    downloadPortfolio: "Ներբեռնել իմ Պորտֆոլիո (.pdf)",
     bookCall: "Ժամանակ հատկացնել",
     viewResume: "Տեսնել իմ CV",
     viewLinkedIn: "Տեսնել իմ LinkedIn",
@@ -82,7 +78,7 @@ const PinterestLogo = ({ className }: { className?: string }) => (
 );
 
 const BehanceLogo = ({ className }: { className?: string }) => (
-  <svg aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3333 3333" fill="currentColor" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd">
+  <svg aria-hidden="true" className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3333 3333" fill="currentColor" shapeRendering="geometricPrecision" textRendering="geometricPrecision" imageRendering="optimizeQuality" fillRule="evenodd" clipRule="evenodd">
     <path d="M1667 0c920 0 1667 746 1667 1667 0 920-746 1667-1667 1667C747 3334 0 2588 0 1667 0 747 746 0 1667 0zm-408 1059c57 0 109 5 156 15s87 27 121 49c33 23 59 53 78 91 18 37 27 85 27 140 0 60-14 110-41 151-28 40-68 73-122 99 74 21 128 58 164 111s54 117 54 192c0 61-12 113-35 157-24 44-55 80-94 108s-85 49-136 62c-50 13-102 20-156 20H696V1060h563zm704 96h484v118h-484v-118zm108 890c36 35 87 52 154 52 48 0 90-12 124-36s55-50 63-77h209c-34 104-85 178-154 223s-153 67-250 67c-68 0-129-11-184-33s-101-53-140-93c-38-40-67-88-88-144-20-56-31-118-31-184 0-65 11-125 32-181 22-56 51-104 91-145 39-41 86-73 140-96 54-24 114-35 181-35 73 0 137 14 192 43 55 28 100 67 135 115s60 103 76 164 21 125 17 193h-624c0 68 23 133 59 167zm273-454c-28-31-76-48-134-48-38 0-69 6-94 19s-45 29-60 48-26 39-32 61c-6 21-10 40-11 57h387c-6-61-27-105-55-137zm-1118-50c47 0 85-11 116-33 30-22 45-58 45-108 0-28-5-51-15-69s-24-32-41-42-36-17-58-21-44-6-67-6H960v279h266zm14 508c26 0 50-2 73-8 24-5 44-13 62-25 17-12 32-27 43-48 11-20 16-46 16-77 0-61-17-105-52-132-34-26-80-39-137-39H960v329h281v1z"/>
   </svg>
 );
@@ -91,7 +87,6 @@ export default function ContactPage() {
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
-  const { isDark } = useTheme();
 
   useEffect(() => {
     let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
@@ -123,17 +118,6 @@ export default function ContactPage() {
   const currentTranslations = contactTranslations[selectedLanguage];
 
   const wink = () => window.dispatchEvent(new CustomEvent("blob-wink"));
-
-  const handleDownloadPortfolio = () => {
-    wink();
-    Analytics.portfolioDownload(selectedLanguage);
-    const link = document.createElement("a");
-    link.href = "/resume/RUBENS Romain (Portfolio).pdf";
-    link.download = "RUBENS_Romain_Portfolio.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   const handleBookCall = () => {
     wink();
@@ -206,14 +190,14 @@ export default function ContactPage() {
               transitionTimingFunction: "cubic-bezier(0.25,0.1,0.25,1)",
             }}
           >
-            {/* Download Portfolio Button */}
+            {/* Email Button */}
             <button
-              onClick={handleDownloadPortfolio}
+              onClick={handleEmail}
               className="w-full py-4 px-6 font-semibold text-base rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
               style={{ backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)" }}
             >
-              <PDFIcon className="w-4 h-4 flex-shrink-0" />
-              <span>{currentTranslations.downloadPortfolio}</span>
+              <GmailLogo className="w-4 h-4 flex-shrink-0" />
+              <span>{currentTranslations.emailMe}</span>
             </button>
 
             {/* Book a Call Button */}
@@ -241,15 +225,6 @@ export default function ContactPage() {
             >
               <LinkedInLogo className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.viewLinkedIn}</span>
-            </button>
-
-            {/* Email Button */}
-            <button
-              onClick={handleEmail}
-              className="w-full py-4 px-6 font-semibold text-base rounded-full border transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: "var(--theme-card-bg)", color: "var(--theme-fg)", borderColor: "var(--theme-border)" }}
-            >
-              <GmailLogo className="w-4 h-4 flex-shrink-0" />
-              <span>{currentTranslations.emailMe}</span>
             </button>
 
             {/* Read Medium Button */}

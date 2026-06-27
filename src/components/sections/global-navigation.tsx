@@ -40,18 +40,43 @@ const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean; isDark: boole
 
 // ─── Brand logo ──────────────────────────────────────────────────────────────
 const BrandLogo = ({ isScrolled, className }: { isScrolled: boolean; className?: string }) => {
-  const { isDark } = useTheme();
   const basename = isScrolled ? "logo-rubens" : "logo-romain-rubens";
-  const src = `/icons/${basename}${isDark ? "-white" : ""}.svg`;
+  const src = `/icons/${basename}.svg`;
+  const width = isScrolled ? 389 : 699;
+  const maskStyles: React.CSSProperties = {
+    WebkitMaskImage: `url(${src})`,
+    maskImage: `url(${src})`,
+    WebkitMaskPosition: "center",
+    maskPosition: "center",
+    WebkitMaskRepeat: "no-repeat",
+    maskRepeat: "no-repeat",
+    WebkitMaskSize: "contain",
+    maskSize: "contain",
+  };
 
   return (
-    <img
-      src={src}
-      alt={isScrolled ? "Rubens" : "Romain Rubens"}
-      width={isScrolled ? 389 : 699}
-      height={76}
-      className={className}
-    />
+    <span
+      role="img"
+      aria-label={isScrolled ? "Rubens" : "Romain Rubens"}
+      className={`relative block flex-none ${className ?? ""}`}
+      style={{ ...maskStyles, aspectRatio: `${width} / 76`, backgroundColor: "var(--theme-fg)" }}
+    >
+      <span
+        aria-hidden="true"
+        className="absolute inset-y-0 left-0 aspect-square"
+        style={{
+          WebkitMaskImage: "url(/icons/icon.svg)",
+          maskImage: "url(/icons/icon.svg)",
+          WebkitMaskPosition: "center",
+          maskPosition: "center",
+          WebkitMaskRepeat: "no-repeat",
+          maskRepeat: "no-repeat",
+          WebkitMaskSize: "contain",
+          maskSize: "contain",
+          backgroundColor: "var(--theme-accent)",
+        }}
+      />
+    </span>
   );
 };
 
@@ -63,7 +88,7 @@ const translations = {
 };
 
 // ─── Bouton CV ───────────────────────────────────────────────────────────────
-const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: Language; isDark: boolean }) => {
+const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedLanguage: Language; isDark: boolean; compact?: boolean }) => {
   const t = translations[selectedLanguage];
   const [validating, setValidating] = useState(false);
 
@@ -97,7 +122,8 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: Language
       style={{
         backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)",
         border: `1px solid var(--theme-accent)`,
-        borderRadius: 980, padding: "8px 16px", height: 36, minWidth: 95, width: 95,
+        borderRadius: 980, padding: compact ? "8px 12px" : "8px 16px", height: 36,
+        minWidth: compact ? 60 : 95, width: compact ? 60 : 95,
         transition: "opacity 180ms ease, background-color 180ms ease, transform 180ms ease",
         outline: "none",
       }}
@@ -106,7 +132,7 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: Language
       onMouseDown={(e) => { if (!validating) e.currentTarget.style.transform = "scale(0.97)"; }}
       onMouseUp={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
     >
-      <span style={{ textAlign: "center", width: "100%" }}>{t.resume}</span>
+      <span style={{ textAlign: "center", width: "100%" }}>{compact ? "CV" : t.resume}</span>
       <div
         className={`absolute inset-0 flex items-center justify-center rounded-[980px] transition-opacity ${
           validating ? "opacity-100 duration-[200ms]" : "opacity-0 duration-[180ms] pointer-events-none"
@@ -628,7 +654,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
               "box-shadow 380ms cubic-bezier(0.4,0,0.2,1)",
           }}
         >
-          <div className="mx-auto h-16 max-w-[1200px] px-6">
+          <div className="mx-auto h-16 max-w-[1200px] px-4 md:px-6">
             <nav
               role="navigation"
               aria-label="Navigation principale"
@@ -692,13 +718,13 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                   flexDirection: "row",
                 }}
               >
-                <div style={{ flex: "1 1 0", display: "flex", justifyContent: "flex-start", minWidth: 0 }}>
+                <div className="flex h-9 min-w-0 flex-1 items-center justify-start">
                   <a {...logoProps} className={logoProps.className.replace("h-full", "")}>
-                    <BrandLogo isScrolled={visualScrolled} className="h-3.5 w-auto" />
+                    <BrandLogo isScrolled className="h-4" />
                   </a>
                 </div>
 
-                <div className="flex items-center h-9 gap-2" style={{ flex: "1 1 0", justifyContent: "flex-end", flexDirection: "row", minWidth: 0 }}>
+                <div className="flex h-9 min-w-0 flex-none flex-row items-center justify-end gap-2.5">
                   <div className="flex items-center justify-center h-9">
                     <LanguageSelector
                       selectedLanguage={selectedLanguage}
@@ -709,10 +735,10 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                       onClose={closeLangDropdown}
                     />
                   </div>
-                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} />
+                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} compact />
                   <button
                     onClick={handleMenuToggle}
-                    className="flex items-center justify-center h-9 transition-opacity duration-200 hover:opacity-80"
+                    className="flex h-9 w-9 flex-none items-center justify-center transition-opacity duration-200 hover:opacity-80"
                     style={{ color: textColor }}
                     aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
                     aria-expanded={isMenuOpen}

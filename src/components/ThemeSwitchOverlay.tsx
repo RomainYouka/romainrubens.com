@@ -63,7 +63,7 @@ function TransitionScreen({ isDark, accentColor }: { isDark: boolean; accentColo
       const t = setTimeout(() => setBulbLit(true), 330);
       return () => clearTimeout(t);
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <motion.div

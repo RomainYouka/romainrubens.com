@@ -43,10 +43,6 @@ export const Analytics = {
   contactClick: (type: "email" | "linkedin" | "behance" | "medium" | "pinterest" | "cal") =>
     track("contact_click", { type }),
 
-  /** Téléchargement du portfolio PDF */
-  portfolioDownload: (language: string) =>
-    track("portfolio_download", { language }),
-
   /** Vue de la page CV */
   resumeView: (language: string) =>
     track("resume_view", { language }),
