@@ -28,6 +28,8 @@ const defaultDescription =
   "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.";
 const logoImage = "/icons/icon.svg";
 const absoluteLogoImage = `${siteUrlMeta}${logoImage}`;
+const brandLogo = "/icons/logo-romain-rubens.svg";
+const absoluteBrandLogo = `${siteUrlMeta}${brandLogo}`;
 const socialImage = "/icons/og-image.png";
 const absoluteSocialImage = `${siteUrlMeta}${socialImage}`;
 const initialThemeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var k='accentColorSessionInitialized';var supported={blue:1,pink:1,green:1,orange:1,mono:1};var initialized=sessionStorage.getItem(k)==='1';var a=localStorage.getItem('accentColor');if(!initialized){sessionStorage.setItem(k,'1');localStorage.setItem('accentColor','blue');document.documentElement.removeAttribute('data-accent');}else if(a&&supported[a]&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}else{document.documentElement.removeAttribute('data-accent');}}catch(e){}})()`;
@@ -113,7 +115,7 @@ export default function RootLayout({
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://hxhketfuzhwtrvmvnzln.supabase.co" />
         <link rel="preconnect" href="https://cloud.umami.is" />
-        <link rel="image_src" href={absoluteLogoImage} />
+        <link rel="image_src" href={absoluteBrandLogo} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -123,7 +125,7 @@ export default function RootLayout({
               "name": "Romain Rubens",
               "url": siteUrlMeta,
               "image": absoluteLogoImage,
-              "logo": absoluteLogoImage,
+              "logo": absoluteBrandLogo,
               "description": defaultDescription,
               "jobTitle": "UX/UI Designer · Smart Ecosystems",
               "sameAs": [

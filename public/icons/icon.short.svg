@@ -1,9 +1,0 @@
-<svg width="2048" height="819" viewBox="0 0 2048 819" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="12" y="12" width="2024" height="795" rx="136" fill="#FFFFFF"/>
-  <rect x="12" y="12" width="2024" height="795" rx="136" stroke="#E7E7E7" stroke-width="24"/>
-  <g transform="translate(144 236) scale(0.678)">
-    <path d="M234 32H278V234H480V278H278V480H234V278H32V234H234V32Z" fill="#314DCB"/>
-    <path d="M392.773 104.112L423.888 135.227L281.057 278.058L423.888 420.888L392.773 452.003L249.942 309.173L107.112 452.003L75.997 420.888L218.827 278.058L75.997 135.227L107.112 104.112L249.942 246.942L392.773 104.112Z" fill="#314DCB"/>
-  </g>
-  <text x="586" y="548" fill="#1D1D1F" font-family="Google Sans, Inter, Arial, sans-serif" font-size="378" font-weight="700" letter-spacing="0">Rubens</text>
-</svg>

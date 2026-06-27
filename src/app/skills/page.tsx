@@ -54,19 +54,17 @@ const getSkillName = (names: Skill["names"], language: Language): string => {
   return names[language] || names.EN;
 };
 
-// Path de l'étoile, normalisé sur un viewBox 179.728 × 172.595
-const STAR_PATH = "M168.126 124.883L167.147 124.601L108.471 107.718L114.781 168.913L114.888 169.955L113.843 170.014L78.3483 172.029L77.3309 172.087L77.2923 171.069L74.9662 109.539L15.081 135.382L14.1001 135.805L13.742 134.798L1.66023 100.746L1.3294 99.8115L2.26037 99.4725L63.2018 77.2499L21.4805 27.7533L20.836 26.9892L21.5992 26.3444L49.3062 2.95385L50.1177 2.26846L50.7529 3.12008L89.535 55.1644L122.883 1.7872L123.461 0.862422L124.332 1.51737L153.041 23.088L153.826 23.6785L153.25 24.4745L117.726 73.5158L176.898 88.2131L177.886 88.4588L168.126 124.883Z";
-const VB_W = 179.728;
-const VB_H = 172.595;
+// Même astérisque que public/icons/icon.svg.
+const STAR_PATH = "M170.667 384V243.2L71.4667 342.933L41.0667 312.533L140.8 213.333H0V170.667H140.8L41.0667 71.4667L71.4667 41.0667L170.667 140.8V0H213.333V140.8L312.533 41.0667L342.933 71.4667L243.2 170.667H384V213.333H243.2L342.933 312.533L312.533 342.933L213.333 243.2V384H170.667Z";
+const VB_W = 384;
+const VB_H = 384;
 
 const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) => {
   const { isDark } = useTheme();
   const clamped = Math.min(5, Math.max(0, Math.round(rating)));
 
-  const fullFill   = "var(--theme-accent)";
-  const fullStroke = "var(--theme-accent)";
-  const emptyFill  = isDark ? "#505050" : "#D0D0D0";
-  const emptyStroke = isDark ? "#505050" : "#D0D0D0";
+  const fullFill = "var(--theme-accent)";
+  const emptyFill = isDark ? "#505050" : "#D0D0D0";
 
   const starH  = size;
   const starW  = starH * (VB_W / VB_H);
@@ -92,8 +90,7 @@ const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) =>
             key={i}
             transform={`translate(${x}, 0) scale(${scale})`}
             d={STAR_PATH}
-            style={{ fill: isFull ? fullFill : emptyFill, stroke: isFull ? fullStroke : emptyStroke }}
-            strokeWidth={2}
+            style={{ fill: isFull ? fullFill : emptyFill }}
           />
         );
       })}

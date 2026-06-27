@@ -3,7 +3,9 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const legacyLogoRedirects = new Map([
-    ['/icons/logo-rubens.png', '/icons/android-chrome-192x192.png'],
+    ['/icons/logo-rubens.png', '/icons/logo-rubens.svg'],
+    ['/icons/icon.short.svg', '/icons/logo-rubens.svg'],
+    ['/icons/icon.short.white.svg', '/icons/logo-rubens-white.svg'],
     ['/icons/logo-animation_20260414110105.gif', '/icons/android-chrome-192x192.png'],
     ['/animations/logo-animation.json', '/icons/icon.svg'],
   ]);

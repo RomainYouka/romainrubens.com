@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ChevronUp, ChevronDown, Trash2, Plus, Check, X, Lock, ArrowLeft, Save } from "lucide-react";
 
@@ -55,8 +54,18 @@ const StarEditor = ({ rating, onChange }: { rating: number; onChange: (r: number
 const StarPreview = ({ rating }: { rating: number }) => {
   const clamped = Math.min(5, Math.max(0, Math.round(rating)));
   return (
-    <div className="relative w-20 h-5 flex-shrink-0">
-      <Image src={`/skills/stars-${clamped}.png`} alt={`${clamped} stars`} fill sizes="80px" className="object-contain" />
+    <div className="flex h-5 w-20 flex-shrink-0 items-center gap-0.5" aria-label={`${clamped} étoiles sur 5`}>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <img
+          key={star}
+          src="/icons/icon.svg"
+          alt=""
+          aria-hidden="true"
+          width={14}
+          height={14}
+          className={star <= clamped ? "opacity-100" : "opacity-20"}
+        />
+      ))}
     </div>
   );
 };

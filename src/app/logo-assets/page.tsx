@@ -5,7 +5,7 @@ import { Copy, Check, ExternalLink } from "lucide-react";
 
 export default function LogoAssetsPage() {
   const [copied, setCopied] = useState(false);
-  const logoPath = "/icons/icon.svg";
+  const logoPath = "/icons/logo-romain-rubens.svg";
   const logoUrl = typeof window !== "undefined" ? `${window.location.origin}${logoPath}` : "";
 
   const handleCopy = () => {
@@ -23,7 +23,7 @@ export default function LogoAssetsPage() {
         </div>
 
         <div className="bg-[#f5f5f7] rounded-2xl p-8 flex items-center justify-center border border-[#d2d2d7]">
-          <img src={logoPath} alt="Logo Romain Rubens" className="h-12 w-auto max-w-full" width="512" height="512" />
+          <img src={logoPath} alt="Logo Romain Rubens" className="h-12 w-auto max-w-full" width="699" height="76" />
         </div>
 
         <div className="space-y-4">

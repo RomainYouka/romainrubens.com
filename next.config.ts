@@ -6,7 +6,17 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/icons/logo-rubens.png",
-        destination: "/icons/android-chrome-192x192.png",
+        destination: "/icons/logo-rubens.svg",
+        permanent: true,
+      },
+      {
+        source: "/icons/icon.short.svg",
+        destination: "/icons/logo-rubens.svg",
+        permanent: true,
+      },
+      {
+        source: "/icons/icon.short.white.svg",
+        destination: "/icons/logo-rubens-white.svg",
         permanent: true,
       },
       {
