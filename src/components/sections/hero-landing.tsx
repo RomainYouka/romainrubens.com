@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -55,6 +55,7 @@ const translations = {
 export default function HeroLanding() {
   const { isDark, accentColor } = useTheme();
   const PALETTE = PALETTE_MAP[accentColor];
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   const [displayedText,     setDisplayedText]     = useState("");
   const [selectedLanguage,  setSelectedLanguage]  = useState<"FR" | "EN" | "ՀԱՅ">("FR");
@@ -64,6 +65,7 @@ export default function HeroLanding() {
   const [splashDone,        setSplashDone]        = useState(false);
   const [showInitialCursor, setShowInitialCursor] = useState(false);
   const [userInteracted,    setUserInteracted]    = useState(false);
+  const [animateBackground, setAnimateBackground] = useState(true);
 
   const fullText   = translations[selectedLanguage].text;
   const buttonText = translations[selectedLanguage].button;
@@ -151,6 +153,24 @@ export default function HeroLanding() {
     return () => { window.removeEventListener("scroll", onScroll); clearTimeout(t); };
   }, [showScrollButton, userInteracted]);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setAnimateBackground(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setAnimateBackground(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   // ── Couleurs selon thème ─────────────────────────────────────────────────────
   // La section hero est toujours en mode sombre, quel que soit le thème global
   const bgColor    = "#09091a";
@@ -162,6 +182,7 @@ export default function HeroLanding() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full h-screen overflow-hidden"
       data-section="hero-landing"
       style={{ backgroundColor: bgColor }}
@@ -175,18 +196,25 @@ export default function HeroLanding() {
           return (
             <motion.div
               key={i}
-              animate={{
-                x:       b.dx,
-                y:       b.dy,
-                scale:   [1, 1.20, 0.92, 1],
+              animate={animateBackground ? {
+                x: b.dx,
+                y: b.dy,
+                scale: [1, 1.20, 0.92, 1],
                 opacity: opacityKf,
+              } : {
+                x: 0,
+                y: 0,
+                scale: 1,
+                opacity: 0.58,
               }}
-              transition={{
+              transition={animateBackground ? {
                 duration: b.dur,
-                delay:    b.delay,
-                repeat:   Infinity,
-                ease:     "easeInOut",
-                times:    [0, 0.35, 0.70, 1],
+                delay: b.delay,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.35, 0.70, 1],
+              } : {
+                duration: 0.2,
               }}
               style={{
                 position:        "absolute",
@@ -198,7 +226,7 @@ export default function HeroLanding() {
                 backgroundColor: color,
                 filter:          `blur(${blur})`,
                 transform:       "translate(-50%, -50%)",
-                willChange:      "transform, opacity",
+                willChange:      animateBackground ? "transform, opacity" : "auto",
               }}
             />
           );

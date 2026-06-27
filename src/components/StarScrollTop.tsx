@@ -26,6 +26,7 @@ export default function StarScrollTop() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   // Prevents scroll listener from re-showing button while scrolling to top
   const wasClickedRef = useRef(false);
+  const shown = visible || winkVisible;
 
   // Show when scrolled past 300px
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function StarScrollTop() {
 
   // Pupils follow mouse in real time
   useEffect(() => {
+    if (!shown) return;
     const onMove = (e: MouseEvent) => {
       if (!buttonRef.current) return;
       const r = buttonRef.current.getBoundingClientRect();
@@ -58,7 +60,7 @@ export default function StarScrollTop() {
     };
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
-  }, []);
+  }, [shown]);
 
   // Wink on custom event "blob-wink" — appears even if not scroll-visible
   useEffect(() => {
@@ -84,10 +86,8 @@ export default function StarScrollTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const shown = visible || winkVisible;
-
   // Wink eye style: close left eye on scaleY
-  const winkStyle = {
+  const winkStyle: React.CSSProperties = {
     transformBox: "fill-box",
     transformOrigin: "center",
     transform: winking ? "scaleY(0.06)" : "scaleY(1)",

@@ -98,7 +98,7 @@ const mobileProjects = [
     darkImage: "/projects/blocks/renault-dark.png",
     year: "",
     slug: "renault",
-    externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
+    externalUrl: undefined as string | undefined,
     isComingSoon: false,
     isPriority: false,
   },
@@ -123,6 +123,15 @@ const webProjects = [
     slug: "framasoft",
     externalUrl: undefined as string | undefined,
     isComingSoon: false,
+  },
+  {
+    id: 3,
+    image: "/projects/blocks/goupil-light.png",
+    darkImage: "/projects/blocks/goupil-dark.png",
+    year: "2026",
+    slug: "goupil",
+    externalUrl: undefined as string | undefined,
+    isComingSoon: true,
   },
   {
     id: 1,
@@ -164,6 +173,8 @@ const diversProjects = [
     isComingSoon: false,
   },
 ];
+
+type ProjectListItem = (typeof mobileProjects | typeof webProjects | typeof diversProjects)[number];
 
 const triggerHapticFeedback = () => {
   if (typeof navigator !== "undefined" && "vibrate" in navigator) {
@@ -390,7 +401,7 @@ export default function PortfolioPage() {
     };
   }, []);
 
-  const sortProjects = (projects: typeof mobileProjects) =>
+  const sortProjects = (projects: ProjectListItem[]) =>
     [...projects].sort((a, b) => Number(!!a.isComingSoon) - Number(!!b.isComingSoon));
 
   const allProjects = [...mobileProjects, ...webProjects, ...diversProjects];

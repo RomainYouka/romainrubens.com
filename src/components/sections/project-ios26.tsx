@@ -638,7 +638,7 @@ export default function ProjectIOS26({ language = "EN" }: ProjectIOS26Props) {
               </button>
               
               <a
-                href="/RUBENS_Romain_iOS26_Update_Vision_User_flow.pdf"
+                href="/projects/ios26/RUBENS_Romain_iOS26_Update_Vision_User_flow.pdf"
                 download="RUBENS_Romain_iOS26_Update_Vision_User_flow.pdf"
                 onClick={() => setShowPDFModal(false)}
                 className="flex-1 px-4 py-3 rounded-lg text-center font-medium text-white bg-[#424245] transition-all duration-200 hover:bg-[#515151]"

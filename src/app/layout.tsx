@@ -28,10 +28,16 @@ const defaultDescription =
   "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.";
 const logoImage = "/icons/icon.svg";
 const absoluteLogoImage = `${siteUrlMeta}${logoImage}`;
+const socialImage = "/icons/og-image.png";
+const absoluteSocialImage = `${siteUrlMeta}${socialImage}`;
 const initialThemeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var k='accentColorSessionInitialized';var supported={blue:1,pink:1,green:1,orange:1,mono:1};var initialized=sessionStorage.getItem(k)==='1';var a=localStorage.getItem('accentColor');if(!initialized){sessionStorage.setItem(k,'1');localStorage.setItem('accentColor','blue');document.documentElement.removeAttribute('data-accent');}else if(a&&supported[a]&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}else{document.documentElement.removeAttribute('data-accent');}}catch(e){}})()`;
 
 export const metadata: Metadata = {
   applicationName: "Romain Rubens",
+  creator: "Romain Rubens",
+  publisher: "Romain Rubens",
+  authors: [{ name: "Romain Rubens", url: siteUrlMeta }],
+  category: "design",
   title: {
     default: defaultTitle,
     template: "%s - Romain Rubens",
@@ -49,19 +55,27 @@ export const metadata: Metadata = {
     apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "Romain Rubens",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     siteName: "Romain Rubens",
     title: defaultTitle,
     description: defaultDescription,
     url: siteUrlMeta,
-    images: [{ url: absoluteLogoImage, width: 701, height: 76, alt: "Romain Rubens - UX/UI Designer · Smart Ecosystems" }],
+    images: [{ url: absoluteSocialImage, width: 1200, height: 630, alt: "Romain Rubens - UX/UI Designer · Smart Ecosystems" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: defaultTitle,
     description: defaultDescription,
-    images: [absoluteLogoImage],
+    images: [absoluteSocialImage],
   },
   alternates: {
     canonical: siteUrlMeta,

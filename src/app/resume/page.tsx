@@ -138,7 +138,7 @@ export default function ResumePage() {
   };
 
   return (
-    <div style={{ width: "100%", height: "100vh", overflow: "hidden", backgroundColor: isMobile ? "#f5f5f5" : "#ffffff", margin: 0, padding: 0, position: "relative" }}>
+    <main id="main-content" style={{ width: "100%", height: "100vh", overflow: "hidden", backgroundColor: isMobile ? "#f5f5f5" : "#ffffff", margin: 0, padding: 0, position: "relative" }}>
       <div
         style={{
           position: "absolute",
@@ -281,6 +281,6 @@ export default function ResumePage() {
           />
         </button>
       </div>
-    </div>
+    </main>
   );
 }

@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Accessibility",
-  description: "Démarche d'accessibilité numérique de romainrubens.com — approche basée sur les standards RGAA 4 et WCAG 2.1.",
-};
+  description: "Démarche d'accessibilité numérique de romainrubens.com — approche basée sur le RGAA 4.1.2 et les WCAG 2.2.",
+  path: "/accessibility",
+});
 
 export default function AccessibiliteLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

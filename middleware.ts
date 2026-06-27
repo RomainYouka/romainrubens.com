@@ -2,14 +2,16 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const legacyLogoRedirects = new Set([
-    '/icons/logo-rubens.png',
-    '/animations/logo-animation.json',
+  const legacyLogoRedirects = new Map([
+    ['/icons/logo-rubens.png', '/icons/android-chrome-192x192.png'],
+    ['/icons/logo-animation_20260414110105.gif', '/icons/android-chrome-192x192.png'],
+    ['/animations/logo-animation.json', '/icons/icon.svg'],
   ]);
 
-  if (legacyLogoRedirects.has(request.nextUrl.pathname)) {
+  const legacyLogoDestination = legacyLogoRedirects.get(request.nextUrl.pathname);
+  if (legacyLogoDestination) {
     const url = request.nextUrl.clone();
-    url.pathname = '/icons/icon.svg';
+    url.pathname = legacyLogoDestination;
     const response = NextResponse.redirect(url, 308);
     response.headers.set('X-Robots-Tag', 'noindex, noimageindex, noarchive');
     return response;
@@ -26,9 +28,6 @@ export function middleware(request: NextRequest) {
   // Empêche le MIME-type sniffing
   response.headers.set('X-Content-Type-Options', 'nosniff');
 
-  // Désactive la détection XSS legacy (navigateurs anciens)
-  response.headers.set('X-XSS-Protection', '1; mode=block');
-
   // Force HTTPS pendant 2 ans, inclut sous-domaines
   response.headers.set(
     'Strict-Transport-Security',
@@ -37,11 +36,13 @@ export function middleware(request: NextRequest) {
 
   // Contrôle les infos envoyées dans le Referer
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+  response.headers.set('Origin-Agent-Cluster', '?1');
 
   // Désactive les APIs sensibles non utilisées
   response.headers.set(
     'Permissions-Policy',
-    'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+    'camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=()'
   );
 
   // Content Security Policy
@@ -55,10 +56,15 @@ export function middleware(request: NextRequest) {
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
       "img-src 'self' data: https:",
+      "media-src 'self'",
+      "object-src 'none'",
+      "worker-src 'self' blob:",
+      "manifest-src 'self'",
       "connect-src 'self' https://slelguoygbfzlpylpxfs.supabase.co https://ipapi.co https://api.sunrise-sunset.org https://cloud.umami.is",
       isResumePdf ? "frame-ancestors 'self'" : "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
+      "upgrade-insecure-requests",
     ].join('; ')
   );
 

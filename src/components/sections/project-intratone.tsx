@@ -256,7 +256,7 @@ export default function ProjectIntratone({ language = "EN" }: ProjectIntratonePr
               </button>
 
               <a
-                href="/intratone/user-flow.pdf"
+                href="/projects/intratone/user-flow.pdf"
                 download
                 className="flex-1 px-4 py-2 rounded-lg bg-[#1D1D1F] text-white font-medium transition-all duration-200 hover:bg-[#333335] text-center"
                 style={{

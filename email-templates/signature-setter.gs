@@ -33,7 +33,7 @@ function setSignature() {
     // Ligne 1 : icône + nom + titre
     '<tr>' +
     '<td style="vertical-align:middle;padding-right:10px;">' +
-    '<img class="sig-star" src="https://romainrubens.com/icons/logo-animation_20260414110105.gif"' +
+    '<img class="sig-star" src="https://romainrubens.com/icons/logo-star-animated.gif"' +
     ' width="40" height="40" alt="" style="display:block;border:0;width:40px;height:40px;border-radius:9px;">' +
     '</td>' +
     '<td style="vertical-align:middle;">' +

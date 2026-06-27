@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   async redirects() {
     return [
       {
         source: "/icons/logo-rubens.png",
-        destination: "/icons/icon.svg",
+        destination: "/icons/android-chrome-192x192.png",
         permanent: true,
       },
       {
@@ -14,9 +15,14 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/lab/world",
-        destination: "/lab",
-        permanent: false,
+        source: "/icons/logo-animation_20260414110105.gif",
+        destination: "/icons/android-chrome-192x192.png",
+        permanent: true,
+      },
+      {
+        source: "/lab/:path*",
+        destination: "/",
+        permanent: true,
       },
     ];
   },
@@ -40,15 +46,6 @@ const nextConfig: NextConfig = {
           },
         ],
       })),
-      {
-        source: "/lab/:path*",
-        headers: [
-          {
-            key: "X-Robots-Tag",
-            value: "noindex, nofollow, noarchive",
-          },
-        ],
-      },
     ];
   },
   images: {
@@ -62,7 +59,6 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
 
-  typescript: { ignoreBuildErrors: true },
 };
 
 export default nextConfig;

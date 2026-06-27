@@ -7,7 +7,7 @@ type Language = "FR" | "EN" | "ՀԱՅ";
 const translations = {
   FR: {
     title: "Accessibilité",
-    intro: "Ce site s'inscrit dans une démarche volontaire d'accessibilité numérique. Les choix de conception s'appuient sur les recommandations du RGAA 4 (Référentiel Général d'Amélioration de l'Accessibilité) et des WCAG 2.1, sans pour autant constituer une déclaration de conformité officielle.",
+    intro: "Ce site s'inscrit dans une démarche volontaire d'accessibilité numérique. Les choix de conception s'appuient sur le RGAA 4.1.2 (Référentiel général d'amélioration de l'accessibilité) et les WCAG 2.2, sans pour autant constituer une déclaration de conformité officielle.",
 
     approachTitle: "La démarche",
     approachText: "Une attention particulière est portée aux points suivants :",
@@ -37,7 +37,7 @@ const translations = {
   },
   EN: {
     title: "Accessibility",
-    intro: "This website reflects a voluntary commitment to digital accessibility. Design decisions are guided by the RGAA 4 and WCAG 2.1 guidelines, without constituting an official compliance declaration.",
+    intro: "This website reflects a voluntary commitment to digital accessibility. Design decisions are guided by RGAA 4.1.2 and WCAG 2.2, without constituting an official compliance declaration.",
 
     approachTitle: "Our approach",
     approachText: "Particular attention is paid to the following:",
@@ -67,7 +67,7 @@ const translations = {
   },
   ՀԱՅ: {
     title: "Հասանելիություն",
-    intro: "Այս կայքը արտացոլում է թվային հասանելիության կամավոր պարտավորություն։ Նախագծման որոշումները հիմնված են RGAA 4 և WCAG 2.1 ուղեցույցների վրա, սակայն չեն հանդիսանում պաշտոնական համապատասխանության հայտարարություն։",
+    intro: "Այս կայքը արտացոլում է թվային հասանելիության կամավոր պարտավորություն։ Նախագծման որոշումները հիմնված են RGAA 4.1.2 և WCAG 2.2 ուղեցույցների վրա, սակայն չեն հանդիսանում պաշտոնական համապատասխանության հայտարարություն։",
 
     approachTitle: "Մեր մոտեցումը",
     approachText: "Հատուկ ուշադրություն է դարձվում հետևյալ կետերին.",

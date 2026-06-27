@@ -77,9 +77,9 @@ const LogoInline = ({ isScrolled, className, ...rest }: { isScrolled: boolean; c
 
 // ─── Traductions nav ─────────────────────────────────────────────────────────
 const translations = {
-  FR:  { home: "Accueil", projects: "Projets",    skills: "Compétences",   contact: "Contact", resume: "CV",     lab: "Lab", soon: "Bientôt",  accentLabel: "Couleur principale" },
-  EN:  { home: "Home",    projects: "Projects",   skills: "Skills",        contact: "Contact", resume: "Resume", lab: "Lab", soon: "Soon",      accentLabel: "Main color"         },
-  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե", lab: "Լաբ", soon: "Շուտով", accentLabel: "Հիմնական գույն"  },
+  FR:  { home: "Accueil", projects: "Projets",    skills: "Compétences",   contact: "Contact", resume: "CV",      accentLabel: "Couleur principale" },
+  EN:  { home: "Home",    projects: "Projects",   skills: "Skills",        contact: "Contact", resume: "Resume",  accentLabel: "Main color"         },
+  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե", accentLabel: "Հիմնական գույն"  },
 };
 
 // ─── Bouton CV ───────────────────────────────────────────────────────────────
@@ -141,19 +141,19 @@ const ResumeButton = ({ selectedLanguage, isDark }: { selectedLanguage: Language
 
 // ─── Sélecteur de langue ─────────────────────────────────────────────────────
 interface LangSelectorProps {
-  selectedLanguage: Language;
+  selectedLanguage: string;
   onLanguageChange: (lang: string) => void;
   isDark: boolean;
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  languages?: readonly string[];
 }
 
-const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, onOpen, onClose }: LangSelectorProps) => {
+const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, onOpen, onClose, languages = ["FR", "EN", "ՀԱՅ"] }: LangSelectorProps) => {
   const buttonRef   = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [dropPos, setDropPos] = useState<{ top: number; left: number }>({ top: 80, left: 0 });
-  const LANGS: Language[] = ["FR", "EN", "ՀԱՅ"];
 
   useEffect(() => {
     if (!isOpen) return;
@@ -190,7 +190,7 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
     return () => document.removeEventListener("keydown", handler);
   }, [isOpen, onClose]);
 
-  const handleSelect = (lang: Language) => { onLanguageChange(lang); onClose(); };
+  const handleSelect = (lang: string) => { onLanguageChange(lang); onClose(); };
 
   const textColor  = isDark ? "#FFFFFF" : "#1d1d1f";
   const dropBg     = isDark ? "rgba(24,24,28,0.97)"    : "rgba(252,252,254,0.97)";
@@ -244,12 +244,14 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
               overflow:             "hidden",
               zIndex:               1100,
               minWidth:             80,
+              maxHeight:            "min(70vh, 520px)",
+              overflowY:            "auto",
               boxShadow: isDark
                 ? "0 16px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3)"
                 : "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.07)",
             }}
           >
-            {LANGS.map((lang, idx) => {
+            {languages.map((lang, idx) => {
               const isSel = lang === selectedLanguage;
               return (
                 <button
@@ -270,7 +272,7 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
                     border:       "none",
                     cursor:       "pointer",
                     transition:   "background 140ms ease",
-                    borderBottom: idx < LANGS.length - 1 ? `1px solid ${divider}` : "none",
+                    borderBottom: idx < languages.length - 1 ? `1px solid ${divider}` : "none",
                   }}
                   onMouseEnter={(e) => { if (!isSel) e.currentTarget.style.background = hoverBg; }}
                   onMouseLeave={(e) => { if (!isSel) e.currentTarget.style.background = "transparent"; }}
@@ -294,9 +296,10 @@ interface ColorPickerProps {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
+  options?: typeof ACCENT_OPTIONS;
 }
 
-const ColorPicker = ({ accentColor, onAccentChange, isDark, isOpen, onOpen, onClose }: ColorPickerProps) => {
+const ColorPicker = ({ accentColor, onAccentChange, isDark, isOpen, onOpen, onClose, options = ACCENT_OPTIONS }: ColorPickerProps) => {
   const buttonRef   = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [dropPos, setDropPos] = useState<{ top: number; left: number }>({ top: 80, left: 0 });
@@ -388,7 +391,7 @@ const ColorPicker = ({ accentColor, onAccentChange, isDark, isOpen, onOpen, onCl
             }}
           >
             <div style={{ display: "flex", gap: 10 }}>
-              {ACCENT_OPTIONS.map((opt) => {
+              {options.map((opt) => {
                 const isSel = opt.id === accentColor;
                 const swatch = isDark ? opt.dark : opt.light;
                 const bg = opt.mono
@@ -486,6 +489,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const [langForceExpanded, setLangForceExpanded] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const scrolledYRef = useRef(false);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => detectLanguage());
@@ -513,8 +517,14 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   }, [selectedLanguage]);
 
   useEffect(() => {
-    const handler = () => setScrolledY(window.scrollY > 8);
+    const handler = () => {
+      const nextScrolled = window.scrollY > 8;
+      if (scrolledYRef.current === nextScrolled) return;
+      scrolledYRef.current = nextScrolled;
+      setScrolledY(nextScrolled);
+    };
     window.addEventListener("scroll", handler, { passive: true });
+    handler();
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
@@ -561,12 +571,6 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  const handleLabClick = useCallback(() => triggerTransition("/lab", "up"), [triggerTransition]);
-  const handleMobileLabClick = useCallback(() => {
-    setIsMenuOpen(false);
-    triggerTransition("/lab", "up");
-  }, [triggerTransition]);
-
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     window.dispatchEvent(new CustomEvent("menuStateChange", { detail: isMenuOpen }));
@@ -592,13 +596,13 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const navBgColor  = "var(--theme-nav-bg)";
   const borderColor = "var(--theme-border)";
   const scrolledBg  = "var(--theme-nav-scrolled)";
+  const visualScrolled = isScrolled;
 
   const navLinks = [
-    { name: t.home,     href: "/" },
+    { name: t.home, href: "/" },
     { name: t.projects, href: "/projects" },
-    { name: t.skills,   href: "/skills" },
-    { name: t.contact,  href: "/contact" },
-    { name: t.lab, accent: true, isSoon: true },
+    { name: t.skills, href: "/skills" },
+    { name: t.contact, href: "/contact" },
   ];
 
   const logoProps = {
@@ -624,20 +628,20 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
           isLightboxOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         style={{
-          paddingTop:    isScrolled ? "12px" : "0",
-          paddingLeft:   isScrolled ? "12px" : "0",
-          paddingRight:  isScrolled ? "12px" : "0",
+          paddingTop:    visualScrolled ? "12px" : "0",
+          paddingLeft:   visualScrolled ? "12px" : "0",
+          paddingRight:  visualScrolled ? "12px" : "0",
           transition: "opacity 300ms ease-in-out, padding 380ms cubic-bezier(0.4,0,0.2,1)",
         }}
       >
         <div
           style={{
-            backgroundColor: isScrolled ? scrolledBg : navBgColor,
-            backdropFilter:       isScrolled ? "blur(12px)" : "none",
-            WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
-            borderRadius:  isScrolled ? "980px" : "0",
-            borderBottom:  isScrolled ? "none" : `1px solid ${borderColor}`,
-            boxShadow:     isScrolled ? (isDark ? "0 4px 20px rgba(255,255,255,0.07)" : "0 4px 12px rgba(0,0,0,0.08)") : "none",
+            backgroundColor: visualScrolled ? scrolledBg : navBgColor,
+            backdropFilter: visualScrolled ? "blur(12px)" : "none",
+            WebkitBackdropFilter: visualScrolled ? "blur(12px)" : "none",
+            borderRadius: visualScrolled ? "980px" : "0",
+            borderBottom: visualScrolled ? "none" : `1px solid ${borderColor}`,
+            boxShadow: visualScrolled ? (isDark ? "0 4px 20px rgba(255,255,255,0.07)" : "0 4px 12px rgba(0,0,0,0.08)") : "none",
             transition:
               "background-color 380ms cubic-bezier(0.4,0,0.2,1), " +
               "border-radius 380ms cubic-bezier(0.4,0,0.2,1), " +
@@ -645,48 +649,29 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
           }}
         >
           <div className="mx-auto h-16 max-w-[1200px] px-6">
-            <nav role="navigation" aria-label="Navigation principale" className="flex h-full w-full items-center justify-between">
+            <nav
+              role="navigation"
+              aria-label="Navigation principale"
+              dir="ltr"
+              className="flex h-full w-full items-center justify-between"
+              style={{ direction: "ltr" }}
+            >
 
               {/* ── Desktop ── */}
               <div className="hidden h-full w-full items-center justify-between lg:flex">
                 <a {...logoProps}>
-                  <LogoInline isScrolled={isScrolled} className="h-4 w-auto relative z-10" />
+                  <LogoInline isScrolled={visualScrolled} className="h-4 w-auto relative z-10" />
                 </a>
 
                 <div className="flex items-center h-full gap-10">
-                  {navLinks.map((link) => link.isSoon ? (
-                    <button
-                      key={link.name}
-                      type="button"
-                      onClick={handleLabClick}
-                      className="flex items-center h-full font-medium text-sm px-3 no-underline hover:underline focus-visible:underline"
-                      style={{
-                        color: "var(--theme-accent)",
-                        textDecorationColor: "var(--theme-accent)",
-                        textDecorationThickness: "1px",
-                        textUnderlineOffset: "2px",
-                        transition: "opacity 180ms ease",
-                        position: "relative",
-                        background: "none", border: "none", cursor: "pointer",
-                      }}
-                    >
-                      {link.name}
-                      <span style={{
-                        position: "absolute", top: "30%", right: 2,
-                        width: 5, height: 5, borderRadius: "50%",
-                        background: "var(--theme-accent)",
-                        boxShadow: "0 0 6px var(--theme-accent)",
-                        animation: "pulse 2s ease infinite",
-                      }} />
-                    </button>
-                  ) : (
+                  {navLinks.map((link) => (
                     <Link
                       key={link.name}
                       href={link.href}
                       className="flex items-center h-full font-medium text-sm px-3 no-underline hover:underline focus-visible:underline"
                       style={{
-                        color: link.accent ? "var(--theme-accent)" : textColor,
-                        textDecorationColor: link.accent ? "var(--theme-accent)" : textColor,
+                        color: textColor,
+                        textDecorationColor: textColor,
                         textDecorationThickness: "1px",
                         textUnderlineOffset: "2px",
                         transition: "opacity 180ms ease",
@@ -694,15 +679,6 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                       }}
                     >
                       {link.name}
-                      {link.accent && (
-                        <span style={{
-                          position: "absolute", top: "30%", right: 2,
-                          width: 5, height: 5, borderRadius: "50%",
-                          background: "var(--theme-accent)",
-                          boxShadow: "0 0 6px var(--theme-accent)",
-                          animation: "pulse 2s ease infinite",
-                        }} />
-                      )}
                     </Link>
                   ))}
 
@@ -713,6 +689,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     isOpen={colorPickerOpen}
                     onOpen={openColorPicker}
                     onClose={closeColorPicker}
+                    options={ACCENT_OPTIONS}
                   />
                   <LanguageSelector
                     selectedLanguage={selectedLanguage}
@@ -728,13 +705,20 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
               </div>
 
               {/* ── Mobile ── */}
-              <div className="flex w-full items-center justify-between lg:hidden">
-                <a {...logoProps} className={logoProps.className.replace("h-full", "")}>
-                  <LogoInline isScrolled={isScrolled} className="h-3.5 w-auto" />
-                </a>
+              <div
+                className="flex w-full items-center justify-between lg:hidden"
+                style={{
+                  direction: "ltr",
+                  flexDirection: "row",
+                }}
+              >
+                <div style={{ flex: "1 1 0", display: "flex", justifyContent: "flex-start", minWidth: 0 }}>
+                  <a {...logoProps} className={logoProps.className.replace("h-full", "")}>
+                    <LogoInline isScrolled={visualScrolled} className="h-3.5 w-auto" />
+                  </a>
+                </div>
 
-                <div className="flex items-center h-9 gap-5">
-                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} />
+                <div className="flex items-center h-9 gap-2" style={{ flex: "1 1 0", justifyContent: "flex-end", flexDirection: "row", minWidth: 0 }}>
                   <div className="flex items-center justify-center h-9">
                     <LanguageSelector
                       selectedLanguage={selectedLanguage}
@@ -745,11 +729,14 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                       onClose={closeLangDropdown}
                     />
                   </div>
+                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} />
                   <button
                     onClick={handleMenuToggle}
                     className="flex items-center justify-center h-9 transition-opacity duration-200 hover:opacity-80"
                     style={{ color: textColor }}
-                    aria-label="Toggle menu"
+                    aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                    aria-expanded={isMenuOpen}
+                    aria-controls="mobile-navigation"
                   >
                     <AnimatedBurgerIcon isOpen={isMenuOpen} isDark={isDark} />
                   </button>
@@ -762,56 +749,28 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
 
       {/* ── Menu mobile overlay ── */}
       <div
+        id="mobile-navigation"
         className={`fixed inset-0 top-16 z-40 transition-all duration-300 lg:hidden ${
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
+        aria-hidden={!isMenuOpen}
         style={{ backgroundColor: navBgColor }}
       >
         <div className="h-full overflow-y-auto px-6 pt-8 flex flex-col justify-between pb-8">
           <div className="flex flex-col gap-1">
-            {navLinks.map((link) => link.isSoon ? (
-              <button
-                key={link.name}
-                type="button"
-                onClick={handleMobileLabClick}
-                className="py-4 text-lg font-medium border-b hover:opacity-80 transition-opacity text-left"
-                style={{
-                  color: "var(--theme-accent)",
-                  borderColor,
-                  display: "flex", alignItems: "center", gap: 8,
-                  background: "none", border: "none", borderBottom: `1px solid ${borderColor}`,
-                  cursor: "pointer", padding: "16px 0",
-                }}
-              >
-                {link.name}
-                <span style={{
-                  width: 6, height: 6, borderRadius: "50%", flexShrink: 0,
-                  background: "var(--theme-accent)",
-                  boxShadow: "0 0 6px var(--theme-accent)",
-                  animation: "pulse 2s ease infinite",
-                }} />
-              </button>
-            ) : (
+            {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 className="py-4 text-lg font-medium border-b hover:opacity-80 transition-opacity"
                 style={{
-                  color: link.accent ? "var(--theme-accent)" : textColor,
+                  color: textColor,
                   borderColor,
                   display: "flex", alignItems: "center", gap: 8,
                 }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
-                {link.accent && (
-                  <span style={{
-                    width: 6, height: 6, borderRadius: "50%", flexShrink: 0,
-                    background: "var(--theme-accent)",
-                    boxShadow: "0 0 6px var(--theme-accent)",
-                    animation: "pulse 2s ease infinite",
-                  }} />
-                )}
               </Link>
             ))}
           </div>

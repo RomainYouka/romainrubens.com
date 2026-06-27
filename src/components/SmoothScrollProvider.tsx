@@ -10,7 +10,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
   // Recréé à chaque changement de route : garantit l'activation/désactivation correcte
   useEffect(() => {
-    // Pas de scroll smooth sur la page d'accueil (scroll natif spécifique)
+    // La page d'accueil garde un scroll natif fiable, notamment au zoom.
     if (pathname === "/") return;
 
     // Respecte prefers-reduced-motion

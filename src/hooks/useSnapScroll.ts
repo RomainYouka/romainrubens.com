@@ -3,95 +3,74 @@
 import { useEffect, useRef } from "react";
 
 export function useSnapScroll() {
-  const isSnapRef = useRef(false);
+  const isAnimatingRef = useRef(false);
+  const wheelIntentRef = useRef(0);
+  const releaseTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      // Ignore horizontal scrolling
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
 
-      // Skip if already snapping
-      if (isSnapRef.current) return;
+    const release = () => {
+      if (releaseTimerRef.current) window.clearTimeout(releaseTimerRef.current);
+      releaseTimerRef.current = window.setTimeout(() => {
+        isAnimatingRef.current = false;
+        wheelIntentRef.current = 0;
+      }, 820);
+    };
 
-      const sections = document.querySelectorAll("[data-section]");
-      if (sections.length < 2) return;
+    const scrollTo = (top: number) => {
+      isAnimatingRef.current = true;
+      window.scrollTo({ top, behavior: "smooth" });
+      release();
+    };
 
-      const heroSection = sections[0] as HTMLElement;
-      const personalIntroSection = sections[1] as HTMLElement;
-      const footerSection = sections.length > 2 ? (sections[2] as HTMLElement) : null;
+    const handleWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      if (event.ctrlKey || event.metaKey || event.altKey) return;
 
-      const currentScroll = window.scrollY;
-      const viewportHeight = window.innerHeight;
+      const hero = document.querySelector<HTMLElement>('[data-section="hero-landing"]');
+      const intro = document.querySelector<HTMLElement>('[data-section="personal-intro"]');
+      if (!hero || !intro) return;
 
-      const direction = e.deltaY > 0 ? 1 : -1;
+      const direction = event.deltaY > 0 ? 1 : -1;
+      const heroHeight = hero.offsetHeight;
+      const introTop = intro.offsetTop;
+      const currentY = window.scrollY;
+      const viewport = window.innerHeight;
 
-      // Determine current state more precisely
-      let currentStateIndex = 0;
-      if (currentScroll > personalIntroSection.offsetTop + viewportHeight * 0.5) {
-        currentStateIndex = 2;
-      } else if (currentScroll > personalIntroSection.offsetTop - 100) {
-        currentStateIndex = 1;
-      } else {
-        currentStateIndex = 0;
-      }
-
-      // Special logic: in state 2, only snap UP to state 1, allow natural scroll DOWN
-      if (currentStateIndex === 1 && direction > 0) {
-        // Scrolling DOWN in state 2 - allow natural scroll, don't snap
+      if (isAnimatingRef.current) {
+        event.preventDefault();
         return;
       }
 
-      // Calculate target state
-      let targetStateIndex = currentStateIndex + direction;
-      targetStateIndex = Math.max(0, Math.min(targetStateIndex, 2));
+      wheelIntentRef.current =
+        Math.sign(wheelIntentRef.current) === direction
+          ? wheelIntentRef.current + event.deltaY
+          : event.deltaY;
 
-      if (targetStateIndex === currentStateIndex) return;
+      const threshold = event.deltaMode === WheelEvent.DOM_DELTA_PIXEL ? 72 : 3;
+      if (Math.abs(wheelIntentRef.current) < threshold) return;
 
-      e.preventDefault();
-      isSnapRef.current = true;
+      const nearHero = currentY < heroHeight * 0.72;
+      const nearIntroTop = currentY > introTop - viewport * 0.28 && currentY < introTop + viewport * 0.45;
 
-      const startScroll = currentScroll;
-      let targetScroll = 0;
-
-      if (targetStateIndex === 0) {
-        targetScroll = 0;
-      } else if (targetStateIndex === 1) {
-        // Scroll to top of PersonalIntro (same as button)
-        targetScroll = personalIntroSection.offsetTop;
-      } else if (targetStateIndex === 2) {
-        // Scroll to footer
-        targetScroll = footerSection?.offsetTop ?? personalIntroSection.offsetTop + personalIntroSection.offsetHeight - viewportHeight * 0.3;
+      if (direction > 0 && nearHero) {
+        event.preventDefault();
+        scrollTo(introTop);
+        return;
       }
 
-      const distance = targetScroll - startScroll;
-      const duration = 600;
-      const startTime = Date.now();
-
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        const easeInOutCubic = (t: number) => {
-          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        };
-
-        const newScroll = startScroll + distance * easeInOutCubic(progress);
-        window.scrollTo(0, newScroll);
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          isSnapRef.current = false;
-        }
-      };
-
-      animate();
+      if (direction < 0 && nearIntroTop) {
+        event.preventDefault();
+        scrollTo(0);
+      }
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
-
     return () => {
       window.removeEventListener("wheel", handleWheel);
+      if (releaseTimerRef.current) window.clearTimeout(releaseTimerRef.current);
     };
   }, []);
 

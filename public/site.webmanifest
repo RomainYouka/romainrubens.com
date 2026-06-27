@@ -2,10 +2,16 @@
   "name": "Romain Rubens - UX/UI Designer · Smart Ecosystems",
   "short_name": "Romain Rubens",
   "description": "UX/UI, interaction design et smart ecosystems.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["design", "portfolio", "productivity"],
   "icons": [
     {
       "src": "/icons/icon.svg",
-      "sizes": "701x76",
+      "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
@@ -17,10 +23,24 @@
     {
       "src": "/icons/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/maskable-1024x1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#314DCB",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"]
 }

@@ -121,6 +121,8 @@ interface SectionItem {
   href: string;
   isSubItem?: boolean;
   isClickable?: boolean;
+  target?: string;
+  rel?: string;
 }
 
 interface Section {
