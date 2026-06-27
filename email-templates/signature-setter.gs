@@ -19,8 +19,8 @@ function setSignature() {
     '@media (prefers-color-scheme: dark) {' +
     '.sig-name    { color: #f2f2f7 !important; }' +
     '.sig-sub     { color: #aeaeb2 !important; }' +
-    '.sig-divider { background-color: #5194FF !important; }' +
-    '.sig-site    { color: #5194FF !important; }' +
+    '.sig-divider { background-color: #f2f2f7 !important; }' +
+    '.sig-site    { color: #f2f2f7 !important; }' +
     '.sig-social  { color: #aeaeb2 !important; }' +
     '.sig-dot     { color: #48484a !important; }' +
     '.sig-star    { filter: brightness(0) invert(1) !important; }' +
@@ -46,9 +46,9 @@ function setSignature() {
     '<tr>' +
     '<td></td>' +
     '<td style="padding-top:10px;">' +
-    '<div class="sig-divider" style="width:28px;height:2px;background-color:#314DCB;border-radius:2px;margin-bottom:8px;"></div>' +
+    '<div class="sig-divider" style="width:28px;height:2px;background-color:#1c1c1e;border-radius:2px;margin-bottom:8px;"></div>' +
     '<p style="margin:0 0 4px;">' +
-    '<a class="sig-site" href="https://romainrubens.com" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:600;color:#314DCB;text-decoration:none;">romainrubens.com</a>' +
+    '<a class="sig-site" href="https://romainrubens.com" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:600;color:#1c1c1e;text-decoration:none;">romainrubens.com</a>' +
     '</p>' +
     '<p style="margin:0;">' +
     '<a class="sig-social" href="https://www.linkedin.com/in/romain-rubens-ba660323b/" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:#8e8e93;text-decoration:none;">LinkedIn</a>' +
