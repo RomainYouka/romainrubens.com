@@ -91,6 +91,8 @@ const translations = {
 const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedLanguage: Language; isDark: boolean; compact?: boolean }) => {
   const t = translations[selectedLanguage];
   const [validating, setValidating] = useState(false);
+  const compactWidth: Record<Language, number> = { FR: 60, EN: 72, ՀԱՅ: 80 };
+  const buttonWidth = compact ? compactWidth[selectedLanguage] : 95;
 
   const handleDownload = () => {
     setValidating(true);
@@ -123,7 +125,7 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
         backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)",
         border: `1px solid var(--theme-accent)`,
         borderRadius: 980, padding: compact ? "8px 12px" : "8px 16px", height: 36,
-        minWidth: compact ? 60 : 95, width: compact ? 60 : 95,
+        minWidth: buttonWidth, width: buttonWidth,
         transition: "opacity 180ms ease, background-color 180ms ease, transform 180ms ease",
         outline: "none",
       }}
@@ -132,7 +134,9 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
       onMouseDown={(e) => { if (!validating) e.currentTarget.style.transform = "scale(0.97)"; }}
       onMouseUp={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
     >
-      <span style={{ textAlign: "center", width: "100%" }}>{compact ? "CV" : t.resume}</span>
+      <span style={{ textAlign: "center", width: "100%", fontSize: compact && selectedLanguage === "ՀԱՅ" ? 12 : undefined }}>
+        {t.resume}
+      </span>
       <div
         className={`absolute inset-0 flex items-center justify-center rounded-[980px] transition-opacity ${
           validating ? "opacity-100 duration-[200ms]" : "opacity-0 duration-[180ms] pointer-events-none"
@@ -724,7 +728,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                   </a>
                 </div>
 
-                <div className="flex h-9 min-w-0 flex-none flex-row items-center justify-end gap-2.5">
+                <div className="flex h-9 min-w-0 flex-none flex-row items-center justify-end gap-2">
+                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} compact />
                   <div className="flex items-center justify-center h-9">
                     <LanguageSelector
                       selectedLanguage={selectedLanguage}
@@ -735,7 +740,6 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                       onClose={closeLangDropdown}
                     />
                   </div>
-                  <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} compact />
                   <button
                     onClick={handleMenuToggle}
                     className="flex h-9 w-9 flex-none items-center justify-center transition-opacity duration-200 hover:opacity-80"
