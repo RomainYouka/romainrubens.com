@@ -98,7 +98,7 @@ const mobileProjects = [
     darkImage: "/projects/blocks/renault-dark.png",
     year: "",
     slug: "renault",
-    externalUrl: undefined as string | undefined,
+    externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
     isComingSoon: false,
     isPriority: false,
   },

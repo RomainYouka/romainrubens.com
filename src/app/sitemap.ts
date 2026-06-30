@@ -10,7 +10,6 @@ const routes = [
   "/projects/intratone",
   "/projects/ios26",
   "/projects/namequest",
-  "/projects/renault",
   "/projects/vahansoghomonian",
   "/projects/waveswitch",
   "/explorations",
