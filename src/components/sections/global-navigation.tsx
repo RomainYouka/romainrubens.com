@@ -60,23 +60,7 @@ const BrandLogo = ({ isScrolled, className }: { isScrolled: boolean; className?:
       aria-label={isScrolled ? "Rubens" : "Romain Rubens"}
       className={`relative block flex-none ${className ?? ""}`}
       style={{ ...maskStyles, aspectRatio: `${width} / 76`, backgroundColor: "var(--theme-fg)" }}
-    >
-      <span
-        aria-hidden="true"
-        className="absolute inset-y-0 left-0 aspect-square"
-        style={{
-          WebkitMaskImage: "url(/icons/icon.svg)",
-          maskImage: "url(/icons/icon.svg)",
-          WebkitMaskPosition: "center",
-          maskPosition: "center",
-          WebkitMaskRepeat: "no-repeat",
-          maskRepeat: "no-repeat",
-          WebkitMaskSize: "contain",
-          maskSize: "contain",
-          backgroundColor: "var(--theme-accent)",
-        }}
-      />
-    </span>
+    />
   );
 };
 
@@ -120,12 +104,13 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
       onClick={handleDownload}
       disabled={validating}
       aria-label={`Download ${t.resume}`}
-      className="relative flex items-center justify-center font-medium text-sm no-underline disabled:cursor-not-allowed"
+      className="relative inline-flex shrink-0 items-center justify-center whitespace-nowrap font-medium text-sm no-underline disabled:cursor-not-allowed"
       style={{
         backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)",
         border: `1px solid var(--theme-accent)`,
         borderRadius: 980, padding: compact ? "8px 12px" : "8px 16px", height: 36,
         minWidth: buttonWidth, width: buttonWidth,
+        lineHeight: 1,
         transition: "opacity 180ms ease, background-color 180ms ease, transform 180ms ease",
         outline: "none",
       }}
@@ -134,7 +119,7 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
       onMouseDown={(e) => { if (!validating) e.currentTarget.style.transform = "scale(0.97)"; }}
       onMouseUp={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
     >
-      <span style={{ textAlign: "center", width: "100%", fontSize: compact && selectedLanguage === "ՀԱՅ" ? 12 : undefined }}>
+      <span style={{ display: "block", textAlign: "center", width: "100%", lineHeight: 1, fontSize: compact && selectedLanguage === "ՀԱՅ" ? 12 : undefined }}>
         {t.resume}
       </span>
       <div

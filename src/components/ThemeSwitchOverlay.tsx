@@ -3,15 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import type { AccentColor } from "@/contexts/ThemeContext";
-
-const ACCENT_GLOW: Record<AccentColor, { r: number; g: number; b: number }> = {
-  blue:   { r: 49,  g: 77,  b: 203 },
-  pink:   { r: 255, g: 55,  b: 108 },
-  green:  { r: 83,  g: 201, b: 153 },
-  orange: { r: 255, g: 162, b: 105 },
-  mono:   { r: 120, g: 120, b: 120 },
-};
 
 function BulbAnimation({ lit }: { lit: boolean }) {
   return (
@@ -52,18 +43,16 @@ function BulbAnimation({ lit }: { lit: boolean }) {
   );
 }
 
-function TransitionScreen({ isDark, accentColor }: { isDark: boolean; accentColor: AccentColor }) {
-  const [bulbLit, setBulbLit] = useState(isDark);
+function TransitionScreen({ transition }: { transition: "toLight" | "toDark" }) {
+  const isDark = transition === "toDark";
+  const [bulbLit, setBulbLit] = useState(false);
 
   useEffect(() => {
-    if (isDark) {
-      const t = setTimeout(() => setBulbLit(false), 380);
-      return () => clearTimeout(t);
-    } else {
+    if (transition === "toLight") {
       const t = setTimeout(() => setBulbLit(true), 330);
       return () => clearTimeout(t);
     }
-  }, []);
+  }, [transition]);
 
   return (
     <motion.div
@@ -89,15 +78,14 @@ function TransitionScreen({ isDark, accentColor }: { isDark: boolean; accentColo
 }
 
 export function ThemeSwitchOverlay() {
-  const { themeTransition, accentColor } = useTheme();
+  const { themeTransition } = useTheme();
 
   return (
     <AnimatePresence>
       {themeTransition && (
         <TransitionScreen
           key={themeTransition}
-          isDark={themeTransition === "toDark"}
-          accentColor={accentColor}
+          transition={themeTransition}
         />
       )}
     </AnimatePresence>

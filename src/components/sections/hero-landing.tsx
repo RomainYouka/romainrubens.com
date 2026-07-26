@@ -62,8 +62,8 @@ export default function HeroLanding() {
   const [isTyping,          setIsTyping]          = useState(false);
   const [showScrollButton,  setShowScrollButton]  = useState(false);
   const [btnVisible,        setBtnVisible]        = useState(false);
-  const [splashDone,        setSplashDone]        = useState(false);
-  const [showInitialCursor, setShowInitialCursor] = useState(false);
+  const splashDone                         = true;
+  const [showInitialCursor, setShowInitialCursor] = useState(true);
   const [userInteracted,    setUserInteracted]    = useState(false);
   const [animateBackground, setAnimateBackground] = useState(true);
 
@@ -96,23 +96,6 @@ export default function HeroLanding() {
     window.addEventListener("languageChange", handler as EventListener);
     return () => window.removeEventListener("languageChange", handler as EventListener);
   }, []);
-
-  // ── Splash / intro ───────────────────────────────────────────────────────────
-  useEffect(() => {
-    const check = () => {
-      if (sessionStorage.getItem("introSeen") === "true") {
-        setSplashDone(true);
-        setShowInitialCursor(true);
-      }
-    };
-    check();
-    const interval = setInterval(check, 100);
-    const timeout  = setTimeout(() => {
-      clearInterval(interval);
-      if (!splashDone) { setSplashDone(true); setShowInitialCursor(true); }
-    }, 5000);
-    return () => { clearInterval(interval); clearTimeout(timeout); };
-  }, [splashDone]);
 
   useEffect(() => {
     if (!showInitialCursor) return;

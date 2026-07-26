@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "@/contexts/ThemeContext";
 
 const footerTranslations = {
   FR: {
@@ -11,8 +10,6 @@ const footerTranslations = {
     legal: "Mentions légales",
     sitemap: "Plan du site",
     accessibility: "Accessibilité",
-    dyslexicOn: "Mode dyslexique",
-    dyslexicOff: "Mode dyslexique",
   },
   EN: {
     copyright: "© 2026 Romain Rubens. All rights reserved.",
@@ -20,8 +17,6 @@ const footerTranslations = {
     legal: "Legal Notice",
     sitemap: "Site Map",
     accessibility: "Accessibility",
-    dyslexicOn: "Dyslexic mode",
-    dyslexicOff: "Dyslexic mode",
   },
   ՀԱՅ: {
     copyright: "© 2026 Ռոման Ռուբենս. Բոլոր իրավունքները պաշտպանված են.",
@@ -29,8 +24,6 @@ const footerTranslations = {
     legal: "Իրավական տեղեկություններ",
     sitemap: "Կայքի քարտեզ",
     accessibility: "Հասանելիություն",
-    dyslexicOn: "Դիսլեքսիկ ռեժիմ",
-    dyslexicOff: "Դիսլեքսիկ ռեժիմ",
   },
   ES: {
     copyright: "© 2026 Romain Rubens. Todos los derechos reservados.",
@@ -38,8 +31,6 @@ const footerTranslations = {
     legal: "Aviso legal",
     sitemap: "Mapa del sitio",
     accessibility: "Accesibilidad",
-    dyslexicOn: "Modo dislexia",
-    dyslexicOff: "Modo dislexia",
   },
   DE: {
     copyright: "© 2026 Romain Rubens. Alle Rechte vorbehalten.",
@@ -47,8 +38,6 @@ const footerTranslations = {
     legal: "Impressum",
     sitemap: "Sitemap",
     accessibility: "Barrierefreiheit",
-    dyslexicOn: "Dyslexie-Modus",
-    dyslexicOff: "Dyslexie-Modus",
   },
   IT: {
     copyright: "© 2026 Romain Rubens. Tutti i diritti riservati.",
@@ -56,8 +45,6 @@ const footerTranslations = {
     legal: "Note legali",
     sitemap: "Mappa del sito",
     accessibility: "Accessibilità",
-    dyslexicOn: "Modalità dislessia",
-    dyslexicOff: "Modalità dislessia",
   },
   RU: {
     copyright: "© 2026 Romain Rubens. Все права защищены.",
@@ -65,8 +52,6 @@ const footerTranslations = {
     legal: "Правовая информация",
     sitemap: "Карта сайта",
     accessibility: "Доступность",
-    dyslexicOn: "Режим дислексии",
-    dyslexicOff: "Режим дислексии",
   },
   KO: {
     copyright: "© 2026 Romain Rubens. 모든 권리 보유.",
@@ -74,8 +59,6 @@ const footerTranslations = {
     legal: "법적 고지",
     sitemap: "사이트맵",
     accessibility: "접근성",
-    dyslexicOn: "난독증 모드",
-    dyslexicOff: "난독증 모드",
   },
   JA: {
     copyright: "© 2026 Romain Rubens. 無断転載を禁じます。",
@@ -83,8 +66,6 @@ const footerTranslations = {
     legal: "法的情報",
     sitemap: "サイトマップ",
     accessibility: "アクセシビリティ",
-    dyslexicOn: "ディスレクシアモード",
-    dyslexicOff: "ディスレクシアモード",
   },
   ZH: {
     copyright: "© 2026 Romain Rubens. 保留所有权利。",
@@ -92,8 +73,6 @@ const footerTranslations = {
     legal: "法律信息",
     sitemap: "网站地图",
     accessibility: "无障碍",
-    dyslexicOn: "阅读障碍模式",
-    dyslexicOff: "阅读障碍模式",
   },
   AR: {
     copyright: "© 2026 Romain Rubens. جميع الحقوق محفوظة.",
@@ -101,15 +80,12 @@ const footerTranslations = {
     legal: "المعلومات القانونية",
     sitemap: "خريطة الموقع",
     accessibility: "إمكانية الوصول",
-    dyslexicOn: "وضع عسر القراءة",
-    dyslexicOff: "وضع عسر القراءة",
   },
 };
 type FooterLanguage = keyof typeof footerTranslations;
 
 const GlobalFooter = () => {
   const router = useRouter();
-  const { isDyslexic, toggleDyslexic } = useTheme();
   const [selectedLanguage, setSelectedLanguage] = useState<FooterLanguage>("FR");
 
   useEffect(() => {
@@ -237,29 +213,6 @@ const GlobalFooter = () => {
           >
             {currentTranslations.accessibility}
           </button>
-          <span style={{ color: "var(--theme-subtle)" }}>|</span>
-          <button
-            onClick={toggleDyslexic}
-            aria-pressed={isDyslexic}
-            style={{
-              color: isDyslexic ? "var(--theme-accent)" : "var(--theme-subtle)",
-              textDecoration: "none",
-              cursor: "pointer",
-              background: "none",
-              border: "none",
-              padding: 0,
-              font: "inherit",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = "var(--theme-accent)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = isDyslexic ? "var(--theme-accent)" : "var(--theme-subtle)";
-            }}
-          >
-            {isDyslexic ? currentTranslations.dyslexicOff : currentTranslations.dyslexicOn}
-          </button>
-
         </div>
       </div>
     </footer>

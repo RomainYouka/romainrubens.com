@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import "maplibre-gl/dist/maplibre-gl.css";
 import Script from "next/script";
-import IntroSplashWrapper from "@/components/intro-splash-wrapper";
 import ClientLayout from "@/components/client-layout";
 import { LanguageSync } from "@/components/language-sync";
 import { Google_Sans, Google_Sans_Flex } from "next/font/google";
@@ -32,7 +30,7 @@ const brandLogo = "/icons/logo-romain-rubens.svg";
 const absoluteBrandLogo = `${siteUrlMeta}${brandLogo}`;
 const socialImage = "/icons/og-image.png";
 const absoluteSocialImage = `${siteUrlMeta}${socialImage}`;
-const initialThemeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}if(localStorage.getItem('dyslexic')==='1'){document.documentElement.setAttribute('data-dyslexic','true');}var k='accentColorSessionInitialized';var supported={blue:1,pink:1,green:1,orange:1,mono:1};var initialized=sessionStorage.getItem(k)==='1';var a=localStorage.getItem('accentColor');if(!initialized){sessionStorage.setItem(k,'1');localStorage.setItem('accentColor','blue');document.documentElement.removeAttribute('data-accent');}else if(a&&supported[a]&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}else{document.documentElement.removeAttribute('data-accent');}}catch(e){}})()`;
+const initialThemeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}localStorage.removeItem('accentColor');var supported={blue:1,pink:1,green:1,orange:1,mono:1};var a=sessionStorage.getItem('accentColor');if(a&&supported[a]&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}else{sessionStorage.setItem('accentColor','blue');document.documentElement.removeAttribute('data-accent');}}catch(e){}})()`;
 
 export const metadata: Metadata = {
   applicationName: "Romain Rubens",
@@ -48,12 +46,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrlMeta),
   icons: {
     icon: [
-      { url: "/icons/favicon-48x48.png", sizes: "48x48", type: "image/png" },
-      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "any" },
     ],
-    shortcut: "/icons/favicon-48x48.png",
+    shortcut: "/favicon.ico",
     apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/site.webmanifest",
@@ -146,7 +142,6 @@ export default function RootLayout({
           Aller au contenu principal
         </a>
         <LanguageSync />
-        <IntroSplashWrapper />
         <Script
           src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
           strategy="afterInteractive"

@@ -8,7 +8,6 @@ export type ThemeTransition = "toLight" | "toDark" | null;
 export type AccentColor = "blue" | "pink" | "green" | "orange" | "mono";
 
 const SUPPORTED_ACCENTS: AccentColor[] = ["blue", "pink", "green", "orange", "mono"];
-const ACCENT_SESSION_KEY = "accentColorSessionInitialized";
 
 interface ThemeContextValue {
   theme: Theme;
@@ -20,8 +19,6 @@ interface ThemeContextValue {
   themeTransition: ThemeTransition;
   isHighContrast: boolean;
   toggleHighContrast: () => void;
-  isDyslexic: boolean;
-  toggleDyslexic: () => void;
   accentColor: AccentColor;
   setAccentColor: (color: AccentColor) => void;
 }
@@ -85,7 +82,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [showTimePopup, setShowTimePopup] = useState<"evening" | "morning" | null>(null);
   const [themeTransition, setThemeTransition] = useState<ThemeTransition>(null);
   const [isHighContrast, setIsHighContrast] = useState(false);
-  const [isDyslexic, setIsDyslexic] = useState(false);
   const [accentColor, setAccentColorState] = useState<AccentColor>("blue");
   const transitionLock = useRef(false);
 
@@ -136,26 +132,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       });
     }
 
-    const savedDyslexic = localStorage.getItem("dyslexic") === "1";
-    if (savedDyslexic) {
-      setIsDyslexic(true);
-      document.documentElement.setAttribute("data-dyslexic", "true");
-    }
+    localStorage.removeItem("accentColor");
 
-    const isAccentInitialized = sessionStorage.getItem(ACCENT_SESSION_KEY) === "1";
-    const savedAccent = localStorage.getItem("accentColor") as AccentColor | null;
-    const nextAccent =
-      isAccentInitialized && savedAccent && SUPPORTED_ACCENTS.includes(savedAccent)
-        ? savedAccent
-        : "blue";
-
-    if (!isAccentInitialized) {
-      sessionStorage.setItem(ACCENT_SESSION_KEY, "1");
-      localStorage.setItem("accentColor", "blue");
-    }
+    const savedAccent = sessionStorage.getItem("accentColor") as AccentColor | null;
+    const nextAccent = savedAccent && SUPPORTED_ACCENTS.includes(savedAccent) ? savedAccent : "blue";
 
     setAccentColorState(nextAccent);
     applyAccent(nextAccent);
+    sessionStorage.setItem("accentColor", nextAccent);
 
     setMounted(true);
   }, []);
@@ -195,18 +179,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  const toggleDyslexic = useCallback(() => {
-    setIsDyslexic((prev) => {
-      const next = !prev;
-      localStorage.setItem("dyslexic", next ? "1" : "0");
-      document.documentElement.setAttribute("data-dyslexic", next ? "true" : "false");
-      return next;
-    });
-  }, []);
-
   const setAccentColor = useCallback((color: AccentColor) => {
     setAccentColorState(color);
-    localStorage.setItem("accentColor", color);
+    sessionStorage.setItem("accentColor", color);
     applyAccent(color);
   }, []);
 
@@ -216,14 +191,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: "light", isDark: false, toggleTheme, setTheme, showTimePopup: null, dismissTimePopup, themeTransition: null, isHighContrast: false, toggleHighContrast, isDyslexic: false, toggleDyslexic, accentColor: "blue", setAccentColor }}>
+      <ThemeContext.Provider value={{ theme: "light", isDark: false, toggleTheme, setTheme, showTimePopup: null, dismissTimePopup, themeTransition: null, isHighContrast: false, toggleHighContrast, accentColor: "blue", setAccentColor }}>
         {children}
       </ThemeContext.Provider>
     );
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme, setTheme, showTimePopup, dismissTimePopup, themeTransition, isHighContrast, toggleHighContrast, isDyslexic, toggleDyslexic, accentColor, setAccentColor }}>
+    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme, setTheme, showTimePopup, dismissTimePopup, themeTransition, isHighContrast, toggleHighContrast, accentColor, setAccentColor }}>
       {children}
     </ThemeContext.Provider>
   );

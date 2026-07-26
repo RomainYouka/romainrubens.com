@@ -10,16 +10,10 @@
   "categories": ["design", "portfolio", "productivity"],
   "icons": [
     {
-      "src": "/icons/favicon-48x48.png",
-      "sizes": "48x48",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icons/icon.svg",
+      "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any monochrome"
+      "purpose": "any"
     },
     {
       "src": "/icons/android-chrome-192x192.png",
