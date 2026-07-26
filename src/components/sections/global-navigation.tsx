@@ -75,7 +75,7 @@ const translations = {
 const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedLanguage: Language; isDark: boolean; compact?: boolean }) => {
   const t = translations[selectedLanguage];
   const [validating, setValidating] = useState(false);
-  const compactWidth: Record<Language, number> = { FR: 60, EN: 72, ՀԱՅ: 80 };
+  const compactWidth: Record<Language, number> = { FR: 60, EN: 76, ՀԱՅ: 80 };
   const buttonWidth = compact ? compactWidth[selectedLanguage] : 95;
 
   const handleDownload = () => {
@@ -104,11 +104,11 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
       onClick={handleDownload}
       disabled={validating}
       aria-label={`Download ${t.resume}`}
-      className="relative inline-flex shrink-0 items-center justify-center whitespace-nowrap font-medium text-sm no-underline disabled:cursor-not-allowed"
+      className="relative grid shrink-0 place-items-center whitespace-nowrap font-medium text-sm no-underline disabled:cursor-not-allowed"
       style={{
         backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)",
         border: `1px solid var(--theme-accent)`,
-        borderRadius: 980, padding: compact ? "8px 12px" : "8px 16px", height: 36,
+        borderRadius: 980, padding: 0, height: 36,
         minWidth: buttonWidth, width: buttonWidth,
         lineHeight: 1,
         transition: "opacity 180ms ease, background-color 180ms ease, transform 180ms ease",
@@ -119,7 +119,7 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
       onMouseDown={(e) => { if (!validating) e.currentTarget.style.transform = "scale(0.97)"; }}
       onMouseUp={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
     >
-      <span style={{ display: "block", textAlign: "center", width: "100%", lineHeight: 1, fontSize: compact && selectedLanguage === "ՀԱՅ" ? 12 : undefined }}>
+      <span style={{ display: "block", lineHeight: 1, fontSize: compact && selectedLanguage === "ՀԱՅ" ? 12 : undefined }}>
         {t.resume}
       </span>
       <div
