@@ -45,13 +45,15 @@ function BulbAnimation({ lit }: { lit: boolean }) {
 
 function TransitionScreen({ transition }: { transition: "toLight" | "toDark" }) {
   const isDark = transition === "toDark";
-  const [bulbLit, setBulbLit] = useState(false);
+  const [bulbLit, setBulbLit] = useState(isDark);
 
   useEffect(() => {
-    if (transition === "toLight") {
-      const t = setTimeout(() => setBulbLit(true), 330);
+    if (transition === "toDark") {
+      const t = setTimeout(() => setBulbLit(false), 380);
       return () => clearTimeout(t);
     }
+    const t = setTimeout(() => setBulbLit(true), 330);
+    return () => clearTimeout(t);
   }, [transition]);
 
   return (

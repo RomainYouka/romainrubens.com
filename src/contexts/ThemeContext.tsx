@@ -132,10 +132,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       });
     }
 
+    const savedSessionAccent = sessionStorage.getItem("accentColor") as AccentColor | null;
+    const legacyAccent = localStorage.getItem("accentColor") as AccentColor | null;
     localStorage.removeItem("accentColor");
 
-    const savedAccent = sessionStorage.getItem("accentColor") as AccentColor | null;
-    const nextAccent = savedAccent && SUPPORTED_ACCENTS.includes(savedAccent) ? savedAccent : "blue";
+    const nextAccent =
+      savedSessionAccent && SUPPORTED_ACCENTS.includes(savedSessionAccent)
+        ? savedSessionAccent
+        : legacyAccent && SUPPORTED_ACCENTS.includes(legacyAccent)
+          ? legacyAccent
+          : "blue";
 
     setAccentColorState(nextAccent);
     applyAccent(nextAccent);

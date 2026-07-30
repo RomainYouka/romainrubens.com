@@ -130,8 +130,8 @@ const webProjects = [
     darkImage: "/projects/blocks/goupil-dark.png",
     year: "2026",
     slug: "goupil",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: true,
+    externalUrl: "https://www.behance.net/gallery/253535235/Goupil-Digital-Ecosystem-UXUI-Design-System",
+    isComingSoon: false,
   },
 ];
 
