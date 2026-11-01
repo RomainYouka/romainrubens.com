@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -352,7 +354,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
 export default function PortfolioPage() {
   const { isDark } = useTheme();
   const router = useRouter();
-  const [language, setLanguage] = useState<Language>("FR");
+  const [language, setLanguage] = useState<Language>("EN");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
@@ -365,7 +367,7 @@ export default function PortfolioPage() {
   const [behanceRedirect, setBehanceRedirect] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("preferredLanguage") as Language;
+    const savedLanguage = detectLanguage() as Language;
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) {
       setLanguage(savedLanguage);
     }

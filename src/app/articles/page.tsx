@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -68,6 +70,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
           alt={label}
           fill
           className="object-cover"
+          style={{ objectPosition: number === "04" ? "right center" : "center center" }}
           priority={isPriority}
           fetchPriority={isPriority ? "high" : "auto"}
           sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc((100vw - 114px) / 2), 455px"
@@ -131,7 +134,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
 };
 
 export default function ArticlesPage() {
-  const [language, setLanguage] = useState<Language>("FR");
+  const [language, setLanguage] = useState<Language>("EN");
   const [isHydrated, setIsHydrated] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -157,7 +160,7 @@ export default function ArticlesPage() {
   }, [language, isHydrated]);
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("preferredLanguage") as Language;
+    const savedLanguage = detectLanguage() as Language;
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) {
       setLanguage(savedLanguage);
     }

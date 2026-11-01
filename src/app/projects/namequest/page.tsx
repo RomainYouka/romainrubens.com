@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -107,7 +109,7 @@ const fadeInUp = {
 
 export default function NameQuestPage() {
   const router = useRouter();
-  const [language, setLanguage] = useState<Language>("FR");
+  const [language, setLanguage] = useState<Language>("EN");
   const [isExiting, setIsExiting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 
@@ -179,7 +181,7 @@ export default function NameQuestPage() {
   };
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("preferredLanguage") as Language;
+    const savedLanguage = detectLanguage() as Language;
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) setLanguage(savedLanguage);
     const handleLanguageChange = (event: CustomEvent<Language>) => setLanguage(event.detail);
     window.addEventListener("languageChange", handleLanguageChange as EventListener);

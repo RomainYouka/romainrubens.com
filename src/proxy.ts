@@ -68,7 +68,7 @@ export function proxy(request: NextRequest) {
       "object-src 'none'",
       "worker-src 'self' blob:",
       "manifest-src 'self'",
-      "connect-src 'self' https://slelguoygbfzlpylpxfs.supabase.co https://ipapi.co https://api.sunrise-sunset.org https://cloud.umami.is",
+      "connect-src 'self' https://slelguoygbfzlpylpxfs.supabase.co https://cloud.umami.is",
       isResumePdf ? "frame-ancestors 'self'" : "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

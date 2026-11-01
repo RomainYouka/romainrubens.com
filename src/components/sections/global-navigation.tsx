@@ -509,6 +509,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     Analytics.languageChange(selectedLanguage, l);
     setSelectedLanguage(l);
     localStorage.setItem("preferredLanguage", l);
+    sessionStorage.setItem("preferredLanguage", l);
     window.dispatchEvent(new CustomEvent("languageChange", { detail: l }));
   }, [selectedLanguage]);
 

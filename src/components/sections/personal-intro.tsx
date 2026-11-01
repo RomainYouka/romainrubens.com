@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -51,7 +53,7 @@ const pdfFileNames = {
 export default function PersonalIntro({ id = "personal-intro" }: { id?: string }) {
   const { isDark } = useTheme();
   const { triggerTransition } = usePageTransition();
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -81,7 +83,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   };
 
   useEffect(() => {
-    let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
+    let saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
     if (!saved || !translations[saved]) {
       saved = "FR";
       localStorage.setItem("preferredLanguage", "FR");

@@ -1,4 +1,6 @@
 "use client";
+
+import { detectLanguage } from "@/lib/language";
 import { articles } from "@/data/articles";
 
 import { useState, useEffect } from "react";
@@ -214,10 +216,10 @@ const getSections = (language: Language): Section[] => [
 ];
 
 export default function SitemapPage() {
-  const [language, setLanguage] = useState<Language>("FR");
+  const [language, setLanguage] = useState<Language>("EN");
 
   useEffect(() => {
-    const saved = localStorage.getItem("preferredLanguage") as Language;
+    const saved = detectLanguage() as Language;
     if (saved && ["FR", "EN", "ՀԱՅ"].includes(saved)) {
       setLanguage(saved);
     }

@@ -1,4 +1,6 @@
 "use client";
+
+import { detectLanguage } from "@/lib/language";
 import { articles } from "@/data/articles";
 
 import { useState, useEffect } from "react";
@@ -85,12 +87,12 @@ const BehanceLogo = ({ className }: { className?: string }) => (
 );
 
 export default function ContactPage() {
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
   const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
+    let saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
     if (!saved || !contactTranslations[saved]) {
       saved = "FR";
       localStorage.setItem("preferredLanguage", "FR");

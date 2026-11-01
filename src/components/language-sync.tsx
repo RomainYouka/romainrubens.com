@@ -16,15 +16,12 @@ function applyLang(code: string) {
 export function LanguageSync() {
   useEffect(() => {
     const lang = detectLanguage();
-    // Sauvegarder si pas déjà fait
-    if (!localStorage.getItem("preferredLanguage")) {
-      localStorage.setItem("preferredLanguage", lang);
-    }
     applyLang(lang);
     // Notifier tous les composants de la langue initiale
     window.dispatchEvent(new CustomEvent("languageChange", { detail: lang }));
 
     const handleLanguageChange = (event: CustomEvent<string>) => {
+      try { sessionStorage.setItem("preferredLanguage", event.detail); } catch { /* Optional storage. */ }
       applyLang(event.detail);
     };
     window.addEventListener("languageChange", handleLanguageChange as EventListener);

@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Compass } from "lucide-react";
@@ -32,10 +34,10 @@ const translations = {
 };
 
 export default function NotFound() {
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
 
   useEffect(() => {
-    const saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
+    const saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
     if (saved && translations[saved]) {
       setSelectedLanguage(saved);
     }

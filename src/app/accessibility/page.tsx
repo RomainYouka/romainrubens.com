@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect } from "react";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
@@ -98,10 +100,10 @@ const translations = {
 };
 
 export default function AccessibilitePage() {
-  const [language, setLanguage] = useState<Language>("FR");
+  const [language, setLanguage] = useState<Language>("EN");
 
   useEffect(() => {
-    const saved = localStorage.getItem("preferredLanguage") as Language;
+    const saved = detectLanguage() as Language;
     if (saved && ["FR", "EN", "ՀԱՅ"].includes(saved)) {
       setLanguage(saved);
     }

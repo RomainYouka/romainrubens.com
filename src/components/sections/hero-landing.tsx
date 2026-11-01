@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
@@ -58,7 +60,7 @@ export default function HeroLanding() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const [displayedText,     setDisplayedText]     = useState("");
-  const [selectedLanguage,  setSelectedLanguage]  = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage,  setSelectedLanguage]  = useState<"FR" | "EN" | "ՀԱՅ">("EN");
   const [isTyping,          setIsTyping]          = useState(false);
   const [showScrollButton,  setShowScrollButton]  = useState(false);
   const [btnVisible,        setBtnVisible]        = useState(false);
@@ -76,7 +78,7 @@ export default function HeroLanding() {
       const comingFromResume = sessionStorage.getItem("comingFromResume");
       if (comingFromResume === "true") sessionStorage.setItem("introSeen", "true");
     }
-    let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
+    let saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
     if (!saved || !translations[saved]) {
       saved = "FR";
       localStorage.setItem("preferredLanguage", "FR");

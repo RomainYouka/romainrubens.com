@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -136,12 +138,12 @@ function ToolbarSection({ title }: { title: string }) {
 
 export default function FramasoftPage() {
   const router = useRouter();
-  const [language, setLanguage] = useState<Language>("FR");
+  const [language, setLanguage] = useState<Language>("EN");
   const [isExiting, setIsExiting] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("preferredLanguage") as Language;
+    const savedLanguage = detectLanguage() as Language;
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) setLanguage(savedLanguage);
     const handleLanguageChange = (event: CustomEvent<Language>) => setLanguage(event.detail);
     window.addEventListener("languageChange", handleLanguageChange as EventListener);

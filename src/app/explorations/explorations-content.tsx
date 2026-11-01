@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -203,7 +205,7 @@ const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, isPriori
 };
 
 export default function ExplorationsPageContent() {
-  const [language, setLanguage] = useState<Language>("FR");
+  const [language, setLanguage] = useState<Language>("EN");
   const [isHydrated, setIsHydrated] = useState(false);
   const [expandingCard, setExpandingCard] = useState<{
     slug: string;
@@ -212,7 +214,7 @@ export default function ExplorationsPageContent() {
   } | null>(null);
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("preferredLanguage") as Language;
+    const savedLanguage = detectLanguage() as Language;
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) {
       setLanguage(savedLanguage);
     }

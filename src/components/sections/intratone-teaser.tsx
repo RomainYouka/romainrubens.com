@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
@@ -10,7 +12,7 @@ const translations = {
 };
 
 export default function IntratoneTeaser() {
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
   const [isMounted, setIsMounted] = useState(false);
 
   const bannerTexts = {
@@ -21,7 +23,7 @@ export default function IntratoneTeaser() {
 
   useEffect(() => {
     setIsMounted(true);
-    let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
+    let saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
     if (saved && ["FR", "EN", "ՀԱՅ"].includes(saved)) {
       setSelectedLanguage(saved);
     }

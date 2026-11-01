@@ -95,6 +95,7 @@ export default function ResumePage() {
   };
 
   const handlePortfolioClick = () => {
+    sessionStorage.setItem("preferredLanguage", language);
     localStorage.setItem("preferredLanguage", language);
     sessionStorage.setItem("comingFromResume", "true");
     router.push("/");

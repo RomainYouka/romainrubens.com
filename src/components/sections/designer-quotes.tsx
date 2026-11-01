@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -115,7 +117,7 @@ const getRandomQuote = (recentIds: number[]): Quote => {
 export default function DesignerQuotes({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) {
   const router = useRouter();
   const [currentQuote, setCurrentQuote] = useState<Quote | null>(null);
-  const [language, setLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [language, setLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
   const [geniePhase, setGeniePhase] = useState<"opening" | "visible" | "closing">("opening");
 
   useEffect(() => {
@@ -125,7 +127,7 @@ export default function DesignerQuotes({ isVisible, onClose }: { isVisible: bool
       return;
     }
 
-    const savedLang = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ";
+    const savedLang = detectLanguage() as "FR" | "EN" | "ՀԱՅ";
     if (savedLang) setLanguage(savedLang);
 
     const recentQuotesStr = sessionStorage.getItem("recentQuotes");

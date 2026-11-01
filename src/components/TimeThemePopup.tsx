@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Moon, Sun, X } from "lucide-react";
@@ -9,7 +11,7 @@ type Language = "FR" | "EN" | "ՀԱՅ";
 
 function getStoredLanguage(): Language {
   try {
-    const lang = localStorage.getItem("preferredLanguage") as Language;
+    const lang = detectLanguage() as Language;
     return ["FR", "EN", "ՀԱՅ"].includes(lang) ? lang : "FR";
   } catch {
     return "FR";

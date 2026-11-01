@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -86,10 +88,10 @@ type FooterLanguage = keyof typeof footerTranslations;
 
 const GlobalFooter = () => {
   const router = useRouter();
-  const [selectedLanguage, setSelectedLanguage] = useState<FooterLanguage>("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<FooterLanguage>("EN");
 
   useEffect(() => {
-    let saved = localStorage.getItem("preferredLanguage") as FooterLanguage | null;
+    let saved = detectLanguage() as FooterLanguage | null;
     if (!saved || !footerTranslations[saved as keyof typeof footerTranslations]) {
       saved = "FR";
       localStorage.setItem("preferredLanguage", "FR");

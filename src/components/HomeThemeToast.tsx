@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -36,7 +38,7 @@ export function HomeThemeToast() {
   const { isDark, setTheme } = useTheme();
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
-  const [lang, setLang] = useState<Language>("FR");
+  const [lang, setLang] = useState<Language>("EN");
 
   useEffect(() => {
     if (pathname !== "/") { setVisible(false); return; }
@@ -44,7 +46,7 @@ export function HomeThemeToast() {
     if (localStorage.getItem("theme")) return;
     if (sessionStorage.getItem("homeToastDismissed")) return;
 
-    const l = localStorage.getItem("preferredLanguage") as Language;
+    const l = detectLanguage() as Language;
     if (["FR", "EN", "ՀԱՅ"].includes(l)) setLang(l);
 
     const showTimer    = setTimeout(() => setVisible(true), SHOW_DELAY_MS);

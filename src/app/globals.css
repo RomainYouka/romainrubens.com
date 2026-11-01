@@ -292,3 +292,22 @@
 }
 
 nextjs-portal { display: none !important; }
+/* One continuous OFF → ON sequence; exact reverse for dark mode. */
+@keyframes bulb-glass-on {
+  from { fill: #303030; stroke: #484848; }
+  to { fill: #fffde7; stroke: #ffc107; }
+}
+@keyframes bulb-glow-on {
+  from { fill: rgba(255,235,80,0); }
+  to { fill: rgba(255,235,80,.45); }
+}
+@keyframes bulb-filament-on {
+  from { stroke: #484848; }
+  to { stroke: #ff8f00; }
+}
+.bulb-glass { animation: bulb-glass-on .5s ease-in-out .33s both; }
+.bulb-glow { animation: bulb-glow-on .5s ease-in-out .33s both; }
+.bulb-filament { animation: bulb-filament-on .5s ease-in-out .33s both; }
+.bulb-to-dark > .bulb-glass,
+.bulb-to-dark > .bulb-glow,
+.bulb-to-dark > .bulb-filament { animation-direction: reverse; }

@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -121,7 +123,7 @@ function useContainerWidth() {
 
 export default function HomeSlides() {
   const [index, setIndex] = useState(0);
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
 
   const { ref, w } = useContainerWidth();
 
@@ -140,7 +142,7 @@ export default function HomeSlides() {
 
   // Reset index when language changes
   useEffect(() => {
-    let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
+    let saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
     if (!saved || !["FR", "EN", "ՀԱՅ"].includes(saved)) {
       saved = "FR";
       localStorage.setItem("preferredLanguage", "FR");

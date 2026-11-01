@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
@@ -195,10 +197,10 @@ const translations = {
 };
 
 export default function ProjectBeforeAfter() {
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("FR");
+  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
 
   useEffect(() => {
-    let saved = localStorage.getItem("preferredLanguage") as "FR" | "EN" | "ՀԱՅ" | null;
+    let saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
     if (!saved || !translations[saved]) {
       saved = "FR";
       localStorage.setItem("preferredLanguage", "FR");

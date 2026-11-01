@@ -1,39 +1,29 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 
-function BulbAnimation({ lit }: { lit: boolean }) {
+function BulbAnimation({ toDark }: { toDark: boolean }) {
   return (
     <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
 
       {/* Ampoule SVG */}
-      <svg width="96" height="140" viewBox="0 0 96 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className={toDark ? "bulb-transition bulb-to-dark" : "bulb-transition"} width="96" height="140" viewBox="0 0 96 140" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Verre */}
-        <motion.path
-          initial={false}
+        <path
+          className="bulb-glass"
           d="M48 7C27 7 10 24 10 45C10 61 20 74 34 84L34 99L62 99L62 84C76 74 86 61 86 45C86 24 69 7 48 7Z"
-          animate={{
-            fill:   lit ? "#FFFDE7" : "#303030",
-            stroke: lit ? "#FFC107" : "#484848",
-          }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
           strokeWidth="1.5"
         />
         {/* Lueur intérieure */}
-        <motion.ellipse
-          initial={false}
+        <ellipse
+          className="bulb-glow"
           cx="48" cy="58" rx="20" ry="22"
-          animate={{ fill: lit ? "rgba(255,235,80,0.45)" : "rgba(0,0,0,0)" }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
         />
         {/* Filament */}
-        <motion.path
-          initial={false}
+        <path
+          className="bulb-filament"
           d="M38 84L38 68L43 58L48 66L53 58L58 68L58 84"
-          animate={{ stroke: lit ? "#FF8F00" : "#484848" }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
           strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"
         />
         {/* Socle */}
@@ -48,16 +38,6 @@ function BulbAnimation({ lit }: { lit: boolean }) {
 
 function TransitionScreen({ transition }: { transition: "toLight" | "toDark" }) {
   const isDark = transition === "toDark";
-  const [bulbLit, setBulbLit] = useState(isDark);
-
-  useEffect(() => {
-    if (transition === "toDark") {
-      const t = setTimeout(() => setBulbLit(false), 380);
-      return () => clearTimeout(t);
-    }
-    const t = setTimeout(() => setBulbLit(true), 330);
-    return () => clearTimeout(t);
-  }, [transition]);
 
   return (
     <motion.div
@@ -77,7 +57,7 @@ function TransitionScreen({ transition }: { transition: "toLight" | "toDark" }) 
         pointerEvents: "all",
       }}
     >
-      <BulbAnimation lit={bulbLit} />
+      <BulbAnimation toDark={isDark} />
     </motion.div>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import initialSkills from "@/data/skills.json";
@@ -100,13 +102,13 @@ const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) =>
 };
 
 export default function SkillsPage() {
-  const [language, setLanguage] = useState<Language>("FR");
+  const [language, setLanguage] = useState<Language>("EN");
   const data: SkillsData = initialSkills;
   const loading = false;
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("preferredLanguage") as Language;
+    const saved = detectLanguage() as Language;
     if (saved && ["FR", "EN", "ՀԱՅ"].includes(saved)) setLanguage(saved);
   }, []);
 

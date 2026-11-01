@@ -1,11 +1,12 @@
 "use client";
 
+import { detectLanguage } from "@/lib/language";
+
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import GlobalNavigation from "@/components/sections/global-navigation";
 import GlobalFooter from "@/components/sections/global-footer";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import { TimeThemePopup } from "@/components/TimeThemePopup";
 import { PageTransitionProvider } from "@/contexts/PageTransitionContext";
 import { PageTransitionOverlay } from "@/components/PageTransitionOverlay";
 import { ThemeSwitchOverlay } from "@/components/ThemeSwitchOverlay";
@@ -38,7 +39,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       document.documentElement.lang = langMap[language] || "fr";
     };
 
-    const savedLanguage = localStorage.getItem("preferredLanguage") || "FR";
+    const savedLanguage = detectLanguage() || "FR";
     updateDocumentLanguage(savedLanguage);
 
     const handleLanguageChange = (event: CustomEvent) => {
@@ -61,7 +62,6 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       {!isResumePage && <GlobalNavigation onShowQuotes={() => {}} />}
       {children}
       {!isResumePage && <GlobalFooter />}
-      <TimeThemePopup />
     </>
   );
 }

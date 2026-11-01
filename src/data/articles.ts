@@ -11,7 +11,7 @@ export type Article = {
 export const articles: Article[] = [
   {
     id: "01",
-    image: "/articles/blocks/01.jpg",
+    image: "/articles/blocks/01-childhood.png",
     number: "01",
     href: {
       FR: "https://medium.com/@romainrubens/01-un-jour-je-serai-designer-d8662f384749",
