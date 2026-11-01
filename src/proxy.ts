@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const legacyLogoRedirects = new Map([
     ['/icons/logo-rubens.png', '/icons/logo-rubens.svg'],
     ['/icons/icon.short.svg', '/icons/logo-rubens.svg'],

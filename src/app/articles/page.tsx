@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ProjectSkeleton } from "@/components/ui/skeleton";
 import { Analytics } from "@/lib/analytics";
 import { type Language } from "@/lib/language";
 import { articles } from "@/data/articles";
@@ -34,7 +33,7 @@ interface ArticleCardProps {
   number: string;
   title: string;
   href: string;
-  onOpen: (url: string) => void;
+  onOpen: () => void;
   isPriority?: boolean;
 }
 
@@ -42,15 +41,17 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
   const handleClick = useCallback(() => {
     triggerHapticFeedback();
     window.dispatchEvent(new CustomEvent("blob-wink"));
-    onOpen(href);
-  }, [href, onOpen]);
+    onOpen();
+  }, [onOpen]);
 
   const label = `${number} — ${title}`;
 
   return (
     <div className="flex w-full min-w-0 flex-col items-start gap-3 md:gap-6">
-      <motion.button
-        type="button"
+      <motion.a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
         onClick={handleClick}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -114,7 +115,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
             </svg>
           </div>
         </div>
-      </motion.button>
+      </motion.a>
       <h2
         data-article-heading
         className="w-full min-w-0 text-left text-[18px] leading-none"
@@ -168,9 +169,8 @@ export default function ArticlesPage() {
     };
   }, []);
 
-  const handleOpen = useCallback((url: string) => {
+  const handleOpen = useCallback(() => {
     Analytics.contactClick("medium");
-    window.open(url, "_blank", "noopener,noreferrer");
   }, []);
 
   return (
@@ -188,9 +188,6 @@ export default function ArticlesPage() {
             {translations[language].subtitle}
           </p>
         </div>
-        {!isHydrated ? (
-          <ProjectSkeleton />
-        ) : (
           <section className="flex flex-col items-center gap-6 md:gap-[50px] relative w-full">
             <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 md:gap-[50px] w-full">
               {articles.map((article, index) => (
@@ -206,7 +203,6 @@ export default function ArticlesPage() {
               ))}
             </div>
           </section>
-        )}
       </div>
     </main>
   );

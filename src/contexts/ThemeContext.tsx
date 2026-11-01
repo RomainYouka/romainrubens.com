@@ -36,15 +36,16 @@ type SunTimes =
   | { kind: "polar_day" }
   | { kind: "polar_night" };
 
-async function getSunTimes(): Promise<SunTimes | null> {
+async function getSunTimes(signal: AbortSignal): Promise<SunTimes | null> {
   try {
-    const geoRes = await fetch("https://ipapi.co/json/");
+    const geoRes = await fetch("https://ipapi.co/json/", { signal });
     if (!geoRes.ok) return null;
     const geo = await geoRes.json();
     const { latitude: lat, longitude: lng } = geo;
     if (typeof lat !== "number" || typeof lng !== "number") return null;
     const sunRes = await fetch(
-      `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`
+      `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`,
+      { signal }
     );
     if (!sunRes.ok) return null;
     const sun = await sunRes.json();
@@ -84,8 +85,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [isHighContrast, setIsHighContrast] = useState(false);
   const [accentColor, setAccentColorState] = useState<AccentColor>("blue");
   const transitionLock = useRef(false);
+  const themeChanged = useRef(false);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000);
+    let disposed = false;
     const saved = localStorage.getItem("theme") as Theme | null;
     const currentTheme: Theme = saved === "dark" || saved === "light" ? saved : "light";
     setThemeState(currentTheme);
@@ -93,8 +98,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     if (!sessionStorage.getItem("themeAsked")) {
       const WINDOW_MS = 15 * 60 * 1000;
-      getSunTimes().then((sun) => {
-        if (sessionStorage.getItem("themeAsked")) return;
+      getSunTimes(controller.signal).then((sun) => {
+        if (disposed || themeChanged.current || sessionStorage.getItem("themeAsked")) return;
         sessionStorage.setItem("themeAsked", "1");
 
         if (sun) {
@@ -133,24 +138,27 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
 
     const savedSessionAccent = sessionStorage.getItem("accentColor") as AccentColor | null;
-    const legacyAccent = localStorage.getItem("accentColor") as AccentColor | null;
     localStorage.removeItem("accentColor");
 
     const nextAccent =
       savedSessionAccent && SUPPORTED_ACCENTS.includes(savedSessionAccent)
         ? savedSessionAccent
-        : legacyAccent && SUPPORTED_ACCENTS.includes(legacyAccent)
-          ? legacyAccent
-          : "blue";
+        : "blue";
 
     setAccentColorState(nextAccent);
     applyAccent(nextAccent);
     sessionStorage.setItem("accentColor", nextAccent);
 
     setMounted(true);
+    return () => {
+      disposed = true;
+      clearTimeout(timeout);
+      controller.abort();
+    };
   }, []);
 
   const setTheme = useCallback((t: Theme) => {
+    themeChanged.current = true;
     setThemeState(t);
     applyTheme(t);
     localStorage.setItem("theme", t);
@@ -158,6 +166,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = useCallback(() => {
     if (transitionLock.current) return;
+    themeChanged.current = true;
     transitionLock.current = true;
 
     const newTheme = theme === "light" ? "dark" : "light";

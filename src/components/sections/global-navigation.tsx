@@ -487,7 +487,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const scrolledYRef = useRef(false);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => detectLanguage());
+  // Match the server render; read browser preferences only after hydration.
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>("EN");
   const [logoAnimating, setLogoAnimating] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 

@@ -12,6 +12,7 @@ function BulbAnimation({ lit }: { lit: boolean }) {
       <svg width="96" height="140" viewBox="0 0 96 140" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Verre */}
         <motion.path
+          initial={false}
           d="M48 7C27 7 10 24 10 45C10 61 20 74 34 84L34 99L62 99L62 84C76 74 86 61 86 45C86 24 69 7 48 7Z"
           animate={{
             fill:   lit ? "#FFFDE7" : "#303030",
@@ -22,12 +23,14 @@ function BulbAnimation({ lit }: { lit: boolean }) {
         />
         {/* Lueur intérieure */}
         <motion.ellipse
+          initial={false}
           cx="48" cy="58" rx="20" ry="22"
           animate={{ fill: lit ? "rgba(255,235,80,0.45)" : "rgba(0,0,0,0)" }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         />
         {/* Filament */}
         <motion.path
+          initial={false}
           d="M38 84L38 68L43 58L48 66L53 58L58 68L58 84"
           animate={{ stroke: lit ? "#FF8F00" : "#484848" }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
