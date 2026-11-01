@@ -39,26 +39,6 @@ interface ArticleCardProps {
 }
 
 const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: ArticleCardProps) => {
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    const heading = headingRef.current;
-    const text = textRef.current;
-    if (!heading || !text) return;
-    let disposed = false;
-    const fit = () => {
-      if (disposed) return;
-      // Measure the actual font, including Armenian glyphs, without truncating.
-      text.style.fontSize = "32px";
-      const width = text.getBoundingClientRect().width;
-      if (width > 0) text.style.fontSize = `${Math.min(32, 32 * heading.clientWidth / width)}px`;
-    };
-    const observer = new ResizeObserver(fit);
-    observer.observe(heading);
-    void document.fonts.ready.then(fit);
-    fit();
-    return () => { disposed = true; observer.disconnect(); };
-  }, [number, title]);
   const handleClick = useCallback(() => {
     triggerHapticFeedback();
     window.dispatchEvent(new CustomEvent("blob-wink"));
@@ -68,7 +48,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
   const label = `${number} — ${title}`;
 
   return (
-    <div className="flex w-full min-w-0 flex-col items-start gap-6">
+    <div className="flex w-full min-w-0 flex-col items-start gap-3 md:gap-6">
       <motion.button
         type="button"
         onClick={handleClick}
@@ -136,11 +116,11 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
         </div>
       </motion.button>
       <h2
-        ref={headingRef}
+        data-article-heading
         className="w-full min-w-0 text-left text-[18px] leading-none"
-        style={{ fontFamily: "var(--font-display)", color: "var(--theme-fg)" }}
+        style={{ fontFamily: "var(--font-display)", color: "var(--theme-fg)", fontSize: "var(--article-title-size, 18px)" }}
       >
-        <span ref={textRef} className="inline-block whitespace-nowrap">
+        <span className="inline-block whitespace-nowrap">
           <span className="font-semibold">{number} — </span>
           <span className="font-medium">{title}</span>
         </span>
@@ -152,6 +132,28 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
 export default function ArticlesPage() {
   const [language, setLanguage] = useState<Language>("FR");
   const [isHydrated, setIsHydrated] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    const heading = grid?.querySelectorAll<HTMLElement>("[data-article-heading]")[1];
+    const text = heading?.firstElementChild as HTMLElement | null;
+    if (!grid || !heading || !text) return;
+    let disposed = false;
+    const fit = () => {
+      if (disposed) return;
+      // All titles share the second article's fitted size in the current language.
+      text.style.fontSize = "32px";
+      const width = text.getBoundingClientRect().width;
+      if (width > 0) grid.style.setProperty("--article-title-size", `${Math.min(32, 32 * heading.clientWidth / width)}px`);
+      text.style.removeProperty("font-size");
+    };
+    const observer = new ResizeObserver(fit);
+    observer.observe(grid);
+    void document.fonts.ready.then(fit);
+    fit();
+    return () => { disposed = true; observer.disconnect(); };
+  }, [language, isHydrated]);
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("preferredLanguage") as Language;
@@ -190,7 +192,7 @@ export default function ArticlesPage() {
           <ProjectSkeleton />
         ) : (
           <section className="flex flex-col items-center gap-6 md:gap-[50px] relative w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
+            <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 md:gap-[50px] w-full">
               {articles.map((article, index) => (
                 <ArticleCard
                   key={article.id}
