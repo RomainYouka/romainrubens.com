@@ -21,7 +21,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   // Mise à jour de la langue du document selon la préférence de l'utilisateur
   useEffect(() => {
     const metaDescriptions: Record<string, string> = {
-      FR: "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.",
+      FR: "Portfolio de Romain Rubens, designer UX/UI spécialisé dans les écosystèmes connectés, le design d'interaction et les interfaces du quotidien.",
       EN: "I'm an industrial design student with a practice focused on UX/UI and interaction design. My work explores how interfaces organize themselves in real-world usage, concrete constraints, and everyday systems.",
       ՀԱՅ: "Ես industrial design ուսանող եմ՝ UX/UI և interaction design կենտրոնացված պրակտիկայով։ Իմ աշխատանքը ուսումնասիրում է, թե ինչպես են ինտերֆեյսները կազմակերպվում իրական օգտագործման և առօրյա համակարգերում։",
     };

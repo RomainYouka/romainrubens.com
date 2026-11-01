@@ -11,6 +11,10 @@ const MAX_ATTEMPTS = 5;
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+  for (const [key, entry] of rateLimitMap) {
+    if (entry.resetAt <= now) rateLimitMap.delete(key);
+  }
+  if (!rateLimitMap.has(ip) && rateLimitMap.size >= 1000) return true;
   const entry = rateLimitMap.get(ip);
   if (!entry || entry.resetAt < now) {
     rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
@@ -42,6 +46,17 @@ function isValidSkillsData(data: unknown): boolean {
 }
 
 export async function POST(request: NextRequest) {
+  // Vercel's deployment filesystem is not a durable database. Keep editing local
+  // until a persistent store and distributed authentication are configured.
+  if (process.env.VERCEL || process.env.NODE_ENV === "production") {
+    return NextResponse.json({ error: "Editing is unavailable on this deployment" }, { status: 503 });
+  }
+  if (request.headers.get("origin") !== request.nextUrl.origin) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  if (!request.headers.get("content-type")?.startsWith("application/json")) {
+    return NextResponse.json({ error: "Expected JSON" }, { status: 415 });
+  }
   // Récupération de l'IP
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
@@ -55,7 +70,24 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body = await request.json();
+    const reader = request.body?.getReader();
+    if (!reader) return NextResponse.json({ error: "Missing body" }, { status: 400 });
+    const chunks: Uint8Array[] = [];
+    let size = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > 65536) {
+        await reader.cancel();
+        return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+      }
+      chunks.push(value);
+    }
+    let body;
+    try { body = JSON.parse(Buffer.concat(chunks).toString("utf8")); }
+    catch { return NextResponse.json({ error: "Invalid JSON" }, { status: 400 }); }
+    if (!body || typeof body !== "object") return NextResponse.json({ error: "Invalid body" }, { status: 400 });
     const { password, data } = body;
 
     // Vérification du mot de passe via variable d'environnement

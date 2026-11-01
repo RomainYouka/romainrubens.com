@@ -23,7 +23,7 @@ const googleSansFlex = Google_Sans_Flex({
 const siteUrlMeta = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
 const defaultTitle = "Romain Rubens - UX/UI Designer · Smart Ecosystems";
 const defaultDescription =
-  "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction. Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.";
+  "Portfolio de Romain Rubens, designer UX/UI spécialisé dans les écosystèmes connectés, le design d'interaction et les interfaces du quotidien.";
 const logoImage = "/icons/icon.svg";
 const absoluteLogoImage = `${siteUrlMeta}${logoImage}`;
 const brandLogo = "/icons/logo-romain-rubens.svg";
@@ -43,6 +43,14 @@ export const metadata: Metadata = {
     template: "%s - Romain Rubens",
   },
   description: defaultDescription,
+  keywords: [
+    "Romain Rubens",
+    "UX UI designer",
+    "Smart Ecosystems",
+    "design d'interaction",
+    "maison connectée",
+    "portfolio designer",
+  ],
   metadataBase: new URL(siteUrlMeta),
   icons: {
     icon: [
@@ -63,6 +71,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    locale: "fr_FR",
     siteName: "Romain Rubens",
     title: defaultTitle,
     description: defaultDescription,
@@ -81,11 +90,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-    },
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
   },
 };
 
@@ -109,25 +120,47 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: initialThemeScript }} />
         <meta name="theme-color" content="#ffffff" />
         {/* Preconnect for performance */}
-        <link rel="preconnect" href="https://hxhketfuzhwtrvmvnzln.supabase.co" />
         <link rel="preconnect" href="https://cloud.umami.is" />
         <link rel="image_src" href={absoluteBrandLogo} />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="Informations publiques — projets, compétences et contact" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Romain Rubens",
-              "url": siteUrlMeta,
-              "image": absoluteLogoImage,
-              "logo": absoluteBrandLogo,
-              "description": defaultDescription,
-              "jobTitle": "UX/UI Designer · Smart Ecosystems",
-              "sameAs": [
-                "https://www.linkedin.com/in/romain-rubens-ba660323b/",
-                "https://www.behance.net/rubensromain"
-              ]
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": `${siteUrlMeta}/#website`,
+                  "url": siteUrlMeta,
+                  "name": "Romain Rubens",
+                  "description": defaultDescription,
+                  "inLanguage": ["fr", "en", "hy"],
+                  "publisher": { "@id": `${siteUrlMeta}/#person` },
+                },
+                {
+                  "@type": "Person",
+                  "@id": `${siteUrlMeta}/#person`,
+                  "name": "Romain Rubens",
+                  "url": siteUrlMeta,
+                  "image": absoluteLogoImage,
+                  "description": defaultDescription,
+                  "jobTitle": "UX/UI Designer · Smart Ecosystems",
+                  "knowsAbout": [
+                    "UX/UI design",
+                    "Interaction design",
+                    "Smart ecosystems",
+                    "Connected home",
+                    "Service design",
+                  ],
+                  "sameAs": [
+                    "https://www.linkedin.com/in/romain-rubens-ba660323b/",
+                    "https://www.behance.net/rubensromain",
+                    "https://medium.com/@romainrubens",
+                    "https://www.pinterest.com/rubensromain/_created",
+                  ],
+                },
+              ],
             })
           }}
         />
@@ -142,14 +175,6 @@ export default function RootLayout({
           Aller au contenu principal
         </a>
         <LanguageSync />
-        <Script
-          src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/scripts//route-messenger.js"
-          strategy="afterInteractive"
-          data-target-origin="https://romainrubens.com"
-          data-message-type="ROUTE_CHANGE"
-          data-include-search-params="true"
-          data-only-in-iframe="true"
-        />
         {process.env.NEXT_PUBLIC_UMAMI_ID && (
           <Script
             src="https://cloud.umami.is/script.js"

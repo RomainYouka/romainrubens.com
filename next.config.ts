@@ -47,6 +47,17 @@ const nextConfig: NextConfig = {
     ];
 
     return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        ],
+      },
+      {
+        source: "/:folder(icons|projects|articles|resume)/:path*.:ext(png|jpg|jpeg|webp|svg|gif|webm|mp4|pdf)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" }],
+      },
       ...legacyLogoHeaders.map((source) => ({
         source,
         headers: [

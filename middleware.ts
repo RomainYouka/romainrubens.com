@@ -20,6 +20,12 @@ export function middleware(request: NextRequest) {
   }
 
   const response = NextResponse.next();
+  if (process.env.VERCEL_ENV === 'preview' || request.nextUrl.pathname.startsWith('/api/')) {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  }
+  if (request.nextUrl.pathname.startsWith('/api/skills/update')) {
+    response.headers.set('Cache-Control', 'no-store');
+  }
   const isResumePdf =
     request.nextUrl.pathname.startsWith('/resume/') &&
     request.nextUrl.pathname.toLowerCase().endsWith('.pdf');
@@ -54,7 +60,7 @@ export function middleware(request: NextRequest) {
     'Content-Security-Policy',
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://slelguoygbfzlpylpxfs.supabase.co https://cloud.umami.is",
+      "script-src 'self' 'unsafe-inline' https://cloud.umami.is",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
       "img-src 'self' data: https:",

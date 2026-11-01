@@ -66,9 +66,9 @@ const BrandLogo = ({ isScrolled, className }: { isScrolled: boolean; className?:
 
 // ─── Traductions nav ─────────────────────────────────────────────────────────
 const translations = {
-  FR:  { home: "Accueil", projects: "Projets",    skills: "Compétences",   contact: "Contact", resume: "CV",      accentLabel: "Couleur principale" },
-  EN:  { home: "Home",    projects: "Projects",   skills: "Skills",        contact: "Contact", resume: "Resume",  accentLabel: "Main color"         },
-  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե", accentLabel: "Հիմնական գույն"  },
+  FR:  { home: "Accueil", projects: "Projets",    articles: "Articles", skills: "Compétences",   contact: "Contact", resume: "CV",      accentLabel: "Couleur principale" },
+  EN:  { home: "Home",    projects: "Projects",   articles: "Articles", skills: "Skills",        contact: "Contact", resume: "Resume",  accentLabel: "Main color"         },
+  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", articles: "Հոդվածներ", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե", accentLabel: "Հիմնական գույն"  },
 };
 
 // ─── Bouton CV ───────────────────────────────────────────────────────────────
@@ -596,6 +596,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const navLinks = [
     { name: t.home, href: "/" },
     { name: t.projects, href: "/projects" },
+    { name: t.articles, href: "/articles" },
     { name: t.skills, href: "/skills" },
     { name: t.contact, href: "/contact" },
   ];
@@ -658,12 +659,12 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                   <BrandLogo isScrolled={visualScrolled} className="h-4 w-auto relative z-10" />
                 </a>
 
-                <div className="flex items-center h-full gap-10">
+                <div className="flex items-center h-full gap-3 xl:gap-6">
                   {navLinks.map((link) => (
                     <Link
                       key={link.name}
                       href={link.href}
-                      className="flex items-center h-full font-medium text-sm px-3 no-underline hover:underline focus-visible:underline"
+                      className="flex items-center h-full font-medium text-sm px-1.5 xl:px-3 no-underline hover:underline focus-visible:underline"
                       style={{
                         color: textColor,
                         textDecorationColor: textColor,

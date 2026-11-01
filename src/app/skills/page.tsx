@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
+import initialSkills from "@/data/skills.json";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
@@ -100,8 +101,8 @@ const StarRating = ({ rating, size = 18 }: { rating: number; size?: number }) =>
 
 export default function SkillsPage() {
   const [language, setLanguage] = useState<Language>("FR");
-  const [data, setData] = useState<SkillsData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const data: SkillsData = initialSkills;
+  const loading = false;
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -113,13 +114,6 @@ export default function SkillsPage() {
     const handleLanguageChange = (event: CustomEvent<Language>) => setLanguage(event.detail);
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
     return () => window.removeEventListener("languageChange", handleLanguageChange as EventListener);
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/skills")
-      .then((r) => r.json())
-      .then((d) => { setData(d); setLoading(false); })
-      .catch(() => setLoading(false));
   }, []);
 
   useEffect(() => {

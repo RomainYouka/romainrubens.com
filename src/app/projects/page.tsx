@@ -312,7 +312,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
         className="object-cover"
         priority={isPriority}
         fetchPriority={isPriority ? "high" : "auto"}
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+        sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc((100vw - 114px) / 2), (max-width: 1279px) calc((min(100vw, 1234px) - 146px) / 2), 576px"
         onError={() => setImgError(true)}
       />
       {externalUrl && (

@@ -7,11 +7,16 @@ const routes = [
   "/projects",
   "/projects/chaussez-vous-ou-pas",
   "/projects/framasoft",
+  "/projects/goupil",
+  "/projects/googlemaps",
+  "/projects/googleplayios",
   "/projects/intratone",
   "/projects/ios26",
   "/projects/namequest",
+  "/projects/students",
   "/projects/vahansoghomonian",
   "/projects/waveswitch",
+  "/articles",
   "/explorations",
   "/skills",
   "/contact",
@@ -24,7 +29,7 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: `${siteUrl}${route}`,
-    changeFrequency: route === "" || route === "/projects" ? "monthly" : "yearly",
-    priority: route === "" ? 1 : route === "/projects" ? 0.9 : 0.7,
+    changeFrequency: route === "" || route === "/projects" || route === "/articles" ? "weekly" : "monthly",
+    priority: route === "" ? 1 : route === "/projects" || route === "/articles" ? 0.9 : 0.7,
   }));
 }

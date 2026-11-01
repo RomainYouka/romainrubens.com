@@ -10,6 +10,11 @@ const translations = {
     title: "Plan du site",
     home: "Accueil",
     projects: "Projets",
+    articles: "Articles",
+    article01: "01 — Un jour, je serai Designer",
+    article02: "02 — La maison connectée change de dimension",
+    article03: "03 — Comprendre avant de concevoir",
+    article04: "04 — De l’autre côté de l’interface",
     mobileProjects: "Projets mobiles",
     webProjects: "Projets web",
     diverseProjects: "Projets divers",
@@ -46,6 +51,11 @@ const translations = {
     title: "Site Map",
     home: "Home",
     projects: "Projects",
+    articles: "Articles",
+    article01: "01 — One Day, I’ll Be a Designer",
+    article02: "02 — The Smart Home Enters a New Era",
+    article03: "03 — Understanding Before Designing",
+    article04: "04 — On the Other Side of the Interface",
     mobileProjects: "Mobile projects",
     webProjects: "Web projects",
     diverseProjects: "Diverse projects",
@@ -82,6 +92,11 @@ const translations = {
     title: "Կայքի քարտեզ",
     home: "Գլխավոր",
     projects: "Նախագծեր",
+    articles: "Հոդվածներ",
+    article01: "01 — Մի օր ես դիզայներ կլինեմ",
+    article02: "02 — Խելացի տունը մտնում է նոր դարաշրջան",
+    article03: "03 — Հասկանալ նախքան ձևավորելը",
+    article04: "04 — Ինտերֆեյսի մյուս կողմում",
     mobileProjects: "Բջջային նախագծեր",
     webProjects: "Վեբ նախագծեր",
     diverseProjects: "Տարբեր նախագծեր",
@@ -156,6 +171,16 @@ const getSections = (): Section[] => [
       { label: "namequest", href: "/projects/namequest", isSubItem: true, isClickable: true },
       { label: "vahansoghomonian", href: "/projects/vahansoghomonian", isSubItem: true, isClickable: true },
       { label: "chaussezVousOuPas", href: "/projects/chaussez-vous-ou-pas", isSubItem: true, isClickable: true },
+    ]
+  },
+  {
+    title: "articles",
+    items: [
+      { label: "articles", href: "/articles", isClickable: true },
+      { label: "article01", href: "https://medium.com/@romainrubens/01-un-jour-je-serai-designer-d8662f384749", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
+      { label: "article02", href: "https://medium.com/@romainrubens/02-la-maison-connect%C3%A9e-change-de-dimension-7395ebd6a3c4", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
+      { label: "article03", href: "https://medium.com/@romainrubens/03-comprendre-avant-de-concevoir-c3c9fcb54959", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
+      { label: "article04", href: "https://medium.com/@romainrubens/04-de-lautre-c%C3%B4t%C3%A9-de-l-interface-92c4eb051ed8", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
     ]
   },
   {
@@ -292,6 +317,8 @@ export default function SitemapPage() {
                         ) : isClickable ? (
                           <Link
                             href={item.href}
+                            target={item.target}
+                            rel={item.rel}
                             style={{
                               color: "var(--theme-accent)",
                               textDecoration: "none",
@@ -374,6 +401,8 @@ export default function SitemapPage() {
                         ) : isClickable ? (
                           <Link
                             href={item.href}
+                            target={item.target}
+                            rel={item.rel}
                             style={{
                               color: "var(--theme-accent)",
                               textDecoration: "none",

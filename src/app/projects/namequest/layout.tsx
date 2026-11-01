@@ -2,7 +2,7 @@ import { createPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = createPageMetadata({
   title: "NameQuest",
-  description: "Projet de design UX/UI — NameQuest, application de recherche et génération de noms.",
+  description: "NameQuest, jeu de société éducatif et inclusif pour 2 à 6 joueurs, abordant les discriminations liées aux noms de famille.",
   path: "/projects/namequest",
 });
 

@@ -10,9 +10,18 @@ export function createPageMetadata({ title, description, path }: PageMetadataOpt
   return {
     title,
     description,
+    keywords: [
+      "Romain Rubens",
+      "UX UI designer",
+      "Smart Ecosystems",
+      "design d'interaction",
+      "maison connectée",
+      "portfolio designer",
+    ],
     alternates: { canonical: path },
     openGraph: {
       type: "website",
+      locale: "fr_FR",
       siteName: "Romain Rubens",
       title,
       description,
@@ -24,6 +33,17 @@ export function createPageMetadata({ title, description, path }: PageMetadataOpt
       title,
       description,
       images: ["/icons/og-image.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
     },
   };
 }

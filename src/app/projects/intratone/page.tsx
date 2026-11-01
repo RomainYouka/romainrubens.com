@@ -4,8 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { ChevronDown, Play, Pause, ZoomIn } from "lucide-react";
-import Lottie from "lottie-react";
-import helloAnimation from "./hello.json";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
