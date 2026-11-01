@@ -2,7 +2,7 @@
 
 import { detectLanguage } from "@/lib/language";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Analytics } from "@/lib/analytics";
@@ -49,7 +49,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
   const label = `${number} — ${title}`;
 
   return (
-    <div className="flex w-full min-w-0 flex-col items-start gap-2 md:gap-3">
+    <div className="flex w-full min-w-0 flex-col items-start gap-2 md:gap-3" style={{ containerType: "inline-size" }}>
       <motion.a
         href={href}
         target="_blank"
@@ -122,7 +122,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
       <h2
         data-article-heading
         className="w-full min-w-0 text-left text-[18px] leading-none"
-        style={{ fontFamily: "var(--font-display)", color: "var(--theme-fg)", fontSize: "var(--article-title-size, 18px)" }}
+        style={{ fontFamily: "var(--font-display)", color: "var(--theme-fg)", fontSize: "calc(min(32px, 4.4cqw) - 2pt)" }}
       >
         <span className="inline-block whitespace-nowrap">
           <span className="font-semibold">{number} — </span>
@@ -135,29 +135,6 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
 
 export default function ArticlesPage() {
   const [language, setLanguage] = useState<Language>("EN");
-  const [isHydrated, setIsHydrated] = useState(false);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const titleMeasureRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const grid = gridRef.current;
-    const heading = grid?.querySelectorAll<HTMLElement>("[data-article-heading]")[1];
-    const text = titleMeasureRef.current;
-    if (!grid || !heading || !text) return;
-    let disposed = false;
-    const fit = () => {
-      if (disposed) return;
-      // Fixed Armenian reference: changing language never changes the title size.
-      const width = text.getBoundingClientRect().width;
-      if (width > 0) grid.style.setProperty("--article-title-size", `${Math.min(32, 32 * heading.clientWidth / width)}px`);
-    };
-    const observer = new ResizeObserver(fit);
-    observer.observe(grid);
-    void document.fonts.ready.then(fit);
-    fit();
-    return () => { disposed = true; observer.disconnect(); };
-  }, [isHydrated]);
-
   useEffect(() => {
     const savedLanguage = detectLanguage() as Language;
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) {
@@ -165,7 +142,6 @@ export default function ArticlesPage() {
     }
     const handleLanguageChange = (event: CustomEvent<Language>) => setLanguage(event.detail);
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
-    setIsHydrated(true);
     return () => {
       window.removeEventListener("languageChange", handleLanguageChange as EventListener);
     };
@@ -191,12 +167,7 @@ export default function ArticlesPage() {
           </p>
         </div>
           <section className="flex flex-col items-center gap-6 md:gap-[50px] relative w-full">
-            <div aria-hidden="true" className="absolute size-0 overflow-hidden pointer-events-none">
-            <span ref={titleMeasureRef} className="inline-block whitespace-nowrap" style={{ fontFamily: "var(--font-display)", fontSize: 32 }}>
-              <span className="font-semibold">02 — </span><span className="font-medium">{articles[1].title["ՀԱՅ"]}</span>
-            </span>
-            </div>
-            <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 md:gap-[50px] w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 md:gap-[50px] w-full">
               {articles.map((article, index) => (
                 <ArticleCard
                   key={article.id}

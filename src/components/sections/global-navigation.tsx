@@ -571,6 +571,10 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     window.dispatchEvent(new CustomEvent("menuStateChange", { detail: isMenuOpen }));
+    return () => {
+      document.body.style.overflow = "";
+      window.dispatchEvent(new CustomEvent("menuStateChange", { detail: false }));
+    };
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -627,6 +631,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
         }`}
         style={{
           paddingTop:    visualScrolled ? "12px" : "0",
+          zIndex: isMenuOpen ? 2147483647 : 1000,
           paddingLeft:   visualScrolled ? "12px" : "0",
           paddingRight:  visualScrolled ? "12px" : "0",
           transition: "opacity 300ms ease-in-out, padding 380ms cubic-bezier(0.4,0,0.2,1)",
@@ -748,7 +753,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
       {/* ── Menu mobile overlay ── */}
       <div
         id="mobile-navigation"
-        className={`fixed inset-0 top-16 z-40 transition-all duration-300 lg:hidden ${
+        className={`fixed inset-0 top-16 z-[2147483646] transition-all duration-300 lg:hidden ${
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         aria-hidden={!isMenuOpen}

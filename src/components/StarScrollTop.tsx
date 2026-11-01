@@ -18,6 +18,7 @@ const MAX_OFFSET = 3.5;
 export default function StarScrollTop() {
   const { isDark } = useTheme();
   const [visible, setVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   // Temporarily shown for wink even when scrollY < 300
   const [winkVisible, setWinkVisible] = useState(false);
   // true = left eye closing/closed
@@ -27,6 +28,12 @@ export default function StarScrollTop() {
   // Prevents scroll listener from re-showing button while scrolling to top
   const wasClickedRef = useRef(false);
   const shown = visible || winkVisible;
+
+  useEffect(() => {
+    const handleMenu = (event: Event) => setMenuOpen((event as CustomEvent<boolean>).detail);
+    window.addEventListener("menuStateChange", handleMenu);
+    return () => window.removeEventListener("menuStateChange", handleMenu);
+  }, []);
 
   // Show when scrolled past 300px
   useEffect(() => {
@@ -93,6 +100,8 @@ export default function StarScrollTop() {
     transform: winking ? "scaleY(0.06)" : "scaleY(1)",
     transition: winking ? "transform 0.12s ease-in" : "transform 0.16s ease-out",
   };
+
+  if (menuOpen) return null;
 
   return (
     <AnimatePresence>
