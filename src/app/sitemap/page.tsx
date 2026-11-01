@@ -1,4 +1,5 @@
 "use client";
+import { articles } from "@/data/articles";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -145,7 +146,7 @@ interface Section {
   items: SectionItem[];
 }
 
-const getSections = (): Section[] => [
+const getSections = (language: Language): Section[] => [
   {
     title: "home",
     items: [
@@ -177,10 +178,7 @@ const getSections = (): Section[] => [
     title: "articles",
     items: [
       { label: "articles", href: "/articles", isClickable: true },
-      { label: "article01", href: "https://medium.com/@romainrubens/01-un-jour-je-serai-designer-d8662f384749", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
-      { label: "article02", href: "https://medium.com/@romainrubens/02-la-maison-connect%C3%A9e-change-de-dimension-7395ebd6a3c4", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
-      { label: "article03", href: "https://medium.com/@romainrubens/03-comprendre-avant-de-concevoir-c3c9fcb54959", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
-      { label: "article04", href: "https://medium.com/@romainrubens/04-de-lautre-c%C3%B4t%C3%A9-de-l-interface-92c4eb051ed8", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
+      ...articles.map((article, index): SectionItem => ({ label: (["article01", "article02", "article03", "article04"] as const)[index], href: article.href[language], isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" })),
     ]
   },
   {
@@ -235,7 +233,7 @@ export default function SitemapPage() {
   }, []);
 
   const t = translations[language];
-  const sections = getSections();
+  const sections = getSections(language);
 
   return (
     <main id="main-content" className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>

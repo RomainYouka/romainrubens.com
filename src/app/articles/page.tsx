@@ -1,12 +1,27 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ProjectSkeleton } from "@/components/ui/skeleton";
 import { Analytics } from "@/lib/analytics";
 import { type Language } from "@/lib/language";
 import { articles } from "@/data/articles";
+
+const translations = {
+  FR: {
+    title: "Articles",
+    subtitle: "Mes réflexions de designer sur les interfaces, les écosystèmes connectés et les usages qui façonnent notre quotidien.",
+  },
+  EN: {
+    title: "Articles",
+    subtitle: "My reflections as a designer on interfaces, connected ecosystems, and the ways we use technology in everyday life.",
+  },
+  ՀԱՅ: {
+    title: "Հոդվածներ",
+    subtitle: "Իմ՝ որպես դիզայների մտորումները ինտերֆեյսների, կապակցված էկոհամակարգերի և մեր առօրյան ձևավորող տեխնոլոգիաների կիրառման մասին։",
+  },
+};
 
 const triggerHapticFeedback = () => {
   if (typeof navigator !== "undefined" && "vibrate" in navigator) {
@@ -24,6 +39,26 @@ interface ArticleCardProps {
 }
 
 const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: ArticleCardProps) => {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const heading = headingRef.current;
+    const text = textRef.current;
+    if (!heading || !text) return;
+    let disposed = false;
+    const fit = () => {
+      if (disposed) return;
+      // Measure the actual font, including Armenian glyphs, without truncating.
+      text.style.fontSize = "32px";
+      const width = text.getBoundingClientRect().width;
+      if (width > 0) text.style.fontSize = `${Math.min(32, 32 * heading.clientWidth / width)}px`;
+    };
+    const observer = new ResizeObserver(fit);
+    observer.observe(heading);
+    void document.fonts.ready.then(fit);
+    fit();
+    return () => { disposed = true; observer.disconnect(); };
+  }, [number, title]);
   const handleClick = useCallback(() => {
     triggerHapticFeedback();
     window.dispatchEvent(new CustomEvent("blob-wink"));
@@ -33,7 +68,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
   const label = `${number} — ${title}`;
 
   return (
-    <div className="flex w-full flex-col items-start gap-6">
+    <div className="flex w-full min-w-0 flex-col items-start gap-6">
       <motion.button
         type="button"
         onClick={handleClick}
@@ -54,7 +89,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
           className="object-cover"
           priority={isPriority}
           fetchPriority={isPriority ? "high" : "auto"}
-          sizes="(max-width: 768px) 100vw, (max-width: 1234px) 50vw, 592px"
+          sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc((100vw - 114px) / 2), 455px"
         />
         <div className="absolute top-[11px] left-[11px] z-10 pointer-events-none">
           <div
@@ -101,11 +136,14 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
         </div>
       </motion.button>
       <h2
-        className="w-full text-left text-[18px] md:text-[24px] lg:text-[32px] leading-none"
+        ref={headingRef}
+        className="w-full min-w-0 text-left text-[18px] leading-none"
         style={{ fontFamily: "var(--font-display)", color: "var(--theme-fg)" }}
       >
-        <span className="font-semibold">{number} — </span>
-        <span className="font-medium">{title}</span>
+        <span ref={textRef} className="inline-block whitespace-nowrap">
+          <span className="font-semibold">{number} — </span>
+          <span className="font-medium">{title}</span>
+        </span>
       </h2>
     </div>
   );
@@ -136,15 +174,22 @@ export default function ArticlesPage() {
   return (
     <main
       id="main-content"
-      className="w-full min-h-screen flex justify-center py-5 md:mt-[20px] pb-32 md:pb-12"
+      className="w-full min-h-screen"
       style={{ backgroundColor: "var(--theme-bg)" }}
     >
-      <div className="flex w-full max-w-[1234px] h-auto px-4 md:px-8 lg:px-12 xl:px-4 mt-16 md:mt-[40px] relative flex-col items-center gap-12 md:gap-[100px]">
+      <div className="w-full max-w-5xl mx-auto px-4 md:px-8 py-20 md:py-32">
+        <div className="mb-16 md:mb-20">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: "var(--theme-fg)" }}>
+            {translations[language].title}
+          </h1>
+          <p className="text-base md:text-lg leading-relaxed max-w-2xl" style={{ color: "var(--theme-muted)" }}>
+            {translations[language].subtitle}
+          </p>
+        </div>
         {!isHydrated ? (
           <ProjectSkeleton />
         ) : (
           <section className="flex flex-col items-center gap-6 md:gap-[50px] relative w-full">
-            <h1 className="sr-only">Articles</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
               {articles.map((article, index) => (
                 <ArticleCard

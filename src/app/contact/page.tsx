@@ -1,4 +1,5 @@
 "use client";
+import { articles } from "@/data/articles";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -147,7 +148,7 @@ export default function ContactPage() {
   const handleMedium = () => {
     wink();
     Analytics.contactClick("medium");
-    window.open("https://medium.com/@romainrubens/01-un-jour-je-serai-designer-d8662f384749", "_blank", "noopener,noreferrer");
+    window.open(articles[0].href[selectedLanguage], "_blank", "noopener,noreferrer");
   };
 
   const handlePinterest = () => {
