@@ -1,20 +1,4 @@
 User-agent: *
 Allow: /
 
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-# Public information is also available to AI search crawlers.
-User-agent: OAI-SearchBot
-User-agent: ChatGPT-User
-User-agent: Claude-SearchBot
-User-agent: PerplexityBot
-Allow: /
-
-Sitemap: https://romainrubens.com/sitemap.xml
+Sitemap: https://www.romainrubens.com/sitemap.xml
