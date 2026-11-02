@@ -41,6 +41,8 @@ yarn-error.log*
 # Claude context files (local only)
 CLAUDE.md
 **/CLAUDE.md
+.claude/
+.cursor/
 
 # typescript
 *.tsbuildinfo
