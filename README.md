@@ -1,4 +1,4 @@
-Romain Rubens
+## Romain Rubens
 
 Welcome to my official portfolio. I’m a designer working at the intersection of UX/UI, interaction design, and connected ecosystems. Here, I share selected projects, the thinking behind them, my skills, and articles about designing for real people and everyday life.
 
