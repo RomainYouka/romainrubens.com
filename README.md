@@ -1,16 +1,18 @@
-# Romain Rubens — portfolio
+Romain Rubens
 
-Portfolio officiel de Romain Rubens, designer UX/UI et étudiant en design industriel. Le site présente ses projets, compétences, articles et coordonnées publiques.
+Welcome to my official portfolio. I’m a designer working at the intersection of UX/UI, interaction design, and connected ecosystems. Here, I share selected projects, the thinking behind them, my skills, and articles about designing for real people and everyday life.
 
-Site : [romainrubens.com](https://romainrubens.com)
+Explore the website: [romainrubens.com](https://romainrubens.com)
 
-Construit avec Next.js, React et TypeScript. Les changements sur `main` sont publiés en production ; `future` sert aux aperçus protégés par Vercel Authentication. Les vérifications de compilation, de lint et de dépendances de production sont automatisées dans GitHub Actions.
+## About this repository
 
-## Développement local
+This is the source code for my portfolio, built with Next.js, React, and TypeScript. `main` powers the live site; `future` is used for protected previews. Automated checks cover code quality, builds, and production dependency security.
+
+## Run locally
 
 ```bash
 npm ci
 npm run dev
 ```
 
-La configuration et les secrets restent hors du dépôt. Ne pas publier de fichier `.env` ou d'identifiants.
+Keep environment variables and credentials out of the repository.
