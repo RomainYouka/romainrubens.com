@@ -183,7 +183,7 @@ const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, isPriori
         className="object-cover"
         priority={isPriority}
         fetchPriority={isPriority ? "high" : "auto"}
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+        sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 57px), (max-width: 1279px) calc(50vw - 73px), 576px"
       />
       <div className="flex items-end justify-end p-0 h-full pr-[13px] pb-[13px] relative z-10">
         <div className="w-8 h-8 md:w-10 md:h-10 p-0 pointer-events-none flex-shrink-0">

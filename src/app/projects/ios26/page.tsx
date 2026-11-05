@@ -1,4 +1,5 @@
 "use client";
+import { DeferredVideo } from "@/components/DeferredVideo";
 
 import { detectLanguage } from "@/lib/language";
 
@@ -547,7 +548,7 @@ export default function IOS26Page() {
                       alignItems: "center",
                       overflow: "hidden"
                     }}>
-                    <video
+                    <DeferredVideo
                       ref={videoRef}
                       src="/projects/ios26/iNotifications-Stack-v2.mp4"
                       loop

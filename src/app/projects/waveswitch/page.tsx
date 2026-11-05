@@ -1,4 +1,5 @@
 "use client";
+import { DeferredVideo } from "@/components/DeferredVideo";
 
 import { detectLanguage } from "@/lib/language";
 
@@ -307,7 +308,7 @@ export default function WaveSwitchPage() {
                     style={{ maxWidth: "min(85vw, 400px)" }}
                   >
                     <div style={{ width: "100%", overflow: "hidden", borderRadius: "clamp(12px, 2vw, 20px)" }}>
-                      <video
+                    <DeferredVideo
                         ref={videoRef1}
                         src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/4730AC9B-6273-4BD0-A10F-373F327D9B3B-1762106663715.mp4"
                         loop
@@ -358,7 +359,7 @@ export default function WaveSwitchPage() {
                     className="w-full flex flex-col items-center mb-12"
                   >
                     <div style={{ width: "100%", maxWidth: "600px", overflow: "hidden", borderRadius: "clamp(12px, 2vw, 20px)" }}>
-                      <video
+                    <DeferredVideo
                         ref={videoRef2}
                         src="/projects/waveswitch/mockup waveswitch_2.mp4"
                         loop
@@ -398,7 +399,7 @@ export default function WaveSwitchPage() {
                     className="w-full max-w-5xl mx-auto px-6"
                   >
                     <div style={{ width: "100%", overflow: "hidden", borderRadius: "clamp(12px, 2vw, 20px)" }}>
-                      <video
+                    <DeferredVideo
                         ref={videoRefFinal}
                         src="/projects/waveswitch/waveswitch-final.mp4"
                         muted

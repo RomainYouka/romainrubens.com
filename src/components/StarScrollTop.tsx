@@ -56,22 +56,34 @@ export default function StarScrollTop() {
 
   // Pupils follow mouse in real time
   useEffect(() => {
-    if (!shown) return;
+    if (!shown || menuOpen) return;
+    let frame = 0;
+    let mouseX = 0;
+    let mouseY = 0;
     const onMove = (e: MouseEvent) => {
-      if (!buttonRef.current) return;
-      const r = buttonRef.current.getBoundingClientRect();
-      const angle = Math.atan2(
-        e.clientY - (r.top + r.height / 2),
-        e.clientX - (r.left + r.width / 2)
-      );
-      setPupil({
-        x: Math.cos(angle) * MAX_OFFSET,
-        y: Math.sin(angle) * MAX_OFFSET,
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        if (!buttonRef.current) return;
+        const r = buttonRef.current.getBoundingClientRect();
+        const angle = Math.atan2(
+          mouseY - (r.top + r.height / 2),
+          mouseX - (r.left + r.width / 2)
+        );
+        setPupil({
+          x: Math.cos(angle) * MAX_OFFSET,
+          y: Math.sin(angle) * MAX_OFFSET,
+        });
       });
     };
     window.addEventListener("mousemove", onMove, { passive: true });
-    return () => window.removeEventListener("mousemove", onMove);
-  }, [shown]);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(frame);
+    };
+  }, [shown, menuOpen]);
 
   // Wink on custom event "blob-wink" — appears even if not scroll-visible
   useEffect(() => {

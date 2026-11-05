@@ -1,4 +1,5 @@
 "use client";
+import { DeferredVideo } from "@/components/DeferredVideo";
 
 import { detectLanguage } from "@/lib/language";
 
@@ -375,7 +376,7 @@ export default function IntratonePage() {
                   </div>
 
                   <div className="w-full mb-24 relative overflow-hidden">
-                    <video
+                    <DeferredVideo
                       ref={videoHeroRef}
                       src="/projects/intratone/nouvelle_hero_v2.webm"
                       className="w-full h-auto block"
@@ -398,7 +399,7 @@ export default function IntratonePage() {
                   </div>
 
                   <div className="w-full max-w-[1400px] mb-24 relative group overflow-hidden">
-                    <video
+                    <DeferredVideo
                       ref={videoAvantRef}
                       src="/projects/intratone/avant.webm"
                       className="w-[101%] h-auto -ml-[0.5%] scale-[1.01]"
@@ -499,7 +500,7 @@ export default function IntratonePage() {
                   </div>
 
                   <div className="w-full max-w-[1400px] mb-24 relative group overflow-hidden">
-                    <video
+                    <DeferredVideo
                       ref={videoWireframeRef}
                       src="/projects/intratone/wireframe.webm"
                       className="w-[101%] h-auto -ml-[0.5%] scale-[1.01]"
@@ -535,7 +536,7 @@ export default function IntratonePage() {
                   </div>
 
                   <div className="w-full max-w-[1400px] mb-24 relative group overflow-hidden">
-                    <video
+                    <DeferredVideo
                       ref={videoNouveau2Ref}
                       src="/projects/intratone/showreel.webm"
                       className="w-[101%] h-auto -ml-[0.5%] scale-[1.01]"

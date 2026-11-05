@@ -73,7 +73,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
           style={{ objectPosition: number === "04" ? "right center" : "center center" }}
           priority={isPriority}
           fetchPriority={isPriority ? "high" : "auto"}
-          sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc((100vw - 114px) / 2), 455px"
+          sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 57px), 455px"
         />
         <div className="absolute top-[11px] left-[11px] z-10 pointer-events-none">
           <div

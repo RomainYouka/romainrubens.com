@@ -314,7 +314,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
         className="object-cover"
         priority={isPriority}
         fetchPriority={isPriority ? "high" : "auto"}
-        sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc((100vw - 114px) / 2), (max-width: 1279px) calc((min(100vw, 1234px) - 146px) / 2), 576px"
+        sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 57px), (max-width: 1279px) calc(50vw - 73px), 576px"
         onError={() => setImgError(true)}
       />
       {externalUrl && (
@@ -477,7 +477,7 @@ export default function PortfolioPage() {
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
-                      isPriority={index < 4}
+                      isPriority={index < 2}
                     />
                   ))}
                 </div>
@@ -499,7 +499,7 @@ export default function PortfolioPage() {
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
-                      isPriority={index < 4}
+                      isPriority={index < 2}
                     />
                   ))}
                 </div>
@@ -521,7 +521,7 @@ export default function PortfolioPage() {
                       externalUrl={project.externalUrl}
                       isComingSoon={project.isComingSoon}
                       language={language}
-                      isPriority={index < 4}
+                      isPriority={index < 2}
                     />
                   ))}
                 </div>

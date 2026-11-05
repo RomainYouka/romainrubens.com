@@ -1,4 +1,5 @@
 "use client";
+import { DeferredVideo } from "@/components/DeferredVideo";
 
 import { detectLanguage } from "@/lib/language";
 
@@ -324,7 +325,7 @@ export default function NameQuestPage() {
                 viewport={{ once: true, amount: 0.1 }}
                 className="w-full"
               >
-                <video
+                    <DeferredVideo
                   ref={imagesRef}
                   src="/projects/namequest/namequest-animations-images.webm"
                   className="w-full h-auto"
@@ -544,7 +545,7 @@ export default function NameQuestPage() {
                 <div className="w-full">
                   {/* Desktop Version */}
                   <div className="hidden md:block w-full">
-                    <video
+                    <DeferredVideo
                       ref={plateauRef}
                       src="/projects/namequest/namequest-animation-plateau-desktop.webm"
                       className="w-full h-auto"
@@ -557,7 +558,7 @@ export default function NameQuestPage() {
 
                   {/* Mobile Version - Full Width No Borders */}
                   <div className="block md:hidden w-full">
-                    <video
+                    <DeferredVideo
                       src="/projects/namequest/namequest-animation-plateau.webm"
                       className="w-full h-auto"
                       muted
@@ -570,7 +571,7 @@ export default function NameQuestPage() {
 
                 {/* New Screens Animation integrated at the bottom of the section */}
                 <div className="w-full bg-white py-24 px-6 md:px-12 mt-0">
-                  <video
+                    <DeferredVideo
                     ref={screensRef}
                     src="/projects/namequest/namequest-screens-v3.webm"
                     className="w-full h-auto max-w-full mix-blend-multiply"
@@ -601,7 +602,7 @@ export default function NameQuestPage() {
                 className="w-full relative flex flex-col items-center"
               >
                 <div className="w-full">
-                  <video
+                    <DeferredVideo
                     ref={rulesRef}
                     src="/projects/namequest/namequest-animation-rules.webm"
                     className="w-full h-auto block"
