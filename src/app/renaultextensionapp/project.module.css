@@ -1,5 +1,5 @@
 .page { width:100%; overflow:clip; background:#1d1d1f; color:#fff; color-scheme:dark; font-family:var(--font-body),sans-serif; }
-.canvas { width:1920px; margin:0 auto; background:#1d1d1f; zoom:min(1,calc(100vw / 1920px)); }
+.canvas { width:1920px; margin:0 auto; background:#1d1d1f; zoom:min(.75,calc(100vw / 1920px)); }
 .canvas *, .canvas *::before, .canvas *::after { box-sizing:border-box; }
 .canvas h1,.canvas h2,.canvas h3,.canvas p,.canvas blockquote { margin:0; }
 .canvas em { color:#efdf00; font-style:normal; }
@@ -62,7 +62,7 @@
 .workaround { display:flex; gap:32px; align-items:center; width:1013.267px; }
 .workaround>.cardText { width:370.267px; }
 .quotaDemo { display:flex; align-items:center; justify-content:space-between; width:611px; height:169px; padding:0 67.5px; border-radius:24px; background:#474747; flex-shrink:0; font-weight:700; }
-.quotaDemo p { font-size:54px; line-height:1; }
+.canvas .quotaDemo p { font-family:var(--font-display),sans-serif; font-size:54px; line-height:1; font-weight:700; }
 .quotaDemo em { color:#3579f6; }
 .quotaDemo small,.quotaDemo span { font-size:22.753px; }
 .quotaDemo img { transform:rotate(180deg); }
@@ -88,7 +88,7 @@
   .canvas .year { font-size:18px; }
   .down { width:48px; height:48px; }
   .intro { min-height:0; }
-  .introBody { padding:80px 24px; gap:80px; }
+  .introBody { padding:clamp(56px,10vw,80px) clamp(20px,5vw,40px); gap:64px; }
   .firstQuote h2 { font-size:36px; margin-bottom:32px; }
   .firstQuote h2 span { font-size:24px; }
   .firstQuote blockquote,.personal { width:100%; max-width:671px; }
@@ -105,8 +105,9 @@
   .cards,.row { gap:20px; }
   .row { flex-direction:column; }
   .card { width:100%; height:auto; min-height:240px; padding:24px; border-width:2px; border-radius:24px; }
-  .cardText h3 { font-size:28px; }
-  .cardText p { font-size:16px; }
+  .cardText { min-width:0; }
+  .cardText h3 { font-size:clamp(23px,5vw,28px); line-height:1.2; overflow-wrap:break-word; }
+  .cardText p { font-size:16px; line-height:1.45; }
   .measureCard,.quotaText,.discipline,.household,.shame,.workaround { width:100%; }
   .measureCard { gap:20px; }
   .measureCard .cardText,.household>.cardText,.shame>.cardText,.workaround>.cardText { width:auto; flex:1; }
@@ -115,15 +116,30 @@
   .people { width:100%; gap:6px; }
   .person { width:calc((100% - 18px)/4); height:116px; }
   .person img { width:100%; height:auto; aspect-ratio:130/87; }
-  .person span { font-size:10px; text-align:center; }
+  .person span { font-size:11px; line-height:1.2; text-align:center; padding:0 4px; overflow-wrap:anywhere; }
   .shame { gap:12px; }
   .phoneCrop { width:72px; height:164px; }
   .quotaDemo { width:100%; height:140px; padding:20px; gap:12px; }
-  .quotaDemo p { font-size:36px; }
-  .quotaDemo small,.quotaDemo span { font-size:16px; }
-  .quotaDemo img { width:58px; height:auto; }
+  .quotaDemo>div { min-width:0; }
+  .canvas .quotaDemo p { font-size:clamp(27px,7vw,36px); overflow-wrap:break-word; }
+  .quotaDemo small,.quotaDemo span { font-size:16px; line-height:1.3; }
+  .quotaDemo img { width:52px; height:auto; flex-shrink:0; }
   .explore { padding:64px 20px; border-radius:40px 40px 0 0; }
   .explore>.kicker { margin-top:32px; font-size:22px; }
-  .links { margin-top:32px; gap:12px; flex-wrap:wrap; justify-content:center; }
-  .links a,.links a.next { font-size:16px; padding:18px 24px; }
+  .links { margin-top:32px; gap:12px; display:grid; width:100%; max-width:400px; }
+  .links a,.links a.next { width:100%; min-height:48px; font-size:16px; line-height:1.25; padding:14px 20px; text-align:center; }
+  .links svg { width:20px; height:20px; flex-shrink:0; }
+  .down { min-width:48px; min-height:48px; }
+  .down svg { width:25px; height:25px; }
+  .statement>p { line-height:1.45; }
+  .credits>.statement>p { font-size:20px; }
+}
+@media (min-width:600px) and (max-width:900px) {
+  .links { grid-template-columns:1fr 1fr; max-width:560px; }
+}
+@media (max-width:380px) {
+  .shame { flex-direction:column; align-items:flex-start; }
+  .phoneCrop { align-self:center; }
+  .measureCard { gap:12px; }
+  .card { padding:20px; }
 }
