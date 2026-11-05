@@ -129,7 +129,7 @@ const GlobalFooter = () => {
         backgroundColor: bgColor,
         borderColor: borderColor,
         direction: "ltr",
-        ...(isRenault ? { "--theme-nav-bg": pathname === "/googlemapsextension" ? "#007786" : pathname === "/stratosapp" ? "#121417" : "#1d1d1f", "--theme-fg": "#ffffff", "--theme-border": "#474747", "--theme-subtle": "#c7c7cc" } as React.CSSProperties : {}),
+        ...(isRenault ? { "--theme-nav-bg": pathname === "/googlemapsextension" ? "#007786" : pathname === "/stratosapp" ? "#121417" : "#1d1d1f", "--theme-fg": "#ffffff", "--theme-border": pathname === "/googlemapsextension" ? "#c1edf5" : "#474747", "--theme-subtle": pathname === "/googlemapsextension" ? "#c1edf5" : "#c7c7cc" } as React.CSSProperties : {}),
       }}
     >
       <div className="mx-auto max-w-[1200px] px-6 py-6 md:py-6">

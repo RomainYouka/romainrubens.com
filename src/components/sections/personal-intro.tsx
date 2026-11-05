@@ -337,9 +337,9 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                 }}
               >
                 <span style={{ color: "var(--theme-fg)" }}>{content.textMain}</span>
-                <span style={{ color: "var(--theme-muted)" }}>{content.textGray1}</span>
+                <span style={{ color: "var(--theme-subtle)" }}>{content.textGray1}</span>
                 <span style={{ color: "var(--theme-fg)" }}>{content.textMain2}</span>
-                <span style={{ color: "var(--theme-muted)" }}>{content.textGray2}</span>
+                <span style={{ color: "var(--theme-subtle)" }}>{content.textGray2}</span>
               </div>
 
               {/* CTA Button - Wider and responsive */}

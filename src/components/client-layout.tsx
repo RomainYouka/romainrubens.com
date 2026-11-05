@@ -4,11 +4,11 @@ import { detectLanguage } from "@/lib/language";
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { LazyMotion, domAnimation } from "framer-motion";
 import GlobalNavigation from "@/components/sections/global-navigation";
 import GlobalFooter from "@/components/sections/global-footer";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { PageTransitionProvider } from "@/contexts/PageTransitionContext";
-import { PageTransitionOverlay } from "@/components/PageTransitionOverlay";
 import { ThemeSwitchOverlay } from "@/components/ThemeSwitchOverlay";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import StarScrollTop from "@/components/StarScrollTop";
@@ -68,15 +68,16 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider>
-      <PageTransitionProvider>
-        <SmoothScrollProvider>
-          <LayoutContent>{children}</LayoutContent>
-          <PageTransitionOverlay />
-          <ThemeSwitchOverlay />
-          <StarScrollTop />
-        </SmoothScrollProvider>
-      </PageTransitionProvider>
-    </ThemeProvider>
+    <LazyMotion features={domAnimation}>
+      <ThemeProvider>
+        <PageTransitionProvider>
+          <SmoothScrollProvider>
+            <LayoutContent>{children}</LayoutContent>
+            <ThemeSwitchOverlay />
+            <StarScrollTop />
+          </SmoothScrollProvider>
+        </PageTransitionProvider>
+      </ThemeProvider>
+    </LazyMotion>
   );
 }

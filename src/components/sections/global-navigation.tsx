@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Languages, Check, Palette } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { AccentColor } from "@/contexts/ThemeContext";
 import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
@@ -480,7 +480,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const pathname = usePathname();
   const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || pathname === "/googlemapsextension";
   const isProjectPage = isRenault || pathname.startsWith("/projects/");
-  const isDark = isRenault || preferredDark;
+  const isGoogleMaps = pathname === "/googlemapsextension";
+  const isDark = !isGoogleMaps && (isRenault || preferredDark);
   const { triggerTransition } = usePageTransition();
 
   const [scrolledY, setScrolledY] = useState(false);
@@ -626,7 +627,13 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   };
 
   return (
-    <div style={isRenault ? {
+    <div style={isGoogleMaps ? {
+      "--theme-fg": "#1d1d1f", "--theme-nav-bg": "#ffffff",
+      "--theme-nav-scrolled": "rgba(255,255,255,0.92)", "--theme-bg": "#ffffff",
+      "--theme-border": "#d7d7d7", "--theme-accent": "#1d1d1f",
+      "--theme-accent-fg": "#ffffff", "--theme-muted": "#676767",
+      "--theme-subtle": "#6e6e73",
+    } as React.CSSProperties : isRenault ? {
       "--theme-fg": "#ffffff", "--theme-nav-bg": "#1d1d1f",
       "--theme-nav-scrolled": "rgba(29,29,31,0.92)", "--theme-bg": "#1d1d1f",
       "--theme-border": "#474747", "--theme-accent": "#f5f5f5",

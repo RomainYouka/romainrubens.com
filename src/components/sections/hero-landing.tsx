@@ -4,7 +4,7 @@ import { detectLanguage } from "@/lib/language";
 
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { AccentColor } from "@/contexts/ThemeContext";
 
