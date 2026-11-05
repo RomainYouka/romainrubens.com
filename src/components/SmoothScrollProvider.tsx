@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
@@ -9,7 +9,10 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   const pathname = usePathname();
 
   // Recréé à chaque changement de route : garantit l'activation/désactivation correcte
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // These full-page case studies must not inherit the catalogue's scroll offset.
+    const resetProjectScroll = (pathname === "/renaultextensionapp" || pathname === "/stratosapp") && !window.location.hash;
+    if (resetProjectScroll) window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     // La page d'accueil garde un scroll natif fiable, notamment au zoom.
     if (pathname === "/") return;
 
@@ -25,6 +28,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     });
 
     lenisRef.current = lenis;
+    if (resetProjectScroll) lenis.scrollTo(0, { immediate: true, force: true });
 
     // Permet à n'importe quel composant de déclencher un scroll to top via Lenis
     const onScrollToTop = () => lenis.scrollTo(0, { immediate: false });
