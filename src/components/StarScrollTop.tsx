@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
+import { usePathname } from "next/navigation";
 
 // Blob/potato shape — viewBox 0 0 64 64
 const BLOB_PATH =
@@ -16,7 +17,9 @@ const PUPIL_R = 4.5;
 const MAX_OFFSET = 3.5;
 
 export default function StarScrollTop() {
-  const { isDark } = useTheme();
+  const { isDark: preferredDark } = useTheme();
+  const isRenault = usePathname() === "/renaultextensionapp";
+  const isDark = !isRenault && preferredDark;
   const [visible, setVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   // Temporarily shown for wink even when scrollY < 300
@@ -125,7 +128,7 @@ export default function StarScrollTop() {
             width: 60,
             height: 60,
             borderRadius: "50%",
-            backgroundColor: "var(--theme-accent)",
+            backgroundColor: isRenault ? "#1d1d1f" : "var(--theme-accent)",
             border: "none",
             cursor: "pointer",
             padding: 0,

@@ -476,8 +476,11 @@ const ColorPickerMobile = ({ accentColor, onAccentChange, isDark, selectedLangua
 
 // ─── Navigation principale ───────────────────────────────────────────────────
 const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
-  const { isDark, accentColor, setAccentColor } = useTheme();
+  const { isDark: preferredDark, accentColor, setAccentColor } = useTheme();
   const pathname = usePathname();
+  const isRenault = pathname === "/renaultextensionapp";
+  const isProjectPage = isRenault || pathname.startsWith("/projects/");
+  const isDark = isRenault || preferredDark;
   const { triggerTransition } = usePageTransition();
 
   const [scrolledY, setScrolledY] = useState(false);
@@ -623,7 +626,13 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   };
 
   return (
-    <>
+    <div style={isRenault ? {
+      "--theme-fg": "#ffffff", "--theme-nav-bg": "#1d1d1f",
+      "--theme-nav-scrolled": "rgba(29,29,31,0.92)", "--theme-bg": "#1d1d1f",
+      "--theme-border": "#474747", "--theme-accent": "#f5f5f5",
+      "--theme-accent-fg": "#1d1d1f", "--theme-muted": "#c7c7cc",
+      "--theme-subtle": "#c7c7cc",
+    } as React.CSSProperties : undefined}>
       <header
         role="banner"
         className={`fixed top-0 left-0 right-0 z-[1000] ${
@@ -685,7 +694,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     </Link>
                   ))}
 
-                  <ColorPicker
+                  {!isProjectPage && <ColorPicker
                     accentColor={accentColor}
                     onAccentChange={setAccentColor}
                     isDark={isDark}
@@ -693,7 +702,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     onOpen={openColorPicker}
                     onClose={closeColorPicker}
                     options={ACCENT_OPTIONS}
-                  />
+                  />}
                   <LanguageSelector
                     selectedLanguage={selectedLanguage}
                     onLanguageChange={handleLanguageChange}
@@ -702,7 +711,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     onOpen={openLangDropdown}
                     onClose={closeLangDropdown}
                   />
-                  <ThemeToggle />
+                  {!isProjectPage && <ThemeToggle />}
                   <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} />
                 </div>
               </div>
@@ -778,18 +787,18 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
             ))}
           </div>
           <div className="flex flex-col gap-0">
-            <ColorPickerMobile
+            {!isProjectPage && <ColorPickerMobile
               accentColor={accentColor}
               onAccentChange={setAccentColor}
               isDark={isDark}
               selectedLanguage={selectedLanguage}
               borderColor={borderColor}
-            />
-            <ThemeToggleMobile selectedLanguage={selectedLanguage} borderColor={borderColor} onClose={() => setIsMenuOpen(false)} />
+            />}
+            {!isProjectPage && <ThemeToggleMobile selectedLanguage={selectedLanguage} borderColor={borderColor} onClose={() => setIsMenuOpen(false)} />}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
