@@ -18,7 +18,8 @@ const MAX_OFFSET = 3.5;
 
 export default function StarScrollTop() {
   const { isDark: preferredDark } = useTheme();
-  const isRenault = usePathname() === "/renaultextensionapp";
+  const pathname = usePathname();
+  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp";
   const isDark = !isRenault && preferredDark;
   const [visible, setVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);

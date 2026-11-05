@@ -1,0 +1,47 @@
+export const content = {
+  EN: {
+    intro:"Introducing", down:"Discover the project introduction", heading:["Connecting", "students"],
+    quote:"“Design school students share an intense daily life, common projects, deadlines and ambitions. Yet no tool exists to help them **connect, create events together and build** a real campus life.”",
+    school:"Strate School of Design", personal:"“How do you make it easier for design school students to **connect and interact with each other?**”",
+    question:"DESIGN QUESTION", questionText:"How do you design an app that **makes it easier for design school students to connect and interact with each other,** around events and shared moments? In an environment where everyone knows each other without really knowing each other, social bonds do not form on their own. Existing tools are not built for this. **Something specific, situated and community-driven** had to be designed.",
+    cards:[
+      ["**Swipe** to join", "Like dating apps, a swipe system lets students join or skip events proposed by the community. You decide in one gesture."],
+      ["**Event** groups", "If you swipe yes, you automatically join a group chat with the other attendees. The social bond starts before the event."],
+      ["Create and **manage** events", "Any student can create an event, invite attendees and track confirmations in real time. From a spontaneous evening to an organized collective project."],
+      ["Event **search**", "Search by category, date or popularity to find what is happening around you on campus."],
+      ["Built for **Strate**", "A concept designed for the Stratos community, unique to students at Strate School of Design."],
+    ],
+    proposal:"DESIGN SYSTEM PROPOSAL", proposalText:"The project designs a mobile app allowing Strate students to connect around events. **A swipe system lets students join or skip events** proposed by the community. If you swipe yes, you automatically join a group chat with the other attendees, **creating a social bond before the event even happens.** Any student can create an event, manage it and track confirmations in real time.",
+    screens:"Stratos interface overview", mockup:"Two Stratos phones showing campus events and student conversations", stores:"App distribution concepts", explore:"Continue exploring", back:"Back to Projects", next:"Next Project",
+  },
+  FR: {
+    intro:"Présentation", down:"Découvrir l’introduction du projet", heading:["Connecter", "les étudiants"],
+    quote:"« Les étudiants en école de design partagent un quotidien intense, des projets communs, des échéances et des ambitions. Pourtant, aucun outil ne leur permet de **se rencontrer, créer des événements ensemble et construire** une véritable vie de campus. »",
+    school:"Strate École de Design", personal:"« Comment faciliter les **rencontres et les interactions entre les étudiants** d’une école de design ? »",
+    question:"QUESTION DE DESIGN", questionText:"Comment concevoir une application qui **facilite les rencontres et les interactions entre les étudiants d’une école de design,** autour d’événements et de moments partagés ? Dans un environnement où tout le monde se connaît sans vraiment se connaître, les liens ne se créent pas seuls. Les outils existants ne sont pas conçus pour cela. Il fallait imaginer **un outil spécifique, situé et porté par la communauté.**",
+    cards:[
+      ["**Swiper** pour participer", "À la manière des applications de rencontre, un système de swipe permet de rejoindre ou de passer les événements proposés par la communauté. Un geste suffit pour décider."],
+      ["Groupes d’**événement**", "Un swipe positif vous fait automatiquement rejoindre une conversation de groupe avec les autres participants. Le lien se crée avant l’événement."],
+      ["Créer et **gérer** les événements", "Chaque étudiant peut créer un événement, inviter des participants et suivre les confirmations en temps réel. D’une soirée spontanée à un projet collectif organisé."],
+      ["**Rechercher** un événement", "Rechercher par catégorie, date ou popularité pour découvrir ce qui se passe autour de soi sur le campus."],
+      ["Conçu pour **Strate**", "Un concept imaginé pour la communauté Stratos, propre aux étudiants de Strate École de Design."],
+    ],
+    proposal:"PROPOSITION DE SYSTÈME", proposalText:"Le projet conçoit une application mobile permettant aux étudiants de Strate de se retrouver autour d’événements. **Un système de swipe permet de rejoindre ou de passer les événements** proposés par la communauté. Un swipe positif vous fait automatiquement rejoindre une conversation de groupe avec les autres participants, **créant un lien avant même que l’événement ait lieu.** Chaque étudiant peut créer un événement, le gérer et suivre les confirmations en temps réel.",
+    screens:"Vue d’ensemble des interfaces Stratos", mockup:"Deux téléphones Stratos présentant les événements du campus et les conversations étudiantes", stores:"Concepts de distribution de l’application", explore:"Continuer à explorer", back:"Retour aux projets", next:"Projet suivant",
+  },
+  ՀԱՅ: {
+    intro:"Ներկայացում", down:"Բացահայտել նախագծի ներածությունը", heading:["Միավորել", "ուսանողներին"],
+    quote:"«Դիզայնի դպրոցի ուսանողները կիսում են հագեցած առօրյա, ընդհանուր նախագծեր, ժամկետներ և ձգտումներ։ Սակայն չկա գործիք, որն օգնում է նրանց **ծանոթանալ, միասին միջոցառումներ ստեղծել և ձևավորել** իրական համալսարանական կյանք։»",
+    school:"Strate դիզայնի դպրոց", personal:"«Ինչպե՞ս հեշտացնել դիզայնի դպրոցի ուսանողների **ծանոթությունն ու փոխգործակցությունը։**»",
+    question:"ԴԻԶԱՅՆԻ ՀԱՐՑԸ", questionText:"Ինչպե՞ս նախագծել հավելված, որը **հեշտացնում է դիզայնի դպրոցի ուսանողների ծանոթությունն ու փոխգործակցությունը՝** միջոցառումների և ընդհանուր պահերի շուրջ։ Մի միջավայրում, որտեղ բոլորը ճանաչում են միմյանց՝ առանց իսկապես ճանաչելու, սոցիալական կապերը ինքնուրույն չեն ձևավորվում։ Առկա գործիքները դրա համար նախատեսված չեն։ Անհրաժեշտ էր նախագծել **համայնքին հատուկ, տեղային և համայնքի կողմից զարգացվող գործիք։**",
+    cards:[
+      ["**Սահեցնել**՝ միանալու համար", "Ծանոթությունների հավելվածների նման՝ սահեցման համակարգը թույլ է տալիս միանալ համայնքի առաջարկած միջոցառումներին կամ բաց թողնել դրանք։ Որոշումը կայացվում է մեկ շարժումով։"],
+      ["Միջոցառման **խմբեր**", "Դրական սահեցումից հետո դուք ինքնաբերաբար միանում եք մյուս մասնակիցների խմբային զրույցին։ Սոցիալական կապը սկսվում է միջոցառումից առաջ։"],
+      ["Ստեղծել և **կառավարել** միջոցառումներ", "Յուրաքանչյուր ուսանող կարող է ստեղծել միջոցառում, հրավիրել մասնակիցների և իրական ժամանակում հետևել հաստատումներին՝ ինքնաբուխ երեկոյից մինչև կազմակերպված համատեղ նախագիծ։"],
+      ["Միջոցառումների **որոնում**", "Որոնել ըստ կատեգորիայի, ամսաթվի կամ հանրաճանաչության՝ բացահայտելու, թե ինչ է տեղի ունենում համալսարանում։"],
+      ["Ստեղծված է **Strate-ի** համար", "Stratos համայնքի համար մտածված հայեցակարգ՝ հատուկ Strate դիզայնի դպրոցի ուսանողներին։"],
+    ],
+    proposal:"ՀԱՄԱԿԱՐԳԻ ԱՌԱՋԱՐԿ", proposalText:"Նախագիծը բջջային հավելված է, որը թույլ է տալիս Strate-ի ուսանողներին միավորվել միջոցառումների շուրջ։ **Սահեցման համակարգը թույլ է տալիս միանալ միջոցառումներին կամ բաց թողնել դրանք։** Դրական սահեցումից հետո դուք ինքնաբերաբար միանում եք մյուս մասնակիցների խմբային զրույցին՝ **սոցիալական կապ ստեղծելով դեռևս միջոցառումից առաջ։** Յուրաքանչյուր ուսանող կարող է ստեղծել միջոցառում, կառավարել այն և իրական ժամանակում հետևել հաստատումներին։",
+    screens:"Stratos միջերեսների ընդհանուր տեսքը", mockup:"Stratos-ի երկու հեռախոս՝ համալսարանական միջոցառումներով և ուսանողական զրույցներով", stores:"Հավելվածի տարածման հայեցակարգեր", explore:"Շարունակել ուսումնասիրել", back:"Վերադառնալ նախագծերին", next:"Հաջորդ նախագիծը",
+  },
+};

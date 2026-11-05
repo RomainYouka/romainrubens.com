@@ -478,7 +478,7 @@ const ColorPickerMobile = ({ accentColor, onAccentChange, isDark, selectedLangua
 const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const { isDark: preferredDark, accentColor, setAccentColor } = useTheme();
   const pathname = usePathname();
-  const isRenault = pathname === "/renaultextensionapp";
+  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp";
   const isProjectPage = isRenault || pathname.startsWith("/projects/");
   const isDark = isRenault || preferredDark;
   const { triggerTransition } = usePageTransition();
@@ -726,7 +726,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
               >
                 <div className="flex h-9 min-w-0 flex-1 items-center justify-start">
                   <a {...logoProps} className={logoProps.className.replace("h-full", "")}>
-                    <BrandLogo isScrolled={visualScrolled} className="h-4" />
+                    <BrandLogo isScrolled={visualScrolled} className="h-[13px] min-[420px]:h-4" />
                   </a>
                 </div>
 

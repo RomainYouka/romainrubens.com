@@ -110,7 +110,7 @@ const mobileProjects = [
     darkImage: "/projects/blocks/stratos-dark.png",
     year: "",
     slug: "stratos",
-    externalUrl: "https://www.behance.net/gallery/247046537/Stratos-Campus-App",
+    externalUrl: undefined as string | undefined,
     isComingSoon: false,
     isPriority: false,
   },
@@ -409,7 +409,7 @@ export default function PortfolioPage() {
     if (project) {
       setExpandingCard({ slug, rect, image: project.image });
       setTimeout(() => {
-        router.push(slug === "renault" ? "/renaultextensionapp" : `/projects/${slug}`);
+        router.push(slug === "renault" ? "/renaultextensionapp" : slug === "stratos" ? "/stratosapp" : `/projects/${slug}`);
       }, 200);
     }
   }, [router, allProjects]);

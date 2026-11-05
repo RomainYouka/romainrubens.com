@@ -1,0 +1,73 @@
+.page,.page .canvas { background:#121417; }
+.page em { color:#007afe; }
+.hero { background:linear-gradient(180deg,#005dc1 0%,#007afe 50.481%,#64a6ee 94.231%); }
+.brand { color:#121417; gap:9px; }
+.wordmark { display:flex; align-items:flex-end; }
+.wordmark img { display:block; max-width:none; }
+.down { color:#4f9df1; }
+.source { color:inherit; text-decoration:none; }
+.source:focus-visible { outline:3px solid #007afe; outline-offset:12px; }
+.personal { width:818px; }
+.personal em { color:#007afe; }
+.showcase { height:1507px; background:#f5f5f5; border-radius:100px; display:flex; justify-content:center; align-items:center; }
+.phones { width:1369px; height:1344px; position:relative; overflow:hidden; }
+.phones img { position:absolute; width:211.69%; height:100%; left:-95.86%; top:0; max-width:none; }
+.design { padding:256px 0; }
+.case { width:1258px; }
+.pill,.card { background:#1d1e20; border-color:#292a2b; }
+.card { gap:32px; }
+.card h3 em { color:#007afe; }
+.card img { flex-shrink:0; max-width:none; object-fit:cover; }
+.swipe { width:583px; padding:28px 38px; }
+.swipe>div { width:304px; }
+.group { width:635px; padding:28px; }
+.group>div { width:292px; }
+.create { width:100%; padding:28px 60px; }
+.create>div:last-child { width:481px; flex-shrink:0; }
+.createImages { display:flex; gap:16px; align-items:center; }
+.search { width:714px; }
+.search>div { width:293px; }
+.strate { width:504px; }
+.strate>div { width:360px; }
+.screens { padding:256px 0; background:#fff; border-radius:100px; }
+.screenStack { display:flex; flex-direction:column; gap:52.917px; width:1445px; margin:auto; }
+.screen { margin:0; width:100%; aspect-ratio:4096/1670; position:relative; overflow:hidden; }
+.screen img { position:absolute; left:0; top:0; width:100%; height:183.95%; max-width:none; }
+.stores { padding:256px 0; display:flex; justify-content:center; }
+.badges { width:319px; display:flex; flex-direction:column; gap:24px; }
+.badges>img { display:block; }
+.storeBadge { width:319px; height:87px; position:relative; }
+.storeBadge>img:first-child { display:block; }
+.storeBadge>img:last-child { position:absolute; object-fit:contain; }
+.play { left:10.66%; top:23.73%; width:78.82%; height:55%; }
+.huawei { left:8.46%; top:23.73%; width:83.21%; height:56.3%; }
+.xiaomi { left:18.18%; top:9%; width:63.79%; height:78%; }
+.galaxy { width:319px; height:87px; border:2px solid #303030; border-radius:10px; background:#1d1e20; position:relative; }
+.galaxy span { position:absolute; left:6.12%; top:17.5%; width:17.69%; height:65%; border-radius:10px; background:conic-gradient(from 180deg,#f76051,#e0379f,#c903eb,#ee2372,#f76051); }
+.galaxy img { position:absolute; left:10.3%; top:21%; width:84.13%; height:67.5%; }
+.explore { background:#007afe; }
+@media(max-width:900px) {
+  .wordmark img { width:clamp(100px,25vw,180px); height:auto; }
+  .personal { width:100%; }
+  .showcase { height:auto; padding:40px 16px; border-radius:40px; }
+  .phones { width:100%; height:auto; aspect-ratio:1369/1344; }
+  .design { padding:80px 24px; }
+  .case { width:100%; }
+  .card,.swipe,.group,.create,.search,.strate { width:100%; padding:24px; gap:20px; }
+  .card>div,.create>div:last-child { width:auto; flex:1; min-width:0; }
+  .swipe>img { width:90px; height:auto; }
+  .group { flex-direction:column; }
+  .group>img { width:min(247px,100%); height:auto; }
+  .create { flex-direction:column; }
+  .createImages { width:100%; gap:8px; }
+  .createImages img { width:calc((100% - 16px)/3); height:auto; }
+  .search>img { width:72px; height:auto; }
+  .strate h3 img { width:100%; max-width:256px; height:auto; }
+  .screens { padding:48px 16px; border-radius:40px; }
+  .screenStack { width:100%; gap:24px; }
+  .stores { padding:64px 24px; }
+  .badges { transform:scale(.8); transform-origin:center; margin:-48px 0; }
+}
+@media(max-width:380px) {
+  .swipe,.search { flex-direction:column; }
+}

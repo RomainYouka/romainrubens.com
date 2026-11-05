@@ -6,6 +6,7 @@ const routes = [
   "",
   "/projects",
   "/renaultextensionapp",
+  "/stratosapp",
   "/projects/chaussez-vous-ou-pas",
   "/projects/framasoft",
   "/projects/goupil",

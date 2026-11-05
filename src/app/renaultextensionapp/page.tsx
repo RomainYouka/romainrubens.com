@@ -87,7 +87,7 @@ export default function RenaultExtensionPage() {
       </section>
       <section className={s.mockup}><img src={`${assets}inactive.png`} width={1462} height={1212} alt={t.inactiveAlt} loading="lazy" /></section>
       <section className={s.credits}><div className={s.statement}><h2 className={s.pill}>{t.credit}</h2><p><Credits text={t.credits} /></p></div></section>
-      <nav className={s.explore} aria-label={t.explore}><Title /><div className={s.kicker}><Star />{t.explore}</div><div className={s.links}><Link href="/projects"><ArrowLeft size={29} />{t.back}</Link><Link href="/projects/students" className={s.next}>{t.next}<ArrowRight size={29} /></Link></div></nav>
+      <nav className={s.explore} aria-label={t.explore}><Title /><div className={s.kicker}><Star />{t.explore}</div><div className={s.links}><Link href="/projects"><ArrowLeft size={29} />{t.back}</Link><Link href="/stratosapp" className={s.next}>{t.next}<ArrowRight size={29} /></Link></div></nav>
     </div>
   </main>;
 }
