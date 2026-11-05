@@ -10,7 +10,7 @@ const projects = [
   ["Wave Switch", "/projects/waveswitch", "Interface de contrôle sonore."],
   ["Google Maps App Extension", "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension", "Projet d’extension de l’expérience Google Maps."],
   ["Google Play on iOS", "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", "Concept Google Play adapté à iOS."],
-  ["Renault App Extension", "https://www.behance.net/gallery/246976591/Renault-App-Extension", "Projet d’extension de l’application Renault."],
+  ["Renault App Extension", "/renaultextensionapp", "Projet académique d’extension de l’application Renault, avec Erwan Hodonou, sur les quotas de mobilité partagés."],
   ["Stratos — Campus App", "https://www.behance.net/gallery/247046537/Stratos-Campus-App", "Application de campus universitaire."],
   ["Framasoft", "/projects/framasoft", "Refonte UX/UI du site Framasoft."],
   ["Goupil", "https://www.behance.net/gallery/253535235/Goupil-Digital-Ecosystem-UXUI-Design-System", "Écosystème digital et design system."],

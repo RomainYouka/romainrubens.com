@@ -165,7 +165,7 @@ const getSections = (language: Language): Section[] => [
       { label: "waveswitch", href: "/projects/waveswitch", isSubItem: true, isClickable: true },
       { label: "students", href: "https://www.behance.net/gallery/247046537/Stratos-Campus-App", isSubItem: true, isClickable: true },
       { label: "googlemaps", href: "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
-      { label: "renault", href: "https://www.behance.net/gallery/246976591/Renault-App-Extension", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
+      { label: "renault", href: "/renaultextensionapp", isSubItem: true, isClickable: true },
       { label: "googleplayios", href: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
       { label: "webProjects", href: "#", isSubItem: true },
       { label: "framasoft", href: "/projects/framasoft", isSubItem: true, isClickable: true },

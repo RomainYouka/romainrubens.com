@@ -100,7 +100,7 @@ const mobileProjects = [
     darkImage: "/projects/blocks/renault-dark.png",
     year: "",
     slug: "renault",
-    externalUrl: "https://www.behance.net/gallery/246976591/Renault-App-Extension",
+    externalUrl: undefined as string | undefined,
     isComingSoon: false,
     isPriority: false,
   },
@@ -409,7 +409,7 @@ export default function PortfolioPage() {
     if (project) {
       setExpandingCard({ slug, rect, image: project.image });
       setTimeout(() => {
-        router.push(`/projects/${slug}`);
+        router.push(slug === "renault" ? "/renaultextensionapp" : `/projects/${slug}`);
       }, 200);
     }
   }, [router, allProjects]);

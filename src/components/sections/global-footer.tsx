@@ -3,7 +3,7 @@
 import { detectLanguage } from "@/lib/language";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const footerTranslations = {
   FR: {
@@ -88,6 +88,7 @@ type FooterLanguage = keyof typeof footerTranslations;
 
 const GlobalFooter = () => {
   const router = useRouter();
+  const isRenault = usePathname() === "/renaultextensionapp";
   const [selectedLanguage, setSelectedLanguage] = useState<FooterLanguage>("EN");
 
   useEffect(() => {
@@ -127,6 +128,7 @@ const GlobalFooter = () => {
         backgroundColor: bgColor,
         borderColor: borderColor,
         direction: "ltr",
+        ...(isRenault ? { "--theme-nav-bg": "#1d1d1f", "--theme-fg": "#ffffff", "--theme-border": "#474747", "--theme-subtle": "#c7c7cc" } as React.CSSProperties : {}),
       }}
     >
       <div className="mx-auto max-w-[1200px] px-6 py-6 md:py-6">

@@ -5,6 +5,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
 const routes = [
   "",
   "/projects",
+  "/renaultextensionapp",
   "/projects/chaussez-vous-ou-pas",
   "/projects/framasoft",
   "/projects/goupil",
