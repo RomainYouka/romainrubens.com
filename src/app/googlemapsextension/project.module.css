@@ -61,14 +61,30 @@
 .screenGrid { width:1257px; margin:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:55.97px; }
 .screenGrid img { display:block; width:100%; height:auto; border-radius:37px; }
 .field { height:1401.725px; display:flex; align-items:center; justify-content:center; background:#000; border-radius:100px; }
-.field>img { display:block; width:100%; height:auto; }
+.field>img {
+  display:block; width:100%; height:auto;
+  -webkit-mask-image:url('/projects/googlemaps-extension/field-mask.svg');
+  mask-image:url('/projects/googlemaps-extension/field-mask.svg');
+  -webkit-mask-size:100% 100%; mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+}
 .applications { padding:256px 0; }
 .applicationStack { width:1257px; margin:auto; display:flex; flex-direction:column; gap:30.12px; }
 .applicationHeading { min-height:304px; display:flex; align-items:center; justify-content:center; gap:163px; border-radius:30px; }
 .applicationHeading h2 { font:500 39.317px/normal var(--font-display),sans-serif; max-width:637px; }
-.applicationHeading img { display:block; max-width:none; }
+.applicationHeading img { display:block; max-width:none; mix-blend-mode:multiply; }
 .applicationScreens { height:912px; display:flex; align-items:center; justify-content:center; border-radius:30px; }
-.applicationScreens img { display:block; max-width:none; }
+.applicationScreens img {
+  display:block;
+  max-width:none;
+  /* Keep the interfaces intact; hide only the export's opaque outer canvas. */
+  -webkit-mask-image:url('/projects/googlemaps-extension/phone-mask.svg');
+  mask-image:url('/projects/googlemaps-extension/phone-mask.svg');
+  -webkit-mask-size:100% 100%;
+  mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+}
 .apple { background:#387efe; color:#0058ac; }
 .tcl { background:#ffc4c7; color:#e20612; border:5px solid #e20612; }
 .explore { background:#007786; border-radius:100px 100px 0 0; padding:148px 0; display:flex; flex-direction:column; align-items:center; }
