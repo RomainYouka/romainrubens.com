@@ -124,9 +124,9 @@ function ToolbarSection({ title }: { title: string }) {
     <div className="w-full flex flex-col items-center pt-8 pb-24 bg-white overflow-hidden">
       <span className="inline-block px-4 py-2 bg-[#FF6B6B]/10 rounded-full text-[#FF6B6B] text-sm font-semibold tracking-wider uppercase mb-12">{title}</span>
       <div className="w-full px-0">
-        <img 
-          src="/projects/framaspace/full-toolbar.png" 
-          alt="Navigation Bars" 
+        <img
+          src="/projects/framaspace/full-toolbar.webp"
+          alt="Navigation Bars"
           className="w-full h-auto block"
           width="1920"
           height="1200"
@@ -147,7 +147,7 @@ export default function FramasoftPage() {
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) setLanguage(savedLanguage);
     const handleLanguageChange = (event: CustomEvent<Language>) => setLanguage(event.detail);
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
-    
+
     return () => {
       window.removeEventListener("languageChange", handleLanguageChange as EventListener);
     };
@@ -182,18 +182,18 @@ export default function FramasoftPage() {
               </motion.div>
 
               <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                <motion.div 
-                  animate={{ 
+                <motion.div
+                  animate={{
                     background: [
-                      "linear-gradient(135deg, #6e3667 0%, #4a2445 50%, #6e3667 100%)", 
-                      "linear-gradient(135deg, #4a2445 0%, #6e3667 50%, #4a2445 100%)", 
+                      "linear-gradient(135deg, #6e3667 0%, #4a2445 50%, #6e3667 100%)",
+                      "linear-gradient(135deg, #4a2445 0%, #6e3667 50%, #4a2445 100%)",
                       "linear-gradient(135deg, #6e3667 0%, #4a2445 50%, #6e3667 100%)"
-                    ] 
-                  }} 
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }} 
-                  className="absolute inset-0" 
+                    ]
+                  }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0"
                 />
-                
+
                 <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col items-center pt-20">
                   <div className="flex-grow flex flex-col items-center justify-center text-center">
                     <motion.div variants={fadeInUp} className="mb-6">
@@ -221,23 +221,23 @@ export default function FramasoftPage() {
                 <div className="w-full max-w-5xl mx-auto flex flex-col items-center gap-24 mb-12">
                   <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full flex flex-col items-center">
                     <span className="inline-block px-4 py-2 bg-[#FF6B6B]/10 rounded-full text-[#FF6B6B] text-sm font-semibold tracking-wider uppercase mb-12">{t.webInterface}</span>
-                    
+
                     <div className="flex flex-col gap-16 w-full">
                       <div className="w-full">
-                        <BeforeAfterSlider 
-                          beforeImage="/projects/framaspace/files-before.png" 
-                          afterImage="/projects/framaspace/files-after.png" 
-                          beforeLabel={t.beforeLabel} 
-                          afterLabel={t.afterLabel} 
+                        <BeforeAfterSlider
+                          beforeImage="/projects/framaspace/files-before.webp"
+                          afterImage="/projects/framaspace/files-after.webp"
+                          beforeLabel={t.beforeLabel}
+                          afterLabel={t.afterLabel}
                         />
                       </div>
-                      
+
                       <div className="w-full">
-                        <BeforeAfterSlider 
-                          beforeImage="/projects/framaspace/calendar-before.png" 
-                          afterImage="/projects/framaspace/calendar-after.png" 
-                          beforeLabel={t.beforeLabel} 
-                          afterLabel={t.afterLabel} 
+                        <BeforeAfterSlider
+                          beforeImage="/projects/framaspace/calendar-before.webp"
+                          afterImage="/projects/framaspace/calendar-after.webp"
+                          beforeLabel={t.beforeLabel}
+                          afterLabel={t.afterLabel}
                         />
                       </div>
                     </div>
@@ -246,10 +246,10 @@ export default function FramasoftPage() {
                   <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="w-full flex flex-col items-center">
                     <span className="inline-block px-4 py-2 bg-[#FF6B6B]/10 rounded-full text-[#FF6B6B] text-sm font-semibold tracking-wider uppercase mb-12">{t.colorCustomization}</span>
                     <div className="w-full overflow-hidden rounded-xl">
-                      <img 
-                        src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/rnybtevfdcz-1762190003461.png?width=8000&height=8000&resize=contain" 
-                        alt="Color Customization" 
-                        className="w-full h-auto block" 
+                      <img
+                        src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/rnybtevfdcz-1762190003461.png?width=8000&height=8000&resize=contain"
+                        alt="Color Customization"
+                        className="w-full h-auto block"
                       />
                     </div>
                   </motion.div>

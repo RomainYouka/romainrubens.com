@@ -11,7 +11,7 @@ export type Article = {
 export const articles: Article[] = [
   {
     id: "01",
-    image: "/articles/blocks/01-childhood.png",
+    image: "/articles/blocks/01-childhood.webp",
     number: "01",
     href: {
       FR: "https://medium.com/@romainrubens/01-un-jour-je-serai-designer-d8662f384749",
@@ -26,7 +26,7 @@ export const articles: Article[] = [
   },
   {
     id: "02",
-    image: "/articles/blocks/02.jpg",
+    image: "/articles/blocks/02.webp",
     number: "02",
     href: {
       FR: "https://medium.com/@romainrubens/02-la-maison-connect%C3%A9e-change-de-dimension-7395ebd6a3c4",
@@ -41,7 +41,7 @@ export const articles: Article[] = [
   },
   {
     id: "03",
-    image: "/articles/blocks/03.jpg",
+    image: "/articles/blocks/03.webp",
     number: "03",
     href: {
       FR: "https://medium.com/@romainrubens/03-comprendre-avant-de-concevoir-c3c9fcb54959",
@@ -56,7 +56,7 @@ export const articles: Article[] = [
   },
   {
     id: "04",
-    image: "/articles/blocks/04.jpg",
+    image: "/articles/blocks/04.webp",
     number: "04",
     href: {
       FR: "https://medium.com/@romainrubens/04-de-lautre-c%C3%B4t%C3%A9-de-l-interface-92c4eb051ed8",

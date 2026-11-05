@@ -47,15 +47,15 @@ export default function StratosPage() {
           <blockquote><a className={s.source} href="https://www.figma.com/design/qhvML04mkKn4SqStMUK8Dk?node-id=2-477" target="_blank" rel="noopener noreferrer"><p><Highlight text={t.quote} /></p><cite>{t.school}</cite></a></blockquote>
         </div><blockquote className={`${base.personal} ${s.personal}`}><p><Highlight text={t.personal} /></p><cite>Romain Rubens</cite></blockquote></div>
       </section>
-      <section className={s.showcase}><div className={s.phones}><img src={`${assets}students.png`} alt={t.mockup} loading="lazy" /></div></section>
+      <section className={s.showcase}><div className={s.phones}><img src={`${assets}students.webp`} alt={t.mockup} loading="lazy" /></div></section>
       <section className={s.design}><div className={`${base.case} ${s.case}`}>
         <div className={base.statement}><h2 className={`${base.pill} ${s.pill}`}>{t.question}</h2><p><Highlight text={t.questionText} /></p></div>
         <div className={base.cards}>
           <div className={`${base.row} ${s.row}`}>
-            <article className={`${base.card} ${s.card} ${s.swipe}`}><img src={`${assets}swipe.png`} width={164} height={237} alt="" loading="lazy" />{cardText(0)}</article>
-            <article className={`${base.card} ${s.card} ${s.group}`}><img src={`${assets}groups.png`} width={247} height={78} alt="" loading="lazy" />{cardText(1)}</article>
+            <article className={`${base.card} ${s.card} ${s.swipe}`}><img src={`${assets}swipe.webp`} width={164} height={237} alt="" loading="lazy" />{cardText(0)}</article>
+            <article className={`${base.card} ${s.card} ${s.group}`}><img src={`${assets}groups.webp`} width={247} height={78} alt="" loading="lazy" />{cardText(1)}</article>
           </div>
-          <article className={`${base.card} ${s.card} ${s.create}`}><div className={s.createImages}>{[1,2,3].map((n)=><img key={n} src={`${assets}create${n}.png`} width={n===1?189:190} height={n===1?108:149} alt="" loading="lazy" />)}</div>{cardText(2)}</article>
+          <article className={`${base.card} ${s.card} ${s.create}`}><div className={s.createImages}>{[1,2,3].map((n)=><img key={n} src={`${assets}create${n}.webp`} width={n===1?189:190} height={n===1?108:149} alt="" loading="lazy" />)}</div>{cardText(2)}</article>
           <div className={`${base.row} ${s.row}`}>
             <article className={`${base.card} ${s.card} ${s.search}`}><img src={`${assets}search.svg`} width={116} height={116} alt="" loading="lazy" />{cardText(3)}</article>
             <article className={`${base.card} ${s.card} ${s.strate}`}><div className={base.cardText}>{language==="EN"?<h3><img src={`${assets}strate.svg`} width={256} height={38} alt="Built for Strate" loading="lazy" /></h3>:<h3><Highlight text={t.cards[4][0]} /></h3>}<p>{t.cards[4][1]}</p></div></article>
@@ -63,7 +63,7 @@ export default function StratosPage() {
         </div>
         <div className={base.statement}><h2 className={`${base.pill} ${s.pill}`}>{t.proposal}</h2><p><Highlight text={t.proposalText} /></p></div>
       </div></section>
-      <section className={s.screens} aria-label={t.screens}><div className={s.screenStack}>{[1,2,3,4,5,6,7].map(n=><figure key={n} className={s.screen}><img src={`${assets}screens${n}.png`} alt={`${t.screens} — ${n}/7`} loading="lazy" /></figure>)}</div></section>
+      <section className={s.screens} aria-label={t.screens}><div className={s.screenStack}>{[1,2,3,4,5,6,7].map(n=><figure key={n} className={s.screen}><img src={`${assets}screens${n}.webp`} alt={`${t.screens} — ${n}/7`} loading="lazy" /></figure>)}</div></section>
       <section className={s.stores} aria-label={t.stores}>
         <div className={s.badges}>
           <img src={`${assets}appstore.svg`} width={319} height={87} alt="App Store — concept" loading="lazy" />

@@ -19,30 +19,17 @@ const PageTransitionContext = createContext<PageTransitionContextType>({
 });
 
 export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
-  const [phase, setPhase] = useState<TransitionPhase>("idle");
+  // Navigation must never be gated by a decorative animation or timer.
+  const phase: TransitionPhase = "idle";
   const [direction, setDirection] = useState<TransitionDirection>("up");
   const router = useRouter();
 
   const triggerTransition = useCallback(
     (href: string, dir: TransitionDirection = "up") => {
-      if (phase !== "idle") return;
-
       setDirection(dir);
-      setPhase("in");
-
-      setTimeout(() => {
-        router.push(href);
-
-        setTimeout(() => {
-          setPhase("out");
-
-          setTimeout(() => {
-            setPhase("idle");
-          }, 750);
-        }, 100);
-      }, 780);
+      router.push(href);
     },
-    [phase, router]
+    [router]
   );
 
   return (

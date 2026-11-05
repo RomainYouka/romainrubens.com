@@ -51,20 +51,20 @@ export default function RenaultExtensionPage() {
   return <main id="main-content" ref={container} className={s.page} lang={language === "ՀԱՅ" ? "hy" : language.toLowerCase()}>
     <div className={s.canvas} style={{ zoom: scale } as CSSProperties}>
       <section className={s.hero} aria-label="Renault App Extension">
-        <img className={s.background} src={`${assets}hero.png`} alt="" fetchPriority="high" />
+        <img className={s.background} src={`${assets}hero.webp`} alt="" fetchPriority="high" />
         <div className={s.heroGroup}>
           <div className={s.heroTitles}><div className={s.kicker}><Star />{t.introducing}</div><h1><Title /></h1><p className={s.year}>2026</p></div>
           <button onClick={descend} className={s.down} aria-label={t.down}><ArrowDown size={33} /></button>
         </div>
       </section>
       <section ref={intro} id="introduction" className={s.intro}>
-        <img className={s.background} src={`${assets}intro.png`} alt="" />
+        <img className={s.background} src={`${assets}intro.webp`} alt="" />
         <div className={s.introBody}><div className={s.firstQuote}>
           <h2><em>{t.measure[0]}</em> <span>{t.measure[1]}</span></h2>
           <blockquote><p><Highlight text={t.quote} /></p><cite>Cahier Ethno-Design, Strate × Renault</cite></blockquote>
         </div><blockquote className={s.personal}><p><Highlight text={t.personal} /></p><cite>Romain Rubens &amp; Erwan Hodonou</cite></blockquote></div>
       </section>
-      <section className={s.mockup}><img src={`${assets}active.png`} alt={t.activeAlt} width={1762} height={1212} loading="lazy" /></section>
+      <section className={s.mockup}><img src={`${assets}active.webp`} alt={t.activeAlt} width={1762} height={1212} loading="lazy" /></section>
       <section className={s.design}>
         <div className={s.case}>
           <div className={s.statement}><h2 className={s.pill}>{t.question}</h2><p><Highlight text={t.questionText} /></p></div>
@@ -74,18 +74,18 @@ export default function RenaultExtensionPage() {
               <article className={s.card}><div className={s.quotaText}>{cardText(1)}</div></article>
             </div>
             <article className={`${s.card} ${s.wide}`}><div className={s.household}>
-              <div className={s.people}>{["megane.png", "r5.png", "r4.png", "person.svg"].map((file, i) => <div className={s.person} key={file}><img src={assets + file} width={130} height={87} alt="" loading="lazy" /><span>{[t.me, "Aurélie", "Max", t.add][i]}</span></div>)}</div>{cardText(2)}
+              <div className={s.people}>{["megane.webp", "r5.webp", "r4.webp", "person.svg"].map((file, i) => <div className={s.person} key={file}><img src={assets + file} width={130} height={87} alt="" loading="lazy" /><span>{[t.me, "Aurélie", "Max", t.add][i]}</span></div>)}</div>{cardText(2)}
             </div></article>
             <div className={s.row}>
               <article className={s.card}><div className={s.discipline}>{cardText(3)}</div></article>
-              <article className={s.card}><div className={s.shame}><div className={s.phoneCrop}><img src={`${assets}shame.png`} alt="" loading="lazy" /></div>{cardText(4)}</div></article>
+              <article className={s.card}><div className={s.shame}><div className={s.phoneCrop}><img src={`${assets}shame.webp`} alt="" loading="lazy" /></div>{cardText(4)}</div></article>
             </div>
             <article className={`${s.card} ${s.wide}`}><div className={s.workaround}><div className={s.quotaDemo}><div><p><em>{t.quota}</em> <small>km</small></p><span>{t.weekly}</span></div><img src={`${assets}switch.svg`} width={78} height={48} alt="" /></div>{cardText(5)}</div></article>
           </div>
           <div className={s.statement}><h2 className={s.pill}>{t.proposal}</h2><p><Highlight text={t.proposalText} /></p></div>
         </div>
       </section>
-      <section className={s.mockup}><img src={`${assets}inactive.png`} width={1462} height={1212} alt={t.inactiveAlt} loading="lazy" /></section>
+      <section className={s.mockup}><img src={`${assets}inactive.webp`} width={1462} height={1212} alt={t.inactiveAlt} loading="lazy" /></section>
       <section className={s.credits}><div className={s.statement}><h2 className={s.pill}>{t.credit}</h2><p><Credits text={t.credits} /></p></div></section>
       <nav className={s.explore} aria-label={t.explore}><Title /><div className={s.kicker}><Star />{t.explore}</div><div className={s.links}><Link href="/projects"><ArrowLeft size={29} />{t.back}</Link><Link href="/stratosapp" className={s.next}>{t.next}<ArrowRight size={29} /></Link></div></nav>
     </div>

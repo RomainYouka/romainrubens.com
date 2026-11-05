@@ -160,7 +160,7 @@ export default function IntratonePage() {
   const [isPlayingAvant, setIsPlayingAvant] = useState(true);
   const [isPlayingWireframe, setIsPlayingWireframe] = useState(true);
   const [isPlayingNouveau2, setIsPlayingNouveau2] = useState(true);
-  
+
   const videoAvantRef = useRef<HTMLVideoElement>(null);
   const videoWireframeRef = useRef<HTMLVideoElement>(null);
   const videoNouveau2Ref = useRef<HTMLVideoElement>(null);
@@ -200,7 +200,7 @@ export default function IntratonePage() {
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) setLanguage(savedLanguage);
     const handleLanguageChange = (event: CustomEvent<Language>) => setLanguage(event.detail);
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
-    
+
     return () => window.removeEventListener("languageChange", handleLanguageChange as EventListener);
   }, []);
 
@@ -270,7 +270,7 @@ export default function IntratonePage() {
             </motion.div>
 
             <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-              <motion.div 
+              <motion.div
                 animate={{
                   background: [
                     "linear-gradient(135deg, #13375A 0%, #1e4d7d 50%, #2963a0 100%)",
@@ -286,7 +286,7 @@ export default function IntratonePage() {
                 }}
                 className="absolute inset-0"
               />
-              
+
               <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col items-center h-full pt-20">
                 <div className="flex-grow flex flex-col items-center justify-center text-center">
                   <motion.div variants={fadeInUp} className="mb-6">
@@ -294,10 +294,10 @@ export default function IntratonePage() {
                       {t.role}
                     </span>
                   </motion.div>
-                  
-                  <motion.h1 
+
+                  <motion.h1
                     variants={fadeInUp}
-                    style={{ 
+                    style={{
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(40px, 7vw, 88px)",
                       fontWeight: 600,
@@ -308,8 +308,8 @@ export default function IntratonePage() {
                   >
                     {t.projectTitle}
                   </motion.h1>
-                  
-                  <motion.p 
+
+                  <motion.p
                     variants={fadeInUp}
                     style={{
                       fontFamily: "var(--font-display)",
@@ -367,7 +367,7 @@ export default function IntratonePage() {
                       {t.aboutTitle}
                     </span>
                   </div>
-                  
+
                   <div className="w-full max-w-[800px] mb-20 px-6">
                     <p className="text-[#13375A] text-lg md:text-xl leading-relaxed text-center opacity-80">
                       {t.aboutText}
@@ -437,15 +437,15 @@ export default function IntratonePage() {
                     >
                       <div className="relative overflow-hidden rounded-xl transition-all duration-500 group-hover:scale-[1.01]">
                         <img
-                          src="/projects/intratone/user-flow.png"
+                          src="/projects/intratone/user-flow.webp"
                           className="w-full h-auto block"
                           alt="Intratone User Flow"
                         />
                         <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
                           <div className="bg-black/60 backdrop-blur-md text-white px-6 py-3 rounded-full text-sm font-medium flex items-center gap-2 transition-all duration-300 transform translate-y-0">
                             <ZoomIn className="w-4 h-4" />
-                            <span>{language === "FR" ? "Cliquez pour afficher en grand" : 
-                                   language === "EN" ? "Click to enlarge" : 
+                            <span>{language === "FR" ? "Cliquez pour afficher en grand" :
+                                   language === "EN" ? "Click to enlarge" :
                                    "Սեղմեք՝ մեծացնելու համար"}</span>
                           </div>
                         </div>
@@ -461,10 +461,10 @@ export default function IntratonePage() {
                           {t.componentsTitle}
                         </span>
                       </div>
-                      
+
                       <div className="w-full max-w-[1200px] mb-24">
                         <img
-                          src="/projects/intratone/composants.png"
+                          src="/projects/intratone/composants.webp"
                           className="w-full h-auto block"
                           alt="Intratone Components"
                         />
@@ -484,7 +484,7 @@ export default function IntratonePage() {
 
                       <div className="w-full max-w-[1200px]">
                         <img
-                          src="/projects/intratone/daltonisme.png"
+                          src="/projects/intratone/daltonisme.webp"
                           className="w-full h-auto block"
                           alt="Intratone Accessibility Colors"
                         />
@@ -561,8 +561,8 @@ export default function IntratonePage() {
                       className="inline-block px-4 py-1.5 bg-black/10 rounded-full mb-6 max-w-[90%] mx-auto text-center"
                     >
                       <span className="text-black/60 text-sm font-semibold tracking-wide uppercase block">
-                        {language === "FR" ? "Explorer les coulisses !" : 
-                         language === "EN" ? "Explore the behind the scenes!" : 
+                        {language === "FR" ? "Explorer les coulisses !" :
+                         language === "EN" ? "Explore the behind the scenes!" :
                          "Բացահայտեք կուլիսները"}
                       </span>
                     </motion.div>
@@ -574,8 +574,8 @@ export default function IntratonePage() {
                       transition={{ delay: 0.1 }}
                       className="text-[#13375A] text-lg font-medium mb-8 text-center opacity-80 max-w-[600px]"
                     >
-                      {language === "FR" ? "Comprendre comment le produit fonctionne, pas seulement à quoi il ressemble." : 
-                       language === "EN" ? "Understand how the product works, not just what it looks like." : 
+                      {language === "FR" ? "Comprendre comment le produit fonctionne, pas seulement à quoi il ressemble." :
+                       language === "EN" ? "Understand how the product works, not just what it looks like." :
                        "Հասկանալ, թե ինչպես է աշխատում արտադրանքը, այլ ոչ թե միայն ինչ տեսք ունի այն:"}
                     </motion.p>
 
@@ -597,8 +597,8 @@ export default function IntratonePage() {
                         <path d="M0.0130005 9.50667C0.0130005 6.99034 1.01389 4.57722 2.79547 2.79564C4.57705 1.01405 6.99017 0.0131836 9.5065 0.0131836H19.013V19.0065H9.5065C6.99017 19.0065 4.57705 18.0056 2.79547 16.2241C1.01389 14.4425 0.0130005 12.0293 0.0130005 9.51318L0.0130005 9.50667Z" fill="#F24E1E"/>
                         <path d="M19.013 0.0131836H28.5195C31.0358 0.0131836 33.4489 1.01407 35.2305 2.79565C37.0121 4.57723 38.013 6.99036 38.013 9.50667C38.013 12.023 37.0121 14.4361 35.2305 16.2177C33.4489 17.9993 31.0358 19.0001 28.5195 19.0001H19.013V0.0131836Z" fill="#FF7262"/>
                       </svg>
-                      {language === "FR" ? "Accéder au fichier Figma" : 
-                       language === "EN" ? "Access the Figma file" : 
+                      {language === "FR" ? "Accéder au fichier Figma" :
+                       language === "EN" ? "Access the Figma file" :
                        "Մուտք գործել Figma ֆայլ"}
                     </motion.a>
 
@@ -615,8 +615,8 @@ export default function IntratonePage() {
                       className="mt-4 inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-[#13375A] text-white rounded-full font-bold text-sm md:text-lg shadow-xl shadow-blue-900/20 transition-all w-fit md:w-auto justify-center md:min-w-[300px]"
                     >
                       <Play className="w-5 h-5 md:w-6 md:h-6 fill-current" />
-                      {language === "FR" ? "Voir le prototype Figma" : 
-                       language === "EN" ? "View the Figma prototype" : 
+                      {language === "FR" ? "Voir le prototype Figma" :
+                       language === "EN" ? "View the Figma prototype" :
                        "Դիտել Figma նախատիպը"}
                     </motion.a>
                   </div>

@@ -46,8 +46,8 @@ const translations = {
 const mobileProjects = [
   {
     id: 1,
-    image: "/projects/blocks/intratone-light.png",
-    darkImage: "/projects/blocks/intratone-dark.png",
+    image: "/projects/blocks/intratone-light.webp",
+    darkImage: "/projects/blocks/intratone-dark.webp",
     year: "",
     slug: "intratone",
     externalUrl: undefined as string | undefined,
@@ -56,8 +56,8 @@ const mobileProjects = [
   },
   {
     id: 2,
-    image: "/projects/blocks/ios26-light.png",
-    darkImage: "/projects/blocks/ios26-dark.png",
+    image: "/projects/blocks/ios26-light.webp",
+    darkImage: "/projects/blocks/ios26-dark.webp",
     year: "",
     slug: "ios26",
     externalUrl: undefined as string | undefined,
@@ -66,8 +66,8 @@ const mobileProjects = [
   },
   {
     id: 3,
-    image: "/projects/blocks/waveswitch-light.png",
-    darkImage: "/projects/blocks/waveswitch-dark.png",
+    image: "/projects/blocks/waveswitch-light.webp",
+    darkImage: "/projects/blocks/waveswitch-dark.webp",
     year: "",
     slug: "waveswitch",
     externalUrl: undefined as string | undefined,
@@ -76,8 +76,8 @@ const mobileProjects = [
   },
   {
     id: 4,
-    image: "/projects/blocks/googlemaps-light.png",
-    darkImage: "/projects/blocks/googlemaps-dark.png",
+    image: "/projects/blocks/googlemaps-light.webp",
+    darkImage: "/projects/blocks/googlemaps-dark.webp",
     year: "",
     slug: "googlemaps",
     externalUrl: "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension",
@@ -86,8 +86,8 @@ const mobileProjects = [
   },
   {
     id: 7,
-    image: "/projects/blocks/googleplayios-light.png",
-    darkImage: "/projects/blocks/googleplayios-dark.png",
+    image: "/projects/blocks/googleplayios-light.webp",
+    darkImage: "/projects/blocks/googleplayios-dark.webp",
     year: "",
     slug: "googleplayios",
     externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
@@ -96,8 +96,8 @@ const mobileProjects = [
   },
   {
     id: 6,
-    image: "/projects/blocks/renault-light.png",
-    darkImage: "/projects/blocks/renault-dark.png",
+    image: "/projects/blocks/renault-light.webp",
+    darkImage: "/projects/blocks/renault-dark.webp",
     year: "",
     slug: "renault",
     externalUrl: undefined as string | undefined,
@@ -106,8 +106,8 @@ const mobileProjects = [
   },
   {
     id: 5,
-    image: "/projects/blocks/stratos-light.png",
-    darkImage: "/projects/blocks/stratos-dark.png",
+    image: "/projects/blocks/stratos-light.webp",
+    darkImage: "/projects/blocks/stratos-dark.webp",
     year: "",
     slug: "stratos",
     externalUrl: undefined as string | undefined,
@@ -119,8 +119,8 @@ const mobileProjects = [
 const webProjects = [
   {
     id: 2,
-    image: "/projects/blocks/framasoft-light.png",
-    darkImage: "/projects/blocks/framasoft-dark.png",
+    image: "/projects/blocks/framasoft-light.webp",
+    darkImage: "/projects/blocks/framasoft-dark.webp",
     year: "2024",
     slug: "framasoft",
     externalUrl: undefined as string | undefined,
@@ -128,8 +128,8 @@ const webProjects = [
   },
   {
     id: 3,
-    image: "/projects/blocks/goupil-light.png",
-    darkImage: "/projects/blocks/goupil-dark.png",
+    image: "/projects/blocks/goupil-light.webp",
+    darkImage: "/projects/blocks/goupil-dark.webp",
     year: "2026",
     slug: "goupil",
     externalUrl: "https://www.behance.net/gallery/253535235/Goupil-Digital-Ecosystem-UXUI-Design-System",
@@ -140,8 +140,8 @@ const webProjects = [
 const diversProjects = [
   {
     id: 1,
-    image: "/projects/blocks/namequest-light.png",
-    darkImage: "/projects/blocks/namequest-dark.png",
+    image: "/projects/blocks/namequest-light.webp",
+    darkImage: "/projects/blocks/namequest-dark.webp",
     year: "2025",
     slug: "namequest",
     externalUrl: undefined as string | undefined,
@@ -149,8 +149,8 @@ const diversProjects = [
   },
   {
     id: 2,
-    image: "/projects/blocks/vahan-light.png",
-    darkImage: "/projects/blocks/vahan-dark.png",
+    image: "/projects/blocks/vahan-light.webp",
+    darkImage: "/projects/blocks/vahan-dark.webp",
     year: "2024",
     slug: "vahansoghomonian",
     externalUrl: undefined as string | undefined,
@@ -158,8 +158,8 @@ const diversProjects = [
   },
   {
     id: 3,
-    image: "/projects/blocks/chaussez-vous-ou-pas-light.png",
-    darkImage: "/projects/blocks/chaussez-vous-ou-pas-dark.png",
+    image: "/projects/blocks/chaussez-vous-ou-pas-light.webp",
+    darkImage: "/projects/blocks/chaussez-vous-ou-pas-dark.webp",
     year: "2026",
     slug: "chaussez-vous-ou-pas",
     externalUrl: undefined as string | undefined,

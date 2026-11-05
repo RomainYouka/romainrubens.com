@@ -66,7 +66,6 @@ export default function HeroLanding() {
   const [btnVisible,        setBtnVisible]        = useState(false);
   const splashDone                         = true;
   const [showInitialCursor, setShowInitialCursor] = useState(true);
-  const [userInteracted,    setUserInteracted]    = useState(false);
   const [animateBackground, setAnimateBackground] = useState(true);
   const [greeting, setGreeting] = useState("Bonjour");
 
@@ -137,17 +136,8 @@ export default function HeroLanding() {
 
   // ── Auto-scroll ─────────────────────────────────────────────────────────────
   const handleScroll = () => {
-    setUserInteracted(true);
     document.getElementById("personal-intro")?.scrollIntoView({ behavior: "smooth" });
   };
-
-  useEffect(() => {
-    if (!showScrollButton) return;
-    const onScroll = () => setUserInteracted(true);
-    window.addEventListener("scroll", onScroll, { once: true });
-    const t = setTimeout(() => { if (!userInteracted) handleScroll(); }, 5000);
-    return () => { window.removeEventListener("scroll", onScroll); clearTimeout(t); };
-  }, [showScrollButton, userInteracted]);
 
   useEffect(() => {
     const section = sectionRef.current;

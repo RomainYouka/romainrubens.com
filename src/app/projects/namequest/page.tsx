@@ -208,18 +208,18 @@ export default function NameQuestPage() {
       <AnimatePresence>
         {showOverlay && <motion.div className="fixed inset-0 z-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }} style={{ backgroundColor: "#EBEFF0" }} />}
       </AnimatePresence>
-      
+
       <AnimatePresence mode="wait">
         {!isExiting && (
           <motion.div variants={containerVariants} initial="hidden" animate="visible" exit="exit">
-            
+
             {/* Back Button - Fixed Absolute to Section */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="absolute top-24 left-6 md:top-32 md:left-8 z-[100]"
             >
-              <button 
-                onClick={handleBack} 
+              <button
+                onClick={handleBack}
                 className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/90 backdrop-blur-sm border border-[#5A7FA4]/20 hover:bg-[#5A7FA4] active:scale-[0.95] transition-all duration-300 hover:-translate-x-1 group shadow-lg"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5A7FA4" strokeWidth="2" className="md:w-6 md:h-6 group-hover:stroke-white transition-colors duration-300">
@@ -231,7 +231,7 @@ export default function NameQuestPage() {
             {/* Hero Section - Full Width */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
               {/* Animated Gradient Background */}
-              <motion.div 
+              <motion.div
                 animate={{
                   background: [
                     "linear-gradient(135deg, #13375a 0%, #1e4a7a 50%, #5A7FA4 100%)",
@@ -247,7 +247,7 @@ export default function NameQuestPage() {
                 }}
                 className="absolute inset-0"
               />
-              
+
               <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col items-center h-full pt-20">
                 <div className="flex-grow flex flex-col items-center justify-center text-center">
                   <motion.div variants={fadeInUp} className="mb-6">
@@ -255,10 +255,10 @@ export default function NameQuestPage() {
                       {t.role}
                     </span>
                   </motion.div>
-                  
-                  <motion.h1 
+
+                  <motion.h1
                     variants={fadeInUp}
-                    style={{ 
+                    style={{
                       fontFamily: "var(--font-display)",
                       fontSize: "clamp(40px, 7vw, 88px)",
                       fontWeight: 600,
@@ -269,8 +269,8 @@ export default function NameQuestPage() {
                   >
                     {t.projectTitle}
                   </motion.h1>
-                  
-                  <motion.p 
+
+                  <motion.p
                     variants={fadeInUp}
                     style={{
                       fontFamily: "var(--font-display)",
@@ -337,7 +337,7 @@ export default function NameQuestPage() {
 
             {/* Podcast Section - Animated Background - Below first mockup */}
             <section className="relative py-16 md:py-32 px-6 md:px-12 overflow-hidden">
-              <motion.div 
+              <motion.div
                 animate={{
                   background: [
                     "linear-gradient(135deg, #13375a 0%, #1e4a7a 50%, #5A7FA4 100%)",
@@ -353,7 +353,7 @@ export default function NameQuestPage() {
                 }}
                 className="absolute inset-0"
               />
-              
+
               <div className="relative z-10 max-w-4xl mx-auto">
                 <motion.div
                   variants={fadeInUp}
@@ -372,7 +372,7 @@ export default function NameQuestPage() {
                     {t.podcastCTA}
                   </h3>
                 </motion.div>
-                
+
                 <motion.div
                   variants={fadeInUp}
                   initial="hidden"
@@ -381,14 +381,14 @@ export default function NameQuestPage() {
                   className="w-full flex justify-center px-4"
                 >
                   <div className="w-full max-w-4xl">
-                    <iframe 
+                    <iframe
                       style={{borderRadius: "12px"}}
-                      src="https://open.spotify.com/embed/episode/03xwhLY3oo5cApzEvD9IvY?utm_source=generator&theme=0" 
-                      width="100%" 
-                      height="152" 
-                      frameBorder="0" 
+                      src="https://open.spotify.com/embed/episode/03xwhLY3oo5cApzEvD9IvY?utm_source=generator&theme=0"
+                      width="100%"
+                      height="152"
+                      frameBorder="0"
                       allowFullScreen={true}
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                       loading="lazy"
                     />
                   </div>
@@ -418,7 +418,7 @@ export default function NameQuestPage() {
                   }}>
                     {t.description}
                   </p>
-                  
+
                   {/* Project Rules / Specs Pilled badges */}
                   <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-6 md:mt-8">
                     <span className="px-3 py-1.5 md:px-4 md:py-2 bg-[#13375a]/10 rounded-full text-[#13375a] text-xs md:text-sm font-medium whitespace-nowrap">
@@ -438,16 +438,16 @@ export default function NameQuestPage() {
               </div>
 
               <div className="w-full flex justify-center px-6 md:px-12">
-                <motion.div 
+                <motion.div
                   variants={fadeInUp}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.3 }}
                   className="max-w-4xl w-full"
                 >
-                  <img 
-                    src="/projects/namequest/namequest-board-full.png" 
-                    alt="NameQuest Hero" 
+                  <img
+                    src="/projects/namequest/namequest-board-full.webp"
+                    alt="NameQuest Hero"
                     className="w-full h-auto"
                   />
                 </motion.div>
@@ -478,17 +478,17 @@ export default function NameQuestPage() {
                     {t.challengeText}
                   </p>
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                   variants={fadeInUp}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.3 }}
                   className="w-full md:w-[55%] flex justify-end items-center"
                 >
-                  <img 
-                    src="/projects/namequest/namequest-board-detail.png" 
-                    alt="NameQuest Board Detail" 
+                  <img
+                    src="/projects/namequest/namequest-board-detail.png"
+                    alt="NameQuest Board Detail"
                     className="w-[85%] md:w-full h-auto object-cover object-left scale-100 md:scale-105 origin-right"
                     style={{ marginRight: "-2px" }}
                   />
@@ -532,7 +532,7 @@ export default function NameQuestPage() {
                   </span>
                 </motion.div>
               </div>
-              
+
               <motion.div
                 variants={fadeInUp}
                 initial="hidden"
@@ -554,7 +554,7 @@ export default function NameQuestPage() {
                       style={{ backgroundColor: "#ffffff" }}
                     />
                   </div>
-                  
+
                   {/* Mobile Version - Full Width No Borders */}
                   <div className="block md:hidden w-full">
                     <video
@@ -592,7 +592,7 @@ export default function NameQuestPage() {
                   </span>
                 </motion.div>
               </div>
-              
+
               <motion.div
                 variants={fadeInUp}
                 initial="hidden"

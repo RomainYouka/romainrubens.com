@@ -31,7 +31,7 @@ const translations = {
 const explorationsData = [
   {
     id: 1,
-    image: "/explorations/bouton-bloc-vibecoding.jpg",
+    image: "/explorations/bouton-bloc-vibecoding.webp",
     slug: "vibecoding",
     isComingSoon: true,
     title: "Vibecoding",
@@ -39,7 +39,7 @@ const explorationsData = [
   },
   {
     id: 2,
-    image: "/explorations/bouton-bloc-idorensburg.jpg",
+    image: "/explorations/bouton-bloc-idorensburg.webp",
     slug: "idorensburg",
     isComingSoon: true,
     title: "Idorensburg",
@@ -47,7 +47,7 @@ const explorationsData = [
   },
   {
     id: 3,
-    image: "/explorations/bouton-bloc-greenhouse.jpg",
+    image: "/explorations/bouton-bloc-greenhouse.webp",
     slug: "greenhouse",
     isComingSoon: true,
     title: "Green House",
@@ -55,7 +55,7 @@ const explorationsData = [
   },
   {
     id: 4,
-    image: "/explorations/bouton-bloc-cuizin.jpg",
+    image: "/explorations/bouton-bloc-cuizin.webp",
     slug: "cuizin",
     isComingSoon: true,
     title: "CuizIN",
@@ -167,11 +167,11 @@ const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, isPriori
       viewport={{ once: true }}
       className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[12px] cursor-pointer block"
       style={{ border: "1px solid var(--theme-border)" }}
-      whileHover={{ 
-        scale: 1.02, 
+      whileHover={{
+        scale: 1.02,
         boxShadow: isComingSoon
-          ? "0 10px 40px rgba(0,0,0,0.4)" 
-          : "0 10px 40px rgba(0,0,0,0.15)" 
+          ? "0 10px 40px rgba(0,0,0,0.4)"
+          : "0 10px 40px rgba(0,0,0,0.15)"
       }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -273,7 +273,7 @@ export default function ExplorationsPageContent() {
 
       <div className="w-full flex justify-center py-5 md:mt-[20px] md:mb-[20px]">
         <div className="flex w-full max-w-[1234px] h-auto px-4 md:px-8 lg:px-12 xl:px-4 mt-16 md:mt-[40px] relative flex-col items-center gap-6 md:gap-[50px]">
-          
+
           {!isHydrated ? (
             <ExplorationSkeleton />
           ) : (

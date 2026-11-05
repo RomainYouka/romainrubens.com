@@ -273,7 +273,7 @@ const MagnifierImage = ({ src, alt, hint, clickHint }: { src: string; alt: strin
             setShowMagnifier(!showMagnifier);
           }}
         />
-        
+
         <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-2 opacity-100 group-hover:opacity-0 transition-opacity duration-300 pointer-events-none">
           <ZoomIn className="w-3.5 h-3.5" />
           <span className="hidden md:inline">{hint}</span>
@@ -351,14 +351,14 @@ export default function IOS26Page() {
   }, [showPNGZoom]);
 
   const t = translations[language] || translations["FR"];
-  const accordionSections = useMemo(() => 
+  const accordionSections = useMemo(() =>
     language === "FR" ? accordionSectionsFR : language === "EN" ? accordionSectionsEN : accordionSectionsHY,
     [language]
   );
 
   const toggleSection = useCallback((id: string) => {
-    setOpenSections(prev => 
-      prev.includes(id) 
+    setOpenSections(prev =>
+      prev.includes(id)
         ? prev.filter(s => s !== id)
         : [...prev, id]
     );
@@ -380,7 +380,7 @@ export default function IOS26Page() {
   const togglePlayPause = () => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
-    
+
     if (isPlaying) {
       videoElement.pause();
       setIsPlaying(false);
@@ -424,7 +424,7 @@ export default function IOS26Page() {
               </motion.div>
 
               <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                <motion.div 
+                <motion.div
                   animate={{
                     background: [
                       "linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%)",
@@ -439,7 +439,7 @@ export default function IOS26Page() {
                   }}
                   className="absolute inset-0"
                 />
-                
+
                 <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col items-center h-full pt-20">
                   <div className="flex-grow flex flex-col items-center justify-center text-center">
                     <motion.div variants={fadeInUp} className="mb-6">
@@ -447,10 +447,10 @@ export default function IOS26Page() {
                         {t.role}
                       </span>
                     </motion.div>
-                    
-                    <motion.h1 
+
+                    <motion.h1
                       variants={fadeInUp}
-                      style={{ 
+                      style={{
                         fontFamily: "var(--font-display)",
                         fontSize: "clamp(40px, 7vw, 88px)",
                         fontWeight: 600,
@@ -462,8 +462,8 @@ export default function IOS26Page() {
                     >
                       {t.projectTitle}
                     </motion.h1>
-                    
-                    <motion.p 
+
+                    <motion.p
                       variants={fadeInUp}
                       style={{
                         fontFamily: "var(--font-display)",
@@ -531,7 +531,7 @@ export default function IOS26Page() {
                   </motion.div>
                 </div>
 
-                <motion.div 
+                <motion.div
                   variants={fadeInUp}
                   initial="hidden"
                   whileInView="visible"
@@ -579,7 +579,7 @@ export default function IOS26Page() {
                       {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                       <span className="hidden md:inline">{isPlaying ? "Pause" : "Play"}</span>
                     </button>
-                    
+
                     <button
                       onClick={skipForward}
                       className="flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-[#1d1d1f] text-white font-medium text-sm transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] hover:bg-[#333333]"
@@ -598,7 +598,7 @@ export default function IOS26Page() {
                   {accordionSections.map((section) => {
                     const isOpen = openSections.includes(section.id);
                     return (
-                      <motion.div 
+                      <motion.div
                         key={section.id}
                         variants={fadeInUp}
                         initial="hidden"
@@ -625,11 +625,11 @@ export default function IOS26Page() {
                           >
                             {section.title}
                           </span>
-                          <ChevronDown 
+                          <ChevronDown
                             className={`w-5 h-5 text-[var(--theme-subtle)] transition-transform duration-300 flex-shrink-0 ${isOpen ? "rotate-180" : ""}`}
                           />
                         </button>
-                        
+
                         <div
                           className="overflow-hidden transition-all"
                           style={{
@@ -655,12 +655,12 @@ export default function IOS26Page() {
                               {section.content}
                             </p>
                             {section.id === "insights" && isOpen && (
-                              <div 
+                              <div
                                 onClick={() => setShowPNGZoom(true)}
                                 className="mt-6 rounded-lg overflow-hidden cursor-pointer transition-transform duration-200 hover:scale-[1.01]"
                               >
-                                <Image 
-                                  src="/projects/ios26/iOS_26_frustrations.png" 
+                                <Image
+                                  src="/projects/ios26/iOS_26_frustrations.webp"
                                   alt="Questionnaire Insights"
                                   width={1200}
                                   height={700}
@@ -679,7 +679,7 @@ export default function IOS26Page() {
                   })}
                 </div>
 
-                <motion.div 
+                <motion.div
                   variants={fadeInUp}
                   initial="hidden"
                   whileInView="visible"
@@ -687,16 +687,16 @@ export default function IOS26Page() {
                   className="w-full mb-16"
                 >
                   <div className="relative w-full max-w-5xl mx-auto">
-                    <MagnifierImage 
-                      src="/projects/ios26/iOS_26_Chemin_Utilisateur.jpg" 
-                      alt="iOS 26 User Journey" 
-                      hint={t.zoomHint} 
-                      clickHint={t.clickHint} 
+                    <MagnifierImage
+                      src="/projects/ios26/iOS_26_Chemin_Utilisateur.webp"
+                      alt="iOS 26 User Journey"
+                      hint={t.zoomHint}
+                      clickHint={t.clickHint}
                     />
                   </div>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   variants={fadeInUp}
                   initial="hidden"
                   whileInView="visible"
@@ -713,8 +713,8 @@ export default function IOS26Page() {
                     <span className="hidden md:inline">{t.backButton}</span>
                   </button>
 
-                  <a 
-                    href="/projects/ios26/RUBENS_Romain_iOS26_Update_Vision_User_flow.pdf" 
+                  <a
+                    href="/projects/ios26/RUBENS_Romain_iOS26_Update_Vision_User_flow.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-3 w-12 h-12 md:w-auto md:px-8 md:py-4 rounded-full bg-white border-2 border-[#1d1d1f] text-[#1d1d1f] font-medium transition-all duration-300 hover:bg-[#1d1d1f] hover:text-white active:scale-[0.95] shadow-xl group"
@@ -737,14 +737,14 @@ export default function IOS26Page() {
           className="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center overflow-auto"
           onClick={() => setShowPNGZoom(false)}
         >
-          <div 
+          <div
             className="relative w-full flex items-center justify-center px-2 md:px-4 py-4"
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
-            <Image 
-              src="/projects/ios26/iOS_26_frustrations.png" 
+            <Image
+              src="/projects/ios26/iOS_26_frustrations.webp"
               alt="Frustrations Survey - Full Screen"
               width={1200}
               height={700}
