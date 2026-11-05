@@ -1,5 +1,5 @@
 .page { width:100%; overflow:clip; background:#1d1d1f; color:#fff; color-scheme:dark; font-family:var(--font-body),sans-serif; }
-.canvas { width:1920px; margin:0 auto; background:#1d1d1f; zoom:min(.75,calc(100vw / 1920px)); }
+.canvas { width:1920px; margin:0 auto; background:#1d1d1f; zoom:calc(100vw / 1920px); }
 .canvas *, .canvas *::before, .canvas *::after { box-sizing:border-box; }
 .canvas h1,.canvas h2,.canvas h3,.canvas p,.canvas blockquote { margin:0; }
 .canvas em { color:#efdf00; font-style:normal; }

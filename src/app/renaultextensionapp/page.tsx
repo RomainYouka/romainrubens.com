@@ -36,7 +36,7 @@ export default function RenaultExtensionPage() {
       if (value in content) setLanguage(value);
     };
     window.addEventListener("languageChange", onLanguage);
-    const observer = new ResizeObserver(([entry]) => setScale(entry.contentRect.width <= 900 ? 1 : Math.min(.75, entry.contentRect.width / 1920)));
+    const observer = new ResizeObserver(([entry]) => setScale(entry.contentRect.width <= 900 ? 1 : entry.contentRect.width / 1920));
     if (container.current) observer.observe(container.current);
     return () => { observer.disconnect(); window.removeEventListener("languageChange", onLanguage); };
   }, []);
