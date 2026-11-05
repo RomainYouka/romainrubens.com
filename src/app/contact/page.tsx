@@ -125,7 +125,7 @@ export default function ContactPage() {
   const handleBookCall = () => {
     wink();
     Analytics.contactClick("cal");
-    window.open("https://www.cal.eu/romainrubens", "_blank", "noopener,noreferrer");
+    window.open("https://cal.com/romainrubens", "_blank", "noopener,noreferrer");
   };
 
   const handleViewResume = () => {

@@ -37,7 +37,7 @@ export function GET() {
     ...skills.categories.map(category => `### ${category.names.FR}\n${category.skills.map(skill => `- ${skill.names.FR}: ${skill.rating}/5`).join("\n")}`),
     "## Contact et profils publics",
     "- [Email](mailto:hello@romainrubens.com)",
-    "- [Rendez-vous](https://www.cal.eu/romainrubens)",
+    "- [Rendez-vous](https://cal.com/romainrubens)",
     "- [LinkedIn](https://www.linkedin.com/in/romain-rubens-ba660323b/)",
     "- [Behance](https://www.behance.net/rubensromain)",
     "- [Medium](https://medium.com/@romainrubens)",
