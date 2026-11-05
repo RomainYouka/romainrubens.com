@@ -726,7 +726,7 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
               >
                 <div className="flex h-9 min-w-0 flex-1 items-center justify-start">
                   <a {...logoProps} className={logoProps.className.replace("h-full", "")}>
-                    <BrandLogo isScrolled className="h-4" />
+                    <BrandLogo isScrolled={visualScrolled} className="h-4" />
                   </a>
                 </div>
 

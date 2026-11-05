@@ -49,7 +49,7 @@ const BLOBS = [
 ];
 
 const translations = {
-  FR:  { text: "Hey, moi c'est Romain Rubens",      button: "Découvrir"  },
+  FR:  { text: "Bonjour, moi c'est Romain Rubens",  button: "Découvrir"  },
   EN:  { text: "Hello, I'm Romain Rubens",          button: "Discover"   },
   ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ",     button: "ԲԱՑԱՀԱՅТЕЛ" },
 };
@@ -68,8 +68,19 @@ export default function HeroLanding() {
   const [showInitialCursor, setShowInitialCursor] = useState(true);
   const [userInteracted,    setUserInteracted]    = useState(false);
   const [animateBackground, setAnimateBackground] = useState(true);
+  const [greeting, setGreeting] = useState("Bonjour");
 
-  const fullText   = translations[selectedLanguage].text;
+  useEffect(() => {
+    const updateGreeting = () => {
+      const hour = new Date().getHours();
+      setGreeting(hour >= 6 && hour < 18 ? "Bonjour" : "Bonsoir");
+    };
+    updateGreeting();
+    const timer = window.setInterval(updateGreeting, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const fullText   = selectedLanguage === "FR" ? `${greeting}, moi c'est Romain Rubens` : translations[selectedLanguage].text;
   const buttonText = translations[selectedLanguage].button;
 
   // ── Langue ──────────────────────────────────────────────────────────────────
