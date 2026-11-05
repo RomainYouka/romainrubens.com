@@ -12,6 +12,7 @@ const projects = [
   ["Google Play on iOS", "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", "Concept Google Play adapté à iOS."],
   ["Renault App Extension", "/renaultextensionapp", "Projet académique d’extension de l’application Renault, avec Erwan Hodonou, sur les quotas de mobilité partagés."],
   ["Stratos — Campus App", "/stratosapp", "Concept d’application pour connecter les étudiants de Strate autour d’événements et de conversations de groupe."],
+  ["Google Maps App Extension", "/googlemapsextension", "Projet de navigation accessible dans le pôle multimodal de Perrache à Lyon, avec cartes par étage, recherche utilisateur et adaptations pour Google Maps, Plans et TCL."],
   ["Framasoft", "/projects/framasoft", "Refonte UX/UI du site Framasoft."],
   ["Goupil", "https://www.behance.net/gallery/253535235/Goupil-Digital-Ecosystem-UXUI-Design-System", "Écosystème digital et design system."],
   ["NameQuest", "/projects/namequest", "Jeu de société éducatif et inclusif abordant les discriminations liées aux noms de famille, pour 2 à 6 joueurs dès 12 ans."],

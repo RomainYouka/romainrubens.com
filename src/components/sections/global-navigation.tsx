@@ -478,7 +478,7 @@ const ColorPickerMobile = ({ accentColor, onAccentChange, isDark, selectedLangua
 const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
   const { isDark: preferredDark, accentColor, setAccentColor } = useTheme();
   const pathname = usePathname();
-  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp";
+  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || pathname === "/googlemapsextension";
   const isProjectPage = isRenault || pathname.startsWith("/projects/");
   const isDark = isRenault || preferredDark;
   const { triggerTransition } = usePageTransition();

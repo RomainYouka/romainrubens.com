@@ -80,7 +80,7 @@ const mobileProjects = [
     darkImage: "/projects/blocks/googlemaps-dark.webp",
     year: "",
     slug: "googlemaps",
-    externalUrl: "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension",
+    externalUrl: undefined as string | undefined,
     isComingSoon: false,
     isPriority: true,
   },
@@ -128,8 +128,8 @@ const webProjects = [
   },
   {
     id: 3,
-    image: "/projects/blocks/goupil-light.webp",
-    darkImage: "/projects/blocks/goupil-dark.webp",
+    image: "/projects/blocks/goupil-light-trimmed.webp",
+    darkImage: "/projects/blocks/goupil-dark-trimmed.webp",
     year: "2026",
     slug: "goupil",
     externalUrl: "https://www.behance.net/gallery/253535235/Goupil-Digital-Ecosystem-UXUI-Design-System",
@@ -409,7 +409,7 @@ export default function PortfolioPage() {
     if (project) {
       setExpandingCard({ slug, rect, image: project.image });
       setTimeout(() => {
-        router.push(slug === "renault" ? "/renaultextensionapp" : slug === "stratos" ? "/stratosapp" : `/projects/${slug}`);
+        router.push(slug === "renault" ? "/renaultextensionapp" : slug === "stratos" ? "/stratosapp" : slug === "googlemaps" ? "/googlemapsextension" : `/projects/${slug}`);
       }, 200);
     }
   }, [router, allProjects]);
