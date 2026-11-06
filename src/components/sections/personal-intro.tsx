@@ -1,6 +1,7 @@
 "use client";
 
 import { detectLanguage } from "@/lib/language";
+import { jobTitle } from "@/lib/profile";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { SplitAction } from "@/components/SplitAction";
@@ -9,7 +10,6 @@ import { usePageTransition } from "@/contexts/PageTransitionContext";
 
 const translations = {
   FR: {
-    title: "Designer Produit & Interaction | Écosystèmes Connectés & Maison Intelligente",
     textMain: "Designer produit et d’interaction, je conçois des produits numériques et des expériences pour les écosystèmes connectés et la maison intelligente.",
     textGray1: " J’associe recherche utilisateur, esprit critique et pensée systémique pour comprendre les besoins et simplifier les systèmes complexes.",
     textMain2: " Des parcours aux design systems, je cherche à rendre les expériences utiles, accessibles et cohérentes.",
@@ -18,7 +18,6 @@ const translations = {
     ctaSkills: "Mes compétences",
   },
   EN: {
-    title: "Product & Interaction Designer | Connected Ecosystems & Smart Home",
     textMain: "I’m a product and interaction designer, creating digital products and experiences for connected ecosystems and smart homes.",
     textGray1: " I combine user research, critical thinking, and systems thinking to understand people’s needs and simplify complex systems.",
     textMain2: " From user journeys to design systems, I aim to make experiences useful, accessible, and consistent.",
@@ -27,7 +26,6 @@ const translations = {
     ctaSkills: "My skills",
   },
   ՀԱՅ: {
-    title: "Պրոդուկտի և փոխազդեցության դիզայներ | Կապակցված էկոհամակարգեր և խելացի տուն",
     textMain: "Ես պրոդուկտի և փոխազդեցության դիզայներ եմ․ նախագծում եմ թվային պրոդուկտներ և փորձառություններ կապակցված էկոհամակարգերի և խելացի տան համար։",
     textGray1: " Օգտատերերի հետազոտությունը, քննադատական և համակարգային մտածողությունն ինձ օգնում են հասկանալ մարդկանց կարիքները և պարզեցնել բարդ համակարգերը։",
     textMain2: " Օգտատերերի ուղիներից մինչև դիզայն համակարգեր՝ ձգտում եմ ստեղծել օգտակար, հասանելի և համահունչ փորձառություններ։",
@@ -106,11 +104,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   }, [router]);
 
   const content = translations[selectedLanguage];
-  const titleLines = selectedLanguage==="FR"
-    ? ["Designer Produit & Interaction", "Écosystèmes Connectés & Maison Intelligente"]
-    : selectedLanguage==="EN"
-      ? ["Product & Interaction Designer", "Connected Ecosystems & Smart Home"]
-      : ["Պրոդուկտի և փոխազդեցության դիզայներ", "Կապակցված էկոհամակարգեր և խելացի տուն"];
+  const titleLines = jobTitle.split(" | ");
 
   return (
     <>
@@ -144,7 +138,8 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
             >
               {/* Title */}
               <h2
-                aria-label={content.title}
+                aria-label={jobTitle}
+                lang="en"
                 className="personal-intro-title"
                 style={{
                   fontFamily: "var(--font-display)",

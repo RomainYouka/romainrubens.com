@@ -59,6 +59,7 @@ try {
       assert.match(body, /Connected Ecosystems/);
       assert.match(body, /<title>Romain Rubens — Product &amp; Interaction Designer \| Connected Ecosystems &amp; Smart Home<\/title>/);
       assert.ok(body.includes('"jobTitle":"Product & Interaction Designer | Connected Ecosystems & Smart Home"'), 'Structured profile uses the current role');
+      assert.match(body, /<h2[^>]*aria-label="Product &amp; Interaction Designer \| Connected Ecosystems &amp; Smart Home"[^>]*lang="en"/, 'Visible role stays in English');
     }
     if (path === '/articles') assert.match(body, /href="https:\/\/medium.com\/@romainrubens\//);
     if (path === '/googleplayonios') {
