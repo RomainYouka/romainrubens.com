@@ -8,7 +8,7 @@ export type TransitionDirection = "up" | "down";
 
 interface PageTransitionContextType {
   phase: TransitionPhase;
-  effect: "return" | "spiral";
+  effect: "return" | "flight";
   origin: { x: number; y: number };
   direction: TransitionDirection;
   triggerTransition: (href: string, direction?: TransitionDirection, reason?: "logo" | "projects-cta", origin?: { x: number; y: number }) => void;
@@ -24,7 +24,7 @@ const PageTransitionContext = createContext<PageTransitionContextType>({
 
 export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
   const [phase,setPhase]=useState<TransitionPhase>("idle");
-  const [effect,setEffect]=useState<"return" | "spiral">("return");
+  const [effect,setEffect]=useState<"return" | "flight">("return");
   const [origin,setOrigin]=useState({ x: 0, y: 0 });
   const timers=useRef<ReturnType<typeof setTimeout>[]>([]);
   const [direction, setDirection] = useState<TransitionDirection>("up");
@@ -52,9 +52,9 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         setPhase("idle"); router.push(href); return;
       }
       router.prefetch(href);
-      const spiral = reason === "projects-cta";
+      const flight = reason === "projects-cta";
       setOrigin(source ?? { x: innerWidth / 2, y: innerHeight / 2 });
-      setEffect(spiral ? "spiral" : "return");
+      setEffect(flight ? "flight" : "return");
       setPhase("in");
       // Bounded reveal: no dependency on animation callbacks or network responses.
       timers.current=[

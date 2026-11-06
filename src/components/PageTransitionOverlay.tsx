@@ -1,6 +1,7 @@
 "use client";
 
 import { usePageTransition } from "@/contexts/PageTransitionContext";
+import { ArrowFlightTransition } from "./ArrowFlightTransition";
 import type { CSSProperties } from "react";
 import s from "./spiral-transition.module.css";
 
@@ -18,5 +19,6 @@ export function PageTransitionOverlay() {
   const { phase, effect, origin } = usePageTransition();
 
   if (phase === "idle") return null;
-  return <SpiralTransition leaving={phase === "out"} origin={origin} returning={effect === "return"} />;
+  if(effect==="flight") return <ArrowFlightTransition leaving={phase === "out"} origin={origin} />;
+  return <SpiralTransition leaving={phase === "out"} origin={origin} returning />;
 }

@@ -56,6 +56,11 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       root.style.setProperty("--screen-width", `${width}px`);
       root.style.setProperty("--screen-height", `${height}px`);
       root.style.setProperty("--home-cover", String(cover));
+      const intro=document.getElementById("personal-intro");
+      const titleOffset=intro?.firstElementChild ? (intro.clientHeight-intro.firstElementChild.clientHeight)/2 : 88;
+      const safeHardwareBottom=viewportHeight/2+height/2-viewportHeight*.01+120;
+      const overlap=mobile && !reduced.matches ? Math.max(0,Math.min(viewportHeight*.32,viewportHeight+titleOffset-safeHardwareBottom)) : 0;
+      root.parentElement?.style.setProperty("--intro-overlap",`${overlap}px`);
       top = root.getBoundingClientRect().top + window.scrollY;
       distance = Math.max(1, root.offsetHeight - viewportHeight);
       update();
@@ -69,9 +74,12 @@ export default function HomeScrollScene({ children, introduction }: { children: 
     window.addEventListener("pointerdown", cancelTravel, { passive: true });
     window.addEventListener("lenis-scroll-to-top", cancelTravel);
     window.addEventListener("resize", resize, { passive: true });
+    const contentObserver=new ResizeObserver(resize);
+    const introduction=document.getElementById("personal-intro")?.firstElementChild;
+    if(introduction) contentObserver.observe(introduction);
     reduced.addEventListener("change", resize);
     resize();
-    return () => { cancelAnimationFrame(frame); cancelTravel(); window.removeEventListener("home-discover", discover); window.removeEventListener("wheel", cancelTravel); window.removeEventListener("touchstart", cancelTravel); window.removeEventListener("keydown", cancelTravel); window.removeEventListener("pointerdown", cancelTravel); window.removeEventListener("lenis-scroll-to-top", cancelTravel); window.removeEventListener("scroll", scroll); window.removeEventListener("resize", resize); reduced.removeEventListener("change", resize); };
+    return () => { contentObserver.disconnect(); cancelAnimationFrame(frame); cancelTravel(); window.removeEventListener("home-discover", discover); window.removeEventListener("wheel", cancelTravel); window.removeEventListener("touchstart", cancelTravel); window.removeEventListener("keydown", cancelTravel); window.removeEventListener("pointerdown", cancelTravel); window.removeEventListener("lenis-scroll-to-top", cancelTravel); window.removeEventListener("scroll", scroll); window.removeEventListener("resize", resize); reduced.removeEventListener("change", resize); };
   }, []);
   return <section className={s.experience} data-home-experience><div ref={scene} className={s.scene} data-home-scene>
     <div className={s.sticky}>

@@ -348,7 +348,8 @@ const GlobalNavigation = () => {
       setLogoAnimating(true);
       setTimeout(() => setLogoAnimating(false), 260);
     }
-    triggerTransition("/", "down", "logo");
+    const bounds=e.currentTarget.getBoundingClientRect();
+    triggerTransition("/", "down", "logo",{x:bounds.left+bounds.width/2,y:bounds.top+bounds.height/2});
   }, [triggerTransition, pathname]);
 
   const handleMenuToggle = useCallback(() => {

@@ -22,7 +22,8 @@ export default function DiodeBackground() {
     let previousX=0.5, previousY=0.5, hasPrevious=false;
     let columns=0, energy=new Float32Array(0);
     let lastWave=-1000;
-    let waves:{x:number;y:number;began:number}[]=[];
+    let waves:{x:number;y:number;dx:number;dy:number;began:number}[]=[];
+    let motionX=1, motionY=0;
     // A regular RGB-stripe matrix: three equal, rectangular subpixels per pixel.
     const stepX=10, stepY=12;
 
@@ -37,10 +38,10 @@ export default function DiodeBackground() {
         // The head follows exactly; only illuminated cells retain a fading trail.
         x=auto ? x+(targetX-x)*0.12 : targetX;
         y=auto ? y+(targetY-y)*0.12 : targetY;
-        const strength=auto ? 0.85 : now-lastPointer<100 ? 1 : 0;
+        const strength=auto ? 0.6 : now-lastPointer<100 ? .72 : 0;
         const radius=Math.min(155,Math.max(100,width*.12));
         const cx=x*width, cy=y*height;
-        if(auto && now-lastWave>850){waves.push({x:cx,y:cy,began:now});lastWave=now;}
+        if(auto && now-lastWave>850){const dx=targetX-previousX,dy=targetY-previousY,length=Math.hypot(dx,dy)||1;waves.push({x:cx,y:cy,dx:dx/length,dy:dy/length,began:now});lastWave=now;}
         waves=waves.filter(w=>now-w.began<1150).slice(-6);
         const sx=(hasPrevious ? previousX : x)*width, sy=(hasPrevious ? previousY : y)*height;
         const vx=cx-sx, vy=cy-sy, lengthSquared=vx*vx+vy*vy;
@@ -68,8 +69,10 @@ export default function DiodeBackground() {
             let ripple=0;
             for(const wave of waves){
               const age=now-wave.began;
-              const ring=(Math.hypot(px-wave.x,py-wave.y)-age*.45)/28;
-              ripple+=Math.exp(-ring*ring)*.55*(1-age/1150)**2;
+              const dx=px-wave.x,dy=py-wave.y,distance=Math.hypot(dx,dy);
+              const ring=(distance-age*.4)/34;
+              const forward=Math.max(0,(dx*wave.dx+dy*wave.dy)/(distance||1));
+              ripple+=Math.exp(-ring*ring)*forward**6*.16*(1-age/1150)**2;
             }
             const light=Math.min(1,energy[row*columns+column]+ripple);
             if(light<.012) continue;
@@ -112,10 +115,12 @@ export default function DiodeBackground() {
     function pointer(event:PointerEvent) {
       if(event.pointerType==="touch" || reduced.matches || touch.matches) return;
       const rect=host!.getBoundingClientRect();
-      pointerX=(event.clientX-rect.left)/rect.width;
-      pointerY=(event.clientY-rect.top)/rect.height;
+      const nextX=(event.clientX-rect.left)/rect.width,nextY=(event.clientY-rect.top)/rect.height;
+      const dx=(nextX-pointerX)*width,dy=(nextY-pointerY)*height,length=Math.hypot(dx,dy);
+      if(length>1){motionX=dx/length;motionY=dy/length;}
+      pointerX=nextX;pointerY=nextY;
       lastPointer=performance.now();
-      if(lastPointer-lastWave>145){waves.push({x:pointerX*width,y:pointerY*height,began:lastPointer});lastWave=lastPointer;}
+      if(lastPointer-lastWave>145){waves.push({x:pointerX*width,y:pointerY*height,dx:motionX,dy:motionY,began:lastPointer});lastWave=lastPointer;}
       movingUntil=lastPointer+3300;
       start();
     }

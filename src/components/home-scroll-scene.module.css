@@ -14,7 +14,7 @@
 .cableHit { pointer-events:stroke; touch-action:none; cursor:grab; }.cableHit:active { cursor:grabbing; }.cables:focus-visible { outline:2px dashed var(--theme-fg); outline-offset:-8px; }
 .braid,.usbPlug { display:none; }
 @media(max-width:767px) {
- .scene { height:125svh; }.continuation { margin-top:-32svh; }
+ .scene { height:125svh; }.continuation { margin-top:calc(-1 * var(--intro-overlap,0px)); }
  .screen::before { inset:-5px; border-radius:calc(var(--screen-radius) + 5px); border-color:#45464a; background:linear-gradient(100deg,#090a0c,#292a2e 12%,#08090b 45%,#202125 85%,#090a0b); box-shadow:0 0 0 1px #060607,inset 0 0 0 2px #050506,0 18px 32px #0004; }
  .camera { top:12px; left:50%; width:22%; height:22px; border-radius:30px; background:#030304; transform:translateX(-50%); box-shadow:inset 0 0 1px #101015; }
  .camera::after { content:""; position:absolute; width:5px; height:5px; top:8px; right:8px; border-radius:50%; background:#111b31; box-shadow:inset 0 0 1px #4e6488; }
@@ -22,6 +22,7 @@
  .phoneControls::before { content:""; position:absolute; left:-8px; top:65px; width:3px; height:18px; border-radius:2px; background:linear-gradient(90deg,#111216,#34353a); box-shadow:0 40px #2d2e32,0 70px #2d2e32; }
  .phoneControls::after { content:""; position:absolute; right:-8px; top:120px; width:3px; height:48px; border-radius:2px; background:linear-gradient(90deg,#34353a,#111216); }
  .stand { display:none; }.cables { display:block; --cable-color:#e7e4de; height:150px; top:calc(50% + var(--screen-height)/2); }.braid,.usbPlug { display:block; }.shadow { top:calc(50% + var(--screen-height)/2 + 8px); width:40%; height:14px; }
+ .cableMain { stroke-width:7px; vector-effect:non-scaling-stroke; }.braid { stroke-width:6px; vector-effect:non-scaling-stroke; }.cableHighlight { display:none; }.cableHit { stroke-width:55px; }
  .surface [data-section="hero-landing"] h1 { font-size:calc(clamp(30px,8vw,44px) / var(--screen-scale,1))!important; max-width:90%!important; }
  .surface [data-home-scroll-control] { scale:calc(1 / var(--screen-scale,1))!important; bottom:var(--discover-bottom,40px)!important; }
 }

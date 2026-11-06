@@ -46,7 +46,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   const openProjects = useCallback(() => {
     if (navigating.current) return;
     navigating.current = true;
-    const rect = ctaRef.current?.querySelector("button")?.getBoundingClientRect();
+    const rect = ctaRef.current?.querySelector("[data-action-arrow]")?.getBoundingClientRect();
     triggerTransition("/projects", "up", "projects-cta", rect ? { x:rect.left+rect.width/2, y:rect.top+rect.height/2 } : undefined);
   }, [triggerTransition]);
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");

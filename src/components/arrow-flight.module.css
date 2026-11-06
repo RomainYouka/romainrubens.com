@@ -1,0 +1,17 @@
+.overlay { position:fixed; inset:0; z-index:9999; overflow:hidden; pointer-events:auto; --sf-accent-filter:brightness(0) invert(1); }
+:global([data-theme="dark"]) .overlay { --sf-accent-filter:brightness(0); }
+.veil { position:absolute; inset:0; background:var(--theme-bg-alt); animation:veil-in 1150ms ease both; }
+.traveller { position:fixed; left:0; top:0; width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--theme-btn-bg); color:var(--theme-btn-fg); offset-path:var(--flight-path); offset-anchor:50% 50%; offset-rotate:0deg; animation:takeoff 1150ms cubic-bezier(.38,.05,.2,1) both; box-shadow:0 10px 32px #0002; }
+.out .traveller { animation:landing 850ms cubic-bezier(.18,.7,.2,1) both; }
+.out .veil { animation:veil-out 850ms ease both; }
+:global(body):has(.overlay:global([data-phase="in"])) :global(#main-content) { animation:camera-depart 1150ms cubic-bezier(.38,.05,.2,1) both; transform-origin:70% 45%; pointer-events:none; }
+:global(body):has(.overlay:global([data-phase="out"])) :global(#main-content) { animation:camera-arrive 850ms cubic-bezier(.18,.7,.2,1) both; transform-origin:0 0; }
+:global(body):has(.overlay) :global(.home-discover-actions [data-action-arrow]) { opacity:0; }
+@keyframes takeoff { from { offset-distance:0%; transform:rotate(-45deg) scale(1); } to { offset-distance:100%; transform:rotate(12deg) scale(1.5); } }
+@keyframes landing { 0% { offset-distance:0%; transform:rotate(-45deg); opacity:1; } 70% { opacity:1; } 100% { offset-distance:100%; transform:rotate(0deg) scale(.7); opacity:0; } }
+@keyframes camera-depart { 0%,12% { transform:none; opacity:1; } 100% { transform:translate(-38vw,40vh) rotate(-5deg) scale(1.14); opacity:.15; } }
+@keyframes camera-arrive { from { transform:translate(-28vw,-32vh) rotate(-4deg) scale(1.1); opacity:.15; } to { transform:none; opacity:1; } }
+@keyframes veil-in { 0%,55% { opacity:0; } 100% { opacity:1; } }
+@keyframes veil-out { from { opacity:1; } to { opacity:0; } }
+@media(max-width:767px) { .traveller { width:52px; height:52px; } }
+@media(prefers-reduced-motion:reduce) { .overlay { display:none; } }

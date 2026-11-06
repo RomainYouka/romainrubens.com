@@ -11,28 +11,28 @@
 :global([data-theme="dark"]) .badge .dark { display:block; }
 .open {
   --badge-size:32px;
-  --badge-border:1px;
   --sf-scale:0.5;
   width:max-content;
   min-width:var(--badge-size);
   max-width:var(--badge-size);
   height:var(--badge-size);
   overflow:hidden;
-  border:var(--badge-border) solid #e0e0e0;
-  border-radius:999px;
-  background:#fff;
-  color:#747474;
-  transition:max-width 280ms ease;
+  border:0;
+  color:var(--theme-btn-fg);
+  transition:max-width 320ms cubic-bezier(.2,.8,.2,1);
 }
 .openLabel {
   display:block;
   flex:none;
-  padding-left:calc(var(--badge-size) * 0.28125);
-  padding-right:calc(var(--badge-size) * 1.125);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:calc(var(--badge-size) * 0.515625);
-  font-weight:510;
-  line-height:calc(var(--badge-size) - 2 * var(--badge-border));
+  padding:0 17px;
+  margin-right:calc(var(--badge-size) + 6px);
+  height:var(--badge-size);
+  border-radius:999px;
+  background:var(--theme-btn-bg);
+  font-family:var(--font-body),sans-serif;
+  font-size:14px;
+  font-weight:500;
+  line-height:var(--badge-size);
   white-space:nowrap;
   opacity:0;
   visibility:hidden;
@@ -40,17 +40,22 @@
 }
 .openIcon {
   position:absolute;
-  right:calc(-1 * var(--badge-border));
-  top:calc(-1 * var(--badge-border));
+  right:0;
+  top:0;
   width:var(--badge-size);
   height:var(--badge-size);
+  background:var(--theme-btn-bg);
+  border-radius:999px;
+  transition:transform 350ms cubic-bezier(.2,.8,.2,1),border-radius 350ms;
 }
-:global([data-theme="dark"]) .open { background:#3d3d3d; border-color:#545454; color:#909090; }
+.openIcon img { filter:brightness(0) invert(1); }
+:global([data-theme="dark"]) .openIcon img { filter:brightness(0); }
 .external { width:28px; height:28px; --sf-scale:0.5833333333; }
-@media(min-width:768px) { .open { --badge-size:40px; --badge-border:1.25px; --sf-scale:0.625; } }
+@media(min-width:768px) { .open { --badge-size:40px; --sf-scale:0.625; } }
 @media(min-width:768px) and (hover:hover) and (pointer:fine) {
   :global([data-card-pill]:hover) .open { max-width:calc(var(--badge-size) * 5); }
   :global([data-card-pill]:hover) .openLabel { opacity:1; visibility:visible; transition-delay:70ms; }
+  :global([data-card-pill]:hover) .openIcon { transform:rotate(-35deg); border-radius:17px 23px 23px 17px; }
 }
 @media(min-width:768px) {
   :global([data-card-pill]:focus-visible) .open { max-width:calc(var(--badge-size) * 5); }
