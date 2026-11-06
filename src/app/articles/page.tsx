@@ -132,7 +132,7 @@ export default function ArticlesPage() {
           <section className={listingSectionClassName}>
             <ListingBanner kind="articles" language={language} />
             <div className="grid grid-cols-2 gap-2 lg:gap-[17px] w-full" role="group" aria-label={language==="FR" ? "Langue des articles" : language==="EN" ? "Article language" : "Հոդվածների լեզուն"}>
-              {(["FR","EN"] as const).map(choice=><button
+              {(["EN","FR"] as const).map(choice=><button
                 key={choice}
                 type="button"
                 data-project-category

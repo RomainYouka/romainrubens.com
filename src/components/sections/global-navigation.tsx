@@ -556,6 +556,7 @@ const GlobalNavigation = () => {
 
   const handleLogoClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
+    setIsMenuOpen(false);
     setLogoAnimating(true);
     setTimeout(() => setLogoAnimating(false), 260);
     triggerTransition("/", "down", true);

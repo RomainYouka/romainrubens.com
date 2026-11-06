@@ -48,8 +48,8 @@ export function PageTransitionOverlay() {
       aria-hidden="true"
       style={{
         position: "fixed",
-        inset: "80px 0 0",
-        zIndex: 999,
+        inset: 0,
+        zIndex: 9999,
         pointerEvents: "none",
         display: "flex",
       }}

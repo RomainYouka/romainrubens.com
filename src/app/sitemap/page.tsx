@@ -2,7 +2,7 @@
 
 import { detectLanguage } from "@/lib/language";
 import { articles } from "@/data/articles";
-import { SFIcon, ExternalLinkBadge } from "@/components/SFIcon";
+import { SFIcon } from "@/components/SFIcon";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -243,7 +243,7 @@ export default function SitemapPage() {
           {sections.map(section=>{
             const entry=section.items.find(item=>item.label===section.title);
             const children=section.items.filter(item=>item.label!==section.title);
-            return <section key={section.title} className={`rounded-[20px] border p-5 md:p-6 ${section.title==="projects" || section.title==="home" ? "md:col-span-2" : ""}`} style={{borderColor:"var(--theme-border)",backgroundColor:"var(--theme-bg)"}}>
+            return <section key={section.title} className={`rounded-[20px] border p-5 md:p-6 ${section.title==="projects" || section.title==="home" || section.title==="articles" ? "md:col-span-2" : ""}`} style={{borderColor:"var(--theme-border)",backgroundColor:"var(--theme-bg)"}}>
               <h2 className="text-xl md:text-2xl font-semibold">
                 <Link href={entry?.href || "/"} className="flex items-center justify-between gap-4 min-h-12 rounded-full px-5 py-3 border no-underline hover:no-underline hover:opacity-80 transition-opacity" style={{color:"var(--theme-fg)",backgroundColor:"var(--theme-pill-bg)",borderColor:"var(--theme-pill-border)"}}>
                   <span>{t[section.title]}</span><SFIcon name="arrow-light" size={20} />
@@ -254,7 +254,7 @@ export default function SitemapPage() {
                   {item.href==="#" ? <h3 className="text-sm font-semibold mt-5 mb-2" style={{color:"var(--theme-subtle)"}}>{t[item.label]}</h3>
                     : <Link href={item.href} target={item.target} rel={item.rel} className="flex items-center justify-between gap-3 min-h-11 py-2 px-2 rounded-lg hover:underline underline-offset-4" style={{color:"var(--theme-fg)"}}>
                       <span>{t[item.label]}</span>
-                      {item.target==="_blank" ? <ExternalLinkBadge /> : <SFIcon name="arrow-light" size={18} />}
+                      <SFIcon name={item.target==="_blank" ? "share" : "arrow-light"} size={18} />
                       {item.target==="_blank" && <span className="sr-only">{language==="FR" ? "(nouvel onglet)" : language==="EN" ? "(new tab)" : "(նոր ներդիր)"}</span>}
                     </Link>}
                 </li>)}
