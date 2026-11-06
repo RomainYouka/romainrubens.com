@@ -16,7 +16,7 @@
 .braid,.usbPlug { display:none; }
 @media(max-width:767px) {
  .scene { height:150svh; }.continuation { margin-top:0; }
- .screen::before { display:block; inset:-2px; border:0; border-radius:calc(var(--screen-radius) + 2px); background:#050507; box-shadow:none; opacity:var(--hardware-opacity); }
+ .screen::before { display:block; inset:-7px; border:0; border-radius:calc(var(--screen-radius) + 7px); background:#050507; box-shadow:none; opacity:var(--hardware-opacity); }
  .phoneFrame { display:block; position:absolute; width:calc(100% * 389 / 353); height:calc(100% * 800 / 768); max-width:none; left:calc(-100% * 18 / 353); top:calc(-100% * 16 / 768); z-index:4; opacity:var(--hardware-opacity); filter:drop-shadow(0 16px 20px #0004); pointer-events:none; }
  .camera { top:12px; left:50%; width:22%; height:22px; border-radius:30px; background:#030304; transform:translateX(-50%); box-shadow:inset 0 0 1px #101015; }
  .camera::after { content:""; position:absolute; width:5px; height:5px; top:8px; right:8px; border-radius:50%; background:#111b31; box-shadow:inset 0 0 1px #4e6488; }
