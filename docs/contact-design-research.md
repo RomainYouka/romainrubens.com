@@ -17,7 +17,7 @@ La transposition au portfolio conserve ses propres polices, son logo et ses icô
 - Fond quantifié et tramé en sous-pixels rouge, vert et bleu, calculé par un canvas local : forme conservée, motif et algorithme originaux, sans image, code, typographie ou animation copiés de la référence.
 - Email prioritaire, calendrier Cal.com et LinkedIn. Medium, Pinterest, Behance et CV retirés du contenu de Contact ; navigation globale conservée.
 - Aucune copie de l’adresse ni formulaire. Le pied de page n’est pas affiché sur Contact.
-- Français, anglais et arménien ; clair et sombre. Les anciens sélecteurs de couleur sont retirés ; les pixels restent RVB avec une opacité progressive jusqu’au centre.
+- Français, anglais et arménien. Le contenu de Contact reste sombre, même lorsque la navigation est en mode clair. Les pixels RVB restent visibles au centre ; une variation autonome continue se combine à l’éclairage sous la souris, ou au parcours automatique sur mobile.
 - Animation limitée en fréquence, arrêt hors écran ou onglet masqué, fond statique en réduction des animations. Aucun nouveau moteur d’animation ni script tiers.
 
 La proposition éditoriale précédente n’est pas conservée. Publication uniquement sur `future`, sans promotion en production.

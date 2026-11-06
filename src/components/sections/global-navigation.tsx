@@ -384,7 +384,7 @@ const GlobalNavigation = () => {
   const navBgColor  = "var(--theme-nav-bg)";
   const borderColor = "var(--theme-border)";
   const scrolledBg  = "var(--theme-nav-scrolled)";
-  const visualScrolled = isScrolled;
+  const visualScrolled = pathname !== "/" && isScrolled;
 
   const navLinks = [
     { name: t.home, href: "/" },
@@ -394,6 +394,8 @@ const GlobalNavigation = () => {
   ];
 
   const logoProps = {
+    onPointerEnter: () => { void import("@/components/PageTransitionOverlay"); },
+    onFocus: () => { void import("@/components/PageTransitionOverlay"); },
     onClick: handleLogoClick,
     "aria-label": "Home",
     href: "/",

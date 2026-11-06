@@ -16,7 +16,7 @@
 .heroTitles h1 { margin:0; }
 .canvas .year { color:white; font:400 20px/1 var(--font-display),sans-serif; }
 .down { width:64px; height:64px; flex:none; border:0; border-radius:50%; background:white; color:#000; display:flex; align-items:center; justify-content:center; cursor:pointer; }
-.intro { display:flex; flex-direction:column; gap:256px; padding:256px 184px; background:white; }
+.intro { display:flex; flex-direction:column; gap:256px; padding:256px 184px; background:#f4f4f5; }
 .firstQuote h2 { font:600 52px/normal var(--font-display),sans-serif; margin-bottom:43px; text-box:trim-both cap alphabetic; }
 .firstQuote h2 span { font-size:32px; font-weight:600; }
 .introText { width:1207px; }

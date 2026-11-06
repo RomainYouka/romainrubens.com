@@ -30,13 +30,13 @@ export default function DiodeBackground() {
       if (!reduced.matches) {
         const auto=touch.matches;
         const t=now/1000;
-        const targetX=auto ? 0.5+Math.sin(t*0.27)*0.34 : pointerX;
-        const targetY=auto ? 0.5+Math.sin(t*0.39+0.8)*0.29 : pointerY;
+        const targetX=auto ? 0.5+Math.sin(t*.95)*.31 : pointerX;
+        const targetY=auto ? 0.5+Math.sin(t*1.23+.8)*.27 : pointerY;
         // The head follows exactly; only illuminated cells retain a fading trail.
         x=auto ? x+(targetX-x)*0.12 : targetX;
         y=auto ? y+(targetY-y)*0.12 : targetY;
         const strength=auto ? 0.85 : now-lastPointer<100 ? 1 : 0;
-        const radius=Math.min(100,Math.max(60,width*0.075));
+        const radius=Math.min(155,Math.max(100,width*.12));
         const cx=x*width, cy=y*height;
         const sx=(hasPrevious ? previousX : x)*width, sy=(hasPrevious ? previousY : y)*height;
         const vx=cx-sx, vy=cy-sy, lengthSquared=vx*vx+vy*vy;
@@ -52,7 +52,7 @@ export default function DiodeBackground() {
             const dx=px-(sx+vx*along), dy=py-(sy+vy*along);
             const distanceSquared=(dx*dx+dy*dy)/(radius*radius);
             if(distanceSquared>=1) continue;
-            const light=Math.exp(-distanceSquared*4.5)*strength*(.55+.45*along);
+            const light=Math.exp(-distanceSquared*3.5)*strength*(.72+.28*along);
             const index=Math.floor(py/stepY)*columns+Math.floor(px/stepX);
             energy[index]=Math.max(energy[index],light);
           }
@@ -60,9 +60,9 @@ export default function DiodeBackground() {
         previousX=x; previousY=y; hasPrevious=strength>0;
         for(let row=0;row<Math.ceil(height/stepY);row++) {
           for(let column=0;column<columns;column++) {
+            const px=column*stepX, py=row*stepY;
             const light=energy[row*columns+column];
             if(light<.012) continue;
-            const px=column*stepX, py=row*stepY;
             ctx!.fillStyle=`rgba(255,65,70,${light*0.9})`;
             ctx!.fillRect(px,py+2,2,8);
             ctx!.fillStyle=`rgba(65,255,105,${light*0.9})`;

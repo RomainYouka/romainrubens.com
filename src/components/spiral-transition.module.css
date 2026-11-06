@@ -1,8 +1,12 @@
 .overlay { position:fixed; inset:0; z-index:9999; overflow:hidden; pointer-events:auto; perspective:600px; }
-.portal { position:absolute; left:var(--origin-x,50%); top:var(--origin-y,50%); width:280vmax; height:280vmax; margin:-140vmax 0 0 -140vmax; border-radius:50%; background:radial-gradient(circle,#000 0%,#050507 38%,#101014 50%,#050507 58%,transparent 71%); animation:enter 1050ms cubic-bezier(.55,0,.18,1) both; }
-.arms { position:absolute; inset:0; opacity:.32; filter:blur(9px); mask-image:radial-gradient(circle,#000 5%,#000 38%,transparent 67%); animation:dive 1500ms cubic-bezier(.35,0,.2,1) both; }
+.portal { position:absolute; left:var(--origin-x,50%); top:var(--origin-y,50%); width:280vmax; height:280vmax; margin:-140vmax 0 0 -140vmax; border-radius:50%; background:radial-gradient(circle,#000 0%,#050507 38%,#101014 50%,#050507 58%,transparent 71%); animation:enter 1850ms cubic-bezier(.55,0,.18,1) both; }
+.arms { position:absolute; inset:0; opacity:.32; filter:blur(9px); mask-image:radial-gradient(circle,#000 5%,#000 38%,transparent 67%); animation:dive 2550ms cubic-bezier(.35,0,.2,1) both; }
 .arms svg { width:100%; height:100%; }
-.out { animation:leave 700ms ease-in both; }
+.out { animation:leave 1100ms ease-in both; }
+.pixelReturn { position:fixed; inset:0; z-index:9999; overflow:hidden; pointer-events:auto; background:#050507; animation:pixel-in 400ms ease-out both; }
+.pixelReturn canvas { width:100%; height:100%; image-rendering:pixelated; }
+.pixelOut { animation:leave 1000ms ease-in-out both; }
+@keyframes pixel-in { from { opacity:0; } to { opacity:1; } }
 @keyframes enter { from { transform:scale(.005) rotate(-40deg); opacity:0; } 18% { opacity:1; } to { transform:scale(1.25) rotate(25deg); opacity:1; } }
 @keyframes dive { from { transform:rotate(0) scale(.65); opacity:0; } 35% { opacity:.45; } to { transform:rotate(220deg) scale(2.8); opacity:.1; } }
 @keyframes leave { to { opacity:0; } }

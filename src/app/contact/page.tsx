@@ -19,7 +19,7 @@ export default function ContactPage() {
     return () => window.removeEventListener("languageChange", change);
   }, []);
   const track = (type: "email" | "cal" | "linkedin") => { window.dispatchEvent(new CustomEvent("blob-wink")); Analytics.contactClick(type); };
-  return <main id="main-content" className={s.page} lang={language === "ՀԱՅ" ? "hy" : language.toLowerCase()}>
+  return <main id="main-content" data-theme="dark" className={s.page} lang={language === "ՀԱՅ" ? "hy" : language.toLowerCase()}>
     <ContactField />
     <section className={s.content} aria-labelledby="contact-title">
       <h1 id="contact-title">{t.heading}</h1><p className={s.intro}>{t.intro}</p>

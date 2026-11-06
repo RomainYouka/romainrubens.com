@@ -2,7 +2,7 @@
 .page>canvas { z-index:0; mask-image:linear-gradient(transparent 3%,#000 20%,#000 85%,transparent); }
 .content { position:relative; z-index:1; width:100%; max-width:1050px; margin:auto; text-align:center; }
 .page h1 { color:var(--theme-fg); font:550 clamp(38px,4.7vw,64px)/1.08 var(--font-display),sans-serif; letter-spacing:-.05em; margin:0; }
-.page .intro { color:var(--theme-subtle); font:400 18px/1.5 var(--font-body),sans-serif; letter-spacing:-.012em; margin:24px auto 42px; max-width:460px; }
+.page .intro { color:var(--theme-fg); font:400 18px/1.5 var(--font-body),sans-serif; letter-spacing:-.012em; margin:24px auto 42px; max-width:1050px; text-wrap:pretty; }
 .actions { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px; }
 .linkedin { font:700 18px/1 Arial,sans-serif; width:19px; }
 .page[lang="hy"] h1 { font-family:var(--font-body),sans-serif; }

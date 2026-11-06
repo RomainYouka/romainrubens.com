@@ -2,7 +2,7 @@
 
 import { detectLanguage } from "@/lib/language";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { SplitAction } from "@/components/SplitAction";
 import { useRouter } from "next/navigation";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
@@ -39,8 +39,16 @@ const translations = {
 
 export default function PersonalIntro({ id = "personal-intro" }: { id?: string }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const navigating = useRef(false);
   const router = useRouter();
   const { triggerTransition } = usePageTransition();
+  const openProjects = useCallback(() => {
+    if (navigating.current) return;
+    navigating.current = true;
+    const rect = ctaRef.current?.querySelector("button")?.getBoundingClientRect();
+    triggerTransition("/projects", "up", "projects-cta", rect ? { x:rect.left+rect.width/2, y:rect.top+rect.height/2 } : undefined);
+  }, [triggerTransition]);
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
@@ -113,7 +121,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
         className="w-full min-h-[100dvh] flex items-center"
         data-section="personal-intro"
         style={{
-          backgroundColor: "var(--theme-bg-alt)",
+          backgroundColor: "transparent",
           paddingTop: "clamp(64px, 8vw, 100px)",
           paddingBottom: "clamp(64px, 8vw, 100px)",
         }}
@@ -171,11 +179,8 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
               </div>
 
               {/* CTA Button - Wider and responsive */}
-              <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
-                <SplitAction primary onClick={(event) => {
-                  const rect = event.currentTarget.getBoundingClientRect();
-                  triggerTransition("/projects", "up", "projects-cta", { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-                }}>{content.ctaProjects}</SplitAction>
+              <div ref={ctaRef} className="home-discover-actions" style={{ display: "flex", alignItems:"center", justifyContent: "center", gap: "12px" }}>
+                <SplitAction primary onClick={openProjects}>{content.ctaProjects}</SplitAction>
               </div>
             </div>
           </div>
@@ -183,9 +188,16 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
       </section>
       <style>{`
         .personal-intro-title { text-wrap: balance; }
+        [data-section="personal-intro"] { position:relative; align-items:flex-start; padding-top:clamp(80px,10svh,112px)!important; }
         .personal-intro-title .intro-role,
         .personal-intro-title .intro-specialty { display:block; white-space:nowrap; }
         .personal-intro-title { font-size:clamp(14px, 4.2vw, 44px) !important; }
+        @media(max-width:767px) {
+          [data-section="personal-intro"] { align-items:flex-start; padding-top:88px!important; padding-bottom:48px!important; }
+          .personal-intro-title { font-size:clamp(24px,6.2vw,36px)!important; }
+          .personal-intro-title .intro-role,.personal-intro-title .intro-specialty { white-space:normal; }
+          .home-discover-actions > button:first-child { width:auto; min-width:0; flex:1; max-width:310px; }.home-discover-actions > button:first-child > span:first-child { min-width:0; }
+        }
       `}</style>
     </>
   );

@@ -32,6 +32,8 @@ try {
     if (path === '/') {
       assert.match(body, /data-home-scene/);
       assert.match(body, /data-diode-background/);
+      assert.match(body, /data-home-experience/);
+      assert.ok(!body.includes('data-story-countdown'), 'Removed countdown stays absent');
       assert.ok(!/<footer\b/.test(body), 'Homepage does not render a legal footer');
       assert.match(body, /Connected Ecosystems/);
     }
@@ -42,6 +44,7 @@ try {
       assert.ok(!body.includes('romainrubens23@gmail.com'), 'Use public contact details in mockups');
     }
     if (path === '/contact') {
+      assert.match(body, /<main[^>]*data-theme="dark"/, 'Contact keeps its dark presentation');
       assert.ok(!/<footer\b/.test(body), 'Contact does not render a legal footer');
       assert.ok(!body.includes('Copy email address'), 'Contact no longer offers clipboard actions');
       assert.match(body, /hello@romainrubens\.com/);
