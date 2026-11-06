@@ -5,9 +5,9 @@ import { Analytics } from "@/lib/analytics";
 
 type Theme = "light" | "dark";
 export type ThemeTransition = "toLight" | "toDark" | null;
-export type AccentColor = "blue" | "pink" | "green" | "orange" | "mono";
+export type AccentColor = "blue" | "mono";
 
-const SUPPORTED_ACCENTS: AccentColor[] = ["blue", "pink", "green", "orange", "mono"];
+const SUPPORTED_ACCENTS: AccentColor[] = ["blue", "mono"];
 
 interface ThemeContextValue {
   theme: Theme;

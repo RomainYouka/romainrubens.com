@@ -11,6 +11,7 @@
   --badge-border:1px;
   --sf-scale:0.5;
   width:max-content;
+  min-width:var(--badge-size);
   max-width:var(--badge-size);
   height:var(--badge-size);
   overflow:hidden;

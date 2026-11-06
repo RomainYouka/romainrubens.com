@@ -100,12 +100,17 @@ const ArticleCard = ({ image, number, title, href, language, onOpen, isPriority 
 
 export default function ArticlesPage() {
   const [language, setLanguage] = useState<Language>("EN");
+  const [articleLanguage,setArticleLanguage]=useState<"FR"|"EN">("EN");
   useEffect(() => {
     const savedLanguage = detectLanguage() as Language;
     if (savedLanguage && ["FR", "EN", "ՀԱՅ"].includes(savedLanguage)) {
       setLanguage(savedLanguage);
+      setArticleLanguage(savedLanguage==="FR" ? "FR" : "EN");
     }
-    const handleLanguageChange = (event: CustomEvent<Language>) => setLanguage(event.detail);
+    const handleLanguageChange = (event: CustomEvent<Language>) => {
+      setLanguage(event.detail);
+      setArticleLanguage(event.detail==="FR" ? "FR" : "EN");
+    };
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
     return () => {
       window.removeEventListener("languageChange", handleLanguageChange as EventListener);
@@ -126,16 +131,26 @@ export default function ArticlesPage() {
           <h1 className="sr-only">{translations[language].title}</h1>
           <section className={listingSectionClassName}>
             <ListingBanner kind="articles" language={language} />
-            {/* Reserve the category row so the first cards align with Projects. */}
-            <div aria-hidden="true" className="h-10 lg:h-12 w-full shrink-0" />
+            <div className="grid grid-cols-2 gap-2 lg:gap-[17px] w-full" role="group" aria-label={language==="FR" ? "Langue des articles" : language==="EN" ? "Article language" : "Հոդվածների լեզուն"}>
+              {(["FR","EN"] as const).map(choice=><button
+                key={choice}
+                type="button"
+                data-project-category
+                aria-current={articleLanguage===choice ? "true" : undefined}
+                aria-pressed={articleLanguage===choice}
+                onClick={()=>setArticleLanguage(choice)}
+                className="h-10 lg:h-12 rounded-[20px] transition-colors duration-200 cursor-pointer flex items-center justify-center border font-semibold text-[11px] sm:text-sm lg:text-[calc(10px+0.8vw)]"
+                style={{backgroundColor:articleLanguage===choice ? "var(--theme-btn-bg)" : "var(--category-hover-bg, var(--theme-pill-bg))",color:articleLanguage===choice ? "var(--theme-btn-fg)" : "var(--theme-fg)",borderColor:"var(--theme-pill-border)"}}
+              >{language==="FR" ? (choice==="FR" ? "Lire en Français" : "Lire en Anglais") : language==="EN" ? (choice==="FR" ? "Read in French" : "Read in English") : (choice==="FR" ? "Կարդալ ֆրանսերեն" : "Կարդալ անգլերեն")}</button>)}
+            </div>
             <div className={listingGridClassName}>
               {articles.map((article, index) => (
                 <ArticleCard
                   key={article.id}
                   image={article.image}
                   number={article.number}
-                  title={article.title[language]}
-                  href={article.href[language]}
+                  title={article.title[articleLanguage]}
+                  href={article.href[articleLanguage]}
                   language={language}
                   onOpen={handleOpen}
                   isPriority={index < 2}

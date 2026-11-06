@@ -15,9 +15,6 @@ import { Analytics } from "@/lib/analytics";
 // ─── Accent options ──────────────────────────────────────────────────────────
 const ACCENT_OPTIONS: { id: AccentColor; light: string; dark: string; mono?: boolean }[] = [
   { id: "blue",   light: "#314DCB", dark: "#5194FF" },
-  { id: "pink",   light: "#B2003A", dark: "#FF376C" },
-  { id: "green",  light: "#004430", dark: "#53C999" },
-  { id: "orange", light: "#B24400", dark: "#FFA269" },
   { id: "mono",   light: "#1d1d1f", dark: "#f5f5f5", mono: true },
 ];
 
@@ -561,7 +558,7 @@ const GlobalNavigation = () => {
     e.preventDefault();
     setLogoAnimating(true);
     setTimeout(() => setLogoAnimating(false), 260);
-    triggerTransition("/", "down");
+    triggerTransition("/", "down", true);
   }, [triggerTransition]);
 
   const handleMenuToggle = useCallback(() => {

@@ -232,202 +232,35 @@ export default function SitemapPage() {
   const sections = getSections(language);
 
   return (
-    <main id="main-content" className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
-      <div className="flex-1 w-full flex justify-center pt-20 md:pt-24 pb-4 md:pb-24 px-4 md:px-8">
-        <div className="w-full max-w-[1234px]">
-          {/* Title */}
-          <h1
-            className="text-3xl md:text-4xl font-semibold mb-12 md:mb-16"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--theme-fg)",
-              fontWeight: 600,
-            }}
-          >
-            {t.title}
-          </h1>
-
-          {/* Content in editorial columns (desktop) */}
-          <div
-            style={{
-              columnCount: 2,
-              columnGap: "48px",
-              fontFamily: "var(--font-body)",
-              color: "var(--theme-fg)",
-              fontSize: "15px",
-              lineHeight: "1.8",
-            }}
-            className="hidden md:block"
-          >
-            {sections.map((section, sectionIndex) => (
-              <div
-                key={sectionIndex}
-                style={{
-                  breakInside: "avoid",
-                  marginBottom: "16px",
-                }}
-              >
-                {/* Section title */}
-                <div
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 600,
-                    fontSize: "17px",
-                    marginBottom: "12px",
-                    color: "var(--theme-fg)",
-                  }}
-                >
-                  {t[section.title]}
-                </div>
-
-                {/* Section items */}
-                <div>
-                  {section.items.map((item, itemIndex) => {
-                    const isSubItemCategory = item.href === "#" && item.isSubItem;
-                    const subItemPadding = item.isSubItem && !isSubItemCategory ? "24px" : "0px";
-                    const isClickable = item.isClickable !== false;
-
-                    return (
-                      <div
-                        key={itemIndex}
-                        style={{
-                          paddingLeft: subItemPadding,
-                          marginBottom: isSubItemCategory ? "8px" : "4px",
-                        }}
-                      >
-                        {isSubItemCategory ? (
-                          <div
-                            style={{
-                              fontWeight: 600,
-                              fontSize: "14px",
-                              marginTop: "8px",
-                              marginBottom: "6px",
-                              color: "var(--theme-fg)",
-                              opacity: 0.8,
-                            }}
-                          >
-                            {t[item.label]}
-                          </div>
-                        ) : isClickable ? (
-                          <Link
-                            href={item.href}
-                            target={item.target}
-                            rel={item.rel}
-                            style={{
-                              color: "var(--theme-accent)",
-                              textDecoration: "none",
-                              cursor: "pointer",
-                              display: "block",
-                              breakInside: "avoid",
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.textDecoration = "underline";
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.textDecoration = "none";
-                            }}
-                          >
-                            {t[item.label]}
-                          </Link>
-                        ) : (
-                          <div
-                            style={{
-                              color: "var(--theme-fg)",
-                              display: "block",
-                              breakInside: "avoid",
-                            }}
-                          >
-                            {t[item.label]} {t.inProgress}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile single column */}
-          <div className="md:hidden flex flex-col gap-6">
-            {sections.map((section, sectionIndex) => (
-              <div key={sectionIndex}>
-                {/* Section title */}
-                <div
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 600,
-                    fontSize: "17px",
-                    marginBottom: "12px",
-                    color: "var(--theme-fg)",
-                  }}
-                >
-                  {t[section.title]}
-                </div>
-
-                {/* Section items */}
-                <div className="flex flex-col gap-2">
-                  {section.items.map((item, itemIndex) => {
-                    const isSubItemCategory = item.href === "#" && item.isSubItem;
-                    const subItemPadding = item.isSubItem && !isSubItemCategory ? "16px" : "0px";
-                    const isClickable = item.isClickable !== false;
-
-                    return (
-                      <div
-                        key={itemIndex}
-                        style={{
-                          paddingLeft: subItemPadding,
-                        }}
-                      >
-                        {isSubItemCategory ? (
-                          <div
-                            style={{
-                              fontWeight: 600,
-                              fontSize: "14px",
-                              marginTop: "8px",
-                              marginBottom: "6px",
-                              color: "var(--theme-fg)",
-                              opacity: 0.8,
-                            }}
-                          >
-                            {t[item.label]}
-                          </div>
-                        ) : isClickable ? (
-                          <Link
-                            href={item.href}
-                            target={item.target}
-                            rel={item.rel}
-                            style={{
-                              color: "var(--theme-accent)",
-                              textDecoration: "none",
-                              cursor: "pointer",
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.textDecoration = "underline";
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.textDecoration = "none";
-                            }}
-                          >
-                            {t[item.label]}
-                          </Link>
-                        ) : (
-                          <div
-                            style={{
-                              color: "var(--theme-fg)",
-                            }}
-                          >
-                            {t[item.label]} {t.inProgress}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <main id="main-content" className="w-full min-h-screen px-4 md:px-8 pt-24 md:pt-28 pb-24" style={{backgroundColor:"var(--theme-bg-alt)",color:"var(--theme-fg)"}}>
+      <div className="max-w-[1202px] mx-auto">
+        <h1 className="text-3xl md:text-5xl font-semibold mb-4" style={{color:"var(--theme-fg)"}}>{t.title}</h1>
+        <p className="mb-10 max-w-2xl" style={{color:"var(--theme-subtle)"}}>
+          {language==="FR" ? "Toutes les pages et tous les projets, accessibles directement depuis un seul endroit." : language==="EN" ? "Every page and project, with direct access from one place." : "Բոլոր էջերն ու նախագծերը՝ մեկ վայրից անմիջապես հասանելի։"}
+        </p>
+        <nav aria-label={t.title} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {sections.map(section=>{
+            const entry=section.items.find(item=>item.label===section.title);
+            const children=section.items.filter(item=>item.label!==section.title);
+            return <section key={section.title} className={`rounded-[20px] border p-5 md:p-6 ${section.title==="projects" || section.title==="home" ? "md:col-span-2" : ""}`} style={{borderColor:"var(--theme-border)",backgroundColor:"var(--theme-bg)"}}>
+              <h2 className="text-xl md:text-2xl font-semibold">
+                <Link href={entry?.href || "/"} className="flex items-center justify-between gap-4 min-h-12 rounded-full px-5 py-3 border no-underline hover:no-underline hover:opacity-80 transition-opacity" style={{color:"var(--theme-fg)",backgroundColor:"var(--theme-pill-bg)",borderColor:"var(--theme-pill-border)"}}>
+                  <span>{t[section.title]}</span><span aria-hidden="true">→</span>
+                </Link>
+              </h2>
+              {children.length>0 && <ul className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+                {children.map(item=><li key={item.label} className={item.href==="#" ? "sm:col-span-2" : ""}>
+                  {item.href==="#" ? <h3 className="text-sm font-semibold mt-5 mb-2" style={{color:"var(--theme-subtle)"}}>{t[item.label]}</h3>
+                    : <Link href={item.href} target={item.target} rel={item.rel} className="flex items-center justify-between gap-3 min-h-11 py-2 px-2 rounded-lg hover:underline underline-offset-4" style={{color:"var(--theme-fg)"}}>
+                      <span>{t[item.label]}</span>
+                      <span aria-hidden="true">{item.target==="_blank" ? "↗" : "→"}</span>
+                      {item.target==="_blank" && <span className="sr-only">{language==="FR" ? "(nouvel onglet)" : language==="EN" ? "(new tab)" : "(նոր ներդիր)"}</span>}
+                    </Link>}
+                </li>)}
+              </ul>}
+            </section>;
+          })}
+        </nav>
       </div>
     </main>
   );

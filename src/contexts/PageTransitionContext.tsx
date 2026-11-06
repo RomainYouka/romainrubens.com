@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 type TransitionPhase = "idle" | "in" | "out";
 export type TransitionDirection = "up" | "down";
@@ -9,7 +9,7 @@ export type TransitionDirection = "up" | "down";
 interface PageTransitionContextType {
   phase: TransitionPhase;
   direction: TransitionDirection;
-  triggerTransition: (href: string, direction?: TransitionDirection) => void;
+  triggerTransition: (href: string, direction?: TransitionDirection, fromLogo?: boolean) => void;
 }
 
 const PageTransitionContext = createContext<PageTransitionContextType>({
@@ -23,13 +23,15 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   const timers=useRef<ReturnType<typeof setTimeout>[]>([]);
   const [direction, setDirection] = useState<TransitionDirection>("up");
   const router = useRouter();
+  const pathname=usePathname();
   useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
 
   const triggerTransition = useCallback(
-    (href: string, dir: TransitionDirection = "up") => {
+    (href: string, dir: TransitionDirection = "up", fromLogo=false) => {
       setDirection(dir);
       timers.current.forEach(clearTimeout);
-      if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const homeProjects=(pathname==="/" && href==="/projects") || (pathname==="/projects" && href==="/");
+      if((!fromLogo && !homeProjects) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         setPhase("idle"); router.push(href); return;
       }
       router.prefetch(href);
@@ -41,7 +43,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         setTimeout(()=>setPhase("idle"),1850),
       ];
     },
-    [router]
+    [router,pathname]
   );
 
   return (
