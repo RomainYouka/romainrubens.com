@@ -19,7 +19,7 @@ function Star() {
   return <img src="/projects/googlemaps-extension/star.svg" alt="" width={32} height={32} />;
 }
 function Asset({ name, alt = "", width, height, className }: { name: string; alt?: string; width: number; height: number; className?: string }) {
-  return <img src={`${assets}${name}.webp`} alt={alt} width={width} height={height} className={className} loading="lazy" decoding="async" />;
+  return <img src={`${assets}${["apple","tcl","heroShapes"].includes(name) ? "exports/" : ""}${name}.webp`} alt={alt} width={width} height={height} className={className} loading="lazy" decoding="async" />;
 }
 
 export default function GoogleMapsExtensionPage() {
@@ -65,7 +65,7 @@ export default function GoogleMapsExtensionPage() {
         <blockquote className={s.testimony}><p>“<Highlight text={t.testimony} />”</p><cite>{t.user}</cite></blockquote>
       </section>
       <section className={s.showcase} aria-label={t.hero}>
-        <div className={s.heroVisual}><div className={s.heroShapes}><svg width={444} height={996} viewBox="0 0 444 996" aria-hidden="true"><defs><filter id="maps-remove-white" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -10 -10 -10 0 30" /></filter></defs><image href={assets + "heroShapes.webp"} width={444} height={996} filter="url(#maps-remove-white)" /></svg></div><div className={s.phoneCutout}><svg width="0" height="0" aria-hidden="true"><defs><clipPath id="maps-phone-silhouettes" clipPathUnits="objectBoundingBox"><rect x="0.065" y="0.051" width="0.425" height="0.889" rx="0.085" ry="0.085" /><rect x="0.542" y="0.064" width="0.399" height="0.864" rx="0.065" ry="0.065" /></clipPath></defs></svg><Asset name="heroPhones" width={1184} height={1180} alt={t.hero} /></div></div>
+        <div className={s.heroVisual}><div className={s.heroShapes}><Asset name="heroShapes" width={444} height={996} /></div><div className={s.phoneCutout}><svg width="0" height="0" aria-hidden="true"><defs><clipPath id="maps-phone-silhouettes" clipPathUnits="objectBoundingBox"><rect x="0.065" y="0.051" width="0.425" height="0.889" rx="0.085" ry="0.085" /><rect x="0.542" y="0.064" width="0.399" height="0.864" rx="0.065" ry="0.065" /></clipPath></defs></svg><Asset name="heroPhones" width={1184} height={1180} alt={t.hero} /></div></div>
       </section>
       <section className={s.design}>
         <div className={s.case}>

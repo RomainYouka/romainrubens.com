@@ -77,6 +77,19 @@ try {
     assert.ok(data.style.width > 0 && data.style.height > 0, src);
   }
   console.log(`PASS ${Object.keys(nativeFigures).length} native component resources`);
+  const exportedFigures = JSON.parse(await readFile(new URL('../src/app/goupildigitalecosystem/exported-assets.json', import.meta.url), 'utf8'));
+  const visualExports = [
+    ...Object.keys(exportedFigures).map(name => `/projects/goupil/exports/${name}.webp`),
+    ...['typography-system', 'components-a', 'components-b'].map(name => `/projects/googleplay-ios/exports/${name}.webp`),
+    ...['apple', 'tcl', 'heroShapes'].map(name => `/projects/googlemaps-extension/exports/${name}.webp`),
+  ];
+  for (const src of visualExports) {
+    const asset = await fetch(base + src);
+    assert.equal(asset.status, 200, src);
+    assert.match(asset.headers.get('content-type') || '', /image\/webp/, src);
+    assert.ok((await asset.arrayBuffer()).byteLength > 0, src);
+  }
+  console.log(`PASS ${visualExports.length} original transparent visual exports`);
   const write = await fetch(base + '/api/skills/update', {
     method: 'POST', headers: { 'content-type': 'application/json', origin: base }, body: '{}',
   });

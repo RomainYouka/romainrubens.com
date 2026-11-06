@@ -3,7 +3,9 @@
 import { useRef, useEffect, useState, type PointerEvent, type KeyboardEvent } from "react";
 import s from "./home-scroll-scene.module.css";
 
-const curve = (x: number, y: number) => `M480 -100C${480+x*.1} 0 ${466+x*.35} ${38+y*.35} ${415+x*.6} ${65+y*.6}C${300+x} ${105+y} ${150+x} ${140+y} ${-350+x} ${120+y}`;
+// Both ends stay concealed: the display hides the attachment and the other end
+// extends beyond the viewport even at the maximum drag distance.
+const curve = (x: number, y: number) => `M480 -160 C${480+x*.15} -55 ${438+x*.4} ${20+y*.25} ${380+x*.6} ${35+y*.4} C${240+x} ${55+y*.7} ${100+x} ${65+y} ${-1100+x} ${65+y}`;
 const languageCodes: Record<string,string> = {FR:"fr",EN:"en",ՀԱՅ:"hy"};
 
 /** Anchored behind the display. Geometry changes only while grabbed or via keys. */
@@ -35,7 +37,7 @@ export default function MonitorCable() {
     const start=grab.current;
     if(!start || start.id!==event.pointerId || !svg.current) return;
     const rect=svg.current.getBoundingClientRect();
-    offset.current={x:Math.max(-420,Math.min(420,start.dx+(event.clientX-start.x)/rect.width*1000)),y:Math.max(-150,Math.min(150,start.dy+(event.clientY-start.y)/rect.height*180))};
+    offset.current={x:Math.max(-420,Math.min(420,start.dx+(event.clientX-start.x)/rect.width*1000)),y:Math.max(-65,Math.min(10,start.dy+(event.clientY-start.y)/rect.height*180))};
     schedule();
   };
   const up = (event:PointerEvent<SVGSVGElement>) => {
@@ -47,7 +49,7 @@ export default function MonitorCable() {
     if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Home","Escape"].includes(event.key)) return;
     event.preventDefault();
     if(event.key==="Home" || event.key==="Escape") offset.current={x:0,y:0};
-    else offset.current={x:Math.max(-420,Math.min(420,offset.current.x+(event.key==="ArrowLeft" ? -20 : event.key==="ArrowRight" ? 20 : 0))),y:Math.max(-150,Math.min(150,offset.current.y+(event.key==="ArrowUp" ? -16 : event.key==="ArrowDown" ? 16 : 0)))};
+    else offset.current={x:Math.max(-420,Math.min(420,offset.current.x+(event.key==="ArrowLeft" ? -20 : event.key==="ArrowRight" ? 20 : 0))),y:Math.max(-65,Math.min(10,offset.current.y+(event.key==="ArrowUp" ? -16 : event.key==="ArrowDown" ? 16 : 0)))};
     schedule(); setValue(Math.round(offset.current.x));
   };
   const label=language==="fr" ? "Déplacer le câble : flèches du clavier, touche Début pour réinitialiser" : language==="hy" ? "Տեղափոխել մալուխը՝ սլաքներով, Home՝ վերակայելու համար" : "Move power cable: arrow keys, Home to reset";

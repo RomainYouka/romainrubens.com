@@ -1,0 +1,130 @@
+{
+  "actions-1": {
+    "width": 1473,
+    "height": 1369
+  },
+  "actions-2": {
+    "width": 435,
+    "height": 503
+  },
+  "button-info-1": {
+    "width": 1217,
+    "height": 835
+  },
+  "button-info-2": {
+    "width": 1217,
+    "height": 835
+  },
+  "button-left-0": {
+    "width": 545,
+    "height": 1388
+  },
+  "button-left-1": {
+    "width": 581,
+    "height": 1388
+  },
+  "button-left-2": {
+    "width": 556,
+    "height": 1388
+  },
+  "button-left-3": {
+    "width": 561,
+    "height": 1388
+  },
+  "button-left-4": {
+    "width": 553,
+    "height": 1388
+  },
+  "button-left-5": {
+    "width": 568,
+    "height": 1388
+  },
+  "button-left-6": {
+    "width": 551,
+    "height": 1388
+  },
+  "button-left-7": {
+    "width": 570,
+    "height": 2003
+  },
+  "button-right-0": {
+    "width": 540,
+    "height": 1634
+  },
+  "button-right-1": {
+    "width": 578,
+    "height": 1634
+  },
+  "button-right-2": {
+    "width": 551,
+    "height": 1634
+  },
+  "button-right-3": {
+    "width": 557,
+    "height": 1634
+  },
+  "button-right-4": {
+    "width": 547,
+    "height": 1634
+  },
+  "button-right-5": {
+    "width": 545,
+    "height": 1634
+  },
+  "button-right-6": {
+    "width": 563,
+    "height": 1634
+  },
+  "component-icons": {
+    "width": 1473,
+    "height": 809
+  },
+  "contents": {
+    "width": 850,
+    "height": 1376
+  },
+  "header-1": {
+    "width": 1472,
+    "height": 1775
+  },
+  "header-2": {
+    "width": 1462,
+    "height": 1073
+  },
+  "language-1": {
+    "width": 345,
+    "height": 946
+  },
+  "language-2": {
+    "width": 665,
+    "height": 503
+  },
+  "mode-dark": {
+    "width": 661,
+    "height": 1351
+  },
+  "mode-light": {
+    "width": 660,
+    "height": 1348
+  },
+  "navigation": {
+    "width": 956,
+    "height": 616
+  },
+  "number": {
+    "width": 1114,
+    "height": 470
+  },
+  "progress": {
+    "width": 1473,
+    "height": 1701
+  },
+  "search-1": {
+    "width": 1208,
+    "height": 1983
+  },
+  "search-2": {
+    "width": 1469,
+    "height": 604
+  }
+}

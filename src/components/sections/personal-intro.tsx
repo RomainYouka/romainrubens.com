@@ -38,7 +38,7 @@ const translations = {
 };
 
 export default function PersonalIntro({ id = "personal-intro" }: { id?: string }) {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const navigating = useRef(false);
   const router = useRouter();
@@ -115,7 +115,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   return (
     <>
       {/* Main section */}
-      <section
+      <div
         ref={sectionRef}
         id={id}
         className="w-full min-h-[100dvh] flex items-center"
@@ -185,15 +185,15 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
             </div>
           </div>
         </div>
-      </section>
+      </div>
       <style>{`
         .personal-intro-title { text-wrap: balance; }
-        [data-section="personal-intro"] { position:relative; align-items:flex-start; padding-top:clamp(80px,10svh,112px)!important; }
+        [data-section="personal-intro"] { position:relative; align-items:center; background:transparent; padding-block:clamp(80px,10svh,112px)!important; }
         .personal-intro-title .intro-role,
         .personal-intro-title .intro-specialty { display:block; white-space:nowrap; }
         .personal-intro-title { font-size:clamp(14px, 4.2vw, 44px) !important; }
         @media(max-width:767px) {
-          [data-section="personal-intro"] { align-items:flex-start; padding-top:88px!important; padding-bottom:48px!important; }
+          [data-section="personal-intro"] { align-items:center; padding-top:88px!important; padding-bottom:88px!important; }
           .personal-intro-title { font-size:clamp(24px,6.2vw,36px)!important; }
           .personal-intro-title .intro-role,.personal-intro-title .intro-specialty { white-space:normal; }
           .home-discover-actions > button:first-child { width:auto; min-width:0; flex:1; max-width:310px; }.home-discover-actions > button:first-child > span:first-child { min-width:0; }

@@ -31,7 +31,8 @@ export default function HomeScrollScene({ children, introduction }: { children: 
     };
     const update = () => {
       frame = 0;
-      const p = reduced.matches ? 0 : Math.max(0, Math.min(1, (window.scrollY - top) / distance));
+      const progress = (window.scrollY - top) / distance;
+      const p = reduced.matches ? 0 : Math.max(0, Math.min(1, progress));
       const eased = 1 - (1 - p) ** 3;
       const scale = cover + (1 - cover) * eased;
       root.style.setProperty("--screen-scale", String(scale));
@@ -39,6 +40,7 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       root.style.setProperty("--screen-radius", `${(window.innerWidth < 768 ? 38 : 3) * eased}px`);
       root.style.setProperty("--hardware-visible", p > .1 ? "visible" : "hidden");
       root.style.setProperty("--hardware-opacity", String(Math.max(0, (p - .18) / .65)));
+      root.style.setProperty("--cable-opacity", String(Math.max(0, Math.min(1, (p-.18)/.5, (1.1-progress)/.25))));
     };
     const scroll = () => { if (!frame) frame = requestAnimationFrame(update); };
     const resize = () => {

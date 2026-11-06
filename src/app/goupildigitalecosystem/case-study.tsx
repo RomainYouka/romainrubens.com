@@ -6,6 +6,7 @@ import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
 import { detectLanguage, type Language } from "@/lib/language";
 import { content } from "./content";
 import assets from "./assets.json";
+import exports from "./exported-assets.json";
 import base from "../renaultextensionapp/project.module.css";
 import s from "./project.module.css";
 
@@ -34,6 +35,8 @@ function RatingIcon({ score }: { score: number }) { return <img src={prefix + `r
 function Visual({ name, alt = "", className = "" }: { name: AssetName; alt?: string; className?: string }) {
   const asset = assets[name];
   const native = useContext(NativeFigures)[name];
+  const exported=(exports as Record<string,{width:number;height:number}>)[name];
+  if(exported) return <img src={`${prefix}exports/${name}.webp`} width={exported.width} height={exported.height} alt={alt} loading="lazy" decoding="async" className={className} />;
   if (native) return <div role="img" aria-label={alt} className={`${s.nativeFigure} ${className}`} style={{ width: `min(100%, ${asset.width}px)`, aspectRatio: `${asset.width}/${asset.height}` }}><div style={{ width: asset.width, height: asset.height, zoom: `calc(100cqw / ${asset.width}px)` }}>{native}</div></div>;
   return <img src={prefix + name + ".webp"} width={asset.width} height={asset.height} alt={alt} loading="lazy" decoding="async" className={className} />;
 }

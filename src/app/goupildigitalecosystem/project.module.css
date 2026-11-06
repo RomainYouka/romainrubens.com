@@ -83,8 +83,8 @@
 .experienceFigures figure { margin:0; }.experienceFigures figcaption { margin-bottom:32px; display:flex; justify-content:center; align-items:center; gap:18px; color:white; font-size:24px; }.experienceFigures figcaption span:first-child { color:#8f8f92; }
 .experienceFigures img { width:100%; height:auto; }
 .modes { padding:256px 0; background:#f4f4f5; }
-.modeFigures { display:flex; gap:230px; width:1408px; margin:10px auto 0; align-items:center; min-height:1330px; }
-.modeFigures img { width:589px; height:auto; }
+.modeFigures { display:flex; gap:88px; width:1408px; margin:10px auto 0; align-items:center; min-height:1330px; }
+.modeFigures img { width:660px; height:auto; object-fit:contain; }
 .explore { padding:148px 0; background:#18181b; color:white; border-radius:100px 100px 0 0; display:flex; flex-direction:column; align-items:center; gap:59px; }
 .explore .kicker { color:white; }.links { display:flex; gap:64px; margin-top:5px; font:600 24px/1 var(--font-display),sans-serif; }
 .links a { display:flex; align-items:center; justify-content:center; gap:8px; padding:24px 32px; border-radius:50px; color:white; text-decoration:none; }
