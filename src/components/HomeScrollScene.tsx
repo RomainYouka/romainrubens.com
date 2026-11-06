@@ -42,11 +42,6 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       root.style.setProperty("--hardware-opacity", String(Math.max(0, Math.min(1,(p - .08) / (window.innerWidth < 768 ? .3 : .65)))));
       root.style.setProperty("--cable-opacity", String(Math.max(0, Math.min(1, (p-.18)/.5))));
       const visibleHeight=window.visualViewport?.height || viewportHeight;
-      const intro=document.getElementById("personal-intro");
-      const titleTop=intro?.firstElementChild ? intro.getBoundingClientRect().top+(intro.clientHeight-intro.firstElementChild.clientHeight)/2 : Infinity;
-      const deviceOpacity=Math.max(0,Math.min(1,(titleTop-visibleHeight)/24));
-      root.style.setProperty("--mobile-device-opacity",String(deviceOpacity));
-      root.style.setProperty("--mobile-device-visible",deviceOpacity>0 && p>.1 ? "visible" : "hidden");
       root.style.setProperty("--discover-bottom", `${(Math.max(0,(screenHeight*scale-visibleHeight)/2)+40)/scale}px`);
     };
     const scroll = () => { if (!frame) frame = requestAnimationFrame(update); };
