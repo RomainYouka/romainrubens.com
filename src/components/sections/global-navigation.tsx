@@ -557,10 +557,12 @@ const GlobalNavigation = () => {
   const handleLogoClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     setIsMenuOpen(false);
-    setLogoAnimating(true);
-    setTimeout(() => setLogoAnimating(false), 260);
-    triggerTransition("/", "down", true);
-  }, [triggerTransition]);
+    if (pathname !== "/") {
+      setLogoAnimating(true);
+      setTimeout(() => setLogoAnimating(false), 260);
+    }
+    triggerTransition("/", "down", "logo");
+  }, [triggerTransition, pathname]);
 
   const handleMenuToggle = useCallback(() => {
     setIsMenuOpen((prev) => !prev);

@@ -9,7 +9,7 @@ export type TransitionDirection = "up" | "down";
 interface PageTransitionContextType {
   phase: TransitionPhase;
   direction: TransitionDirection;
-  triggerTransition: (href: string, direction?: TransitionDirection, fromLogo?: boolean) => void;
+  triggerTransition: (href: string, direction?: TransitionDirection, reason?: "logo" | "projects-cta") => void;
 }
 
 const PageTransitionContext = createContext<PageTransitionContextType>({
@@ -27,11 +27,17 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
 
   const triggerTransition = useCallback(
-    (href: string, dir: TransitionDirection = "up", fromLogo=false) => {
+    (href: string, dir: TransitionDirection = "up", reason?: "logo" | "projects-cta") => {
       setDirection(dir);
       timers.current.forEach(clearTimeout);
-      const homeProjects=(pathname==="/" && href==="/projects") || (pathname==="/projects" && href==="/");
-      if((!fromLogo && !homeProjects) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (reason === "logo" && pathname === "/" && href === "/") {
+        setPhase("idle");
+        window.dispatchEvent(new Event("lenis-scroll-to-top"));
+        window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+        return;
+      }
+      const shouldAnimate = (reason === "logo" && href === "/") || (reason === "projects-cta" && pathname === "/" && href === "/projects");
+      if(!shouldAnimate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         setPhase("idle"); router.push(href); return;
       }
       router.prefetch(href);

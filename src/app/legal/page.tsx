@@ -32,7 +32,7 @@ const translations = {
       ],
       [
         "Préférences et mesure d’audience",
-        "Le navigateur mémorise des préférences de langue, d’apparence et de contraste dans ses stockages locaux ou de session. Vous pouvez les effacer dans ses paramètres.\nLorsque la mesure d’audience est configurée, Umami Cloud reçoit des événements de consultation et d’interaction. L’absence de cookies ne suffit pas à établir une exemption de consentement : celle-ci dépend de la configuration et des conditions applicables. Aucune certification CNIL n’est revendiquée."
+        "Le code de ce portfolio ne dépose pas de cookies. Aucun cookie publicitaire ou de mesure d’audience n’est utilisé par le site.\nLes préférences de langue, d’apparence et de contraste sont enregistrées dans le stockage local ou de session du navigateur, sans cookies. Vous pouvez les effacer dans ses paramètres.\nLa mesure d’audience, lorsqu’elle est active, repose sur Umami, qui fonctionne sans cookies. Les services tiers que vous choisissez d’ouvrir appliquent leurs propres règles."
       ],
       [
         "Vos droits et signalements",
@@ -71,7 +71,7 @@ const translations = {
       ],
       [
         "Preferences and audience measurement",
-        "The browser stores language, appearance and contrast preferences in local or session storage. You can clear these in your browser settings.\nWhen audience measurement is configured, Umami Cloud receives page-view and interaction events. A cookie-free tool is not automatically exempt from consent requirements: exemption depends on its configuration and applicable conditions. No CNIL certification is claimed."
+        "The code of this portfolio does not set cookies. The website does not use advertising or audience-measurement cookies.\nLanguage, appearance and contrast preferences are saved in the browser’s local or session storage, without cookies. You can clear them in your browser settings.\nWhen enabled, audience measurement uses Umami, which operates without cookies. External services you choose to open apply their own policies."
       ],
       [
         "Your rights and reporting",
@@ -110,7 +110,7 @@ const translations = {
       ],
       [
         "Նախընտրություններ և վիճակագրություն",
-        "Դիտարկիչը տեղային կամ նստաշրջանի պահոցներում հիշում է լեզվի, տեսքի և կոնտրաստի նախընտրությունները։ Դրանք կարող եք ջնջել կարգավորումներում։\nԵրբ լսարանի չափումը կարգավորված է, Umami Cloud-ը ստանում է դիտումների և գործողությունների իրադարձություններ։ Cookie-ների բացակայությունն ինքնին չի ազատում համաձայնության պահանջից․ դա կախված է կարգավորումներից և կիրառելի պայմաններից։ CNIL-ի հավաստագրում չի հայտարարվում։"
+        "Այս պորտֆոլիոյի կոդը cookie-ներ չի տեղադրում։ Կայքը չի օգտագործում գովազդային կամ լսարանի չափման cookie-ներ։\nԼեզվի, տեսքի և կոնտրաստի նախընտրությունները պահվում են դիտարկիչի տեղային կամ նստաշրջանի պահոցում՝ առանց cookie-ների։ Դրանք կարող եք ջնջել կարգավորումներում։\nՄիացված լինելու դեպքում լսարանի չափումն իրականացվում է Umami-ով՝ առանց cookie-ների։ Ձեր ընտրությամբ բացվող արտաքին ծառայությունները կիրառում են իրենց քաղաքականությունները։"
       ],
       [
         "Ձեր իրավունքներն ու հաղորդումները",

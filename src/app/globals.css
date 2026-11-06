@@ -92,7 +92,7 @@
     --theme-bg-alt: #f5f5f5;
     --theme-fg: #1d1d1f;
     --theme-muted: #86868b;
-    --theme-success-aaa: #005d38;
+    --theme-success-aaa: #137c3b;
     --sf-icon-filter: none;
     --sf-accent-filter: invert(1);
     --theme-border: #d3d3d4;
@@ -164,7 +164,7 @@
     --color-text-primary-dark: #000000;
   }
   html[data-contrast="high"] { background-color: #FFFFFF; }
-  [data-contrast="high"] [data-audit-score="100"] { color:var(--theme-success-aaa) !important; }
+  [data-contrast="high"] [data-audit-score] { color:var(--theme-success-aaa) !important; }
 
   /* Forcer texte noir sur les zones blanches */
   [data-contrast="high"] h1,

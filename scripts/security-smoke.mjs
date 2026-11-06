@@ -18,7 +18,9 @@ try {
     await delay(250);
   }
   assert.ok(ready, 'Production server must start');
-  for (const path of ['/', '/articles', '/skills', '/projects', '/contact', '/llms.txt', '/sitemap.xml']) {
+  // /skills now redirects to the CV PDF, whose SAMEORIGIN policy permits
+  // the site's PDF viewer. Check the redirect itself separately below.
+  for (const path of ['/', '/articles', '/accessibility', '/legal', '/projects', '/contact', '/llms.txt', '/sitemap.xml']) {
     const response = await fetch(base + path);
     assert.equal(response.status, 200, path);
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff', path);
@@ -32,6 +34,16 @@ try {
     }
     console.log(`PASS ${path}`);
   }
+  const retiredSkills = await fetch(base + '/skills', { redirect: 'manual' });
+  assert.ok([307, 308].includes(retiredSkills.status), 'Retired skills route redirects');
+  assert.equal(retiredSkills.headers.get('location'), '/cv');
+  assert.equal(retiredSkills.headers.get('x-frame-options'), 'DENY');
+  const cv = await fetch(base + '/cv');
+  assert.equal(cv.status, 200, 'CV remains accessible');
+  assert.match(cv.headers.get('content-type') || '', /application\/pdf/);
+  assert.equal(cv.headers.get('x-frame-options'), 'SAMEORIGIN');
+  assert.match(cv.headers.get('content-security-policy') || '', /frame-ancestors 'self'/);
+  console.log('PASS retired skills redirect and PDF embedding protection');
   const write = await fetch(base + '/api/skills/update', {
     method: 'POST', headers: { 'content-type': 'application/json', origin: base }, body: '{}',
   });
