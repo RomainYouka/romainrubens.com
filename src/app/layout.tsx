@@ -10,6 +10,7 @@ const googleSans = Google_Sans({
   weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
+  adjustFontFallback: false,
   fallback: ["-apple-system", "BlinkMacSystemFont", "SF Pro Text", "system-ui", "sans-serif"],
 });
 
@@ -17,6 +18,7 @@ const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  adjustFontFallback: false,
   fallback: ["-apple-system", "BlinkMacSystemFont", "SF Pro Display", "system-ui", "sans-serif"],
 });
 

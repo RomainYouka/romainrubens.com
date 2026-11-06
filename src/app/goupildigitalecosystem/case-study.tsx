@@ -9,6 +9,7 @@ import assets from "./assets.json";
 import exports from "./exported-assets.json";
 import base from "../renaultextensionapp/project.module.css";
 import s from "./project.module.css";
+import { ProjectHeroVideo } from "@/components/project-native/ProjectHeroVideo";
 
 type AssetName = keyof typeof assets;
 const prefix = "/projects/goupil/";
@@ -74,7 +75,7 @@ export default function GoupilDigitalEcosystemPage({ nativeFigures }: { nativeFi
   return <NativeFigures.Provider value={nativeFigures}><main id="main-content" ref={container} className={`${base.page} ${s.page}`} lang={language === "ՀԱՅ" ? "hy" : language.toLowerCase()}>
     <div className={`${base.canvas} ${s.canvas}`} style={{ zoom: scale } as CSSProperties}>
       <section className={s.hero} aria-label="Goupil — Digital Ecosystem & Design System">
-        <video className={s.heroBackground} poster={prefix + "hero-poster.avif"} autoPlay muted playsInline loop preload="auto" disablePictureInPicture aria-hidden="true"><source src={prefix + "hero.webm"} type="video/webm" /></video>
+        <ProjectHeroVideo className={s.heroBackground} poster={prefix + "hero-poster.avif"} src={prefix + "hero.webm"} />
         <div className={s.heroGroup}>
           <div className={s.heroTitles}><p className={s.kicker}><Star />{t.introducing}</p><h1><span className="sr-only">Goupil — Digital Ecosystem &amp; Design System</span><Brand /></h1><p className={s.year}>2026</p></div>
           <button className={s.down} onClick={descend} aria-label={t.discover}><ArrowDown size={33} /></button>

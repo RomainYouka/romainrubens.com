@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 type TransitionPhase = "idle" | "in" | "out";
@@ -27,20 +27,25 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   const [effect,setEffect]=useState<"return" | "flight">("return");
   const [origin,setOrigin]=useState({ x: 0, y: 0 });
   const timers=useRef<ReturnType<typeof setTimeout>[]>([]);
+  const destination=useRef<string | null>(null);
   const [direction, setDirection] = useState<TransitionDirection>("up");
   const router = useRouter();
   const pathname=usePathname();
   useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
-  useEffect(()=>{
-    if(pathname!=="/" || effect!=="return" || phase==="idle") return;
-    window.dispatchEvent(new Event("lenis-scroll-to-top"));
+  useLayoutEffect(()=>{
+    if(pathname!==destination.current) return;
+    destination.current=null;
+    timers.current.forEach(clearTimeout);
     window.scrollTo({top:0,behavior:"instant"});
-  },[pathname,effect,phase]);
+    setPhase("out");
+    timers.current=[setTimeout(()=>setPhase("idle"),850)];
+  },[pathname]);
 
   const triggerTransition = useCallback(
     (href: string, dir: TransitionDirection = "up", reason?: "logo" | "projects-cta", source?: { x: number; y: number }) => {
       setDirection(dir);
       timers.current.forEach(clearTimeout);
+      destination.current=null;
       if (reason === "logo" && pathname === "/" && href === "/") {
         setPhase("idle");
         window.dispatchEvent(new Event("lenis-scroll-to-top"));
@@ -55,12 +60,12 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
       const flight = reason === "projects-cta";
       setOrigin(source ?? { x: innerWidth / 2, y: innerHeight / 2 });
       setEffect(flight ? "flight" : "return");
+      destination.current=href;
       setPhase("in");
-      // Bounded reveal: no dependency on animation callbacks or network responses.
+      // Reveal only once the destination commits, including on slower connections.
       timers.current=[
-        setTimeout(()=>{ router.push(href); if(href==="/") window.scrollTo({top:0,behavior:"instant"}); },1100),
-        setTimeout(()=>setPhase("out"),1200),
-        setTimeout(()=>setPhase("idle"),2050),
+        setTimeout(()=>router.push(href),1100),
+        setTimeout(()=>{ destination.current=null; setPhase("idle"); },12000),
       ];
     },
     [router,pathname]

@@ -47,7 +47,7 @@ export default function StratosPage() {
           <blockquote><a className={s.source} href="https://www.figma.com/design/qhvML04mkKn4SqStMUK8Dk?node-id=2-477" target="_blank" rel="noopener noreferrer"><p><Highlight text={t.quote} /></p><cite>{t.school}</cite></a></blockquote>
         </div><blockquote className={`${base.personal} ${s.personal}`}><p><Highlight text={t.personal} /></p><cite>Romain Rubens</cite></blockquote></div>
       </section>
-      <section className={s.showcase}><div className={s.phones}><img src={`${assets}students.webp`} alt={t.mockup} loading="lazy" /></div></section>
+      <section className={s.showcase}><div className={s.phones}><img src={`${assets}students.webp`} width={4096} height={1899} alt={t.mockup} loading="lazy" decoding="async" /></div></section>
       <section className={s.design}><div className={`${base.case} ${s.case}`}>
         <div className={base.statement}><h2 className={`${base.pill} ${s.pill}`}>{t.question}</h2><p><Highlight text={t.questionText} /></p></div>
         <div className={base.cards}>
@@ -63,7 +63,7 @@ export default function StratosPage() {
         </div>
         <div className={base.statement}><h2 className={`${base.pill} ${s.pill}`}>{t.proposal}</h2><p><Highlight text={t.proposalText} /></p></div>
       </div></section>
-      <section className={s.screens} aria-label={t.screens}><div className={s.screenStack}>{[1,2,3,4,5,6,7].map(n=><figure key={n} className={s.screen}><img src={`${assets}screens${n}.webp`} alt={`${t.screens} — ${n}/7`} loading="lazy" /></figure>)}</div></section>
+      <section className={s.screens} aria-label={t.screens}><div className={s.screenStack}>{[1,2,3,4,5,6,7].map(n=><figure key={n} className={s.screen}><img src={`${assets}screens${n}-4096.webp`} srcSet={`${assets}screens${n}-960.webp 960w, ${assets}screens${n}-2400.webp 2400w, ${assets}screens${n}-4096.webp 4096w`} sizes="(max-width:900px) calc(100vw - 32px), 76vw" width={4096} height={1670} alt={`${t.screens} — ${n}/7`} loading="lazy" decoding="async" /></figure>)}</div></section>
       <section className={s.stores} aria-label={t.stores}>
         <div className={s.badges}>
           <img src={`${assets}appstore.svg`} width={319} height={87} alt="App Store — concept" loading="lazy" />

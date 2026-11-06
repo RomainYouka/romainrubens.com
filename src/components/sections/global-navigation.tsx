@@ -514,12 +514,12 @@ const GlobalNavigation = () => {
                 }}
               >
                 <div className="flex h-9 min-w-0 flex-1 items-center justify-start">
-                  <a {...logoProps} className={logoProps.className.replace("h-full", "")}>
-                    <BrandLogo isScrolled={visualScrolled} className="h-[13px] min-[420px]:h-4" />
+                  <a {...logoProps} className={`${logoProps.className.replace("h-full", "")} min-w-0 max-w-full`}>
+                    <BrandLogo isScrolled={visualScrolled} className="h-[13px] max-w-full min-[420px]:h-4" />
                   </a>
                 </div>
 
-                <div className="flex h-9 min-w-0 flex-none flex-row items-center justify-end gap-2">
+                <div className="flex h-9 min-w-0 flex-none flex-row items-center justify-end gap-1 min-[360px]:gap-2">
                   <ResumeButton selectedLanguage={selectedLanguage} isDark={isDark} compact />
                   <div className="flex items-center justify-center h-9">
                     <LanguageSelector

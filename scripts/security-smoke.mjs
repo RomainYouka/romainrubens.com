@@ -6,6 +6,8 @@ import { readFile } from 'node:fs/promises';
 // Exercise the compiled app, not just configuration text. No external traffic.
 const port = 5011;
 const base = `http://127.0.0.1:${port}`;
+const projectRoutes = ['/renaultextensionapp', '/stratosapp', '/googlemapsextension', '/googleplayonios', '/goupildigitalecosystem'];
+const projectAssets = new Set();
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-H', '127.0.0.1', '-p', String(port)], {
   env: { ...process.env, VERCEL_ENV: 'preview' },
   stdio: 'inherit',
@@ -21,7 +23,7 @@ try {
   assert.ok(ready, 'Production server must start');
   // /skills now redirects to the CV PDF, whose SAMEORIGIN policy permits
   // the site's PDF viewer. Check the redirect itself separately below.
-  for (const path of ['/', '/articles', '/accessibility', '/legal', '/projects', '/googlemapsextension', '/googleplayonios', '/goupildigitalecosystem', '/contact', '/llms.txt', '/sitemap.xml']) {
+  for (const path of ['/', '/articles', '/accessibility', '/legal', '/projects', ...projectRoutes, '/contact', '/llms.txt', '/sitemap.xml']) {
     const response = await fetch(base + path);
     assert.equal(response.status, 200, path);
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff', path);
@@ -29,6 +31,17 @@ try {
     assert.match(response.headers.get('content-security-policy') || '', /object-src 'none'/, path);
     assert.match(response.headers.get('x-robots-tag') || '', /noindex/, `Preview ${path}`);
     const body = await response.text();
+    if (projectRoutes.includes(path)) {
+      assert.equal((body.match(/<main\b/g) || []).length, 1, `${path}: exactly one main landmark`);
+      assert.equal((body.match(/<h1\b/g) || []).length, 1, `${path}: exactly one page title`);
+      assert.match(body, /href="\/projects"/, `${path}: back to catalogue`);
+      for (const [, src] of body.matchAll(/\bsrc="(\/projects\/[^"?]+)"/g)) projectAssets.add(src.replaceAll('&amp;', '&'));
+      if (path === '/stratosapp') assert.match(body, /screens1-960.webp 960w/);
+      if (path === '/goupildigitalecosystem') {
+        assert.match(body, /preload="none"/, 'Hero video must not preload offscreen');
+        assert.ok(!/<video[^>]*autoPlay/i.test(body), 'Video playback follows visibility and motion preference');
+      }
+    }
     if (path === '/') {
       assert.match(body, /data-home-scene/);
       assert.match(body, /data-diode-background/);
@@ -57,6 +70,22 @@ try {
     }
     console.log(`PASS ${path}`);
   }
+  for (const src of projectAssets) {
+    const response = await fetch(base + src, { method: 'HEAD' });
+    assert.equal(response.status, 200, `Project resource ${src}`);
+  }
+  console.log(`PASS ${projectAssets.size} case-study resources without missing files`);
+  for (const src of ['/projects/goupil/hero-poster.avif', '/devices/iphone-18-pro.webp']) {
+    const response = await fetch(base + src, { method: 'HEAD' });
+    assert.match(response.headers.get('cache-control') || '', /max-age=3600/, `Asset cache ${src}`);
+  }
+  for (let index = 1; index <= 7; index++) for (const width of [960, 2400, 4096]) {
+    const src = `/projects/stratos/screens${index}-${width}.webp`;
+    const response = await fetch(base + src, { method: 'HEAD' });
+    assert.equal(response.status, 200, src);
+    assert.match(response.headers.get('content-type') || '', /image\/webp/, src);
+  }
+  console.log('PASS responsive Stratos images and AVIF/device cache policies');
   const retiredSkills = await fetch(base + '/skills', { redirect: 'manual' });
   assert.ok([307, 308].includes(retiredSkills.status), 'Retired skills route redirects');
   assert.equal(retiredSkills.headers.get('location'), '/cv');
@@ -68,6 +97,14 @@ try {
   assert.match(cv.headers.get('content-security-policy') || '', /frame-ancestors 'self'/);
   console.log('PASS retired skills redirect and PDF embedding protection');
   const nativeFigures = JSON.parse(await readFile(new URL('../src/app/goupildigitalecosystem/native-extra.json', import.meta.url), 'utf8'));
+  const nativeAssets = new Set();
+  const collectNativeAssets = (node) => {
+    if (!node || typeof node !== 'object') return;
+    for (const [key, value] of Object.entries(node)) {
+      if ((key === 'src' || key === 'svg') && typeof value === 'string' && value.startsWith('/')) nativeAssets.add(value);
+      else if (typeof value === 'object') collectNativeAssets(value);
+    }
+  };
   for (const src of Object.values(nativeFigures)) {
     const figure = await fetch(base + src);
     assert.equal(figure.status, 200, src);
@@ -75,8 +112,11 @@ try {
     assert.equal(figure.headers.get('x-content-type-options'), 'nosniff', src);
     const data = await figure.json();
     assert.ok(data.style.width > 0 && data.style.height > 0, src);
+    collectNativeAssets(data);
   }
   console.log(`PASS ${Object.keys(nativeFigures).length} native component resources`);
+  for (const src of nativeAssets) assert.equal((await fetch(base + src, { method: 'HEAD' })).status, 200, `Native illustration ${src}`);
+  console.log(`PASS ${nativeAssets.size} nested native illustration assets`);
   const exportedFigures = JSON.parse(await readFile(new URL('../src/app/goupildigitalecosystem/exported-assets.json', import.meta.url), 'utf8'));
   const visualExports = [
     ...Object.keys(exportedFigures).map(name => `/projects/goupil/exports/${name}.webp`),

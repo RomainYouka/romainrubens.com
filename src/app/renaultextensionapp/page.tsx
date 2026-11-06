@@ -51,14 +51,14 @@ export default function RenaultExtensionPage() {
   return <main id="main-content" ref={container} className={s.page} lang={language === "ՀԱՅ" ? "hy" : language.toLowerCase()}>
     <div className={s.canvas} style={{ zoom: scale } as CSSProperties}>
       <section className={s.hero} aria-label="Renault App Extension">
-        <img className={s.background} src={`${assets}hero.webp`} alt="" fetchPriority="high" />
+        <img className={s.background} src={`${assets}hero.webp`} width={1920} height={1079} alt="" fetchPriority="high" />
         <div className={s.heroGroup}>
           <div className={s.heroTitles}><div className={s.kicker}><Star />{t.introducing}</div><h1><Title /></h1><p className={s.year}>2026</p></div>
           <button onClick={descend} className={s.down} aria-label={t.down}><ArrowDown size={33} /></button>
         </div>
       </section>
       <section ref={intro} id="introduction" className={s.intro}>
-        <img className={s.background} src={`${assets}intro.webp`} alt="" />
+        <img className={s.background} src={`${assets}intro.webp`} width={1920} height={1124} alt="" loading="lazy" decoding="async" />
         <div className={s.introBody}><div className={s.firstQuote}>
           <h2><em>{t.measure[0]}</em> <span>{t.measure[1]}</span></h2>
           <blockquote><p><Highlight text={t.quote} /></p><cite>Cahier Ethno-Design, Strate × Renault</cite></blockquote>
