@@ -166,10 +166,10 @@ const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, isPriori
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
+      data-card-pill
       className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[12px] cursor-pointer block"
       style={{ border: "1px solid var(--theme-border)" }}
       whileHover={{
-        scale: 1.02,
         boxShadow: isComingSoon
           ? "0 10px 40px rgba(0,0,0,0.4)"
           : "0 10px 40px rgba(0,0,0,0.15)"
@@ -187,7 +187,7 @@ const ProjectCard = ({ image, slug, onNavigate, isComingSoon, language, isPriori
         sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 57px), (max-width: 1279px) calc(50vw - 73px), 576px"
       />
       <div className="flex items-end justify-end p-0 h-full pr-[13px] pb-[13px] relative z-10">
-<CardOpenBadge />
+        <CardOpenBadge language={language} />
       </div>
       {isComingSoon && (
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4 z-20">

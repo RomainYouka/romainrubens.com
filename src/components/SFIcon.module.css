@@ -6,6 +6,48 @@
 .badge .dark { display:none; }
 :global([data-theme="dark"]) .badge .light { display:none; }
 :global([data-theme="dark"]) .badge .dark { display:block; }
-.open { width:32px; height:32px; --sf-scale:0.5; }
-.external { width:24px; height:24px; --sf-scale:0.8; }
-@media(min-width:768px) { .open { width:40px; height:40px; --sf-scale:0.625; } }
+.open {
+  --badge-size:32px;
+  --badge-border:1px;
+  --sf-scale:0.5;
+  width:max-content;
+  max-width:var(--badge-size);
+  height:var(--badge-size);
+  overflow:hidden;
+  border:var(--badge-border) solid #e0e0e0;
+  border-radius:999px;
+  background:#fff;
+  color:#747474;
+  transition:max-width 280ms ease;
+}
+.openLabel {
+  display:block;
+  flex:none;
+  padding-left:calc(var(--badge-size) * 0.28125);
+  padding-right:calc(var(--badge-size) * 1.125);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:calc(var(--badge-size) * 0.515625);
+  font-weight:510;
+  line-height:calc(var(--badge-size) - 2 * var(--badge-border));
+  white-space:nowrap;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 160ms ease,visibility 160ms;
+}
+.openIcon {
+  position:absolute;
+  right:calc(-1 * var(--badge-border));
+  top:calc(-1 * var(--badge-border));
+  width:var(--badge-size);
+  height:var(--badge-size);
+}
+:global([data-theme="dark"]) .open { background:#3d3d3d; border-color:#545454; color:#909090; }
+.external { width:28px; height:28px; --sf-scale:0.5833333333; }
+@media(min-width:768px) { .open { --badge-size:40px; --badge-border:1.25px; --sf-scale:0.625; } }
+@media(hover:hover) and (pointer:fine) {
+  :global([data-card-pill]:hover) .open { max-width:calc(var(--badge-size) * 5); }
+  :global([data-card-pill]:hover) .openLabel { opacity:1; visibility:visible; transition-delay:70ms; }
+}
+:global([data-card-pill]:focus-visible) .open { max-width:calc(var(--badge-size) * 5); }
+:global([data-card-pill]:focus-visible) .openLabel { opacity:1; visibility:visible; }
+@media(prefers-reduced-motion:reduce) { .open,.openLabel { transition:none; } }

@@ -36,11 +36,12 @@ interface ArticleCardProps {
   number: string;
   title: string;
   href: string;
+  language: Language;
   onOpen: () => void;
   isPriority?: boolean;
 }
 
-const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: ArticleCardProps) => {
+const ArticleCard = ({ image, number, title, href, language, onOpen, isPriority }: ArticleCardProps) => {
   const handleClick = useCallback(() => {
     triggerHapticFeedback();
     window.dispatchEvent(new CustomEvent("blob-wink"));
@@ -59,9 +60,10 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
+        data-card-pill
         className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] cursor-pointer block p-0"
-        style={{ border: "1px solid var(--theme-pill-border)", background: "transparent" }}
-        whileHover={{ scale: 1.02, boxShadow: "0 10px 40px rgba(0,0,0,0.15)" }}
+        style={{ border: "1px solid var(--theme-pill-border)", background: "transparent", textDecoration: "none" }}
+        whileHover={{ boxShadow: "0 10px 40px rgba(0,0,0,0.15)" }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         aria-label={label}
@@ -78,7 +80,7 @@ const ArticleCard = ({ image, number, title, href, onOpen, isPriority }: Article
         />
 <div className="absolute top-[11px] left-[11px] z-10 pointer-events-none"><ExternalLinkBadge /></div>
         <div className="flex items-end justify-end p-0 h-full pr-[13px] pb-[13px] relative z-10">
-<CardOpenBadge />
+          <CardOpenBadge language={language} />
         </div>
       </motion.a>
       <h2
@@ -137,6 +139,7 @@ export default function ArticlesPage() {
                   number={article.number}
                   title={article.title[language]}
                   href={article.href[language]}
+                  language={language}
                   onOpen={handleOpen}
                   isPriority={index < 2}
                 />

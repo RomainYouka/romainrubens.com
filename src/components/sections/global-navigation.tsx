@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { SFIcon } from "@/components/SFIcon";
+import { Languages, Check, Palette } from "lucide-react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { AccentColor } from "@/contexts/ThemeContext";
@@ -128,7 +128,7 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
         }`}
         style={{ backgroundColor: "var(--theme-accent)" }}
       >
-        <SFIcon name="check-circle" size={20} onAccent />
+        <Check className="w-5 h-5" style={{ color: "var(--theme-accent-fg)" }} strokeWidth={2.5} />
       </div>
     </button>
   );
@@ -213,7 +213,7 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
         onMouseDown={(e)  => { e.currentTarget.style.transform = "scale(0.90)"; }}
         onMouseUp={(e)    => { e.currentTarget.style.transform = "scale(1)"; }}
       >
-        <SFIcon name="translate" size={24} />
+        <Languages className="h-[18px] w-[18px]" strokeWidth={2.2} />
       </button>
 
       <AnimatePresence>
@@ -357,7 +357,7 @@ const ColorPicker = ({ accentColor, onAccentChange, isDark, isOpen, onOpen, onCl
         onMouseDown={(e)  => { e.currentTarget.style.transform = "scale(0.90)"; }}
         onMouseUp={(e)    => { e.currentTarget.style.transform = "scale(1)"; }}
       >
-        <SFIcon name="palette" size={21} />
+        <Palette className="h-[18px] w-[18px]" strokeWidth={2.2} />
       </button>
 
       <AnimatePresence>

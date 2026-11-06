@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import type { Language } from "@/lib/language";
 import s from "./SFIcon.module.css";
 
 // Native SVG sizes are preserved; their wrappers provide consistent optical slots.
@@ -18,16 +19,21 @@ export function SFIcon({ name, size=20, onAccent=false, className="" }: {
   </span>;
 }
 
-export function CardOpenBadge() {
+const openLabels: Record<Language, string> = { FR:"Accéder", EN:"Open", ՀԱՅ:"Բացել" };
+
+export function CardOpenBadge({ language }: { language: Language }) {
   return <span aria-hidden="true" className={`${s.badge} ${s.open}`}>
-    <img className={s.light} src="/icons/sf/go-light.svg" width={64} height={64} alt="" decoding="async" />
-    <img className={s.dark} src="/icons/sf/go-dark.svg" width={64} height={64} alt="" decoding="async" />
+    <span className={s.openLabel}>{openLabels[language]}</span>
+    <span className={s.openIcon}>
+      <img className={s.light} src="/icons/sf/arrow-light.svg" width={31} height={25} alt="" decoding="async" />
+      <img className={s.dark} src="/icons/sf/arrow-dark.svg" width={31} height={25} alt="" decoding="async" />
+    </span>
   </span>;
 }
 
 export function ExternalLinkBadge() {
   return <span aria-hidden="true" className={`${s.badge} ${s.external}`}>
-    <img className={s.light} src="/icons/sf/external-light.svg" width={30} height={30} alt="" decoding="async" />
-    <img className={s.dark} src="/icons/sf/external-dark.svg" width={30} height={30} alt="" decoding="async" />
+    <img className={s.light} src="/icons/sf/external-light.svg" width={48} height={48} alt="" decoding="async" />
+    <img className={s.dark} src="/icons/sf/external-dark.svg" width={48} height={48} alt="" decoding="async" />
   </span>;
 }

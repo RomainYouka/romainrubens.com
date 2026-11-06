@@ -302,9 +302,10 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
+      data-card-pill
       className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] cursor-pointer block"
       style={{ border: "1px solid var(--theme-pill-border)" }}
-      whileHover={{ scale: 1.02, boxShadow: isComingSoon ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 40px rgba(0,0,0,0.15)" }}
+      whileHover={{ boxShadow: isComingSoon ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 40px rgba(0,0,0,0.15)" }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
@@ -322,7 +323,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
 <div className="absolute top-[11px] left-[11px] z-10 pointer-events-none"><ExternalLinkBadge /></div>
       )}
       <div className="flex items-end justify-end p-0 h-full pr-[13px] pb-[13px] relative z-10">
-<CardOpenBadge />
+          <CardOpenBadge language={language} />
       </div>
       {isComingSoon && (
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4 z-20">
