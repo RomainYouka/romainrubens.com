@@ -1,5 +1,6 @@
 "use client";
 import { CardOpenBadge, ExternalLinkBadge } from "@/components/SFIcon";
+import { ListingBanner, listingPageClassName, listingContainerClassName, listingSectionClassName, listingGridClassName } from "@/components/ListingLayout";
 
 import { detectLanguage } from "@/lib/language";
 
@@ -76,7 +77,7 @@ const ArticleCard = ({ image, number, title, href, language, onOpen, isPriority 
           style={{ objectPosition: number === "04" ? "right center" : "center center" }}
           priority={isPriority}
           fetchPriority={isPriority ? "high" : "auto"}
-          sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 57px), 455px"
+          sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 57px), (max-width: 1279px) calc(50vw - 73px), 576px"
         />
 <div className="absolute top-[11px] left-[11px] z-10 pointer-events-none"><ExternalLinkBadge /></div>
         <div className="flex items-end justify-end p-0 h-full pr-[13px] pb-[13px] relative z-10">
@@ -118,20 +119,16 @@ export default function ArticlesPage() {
   return (
     <main
       id="main-content"
-      className="w-full min-h-screen"
+      className={listingPageClassName}
       style={{ backgroundColor: "var(--theme-bg)" }}
     >
-      <div className="w-full max-w-5xl mx-auto px-4 md:px-8 py-20 md:py-32">
-        <div className="mb-16 md:mb-20">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: "var(--theme-fg)" }}>
-            {translations[language].title}
-          </h1>
-          <p className="text-base md:text-lg leading-relaxed max-w-2xl" style={{ color: "var(--theme-muted)" }}>
-            {translations[language].subtitle}
-          </p>
-        </div>
-          <section className="flex flex-col items-center gap-6 md:gap-[50px] relative w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12 md:gap-[50px] w-full">
+      <div className={listingContainerClassName}>
+          <h1 className="sr-only">{translations[language].title}</h1>
+          <section className={listingSectionClassName}>
+            <ListingBanner kind="articles" language={language} />
+            {/* Reserve the category row so the first cards align with Projects. */}
+            <div aria-hidden="true" className="h-10 lg:h-12 w-full shrink-0" />
+            <div className={listingGridClassName}>
               {articles.map((article, index) => (
                 <ArticleCard
                   key={article.id}

@@ -19,7 +19,7 @@ export function SFIcon({ name, size=20, onAccent=false, className="" }: {
   </span>;
 }
 
-const openLabels: Record<Language, string> = { FR:"Accéder", EN:"Open", ՀԱՅ:"Բացել" };
+const openLabels: Record<Language, string> = { FR:"Ouvrir", EN:"Open", ՀԱՅ:"Բացել" };
 
 export function CardOpenBadge({ language }: { language: Language }) {
   return <span aria-hidden="true" className={`${s.badge} ${s.open}`}>

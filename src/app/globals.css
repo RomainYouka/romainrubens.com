@@ -267,6 +267,12 @@
   p { font-family: var(--font-body); font-size: 17px; line-height: 1.47059; font-weight: 400; letter-spacing: -0.022em; color: var(--foreground); }
   a { color: var(--color-link); text-decoration: none; }
   a:hover { text-decoration: underline; }
+  @media (hover: hover) and (pointer: fine) {
+    [data-project-category]:not([aria-current="true"]):hover {
+      --category-hover-bg: var(--theme-accent);
+      --category-hover-fg: var(--theme-accent-fg);
+    }
+  }
   :focus-visible {
     outline: 2px solid var(--theme-accent) !important;
     outline-offset: 3px !important;

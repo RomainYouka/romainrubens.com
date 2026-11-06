@@ -1,5 +1,6 @@
 "use client";
 import { CardOpenBadge, ExternalLinkBadge } from "@/components/SFIcon";
+import { ListingBanner, listingPageClassName, listingContainerClassName, listingSectionClassName, listingGridClassName } from "@/components/ListingLayout";
 
 import { detectLanguage } from "@/lib/language";
 
@@ -200,11 +201,13 @@ const NavigationButtons = ({ activeSection, language }: { activeSection: "mobile
           <button
             key={id}
             onClick={() => scrollToSection(`section-${id}`)}
-            className="h-10 lg:h-12 rounded-[20px] transition-all duration-200 cursor-pointer flex items-center justify-center border active:scale-[0.98]"
+            data-project-category
+            aria-current={isActive ? "true" : undefined}
+            className="h-10 lg:h-12 rounded-[20px] transition-colors duration-200 cursor-pointer flex items-center justify-center border"
             style={{
-              backgroundColor: isActive ? "var(--theme-btn-bg)"  : "var(--theme-pill-bg)",
+              backgroundColor: isActive ? "var(--theme-btn-bg)" : "var(--category-hover-bg, var(--theme-pill-bg))",
               borderColor:     "var(--theme-pill-border)",
-              color:           isActive ? "var(--theme-btn-fg)"  : "var(--theme-fg)",
+              color:           isActive ? "var(--theme-btn-fg)" : "var(--category-hover-fg, var(--theme-fg))",
             }}
           >
             <span className="font-semibold text-[9px] sm:text-[11px] lg:text-[calc(10px+0.8vw)] tracking-[-0.02em] sm:tracking-[0] leading-tight text-center">
@@ -217,45 +220,6 @@ const NavigationButtons = ({ activeSection, language }: { activeSection: "mobile
   );
 };
 
-const greenBannerTextDesktop = {
-  FR: "Une sélection de projets conçus à partir d'usages réels, de contraintes concrètes et de contextes précis.",
-  EN: "A selection of projects shaped by real-world uses, concrete constraints, and specific contexts.",
-  ՀԱՅ: "Իրական օգտագործումների վրա հիմնված նախագծերի ընտրանի։",
-};
-
-const greenBannerTextTablet = {
-  FR: "Une sélection de projets conçus à partir d'usages réels,\nde contraintes concrètes et de contextes précis.",
-  EN: "A selection of projects shaped by real-world uses,\nconcrete constraints, and specific contexts.",
-  ՀԱՅ: "Իրական օգտագործումների վրա հիմնված\nնախագծերի ընտրանի։",
-};
-
-const greenBannerTextMobile = {
-  FR: "Une sélection de projets conçus à partir d'usages réels,\nde contraintes concrètes et de contextes précis.",
-  EN: "A selection of projects shaped by real-world uses,\nconcrete constraints, and specific contexts.",
-  ՀԱՅ: "Իրական օգտագործումների վրա հիմնված\nնախագծերի ընտրանի։",
-};
-
-const GreenBanner = ({ language }: { language: Language }) => {
-  return (
-    <>
-      <div className="hidden lg:block w-full rounded-[12px] flex items-center justify-center py-3" style={{ backgroundColor: "var(--theme-accent)" }}>
-        <p className="text-center font-semibold text-base leading-snug px-6 whitespace-nowrap" style={{ fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0px", color: "var(--theme-accent-fg)" }}>
-          {greenBannerTextDesktop[language]}
-        </p>
-      </div>
-      <div className="hidden md:flex lg:hidden w-full rounded-[12px] items-center justify-center py-2.5" style={{ backgroundColor: "var(--theme-accent)" }}>
-        <p className="text-center font-semibold text-[11px] leading-snug px-3 whitespace-pre-line" style={{ fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0px", color: "var(--theme-accent-fg)" }}>
-          {greenBannerTextTablet[language]}
-        </p>
-      </div>
-      <div className="md:hidden w-full rounded-[12px] flex items-center justify-center py-2.5" style={{ backgroundColor: "var(--theme-accent)" }}>
-        <p className="text-center font-semibold text-[9px] leading-snug px-3 whitespace-pre-line" style={{ fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "0px", color: "var(--theme-accent-fg)" }}>
-          {greenBannerTextMobile[language]}
-        </p>
-      </div>
-    </>
-  );
-};
 
 interface ProjectCardProps {
   image: string;
@@ -435,8 +399,8 @@ export default function PortfolioPage() {
       </AnimatePresence>
 
 
-      <main id="main-content" className="w-full min-h-screen flex justify-center py-5 md:mt-[20px] pb-32 md:pb-12" style={{ backgroundColor: "var(--theme-bg)" }}>
-        <div className="flex w-full max-w-[1234px] h-auto px-4 md:px-8 lg:px-12 xl:px-4 mt-16 md:mt-[40px] relative flex-col items-center gap-12 md:gap-[100px]">
+      <main id="main-content" className={listingPageClassName} style={{ backgroundColor: "var(--theme-bg)" }}>
+        <div className={listingContainerClassName}>
           {!isHydrated ? (
             <div className="w-full flex flex-col gap-12 md:gap-[100px]">
               <ProjectSkeleton />
@@ -445,10 +409,10 @@ export default function PortfolioPage() {
             </div>
           ) : (
             <>
-              <section id="section-mobile" className="flex flex-col items-center gap-6 md:gap-[50px] relative w-full">
-                <GreenBanner language={language} />
+              <section id="section-mobile" className={listingSectionClassName}>
+                <ListingBanner kind="projects" language={language} />
                 <NavigationButtons activeSection="mobile" language={language} />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
+                <div className={listingGridClassName}>
                   {sortProjects(mobileProjects)
                                         .map((project, index) => (
                     <ProjectCard
