@@ -65,6 +65,9 @@ export function proxy(request: NextRequest) {
       "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
       "img-src 'self' data: https:",
       "media-src 'self'",
+      request.nextUrl.pathname === '/projects/namequest'
+        ? "frame-src 'self' https://open.spotify.com"
+        : "frame-src 'self'",
       "object-src 'none'",
       "worker-src 'self' blob:",
       "manifest-src 'self'",

@@ -103,7 +103,7 @@ export default function GoogleMapsExtensionPage() {
       </div></section>
       <nav className={s.explore} aria-label={t.explore}>
         <Brand /><p className={s.kicker}><Star /><span>{t.explore}</span></p>
-        <div className={s.links}><Link href="/projects"><ArrowLeft size={29} />{t.back}</Link><Link className={s.next} href="/googleplayonios">{t.next}<ArrowRight size={29} /></Link></div>
+        <div className={s.links}><Link href="/projects"><ArrowLeft size={29} />{t.back}</Link><Link className={s.next} href="/stratosapp">{t.next}<ArrowRight size={29} /></Link></div>
       </nav>
     </div>
   </main>;

@@ -34,7 +34,7 @@ uniquement : aucune promotion en production.
 ## Vérifications
 
 - Installation indépendante (`npm ci --ignore-scripts`), ESLint, TypeScript,
-  compilation des 38 routes et tests HTTP du site compilé.
+  compilation des 37 routes et tests HTTP du site compilé.
 - `npm audit` : zéro vulnérabilité connue, production et développement inclus.
 - Cinq projets : un seul titre principal, un seul repère principal, liens de
   retour présents, aucun identifiant HTML dupliqué dans le rendu initial.
@@ -57,3 +57,15 @@ les fichiers Figma. Aucun score Lighthouse, INP, CLS ou LCP de production n'est
 annoncé : aucun outil de trace navigateur n'était disponible dans cette session.
 Une campagne de mesures réseau/mobile réelles reste à effectuer pour valider
 ces métriques sur le domaine final après publication autorisée.
+
+## Mise à jour du catalogue
+
+Interface Projects : Renault, Google Maps, Stratos, Intratone, iOS 26, Wave Switch.
+Design System Projects : Goupil, Google Play on iOS. Le troisième groupe reste
+inchangé. Les liens de projet suivant, les plans du site et `llms.txt` suivent
+ce classement. Framasoft et ses 14 visuels sont retirés ; l'ancienne page redirige
+vers le catalogue. Ces fichiers restent récupérables dans l'historique Git.
+
+Le lecteur Spotify Namequest compact sombre (152 px) est restauré et vérifié en
+navigateur. La permission d'intégration Spotify est limitée à cette seule route ;
+un lien direct reste disponible. Libellés français, anglais et arménien mis à jour.

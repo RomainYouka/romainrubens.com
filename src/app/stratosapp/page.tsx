@@ -73,7 +73,7 @@ export default function StratosPage() {
           <div className={s.storeBadge}><img src={`${assets}storebase.svg`} width={319} height={87} alt="" /><img className={s.xiaomi} src={`${assets}xiaomi.svg`} alt="Microsoft Store — concept" /></div>
         </div>
       </section>
-      <nav className={`${base.explore} ${s.explore}`} aria-label={t.explore}><Brand /><div className={base.kicker}><Star />{t.explore}</div><div className={base.links}><Link href="/projects"><ArrowLeft size={29} />{t.back}</Link><Link href="/projects/framasoft" className={base.next}>{t.next}<ArrowRight size={29} /></Link></div></nav>
+      <nav className={`${base.explore} ${s.explore}`} aria-label={t.explore}><Brand /><div className={base.kicker}><Star />{t.explore}</div><div className={base.links}><Link href="/projects"><ArrowLeft size={29} />{t.back}</Link><Link href="/projects/intratone" className={base.next}>{t.next}<ArrowRight size={29} /></Link></div></nav>
     </div>
   </main>;
 }

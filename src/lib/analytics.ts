@@ -4,7 +4,7 @@
  *
  * Usage :
  *   import { track } from "@/lib/analytics";
- *   track("project_click", { project: "Framasoft", language: "FR" });
+ *   track("project_click", { project: "Renault", language: "FR" });
  */
 
 declare global {

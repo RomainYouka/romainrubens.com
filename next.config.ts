@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
+      { source: "/projects/framasoft", destination: "/projects", permanent: true },
       {
         source: "/icons/logo-rubens.png",
         destination: "/icons/logo-rubens.svg",

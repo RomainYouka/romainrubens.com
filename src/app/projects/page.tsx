@@ -17,8 +17,8 @@ type Language = "FR" | "EN" | "ՀԱՅ";
 
 const translations = {
   FR: {
-    mobileProjects: "Projets mobiles",
-    webProjects: "Projets web",
+    mobileProjects: "Projets d’interface",
+    webProjects: "Projets de design system",
     miscProjects: "Projets divers",
     soon: "Bientôt disponible",
     returnDate: "En cours de réalisation",
@@ -26,8 +26,8 @@ const translations = {
     strateWorkInProgress: "Cette page est en travaux",
   },
   EN: {
-    mobileProjects: "Mobile projects",
-    webProjects: "Web projects",
+    mobileProjects: "Interface Projects",
+    webProjects: "Design System Projects",
     miscProjects: "Diverse projects",
     soon: "Coming soon",
     returnDate: "Work in progress",
@@ -35,8 +35,8 @@ const translations = {
     strateWorkInProgress: "Work in progress",
   },
   ՀԱՅ: {
-    mobileProjects: "Բջջային նախագծեր",
-    webProjects: "Վեբ նախագծեր",
+    mobileProjects: "Միջերեսի նախագծեր",
+    webProjects: "Դիզայն համակարգի նախագծեր",
     miscProjects: "Տարբեր նախագծեր",
     soon: "Շուտով",
     returnDate: "Ընթացքում է",
@@ -45,98 +45,20 @@ const translations = {
   },
 };
 
-const mobileProjects = [
-  {
-    id: 1,
-    image: "/projects/blocks/intratone-light.webp",
-    darkImage: "/projects/blocks/intratone-dark.webp",
-    year: "",
-    slug: "intratone",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-    isPriority: false,
-  },
-  {
-    id: 2,
-    image: "/projects/blocks/ios26-light.webp",
-    darkImage: "/projects/blocks/ios26-dark.webp",
-    year: "",
-    slug: "ios26",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-    isPriority: false,
-  },
-  {
-    id: 3,
-    image: "/projects/blocks/waveswitch-light.webp",
-    darkImage: "/projects/blocks/waveswitch-dark.webp",
-    year: "",
-    slug: "waveswitch",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-    isPriority: false,
-  },
-  {
-    id: 4,
-    image: "/projects/blocks/googlemaps-light.webp",
-    darkImage: "/projects/blocks/googlemaps-dark.webp",
-    year: "",
-    slug: "googlemaps",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-    isPriority: true,
-  },
-  {
-    id: 7,
-    image: "/projects/blocks/googleplayios-light.webp",
-    darkImage: "/projects/blocks/googleplayios-dark.webp",
-    year: "",
-    slug: "googleplayios",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-    isPriority: false,
-  },
-  {
-    id: 6,
-    image: "/projects/blocks/renault-light.webp",
-    darkImage: "/projects/blocks/renault-dark.webp",
-    year: "",
-    slug: "renault",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-    isPriority: false,
-  },
-  {
-    id: 5,
-    image: "/projects/blocks/stratos-light.webp",
-    darkImage: "/projects/blocks/stratos-dark.webp",
-    year: "",
-    slug: "stratos",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-    isPriority: false,
-  },
+const makeProject = (id: number, slug: string, year = "", imageSlug = slug) => ({
+  id, slug, year,
+  image: "/projects/blocks/" + imageSlug + "-light.webp",
+  darkImage: "/projects/blocks/" + imageSlug + "-dark.webp",
+  externalUrl: undefined as string | undefined,
+  isComingSoon: false,
+});
+const interfaceProjects = [
+  makeProject(1, "renault"), makeProject(2, "googlemaps"), makeProject(3, "stratos"),
+  makeProject(4, "intratone"), makeProject(5, "ios26"), makeProject(6, "waveswitch"),
 ];
-
-const webProjects = [
-  {
-    id: 2,
-    image: "/projects/blocks/framasoft-light.webp",
-    darkImage: "/projects/blocks/framasoft-dark.webp",
-    year: "2024",
-    slug: "framasoft",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-  },
-  {
-    id: 3,
-    image: "/projects/blocks/goupil-light-trimmed.webp",
-    darkImage: "/projects/blocks/goupil-dark-trimmed.webp",
-    year: "2026",
-    slug: "goupil",
-    externalUrl: undefined as string | undefined,
-    isComingSoon: false,
-  },
+const designSystemProjects = [
+  { ...makeProject(1, "goupil", "2026"), image: "/projects/blocks/goupil-light-trimmed.webp", darkImage: "/projects/blocks/goupil-dark-trimmed.webp" },
+  makeProject(2, "googleplayios", "2026"),
 ];
 
 const diversProjects = [
@@ -169,7 +91,7 @@ const diversProjects = [
   },
 ];
 
-type ProjectListItem = (typeof mobileProjects | typeof webProjects | typeof diversProjects)[number];
+type ProjectListItem = (typeof interfaceProjects | typeof designSystemProjects | typeof diversProjects)[number];
 
 const triggerHapticFeedback = () => {
   if (typeof navigator !== "undefined" && "vibrate" in navigator) {
@@ -348,7 +270,7 @@ export default function PortfolioPage() {
   const sortProjects = (projects: ProjectListItem[]) =>
     [...projects].sort((a, b) => Number(!!a.isComingSoon) - Number(!!b.isComingSoon));
 
-  const allProjects = [...mobileProjects, ...webProjects, ...diversProjects];
+  const allProjects = [...interfaceProjects, ...designSystemProjects, ...diversProjects];
 
   const handleExternalNavigate = useCallback((url: string) => {
     window.open(url, "_blank", "noopener,noreferrer");
@@ -415,7 +337,7 @@ export default function PortfolioPage() {
                 <ListingBanner kind="projects" language={language} />
                 <NavigationButtons activeSection="mobile" language={language} />
                 <div className={listingGridClassName}>
-                  {sortProjects(mobileProjects)
+                  {sortProjects(interfaceProjects)
                                         .map((project, index) => (
                     <ProjectCard
                       key={project.id}
@@ -437,7 +359,7 @@ export default function PortfolioPage() {
               <section id="section-web" className="flex flex-col items-center gap-6 md:gap-[50px] relative w-full">
                 <NavigationButtons activeSection="web" language={language} />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-[50px] w-full">
-                  {sortProjects(webProjects)
+                  {sortProjects(designSystemProjects)
                                         .map((project, index) => (
                     <ProjectCard
                       key={project.id}

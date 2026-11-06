@@ -5,16 +5,14 @@ export const dynamic = "force-static";
 
 // Public summary only; no account, analytics or administration data.
 const projects = [
+  ["Renault App Extension", "/renaultextensionapp", "Projet académique d’extension de l’application Renault, avec Erwan Hodonou, sur les quotas de mobilité partagés."],
+  ["Google Maps App Extension", "/googlemapsextension", "Projet de navigation accessible dans le pôle multimodal de Perrache à Lyon, avec cartes par étage, recherche utilisateur et adaptations pour Google Maps, Plans et TCL."],
+  ["Stratos — Campus App", "/stratosapp", "Concept d’application pour connecter les étudiants de Strate autour d’événements et de conversations de groupe."],
   ["Intratone", "/projects/intratone", "Refonte de l’application de gestion des accès résidentiels."],
   ["iOS 26", "/projects/ios26", "Exploration de concepts d’interface pour iOS 26."],
   ["Wave Switch", "/projects/waveswitch", "Interface de contrôle sonore."],
-  ["Google Maps App Extension", "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension", "Projet d’extension de l’expérience Google Maps."],
-  ["Google Play on iOS", "/googleplayonios", "Concept Google Play adapté à iOS : distribution alternative dans l’Union européenne, règles d’interface, composants natifs et design system."],
-  ["Renault App Extension", "/renaultextensionapp", "Projet académique d’extension de l’application Renault, avec Erwan Hodonou, sur les quotas de mobilité partagés."],
-  ["Stratos — Campus App", "/stratosapp", "Concept d’application pour connecter les étudiants de Strate autour d’événements et de conversations de groupe."],
-  ["Google Maps App Extension", "/googlemapsextension", "Projet de navigation accessible dans le pôle multimodal de Perrache à Lyon, avec cartes par étage, recherche utilisateur et adaptations pour Google Maps, Plans et TCL."],
-  ["Framasoft", "/projects/framasoft", "Refonte UX/UI du site Framasoft."],
   ["Goupil", "/goupildigitalecosystem", "Projet de stage : recherche UX, stratégie produit et écosystème de services numériques pour les véhicules utilitaires électriques Goupil. Création du design system SyGo, fondations, composants et interfaces de configuration, pièces, support et formation."],
+  ["Google Play on iOS", "/googleplayonios", "Concept Google Play adapté à iOS : distribution alternative dans l’Union européenne, règles d’interface, composants natifs et design system."],
   ["NameQuest", "/projects/namequest", "Jeu de société éducatif et inclusif abordant les discriminations liées aux noms de famille, pour 2 à 6 joueurs dès 12 ans."],
   ["Vahan Soghomonian", "/projects/vahansoghomonian", "Site portfolio pour l’artiste Vahan Soghomonian."],
   ["Chaussez-vous ou pas", "/projects/chaussez-vous-ou-pas", "Identité visuelle et branding."],

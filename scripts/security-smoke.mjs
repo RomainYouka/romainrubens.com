@@ -7,6 +7,7 @@ import { readFile } from 'node:fs/promises';
 const port = 5011;
 const base = `http://127.0.0.1:${port}`;
 const projectRoutes = ['/renaultextensionapp', '/stratosapp', '/googlemapsextension', '/googleplayonios', '/goupildigitalecosystem'];
+const nextProjectRoutes = { '/renaultextensionapp': '/googlemapsextension', '/googlemapsextension': '/stratosapp', '/stratosapp': '/projects/intratone', '/goupildigitalecosystem': '/googleplayonios', '/googleplayonios': '/projects/namequest' };
 const projectAssets = new Set();
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-H', '127.0.0.1', '-p', String(port)], {
   env: { ...process.env, VERCEL_ENV: 'preview' },
@@ -23,7 +24,7 @@ try {
   assert.ok(ready, 'Production server must start');
   // /skills now redirects to the CV PDF, whose SAMEORIGIN policy permits
   // the site's PDF viewer. Check the redirect itself separately below.
-  for (const path of ['/', '/articles', '/accessibility', '/legal', '/projects', ...projectRoutes, '/contact', '/llms.txt', '/sitemap.xml']) {
+  for (const path of ['/', '/articles', '/accessibility', '/legal', '/projects', ...projectRoutes, '/projects/namequest', '/contact', '/llms.txt', '/sitemap.xml']) {
     const response = await fetch(base + path);
     assert.equal(response.status, 200, path);
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff', path);
@@ -31,10 +32,17 @@ try {
     assert.match(response.headers.get('content-security-policy') || '', /object-src 'none'/, path);
     assert.match(response.headers.get('x-robots-tag') || '', /noindex/, `Preview ${path}`);
     const body = await response.text();
+    if (path !== '/projects/namequest') assert.ok(!(response.headers.get('content-security-policy') || '').includes('open.spotify.com'), `Spotify is not allowed on ${path}`);
+    if (path === '/projects/namequest') {
+      assert.match(response.headers.get('content-security-policy') || '', /frame-src 'self' https:\/\/open\.spotify\.com/);
+      assert.match(body, /title="Listen to the project podcast"/);
+      assert.match(body, /href="https:\/\/open.spotify.com\/episode\/03xwhLY3oo5cApzEvD9IvY"/);
+    }
     if (projectRoutes.includes(path)) {
       assert.equal((body.match(/<main\b/g) || []).length, 1, `${path}: exactly one main landmark`);
       assert.equal((body.match(/<h1\b/g) || []).length, 1, `${path}: exactly one page title`);
       assert.match(body, /href="\/projects"/, `${path}: back to catalogue`);
+      assert.ok(body.includes(`href="${nextProjectRoutes[path]}"`), `${path}: next project follows the catalogue order`);
       for (const [, src] of body.matchAll(/\bsrc="(\/projects\/[^"?]+)"/g)) projectAssets.add(src.replaceAll('&amp;', '&'));
       if (path === '/stratosapp') assert.match(body, /screens1-960.webp 960w/);
       if (path === '/goupildigitalecosystem') {
@@ -53,7 +61,7 @@ try {
     if (path === '/articles') assert.match(body, /href="https:\/\/medium.com\/@romainrubens\//);
     if (path === '/googleplayonios') {
       assert.match(body, /Google Play/);
-      assert.match(body, /href="\/goupildigitalecosystem"/);
+      assert.match(body, /href="\/projects\/namequest"/);
       assert.ok(!body.includes('romainrubens23@gmail.com'), 'Use public contact details in mockups');
     }
     if (path === '/contact') {
@@ -66,10 +74,16 @@ try {
       assert.ok(!body.includes('CONTACT FORM'), 'No unrequested data collection form');
     }
     if (path === '/llms.txt') {
+      assert.ok(!/framasoft/i.test(body), 'Removed project is not advertised to crawlers');
       for (const section of ['## Projets', '## Compétences', '## Contact', '## Articles']) assert.ok(body.includes(section), section);
     }
     console.log(`PASS ${path}`);
   }
+  const retiredProject = await fetch(base + '/projects/framasoft', { redirect: 'manual' });
+  assert.equal(retiredProject.status, 308, 'Removed project redirects permanently');
+  assert.equal(retiredProject.headers.get('location'), '/projects');
+  assert.equal((await fetch(base + '/projects/blocks/framasoft-light.webp')).status, 404, 'Removed project artwork is no longer public');
+  console.log('PASS retired project and route-scoped Spotify embed policy');
   for (const src of projectAssets) {
     const response = await fetch(base + src, { method: 'HEAD' });
     assert.equal(response.status, 200, `Project resource ${src}`);

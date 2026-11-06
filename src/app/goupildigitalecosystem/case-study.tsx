@@ -127,7 +127,7 @@ export default function GoupilDigitalEcosystemPage({ nativeFigures }: { nativeFi
         {Array.from({length:8},(_,i)=><figure key={i}><figcaption><span>{t.before}</span><ArrowRight size={24} /><span>{t.after}</span></figcaption><Visual name={`experience-${i}` as AssetName} alt={`Goupil — ${t.before} / ${t.after} · ${i+1}`} /></figure>)}
       </div></section>
       <section className={s.modes}>{statement(6)}<div className={s.modeFigures}><Visual name="mode-light" alt="Goupil — Light" /><Visual name="mode-dark" alt="Goupil — Dark" /></div></section>
-      <nav className={s.explore} aria-label={t.explore}><Brand /><p className={s.kicker}><Star />{t.explore}</p><div className={s.links}><Link href="/projects"><ArrowLeft size={24} />{t.back}</Link><Link href="/projects/namequest" className={s.next}>{t.next}<ArrowRight size={24} /></Link></div></nav>
+      <nav className={s.explore} aria-label={t.explore}><Brand /><p className={s.kicker}><Star />{t.explore}</p><div className={s.links}><Link href="/projects"><ArrowLeft size={24} />{t.back}</Link><Link href="/googleplayonios" className={s.next}>{t.next}<ArrowRight size={24} /></Link></div></nav>
     </div>
   </main></NativeFigures.Provider>;
 }

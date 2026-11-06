@@ -29,7 +29,8 @@ const translations = {
     contextTitle: "Context & Research",
     contextText: "The project begins with a simple observation: a family name is never neutral.\nIt carries a story, an origin and a heritage. It can be a source of pride, but also of prejudice.",
     podcastTitle: "The Podcast",
-    podcastCTA: "Listen to the narrative",
+    podcastCTA: "Listen to the project podcast",
+    podcastLink: "Open in Spotify",
     visualsTitle: "Visual Identity",
     detailsTitle: "Game Components",
     boardDesignTitle: "Board Design",
@@ -55,7 +56,8 @@ const translations = {
     contextTitle: "Contexte & Recherche",
     contextText: "Le projet part d'un constat simple : le nom de famille n'est jamais neutre. Il révèle une histoire, une origine et un héritage. Il peut être source de fierté mais aussi de préjugés.",
     podcastTitle: "Le Podcast",
-    podcastCTA: "Écouter l'histoire",
+    podcastCTA: "Écouter le podcast du projet",
+    podcastLink: "Ouvrir dans Spotify",
     visualsTitle: "Identité Visuelle",
     detailsTitle: "Composants du Jeu",
     boardDesignTitle: "Conception du plateau",
@@ -81,7 +83,8 @@ const translations = {
     contextTitle: "Համատեքստ և հետազոտություն",
     contextText: "Նախագիծը սկսվում է մի պարզ դիտարկումից. ազգանունը երբեք չեզոք չէ: Այն կրում է պատմություն, ծագում և ժառանգություն: Այն կարող է լինել հպարտության աղբյուր, բայց նաև՝ նախապաշարմունքների պատճառ:",
     podcastTitle: "Փոդքաստ",
-    podcastCTA: "Ունկնդրել պատմությունը",
+    podcastCTA: "Լսել նախագծի փոդքաստը",
+    podcastLink: "Բացել Spotify-ում",
     visualsTitle: "Տեսողական ինքնություն",
     detailsTitle: "Խաղի բաղադրիչները",
     boardDesignTitle: "Խաղատախտակի ձևավորումը",
@@ -383,8 +386,10 @@ export default function NameQuestPage() {
                 >
                   <div className="w-full max-w-4xl">
                     <iframe
+                      data-testid="embed-iframe"
                       style={{borderRadius: "12px"}}
-                      src="https://open.spotify.com/embed/episode/03xwhLY3oo5cApzEvD9IvY?utm_source=generator&theme=0"
+                      src="https://open.spotify.com/embed/episode/03xwhLY3oo5cApzEvD9IvY?utm_source=generator&theme=0&si=6c10c543f15d4e39"
+                      title={t.podcastCTA}
                       width="100%"
                       height="152"
                       frameBorder="0"
@@ -392,6 +397,9 @@ export default function NameQuestPage() {
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                       loading="lazy"
                     />
+                    <a href="https://open.spotify.com/episode/03xwhLY3oo5cApzEvD9IvY" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-white underline underline-offset-4">
+                      {t.podcastLink}<ArrowRight size={16} aria-hidden="true" />
+                    </a>
                   </div>
                 </motion.div>
               </div>
