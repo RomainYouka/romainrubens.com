@@ -1,6 +1,9 @@
 .icon { display:inline-flex; position:relative; flex:none; vertical-align:middle; }
 .glyph { display:block; position:absolute; left:50%; top:50%; max-width:none; transform:translate(-50%,-50%) scale(var(--sf-scale)); transform-origin:center; filter:var(--sf-icon-filter,none); pointer-events:none; }
 .accent .glyph { filter:var(--sf-accent-filter,invert(1)); }
+/* Normalize differently coloured source SVGs without changing their shapes. */
+:global([data-sitemap-icons]) .glyph { filter:brightness(0) invert(45.490196%); }
+:global([data-theme="dark"]) :global([data-sitemap-icons]) .glyph { filter:brightness(0) invert(54.509804%); }
 .badge { display:inline-flex; position:relative; flex:none; pointer-events:none; }
 .badge img { display:block; position:absolute; left:50%; top:50%; max-width:none; transform:translate(-50%,-50%) scale(var(--sf-scale)); transform-origin:center; }
 .badge .dark { display:none; }

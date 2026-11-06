@@ -239,7 +239,7 @@ export default function SitemapPage() {
         <p className="mb-10 max-w-2xl" style={{color:"var(--theme-subtle)"}}>
           {language==="FR" ? "Toutes les pages et tous les projets, accessibles directement depuis un seul endroit." : language==="EN" ? "Every page and project, with direct access from one place." : "Բոլոր էջերն ու նախագծերը՝ մեկ վայրից անմիջապես հասանելի։"}
         </p>
-        <nav aria-label={t.title} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <nav data-sitemap-icons aria-label={t.title} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {sections.map(section=>{
             const entry=section.items.find(item=>item.label===section.title);
             const children=section.items.filter(item=>item.label!==section.title);
