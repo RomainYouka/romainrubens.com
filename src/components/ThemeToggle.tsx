@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { SFIcon } from "@/components/SFIcon";
 import { useTheme } from "@/contexts/ThemeContext";
 
 // Bouton dans la barre de navigation desktop (icône seule)
@@ -14,10 +14,7 @@ export function ThemeToggle() {
       aria-label={isDark ? "Passer en mode clair" : "Passer en mode sombre"}
       style={{ color: "var(--theme-fg)" }}
     >
-      {isDark
-        ? <Sun className="h-[18px] w-[18px]" strokeWidth={2} />
-        : <Moon className="h-[18px] w-[18px]" strokeWidth={2} />
-      }
+      <SFIcon name={isDark ? "sun" : "moon"} size={20} />
     </button>
   );
 }
@@ -45,10 +42,7 @@ export function ThemeToggleMobile({ selectedLanguage, borderColor, onClose }: {
         style={{ color: "var(--theme-fg)" }}
         aria-label={isDark ? labels.light : labels.dark}
       >
-        {isDark
-          ? <Sun className="h-5 w-5 flex-shrink-0" strokeWidth={2} />
-          : <Moon className="h-5 w-5 flex-shrink-0" strokeWidth={2} />
-        }
+        <SFIcon name={isDark ? "sun" : "moon"} size={22} />
         <span className="text-lg font-medium">
           {isDark ? labels.light : labels.dark}
         </span>

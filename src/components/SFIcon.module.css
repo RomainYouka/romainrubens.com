@@ -1,0 +1,11 @@
+.icon { display:inline-flex; position:relative; flex:none; vertical-align:middle; }
+.glyph { display:block; position:absolute; left:50%; top:50%; max-width:none; transform:translate(-50%,-50%) scale(var(--sf-scale)); transform-origin:center; filter:var(--sf-icon-filter,none); pointer-events:none; }
+.accent .glyph { filter:var(--sf-accent-filter,invert(1)); }
+.badge { display:inline-flex; position:relative; flex:none; pointer-events:none; }
+.badge img { display:block; position:absolute; left:50%; top:50%; max-width:none; transform:translate(-50%,-50%) scale(var(--sf-scale)); transform-origin:center; }
+.badge .dark { display:none; }
+:global([data-theme="dark"]) .badge .light { display:none; }
+:global([data-theme="dark"]) .badge .dark { display:block; }
+.open { width:32px; height:32px; --sf-scale:0.5; }
+.external { width:24px; height:24px; --sf-scale:0.8; }
+@media(min-width:768px) { .open { width:40px; height:40px; --sf-scale:0.625; } }

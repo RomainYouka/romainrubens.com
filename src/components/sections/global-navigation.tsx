@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Languages, Check, Palette } from "lucide-react";
+import { SFIcon } from "@/components/SFIcon";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { AccentColor } from "@/contexts/ThemeContext";
@@ -128,7 +128,7 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
         }`}
         style={{ backgroundColor: "var(--theme-accent)" }}
       >
-        <Check className="w-5 h-5" style={{ color: "var(--theme-accent-fg)" }} strokeWidth={2.5} />
+        <SFIcon name="check-circle" size={20} onAccent />
       </div>
     </button>
   );
@@ -213,7 +213,7 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
         onMouseDown={(e)  => { e.currentTarget.style.transform = "scale(0.90)"; }}
         onMouseUp={(e)    => { e.currentTarget.style.transform = "scale(1)"; }}
       >
-        <Languages className="h-[18px] w-[18px]" strokeWidth={2.2} />
+        <SFIcon name="translate" size={24} />
       </button>
 
       <AnimatePresence>
@@ -357,7 +357,7 @@ const ColorPicker = ({ accentColor, onAccentChange, isDark, isOpen, onOpen, onCl
         onMouseDown={(e)  => { e.currentTarget.style.transform = "scale(0.90)"; }}
         onMouseUp={(e)    => { e.currentTarget.style.transform = "scale(1)"; }}
       >
-        <Palette className="h-[18px] w-[18px]" strokeWidth={2.2} />
+        <SFIcon name="palette" size={21} />
       </button>
 
       <AnimatePresence>
@@ -633,12 +633,14 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
       "--theme-border": "#d7d7d7", "--theme-accent": "#1d1d1f",
       "--theme-accent-fg": "#ffffff", "--theme-muted": "#676767",
       "--theme-subtle": "#6e6e73",
+      "--sf-icon-filter": "none", "--sf-accent-filter": "invert(1)",
     } as React.CSSProperties : isRenault ? {
       "--theme-fg": "#ffffff", "--theme-nav-bg": "#1d1d1f",
       "--theme-nav-scrolled": "rgba(29,29,31,0.92)", "--theme-bg": "#1d1d1f",
       "--theme-border": "#474747", "--theme-accent": "#f5f5f5",
       "--theme-accent-fg": "#1d1d1f", "--theme-muted": "#c7c7cc",
       "--theme-subtle": "#c7c7cc",
+      "--sf-icon-filter": "invert(1)", "--sf-accent-filter": "none",
     } as React.CSSProperties : undefined}>
       <header
         role="banner"

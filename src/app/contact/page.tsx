@@ -1,4 +1,5 @@
 "use client";
+import { SFIcon } from "@/components/SFIcon";
 
 import { detectLanguage } from "@/lib/language";
 import { articles } from "@/data/articles";
@@ -41,25 +42,15 @@ const contactTranslations = {
 };
 
 const CalendarIcon = ({ className }: { className?: string }) => (
-  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-    <line x1="16" y1="2" x2="16" y2="6" />
-    <line x1="8" y1="2" x2="8" y2="6" />
-    <line x1="3" y1="10" x2="21" y2="10" />
-  </svg>
+  <SFIcon name="calendar" size={18} className={className} />
 );
 
 const PDFIcon = ({ className }: { className?: string }) => (
-  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 2H5C3.9 2 3 2.9 3 4v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9l-7-7z" fill="currentColor" />
-    <path d="M16 9h-7V2v7z" fill="currentColor" opacity="0.3" />
-  </svg>
+  <SFIcon name="document" size={18} className={className} />
 );
 
-const GmailLogo = ({ className }: { className?: string }) => (
-  <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M22 4H2C0.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-10 6L2 8V6l10 6 10-6v2z" fill="currentColor" />
-  </svg>
+const EmailIcon = ({ className }: { className?: string }) => (
+  <SFIcon name="envelope" size={18} className={className} onAccent />
 );
 
 const LinkedInLogo = ({ className }: { className?: string }) => (
@@ -199,7 +190,7 @@ export default function ContactPage() {
               className="w-full py-4 px-6 font-semibold text-base rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
               style={{ backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)" }}
             >
-              <GmailLogo className="w-4 h-4 flex-shrink-0" />
+              <EmailIcon className="w-4 h-4 flex-shrink-0" />
               <span>{currentTranslations.emailMe}</span>
             </button>
 
