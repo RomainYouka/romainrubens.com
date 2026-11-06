@@ -152,6 +152,7 @@ export default function HeroLanding() {
         {showScrollButton && (
           <div
             className="absolute"
+            data-home-scroll-control
             style={{ bottom: "calc(36px / var(--home-cover, 1))", left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", zIndex: 20, scale: "calc(1 / var(--home-cover, 1))", transformOrigin: "bottom center" }}
           >
             <button

@@ -11,7 +11,7 @@ export default function HomeScrollScene({ children, introduction }: { children: 
     const root = scene.current;
     if (!root) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    let frame = 0, travelFrame = 0, top = 0, distance = 1, cover = 1, viewportHeight = 1;
+    let frame = 0, travelFrame = 0, top = 0, distance = 1, cover = 1, viewportHeight = 1, screenHeight = 1;
     const cancelTravel = () => cancelAnimationFrame(travelFrame);
     const discover = (event: Event) => {
       const intro = document.getElementById("personal-intro");
@@ -40,7 +40,9 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       root.style.setProperty("--screen-radius", `${(window.innerWidth < 768 ? 38 : 3) * eased}px`);
       root.style.setProperty("--hardware-visible", p > .1 ? "visible" : "hidden");
       root.style.setProperty("--hardware-opacity", String(Math.max(0, (p - .18) / .65)));
-      root.style.setProperty("--cable-opacity", String(Math.max(0, Math.min(1, (p-.18)/.5, (1.1-progress)/.25))));
+      root.style.setProperty("--cable-opacity", String(Math.max(0, Math.min(1, (p-.18)/.5))));
+      const visibleHeight=window.visualViewport?.height || viewportHeight;
+      root.style.setProperty("--discover-bottom", `${(Math.max(0,(screenHeight*scale-visibleHeight)/2)+40)/scale}px`);
     };
     const scroll = () => { if (!frame) frame = requestAnimationFrame(update); };
     const resize = () => {
@@ -49,6 +51,7 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       root.setAttribute("data-home-device",mobile ? "iphone-18-pro" : "studio-display");
       const width = reduced.matches ? window.innerWidth : mobile ? Math.min(window.innerWidth*.72,viewportHeight*.31) : Math.min(1040,viewportHeight*.64*16/9,window.innerWidth*.74);
       const height = reduced.matches ? viewportHeight : width * (mobile ? 19.5/9 : 9/16);
+      screenHeight=height;
       cover = reduced.matches ? 1 : Math.max(window.innerWidth / width, viewportHeight / height);
       root.style.setProperty("--screen-width", `${width}px`);
       root.style.setProperty("--screen-height", `${height}px`);

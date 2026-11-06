@@ -21,6 +21,8 @@ export default function DiodeBackground() {
     let x=0.5, y=0.5;
     let previousX=0.5, previousY=0.5, hasPrevious=false;
     let columns=0, energy=new Float32Array(0);
+    let lastWave=-1000;
+    let waves:{x:number;y:number;began:number}[]=[];
     // A regular RGB-stripe matrix: three equal, rectangular subpixels per pixel.
     const stepX=10, stepY=12;
 
@@ -38,6 +40,8 @@ export default function DiodeBackground() {
         const strength=auto ? 0.85 : now-lastPointer<100 ? 1 : 0;
         const radius=Math.min(155,Math.max(100,width*.12));
         const cx=x*width, cy=y*height;
+        if(auto && now-lastWave>850){waves.push({x:cx,y:cy,began:now});lastWave=now;}
+        waves=waves.filter(w=>now-w.began<1150).slice(-6);
         const sx=(hasPrevious ? previousX : x)*width, sy=(hasPrevious ? previousY : y)*height;
         const vx=cx-sx, vy=cy-sy, lengthSquared=vx*vx+vy*vy;
         const decay=Math.exp(-Math.min(100,now-previousDraw)/650);
@@ -61,7 +65,13 @@ export default function DiodeBackground() {
         for(let row=0;row<Math.ceil(height/stepY);row++) {
           for(let column=0;column<columns;column++) {
             const px=column*stepX, py=row*stepY;
-            const light=energy[row*columns+column];
+            let ripple=0;
+            for(const wave of waves){
+              const age=now-wave.began;
+              const ring=(Math.hypot(px-wave.x,py-wave.y)-age*.45)/28;
+              ripple+=Math.exp(-ring*ring)*.55*(1-age/1150)**2;
+            }
+            const light=Math.min(1,energy[row*columns+column]+ripple);
             if(light<.012) continue;
             ctx!.fillStyle=`rgba(255,65,70,${light*0.9})`;
             ctx!.fillRect(px,py+2,2,8);
@@ -105,6 +115,7 @@ export default function DiodeBackground() {
       pointerX=(event.clientX-rect.left)/rect.width;
       pointerY=(event.clientY-rect.top)/rect.height;
       lastPointer=performance.now();
+      if(lastPointer-lastWave>145){waves.push({x:pointerX*width,y:pointerY*height,began:lastPointer});lastWave=lastPointer;}
       movingUntil=lastPointer+3300;
       start();
     }

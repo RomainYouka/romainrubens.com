@@ -80,8 +80,8 @@ try {
   const exportedFigures = JSON.parse(await readFile(new URL('../src/app/goupildigitalecosystem/exported-assets.json', import.meta.url), 'utf8'));
   const visualExports = [
     ...Object.keys(exportedFigures).map(name => `/projects/goupil/exports/${name}.webp`),
-    ...['typography-system', 'components-a', 'components-b'].map(name => `/projects/googleplay-ios/exports/${name}.webp`),
-    ...['apple', 'tcl', 'heroShapes'].map(name => `/projects/googlemaps-extension/exports/${name}.webp`),
+    ...['typography-system', 'components-a', 'components-b', 'hero-symbols'].map(name => `/projects/googleplay-ios/exports/${name}.webp`),
+    ...['apple', 'tcl', 'heroShapes', 'signage', 'survey', 'bar', 'chick', 'maps', 'constraints', 'persona1', 'persona2', 'persona3', 'flow'].map(name => `/projects/googlemaps-extension/exports/${name}.webp`),
   ];
   for (const src of visualExports) {
     const asset = await fetch(base + src);

@@ -19,7 +19,7 @@ function Star() {
   return <img src="/projects/googlemaps-extension/star.svg" alt="" width={32} height={32} />;
 }
 function Asset({ name, alt = "", width, height, className }: { name: string; alt?: string; width: number; height: number; className?: string }) {
-  return <img src={`${assets}${["apple","tcl","heroShapes"].includes(name) ? "exports/" : ""}${name}.webp`} alt={alt} width={width} height={height} className={className} loading="lazy" decoding="async" />;
+  return <img src={`${assets}${["apple","tcl","heroShapes","signage","bar","survey","maps","constraints","persona1","persona2","persona3","flow","chick"].includes(name) ? "exports/" : ""}${name}.webp`} alt={alt} width={width} height={height} className={className} loading="lazy" decoding="async" />;
 }
 
 export default function GoogleMapsExtensionPage() {
