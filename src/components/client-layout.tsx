@@ -65,7 +65,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
     <>
       {!isResumePage && <GlobalNavigation />}
       {children}
-      {!isResumePage && pathname !== "/" && <GlobalFooter />}
+      {!isResumePage && pathname !== "/" && pathname !== "/contact" && <GlobalFooter />}
       {phase!=="idle" && <PageTransitionOverlay />}
     </>
   );

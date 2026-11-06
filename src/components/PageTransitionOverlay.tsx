@@ -2,8 +2,7 @@
 
 import { m as motion } from "framer-motion";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
-import { useTheme } from "@/contexts/ThemeContext";
-import type { AccentColor } from "@/contexts/ThemeContext";
+import type { CSSProperties } from "react";
 import s from "./spiral-transition.module.css";
 
 const spiralPath = Array.from({ length: 280 }, (_, i) => {
@@ -12,25 +11,15 @@ const spiralPath = Array.from({ length: 280 }, (_, i) => {
   return `${i ? "L" : "M"}${(500 + Math.cos(angle) * radius).toFixed(2)},${(500 + Math.sin(angle) * radius).toFixed(2)}`;
 }).join(" ");
 
-function SpiralTransition({ leaving }: { leaving: boolean }) {
-  return <div data-page-transition="spiral" aria-hidden="true" className={`${s.overlay} ${leaving ? s.out : ""}`}><div className={s.portal}><div className={s.arms}><svg viewBox="0 0 1000 1000" fill="none"><defs><radialGradient id="spiral-ink"><stop stopColor="#050507"/><stop offset=".6" stopColor="#6e6e7a"/><stop offset="1" stopColor="#141417"/></radialGradient></defs>{Array.from({length:6},(_,i)=><path key={i} d={spiralPath} transform={`rotate(${i*60} 500 500)`} stroke="url(#spiral-ink)" strokeWidth="22" />)}</svg></div></div></div>;
+function SpiralTransition({ leaving, origin }: { leaving: boolean; origin: { x: number; y: number } }) {
+  return <div data-page-transition="spiral" aria-hidden="true" className={`${s.overlay} ${leaving ? s.out : ""}`} style={{ "--origin-x": `${origin.x}px`, "--origin-y": `${origin.y}px` } as CSSProperties}><div className={s.portal}><div className={s.arms}><svg viewBox="0 0 1000 1000" fill="none"><defs><radialGradient id="spiral-ink"><stop stopColor="#050507"/><stop offset=".6" stopColor="#6e6e7a"/><stop offset="1" stopColor="#141417"/></radialGradient></defs>{Array.from({length:6},(_,i)=><path key={i} d={spiralPath} transform={`rotate(${i*60} 500 500)`} stroke="url(#spiral-ink)" strokeWidth="48" />)}</svg></div></div></div>;
 }
 
 const STRIPS = 8;
 const STRIP_DURATION = 0.55;
 const STRIP_STAGGER = 0.045;
 
-const STRIP_GRADIENTS: Record<AccentColor, string[]> = {
-  blue: [
-    "linear-gradient(180deg, #080809 0%, #131318 100%)",
-    "linear-gradient(180deg, #0d0d1c 0%, #181830 100%)",
-    "linear-gradient(180deg, #101528 0%, #1a2248 100%)",
-    "linear-gradient(180deg, #141e58 0%, #1e2e7a 100%)",
-    "linear-gradient(180deg, #1a2880 0%, #2740a8 100%)",
-    "linear-gradient(180deg, #243599 0%, #314DCB 100%)",
-    "linear-gradient(180deg, #2c4ac0 0%, #4268e0 100%)",
-    "linear-gradient(180deg, #3a5cd8 0%, #6080f8 100%)",
-  ],
+const STRIP_GRADIENTS = {
   mono: [
     "linear-gradient(180deg, #080809 0%, #131318 100%)",
     "linear-gradient(180deg, #111111 0%, #1a1a1a 100%)",
@@ -44,15 +33,14 @@ const STRIP_GRADIENTS: Record<AccentColor, string[]> = {
 };
 
 export function PageTransitionOverlay() {
-  const { phase, direction, effect } = usePageTransition();
-  const { accentColor } = useTheme();
+  const { phase, direction, effect, origin } = usePageTransition();
 
   if (phase === "idle") return null;
-  if (effect === "spiral") return <SpiralTransition leaving={phase === "out"} />;
+  if (effect === "spiral") return <SpiralTransition leaving={phase === "out"} origin={origin} />;
 
   const yStart = direction === "down" ? "-100%" : "100%";
   const yExit  = direction === "down" ? "100%"  : "-100%";
-  const gradients = STRIP_GRADIENTS[accentColor];
+  const gradients = STRIP_GRADIENTS.mono;
 
   return (
     <div

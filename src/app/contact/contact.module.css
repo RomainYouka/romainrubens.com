@@ -1,19 +1,10 @@
-.page { min-height:calc(100svh - 115px); position:relative; isolation:isolate; display:flex; align-items:center; justify-content:center; padding:150px 24px 90px; overflow:clip; background:var(--theme-bg); color:var(--theme-fg); }
+.page { min-height:100svh; position:relative; isolation:isolate; display:flex; align-items:center; justify-content:center; padding:150px 24px 90px; overflow:clip; background:var(--theme-bg); color:var(--theme-fg); }
 .page>canvas { z-index:0; mask-image:linear-gradient(transparent 3%,#000 20%,#000 85%,transparent); }
 .content { position:relative; z-index:1; width:100%; max-width:1050px; margin:auto; text-align:center; }
 .page h1 { color:var(--theme-fg); font:550 clamp(38px,4.7vw,64px)/1.08 var(--font-display),sans-serif; letter-spacing:-.05em; margin:0; }
 .page .intro { color:var(--theme-subtle); font:400 18px/1.5 var(--font-body),sans-serif; letter-spacing:-.012em; margin:24px auto 42px; max-width:460px; }
 .actions { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px; }
-.action { display:inline-flex; align-items:center; justify-content:center; gap:7px; text-decoration:none!important; color:var(--theme-fg); font:500 14px/1.2 var(--font-body),sans-serif; outline-offset:7px; }
-.actionLabel,.actionArrow { height:54px; display:flex; align-items:center; justify-content:center; border:1px solid var(--theme-border); background:var(--theme-bg); border-radius:999px; transition:background 300ms,border-color 300ms,border-radius 350ms cubic-bezier(.2,.8,.2,1),transform 350ms cubic-bezier(.2,.8,.2,1); }
-.actionLabel { gap:10px; padding:0 23px; min-width:140px; color:inherit; text-decoration:none!important; }.actionLabel>span { color:inherit; }.actionArrow { width:54px; flex:none; }
-.emailText { display:flex; flex-direction:column; text-align:left; gap:3px; }.emailText small { font-size:10px; line-height:1.2; opacity:.8; font-weight:400; }.copyCircle { padding:0; cursor:pointer; color:inherit; font:inherit; }.primary .actionLabel:focus-visible,.copyCircle:focus-visible { outline:3px solid var(--theme-accent); outline-offset:5px; }
-.primary { color:var(--theme-btn-fg); --sf-accent-filter:brightness(0) invert(1); }.primary .actionLabel,.primary .actionArrow { background:var(--theme-btn-bg); border-color:var(--theme-btn-bg); }
-:global([data-theme="dark"]) .primary { --sf-accent-filter:brightness(0); }
 .linkedin { font:700 18px/1 Arial,sans-serif; width:19px; }
-.action:focus-visible { outline:3px solid var(--theme-accent); outline-offset:6px; }
-.page .copyStatus { color:var(--theme-subtle); font-size:12px; line-height:1.4; min-height:17px; margin:7px 0 0; }
 .page[lang="hy"] h1 { font-family:var(--font-body),sans-serif; }
-@media(hover:hover) and (pointer:fine) { .action:hover .actionLabel { border-radius:28px 20px 20px 28px; transform:translateX(2px); }.action:hover .actionArrow { border-radius:20px 28px 28px 20px; transform:translateX(-2px) rotate(-35deg); }.primary:hover .copyCircle { transform:translateX(-2px); }.action:not(.primary):hover .actionLabel,.action:not(.primary):hover .actionArrow { border-color:var(--theme-fg); background:var(--theme-pill-bg); } }
-@media(max-width:767px) { .page { min-height:calc(100svh - 126px); padding:125px 20px 60px; }.content { max-width:350px; }.page h1 { font-size:40px; }.page[lang="hy"] h1 { font-size:31px; }.page .intro { font-size:16px; margin:20px auto 32px; max-width:305px; }.actions { flex-direction:column; gap:12px; width:100%; max-width:310px; margin:auto; }.action { width:100%; justify-content:stretch; font-size:14px; }.actionLabel { flex:1; padding:0 16px; }.actionLabel,.actionArrow { height:52px; }.actionArrow { width:52px; } }
-@media(prefers-reduced-motion:reduce) { .page * { animation:none!important; transition:none!important; }.actionLabel,.actionArrow { transform:none!important; } }
+@media(max-width:767px) { .page { min-height:100svh; padding:125px 20px 60px; }.content { max-width:350px; }.page h1 { font-size:40px; }.page[lang="hy"] h1 { font-size:31px; }.page .intro { font-size:16px; margin:20px auto 32px; max-width:305px; }.actions { flex-direction:column; gap:12px; width:100%; max-width:310px; margin:auto; } }
+@media(prefers-reduced-motion:reduce) { .page * { animation:none!important; transition:none!important; } }

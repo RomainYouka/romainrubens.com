@@ -5,9 +5,6 @@ import { Analytics } from "@/lib/analytics";
 
 type Theme = "light" | "dark";
 export type ThemeTransition = "toLight" | "toDark" | null;
-export type AccentColor = "blue" | "mono";
-
-const SUPPORTED_ACCENTS: AccentColor[] = ["blue", "mono"];
 
 interface ThemeContextValue {
   theme: Theme;
@@ -19,8 +16,6 @@ interface ThemeContextValue {
   themeTransition: ThemeTransition;
   isHighContrast: boolean;
   toggleHighContrast: () => void;
-  accentColor: AccentColor;
-  setAccentColor: (color: AccentColor) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -46,22 +41,15 @@ function applyTheme(theme: Theme) {
   applyBrowserTheme(theme);
 }
 
-function applyAccent(color: AccentColor) {
-  if (color === "blue") {
-    document.documentElement.removeAttribute("data-accent");
-  } else {
-    document.documentElement.setAttribute("data-accent", color);
-  }
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
   const [showTimePopup, setShowTimePopup] = useState<"evening" | "morning" | null>(null);
   const [themeTransition, setThemeTransition] = useState<ThemeTransition>(null);
   const [isHighContrast, setIsHighContrast] = useState(false);
-  const [accentColor, setAccentColorState] = useState<AccentColor>("blue");
   const transitionLock = useRef(false);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  useEffect(() => () => timers.current.forEach(clearTimeout), []);
 
   useEffect(() => {
     const saved = sessionStorage.getItem("theme") as Theme | null;
@@ -70,18 +58,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     applyTheme(currentTheme);
     localStorage.removeItem("theme");
 
-    const savedSessionAccent = sessionStorage.getItem("accentColor") as AccentColor | null;
     localStorage.removeItem("accentColor");
-
-    const nextAccent =
-      savedSessionAccent && SUPPORTED_ACCENTS.includes(savedSessionAccent)
-        ? savedSessionAccent
-        : "blue";
-
-    setAccentColorState(nextAccent);
-    applyAccent(nextAccent);
-    sessionStorage.setItem("accentColor", nextAccent);
-
+    sessionStorage.removeItem("accentColor");
+    document.documentElement.removeAttribute("data-accent");
     setMounted(true);
   }, []);
 
@@ -99,17 +78,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     applyBrowserTheme(newTheme);
     Analytics.themeToggle(newTheme);
 
-    if (newTheme === "dark") {
-      setThemeTransition("toDark");
-      setTimeout(() => setTheme(newTheme), 550);
-      setTimeout(() => setThemeTransition(null), 880);
-      setTimeout(() => { transitionLock.current = false; }, 1200);
-    } else {
-      setThemeTransition("toLight");
-      setTimeout(() => setTheme(newTheme), 550);
-      setTimeout(() => setThemeTransition(null), 880);
-      setTimeout(() => { transitionLock.current = false; }, 1200);
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTheme(newTheme); transitionLock.current = false; return;
     }
+    setThemeTransition(newTheme === "dark" ? "toDark" : "toLight");
+    timers.current = [
+      setTimeout(() => setTheme(newTheme), 650),
+      setTimeout(() => { setThemeTransition(null); transitionLock.current = false; }, 1500),
+    ];
   }, [theme, setTheme]);
 
   const toggleHighContrast = useCallback(() => {
@@ -121,26 +97,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  const setAccentColor = useCallback((color: AccentColor) => {
-    setAccentColorState(color);
-    sessionStorage.setItem("accentColor", color);
-    applyAccent(color);
-  }, []);
-
   const dismissTimePopup = useCallback(() => {
     setShowTimePopup(null);
   }, []);
 
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: "light", isDark: false, toggleTheme, setTheme, showTimePopup: null, dismissTimePopup, themeTransition: null, isHighContrast: false, toggleHighContrast, accentColor: "blue", setAccentColor }}>
+      <ThemeContext.Provider value={{ theme: "light", isDark: false, toggleTheme, setTheme, showTimePopup: null, dismissTimePopup, themeTransition: null, isHighContrast: false, toggleHighContrast }}>
         {children}
       </ThemeContext.Provider>
     );
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme, setTheme, showTimePopup, dismissTimePopup, themeTransition, isHighContrast, toggleHighContrast, accentColor, setAccentColor }}>
+    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme, setTheme, showTimePopup, dismissTimePopup, themeTransition, isHighContrast, toggleHighContrast }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -42,6 +42,8 @@ try {
       assert.ok(!body.includes('romainrubens23@gmail.com'), 'Use public contact details in mockups');
     }
     if (path === '/contact') {
+      assert.ok(!/<footer\b/.test(body), 'Contact does not render a legal footer');
+      assert.ok(!body.includes('Copy email address'), 'Contact no longer offers clipboard actions');
       assert.match(body, /hello@romainrubens\.com/);
       assert.match(body, /href="https:\/\/cal\.com\/romainrubens"/);
       assert.ok(!/href="https?:\/\/(?:www\.)?(?:medium|pinterest|behance)\./.test(body), 'Removed social platforms stay absent from Contact');

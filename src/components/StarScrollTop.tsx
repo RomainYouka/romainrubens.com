@@ -117,7 +117,7 @@ export default function StarScrollTop() {
     transition: winking ? "transform 0.12s ease-in" : "transform 0.16s ease-out",
   };
 
-  if (menuOpen) return null;
+  if (menuOpen || pathname === "/") return null;
 
   return (
     <AnimatePresence>

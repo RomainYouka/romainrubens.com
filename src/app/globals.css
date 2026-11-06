@@ -105,7 +105,7 @@
     --theme-btn-bg: #1d1d1f;
     --theme-btn-fg: #ffffff;
     --theme-btn-border: transparent;
-    --theme-accent: #314DCB;
+    --theme-accent: #1d1d1f;
     --theme-subtle: #6e6e73;
   }
 
@@ -127,16 +127,13 @@
     --theme-btn-bg: #F5F5F5;
     --theme-btn-fg: #1d1d1f;
     --theme-btn-border: transparent;
-    --theme-accent: #5194FF;
+    --theme-accent: #f5f5f5;
     --theme-subtle: #CCCCCC;
   }
 
-  /* ── Accents couleur ── */
-  :root                                          { --theme-accent-gradient: #1e3a8a; --theme-accent-fg: #ffffff; }
-  [data-theme="dark"]                            { --theme-accent-gradient: #3a72d4; --theme-accent-fg: #ffffff; }
-  [data-theme="dark"]:not([data-accent])         { --theme-accent: #314DCB; --theme-accent-gradient: #1e3a8a; }
-  [data-accent="mono"]                           { --theme-accent: #1d1d1f; --theme-accent-gradient: #000000; }
-  [data-theme="dark"][data-accent="mono"]        { --theme-accent: #f5f5f5; --theme-accent-gradient: #e0e0e0; --theme-accent-fg: #1d1d1f; --sf-accent-filter:none; }
+  /* Monochrome controls; editorial banners keep an explicit blue. */
+  :root { --theme-accent-gradient:#000000; --theme-accent-fg:#ffffff; }
+  [data-theme="dark"] { --theme-accent-gradient:#e0e0e0; --theme-accent-fg:#1d1d1f; --sf-accent-filter:none; }
 
   /* ── Contraste élevé (accessibilité) ── */
   [data-contrast="high"] {
@@ -303,21 +300,3 @@
 
 nextjs-portal { display: none !important; }
 /* One continuous OFF → ON sequence; exact reverse for dark mode. */
-@keyframes bulb-glass-on {
-  from { fill: #303030; stroke: #484848; }
-  to { fill: #fffde7; stroke: #ffc107; }
-}
-@keyframes bulb-glow-on {
-  from { fill: rgba(255,235,80,0); }
-  to { fill: rgba(255,235,80,.45); }
-}
-@keyframes bulb-filament-on {
-  from { stroke: #484848; }
-  to { stroke: #ff8f00; }
-}
-.bulb-glass { animation: bulb-glass-on .5s ease-in-out .33s both; }
-.bulb-glow { animation: bulb-glow-on .5s ease-in-out .33s both; }
-.bulb-filament { animation: bulb-filament-on .5s ease-in-out .33s both; }
-.bulb-to-dark > .bulb-glass,
-.bulb-to-dark > .bulb-glow,
-.bulb-to-dark > .bulb-filament { animation-direction: reverse; }

@@ -3,9 +3,8 @@
 import { detectLanguage } from "@/lib/language";
 
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { SplitAction } from "@/components/SplitAction";
 import { useRouter } from "next/navigation";
-import { useTheme } from "@/contexts/ThemeContext";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 
 const translations = {
@@ -39,7 +38,6 @@ const translations = {
 };
 
 export default function PersonalIntro({ id = "personal-intro" }: { id?: string }) {
-  const { isDark } = useTheme();
   const sectionRef = useRef<HTMLElement>(null);
   const router = useRouter();
   const { triggerTransition } = usePageTransition();
@@ -89,7 +87,11 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
     const section = sectionRef.current;
     if (!section) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setIsVisible(true); router.prefetch("/projects"); observer.disconnect(); }
+      if (entry.isIntersecting) {
+        setIsVisible(true); router.prefetch("/projects");
+        void import("@/components/PageTransitionOverlay");
+        observer.disconnect();
+      }
     }, { threshold: .15 });
     observer.observe(section);
     return () => observer.disconnect();
@@ -111,7 +113,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
         className="w-full min-h-[100dvh] flex items-center"
         data-section="personal-intro"
         style={{
-          backgroundColor: isDark ? "#191919" : "#F5F5F5",
+          backgroundColor: "var(--theme-bg-alt)",
           paddingTop: "clamp(64px, 8vw, 100px)",
           paddingBottom: "clamp(64px, 8vw, 100px)",
         }}
@@ -170,14 +172,10 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
 
               {/* CTA Button - Wider and responsive */}
               <div style={{ display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
-                <button
-                  onClick={() => triggerTransition("/projects", "up", "projects-cta")}
-                  className="font-semibold rounded-full transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:scale-95 inline-flex items-center py-3 px-6 sm:py-4 sm:px-8 md:py-4 md:px-10 text-sm sm:text-base"
-                  style={{ backgroundColor: "var(--theme-accent)", color: "var(--theme-accent-fg)" }}
-                >
-                  {content.ctaProjects}
-                  <ArrowRight className="ml-2 w-4 h-4 flex-shrink-0" />
-                </button>
+                <SplitAction primary onClick={(event) => {
+                  const rect = event.currentTarget.getBoundingClientRect();
+                  triggerTransition("/projects", "up", "projects-cta", { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
+                }}>{content.ctaProjects}</SplitAction>
               </div>
             </div>
           </div>

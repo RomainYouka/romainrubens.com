@@ -3,20 +3,13 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Languages, Check, Palette } from "lucide-react";
+import { Languages, Check } from "lucide-react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
-import type { AccentColor } from "@/contexts/ThemeContext";
 import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 import { detectLanguage, type Language } from "@/lib/language";
 import { Analytics } from "@/lib/analytics";
-
-// ─── Accent options ──────────────────────────────────────────────────────────
-const ACCENT_OPTIONS: { id: AccentColor; light: string; dark: string; mono?: boolean }[] = [
-  { id: "blue",   light: "#314DCB", dark: "#5194FF" },
-  { id: "mono",   light: "#1d1d1f", dark: "#f5f5f5", mono: true },
-];
 
 // ─── Animated burger ────────────────────────────────────────────────────────
 const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean; isDark: boolean }) => {
@@ -63,9 +56,9 @@ const BrandLogo = ({ isScrolled, className }: { isScrolled: boolean; className?:
 
 // ─── Traductions nav ─────────────────────────────────────────────────────────
 const translations = {
-  FR:  { home: "Accueil", projects: "Projets",    articles: "Articles", skills: "Compétences",   contact: "Contact", resume: "CV",      accentLabel: "Couleur principale" },
-  EN:  { home: "Home",    projects: "Projects",   articles: "Articles", skills: "Skills",        contact: "Contact", resume: "Resume",  accentLabel: "Main color"         },
-  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", articles: "Հոդվածներ", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե", accentLabel: "Հիմնական գույն"  },
+  FR:  { home: "Accueil", projects: "Projets",    articles: "Articles", skills: "Compétences",   contact: "Contact", resume: "CV" },
+  EN:  { home: "Home",    projects: "Projects",   articles: "Articles", skills: "Skills",        contact: "Contact", resume: "Resume"         },
+  ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", articles: "Հոդվածներ", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե"  },
 };
 
 // ─── Bouton CV ───────────────────────────────────────────────────────────────
@@ -281,199 +274,8 @@ const LanguageSelector = ({ selectedLanguage, onLanguageChange, isDark, isOpen, 
 };
 
 // ─── Sélecteur de couleur d'accent ──────────────────────────────────────────
-interface ColorPickerProps {
-  accentColor: AccentColor;
-  onAccentChange: (color: AccentColor) => void;
-  isDark: boolean;
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-  options?: typeof ACCENT_OPTIONS;
-}
-
-const ColorPicker = ({ accentColor, onAccentChange, isDark, isOpen, onOpen, onClose, options = ACCENT_OPTIONS }: ColorPickerProps) => {
-  const buttonRef   = useRef<HTMLButtonElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [dropPos, setDropPos] = useState<{ top: number; left: number }>({ top: 80, left: 0 });
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const calc = () => {
-      if (!buttonRef.current) return;
-      const r = buttonRef.current.getBoundingClientRect();
-      const dropW = dropdownRef.current?.offsetWidth ?? 120;
-      setDropPos({ top: r.bottom + 8, left: r.left + r.width / 2 - dropW / 2 });
-    };
-    calc();
-    const t = setTimeout(calc, 420);
-    return () => clearTimeout(t);
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    let armed = false;
-    const arm = setTimeout(() => { armed = true; }, 60);
-    const handler = (e: MouseEvent) => {
-      if (!armed) return;
-      if (!buttonRef.current?.offsetParent) return;
-      if (!buttonRef.current?.contains(e.target as Node) && !dropdownRef.current?.contains(e.target as Node)) {
-        onClose();
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => { clearTimeout(arm); document.removeEventListener("mousedown", handler); };
-  }, [isOpen, onClose]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [isOpen, onClose]);
-
-  const textColor  = isDark ? "#FFFFFF" : "#1d1d1f";
-  const dropBg     = isDark ? "rgba(24,24,28,0.97)"    : "rgba(252,252,254,0.97)";
-  const dropBorder = isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.10)";
-
-  return (
-    <>
-      <button
-        ref={buttonRef}
-        onClick={() => (isOpen ? onClose() : onOpen())}
-        aria-expanded={isOpen}
-        aria-label="Changer la couleur principale"
-        className="flex items-center justify-center"
-        style={{
-          minWidth: 42, width: 42, height: "100%",
-          background: "none", border: "none", padding: 0, cursor: "pointer",
-          color: textColor,
-          transition: "opacity 180ms ease, transform 180ms ease",
-        }}
-        onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.65"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
-        onMouseDown={(e)  => { e.currentTarget.style.transform = "scale(0.90)"; }}
-        onMouseUp={(e)    => { e.currentTarget.style.transform = "scale(1)"; }}
-      >
-        <Palette className="h-[18px] w-[18px]" strokeWidth={2.2} />
-      </button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            ref={dropdownRef}
-            initial={{ opacity: 0, scaleY: 0,   filter: "blur(6px)" }}
-            animate={{ opacity: 1, scaleY: 1,   filter: "blur(0px)" }}
-            exit={  { opacity: 0, scaleY: 0,   filter: "blur(4px)" }}
-            transition={{ type: "spring", stiffness: 380, damping: 22, mass: 0.65 }}
-            style={{
-              position:             "fixed",
-              top:                  dropPos.top,
-              left:                 dropPos.left,
-              transformOrigin:      "top center",
-              backgroundColor:      dropBg,
-              backdropFilter:       "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border:               `1px solid ${dropBorder}`,
-              borderRadius:         14,
-              padding:              "12px 14px",
-              zIndex:               1100,
-              boxShadow: isDark
-                ? "0 16px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3)"
-                : "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.07)",
-            }}
-          >
-            <div style={{ display: "flex", gap: 10 }}>
-              {options.map((opt) => {
-                const isSel = opt.id === accentColor;
-                const swatch = isDark ? opt.dark : opt.light;
-                const bg = opt.mono
-                  ? "linear-gradient(to right, #1d1d1f 50%, #f5f5f5 50%)"
-                  : swatch;
-                return (
-                  <button
-                    key={opt.id}
-                    onClick={() => { onAccentChange(opt.id); onClose(); }}
-                    aria-label={opt.id}
-                    aria-pressed={isSel}
-                    style={{
-                      width: 22, height: 22,
-                      borderRadius: "50%",
-                      background: bg,
-                      backgroundOrigin: "border-box",
-                      border: isSel ? `2px solid ${isDark ? "#ffffff" : "#1d1d1f"}` : "2px solid transparent",
-                      cursor: "pointer",
-                      padding: 0,
-                      transition: "transform 140ms ease, box-shadow 140ms ease",
-                      boxShadow: isSel ? `0 0 0 1px ${opt.mono ? "#888" : swatch}` : "none",
-                      outline: "none",
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.15)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
-                  />
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
-};
-
-// ─── Color picker mobile (dans le burger menu) ───────────────────────────────
-const ColorPickerMobile = ({ accentColor, onAccentChange, isDark, selectedLanguage, borderColor }: {
-  accentColor: AccentColor;
-  onAccentChange: (color: AccentColor) => void;
-  isDark: boolean;
-  selectedLanguage: Language;
-  borderColor: string;
-}) => {
-  const t = translations[selectedLanguage];
-  return (
-    <div className="border-b pb-4 mb-0" style={{ borderColor }}>
-      <div className="flex items-center justify-between py-3">
-        <span className="text-lg font-medium" style={{ color: "var(--theme-fg)" }}>
-          {t.accentLabel}
-        </span>
-        <div style={{ display: "flex", gap: 10 }}>
-          {ACCENT_OPTIONS.map((opt) => {
-            const isSel = opt.id === accentColor;
-            const swatch = isDark ? opt.dark : opt.light;
-            const bg = opt.mono
-              ? "linear-gradient(to right, #1d1d1f 50%, #f5f5f5 50%)"
-              : swatch;
-            return (
-              <button
-                key={opt.id}
-                onClick={() => onAccentChange(opt.id)}
-                aria-pressed={isSel}
-                aria-label={opt.id}
-                style={{
-                  width: 26, height: 26,
-                  borderRadius: "50%",
-                  background: bg,
-                  backgroundOrigin: "border-box",
-                  border: isSel ? `2px solid ${isDark ? "#ffffff" : "#1d1d1f"}` : "2px solid transparent",
-                  cursor: "pointer",
-                  padding: 0,
-                  transition: "transform 140ms ease",
-                  boxShadow: isSel ? `0 0 0 1px ${opt.mono ? "#888" : swatch}` : "none",
-                  outline: "none",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.12)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// ─── Navigation principale ───────────────────────────────────────────────────
 const GlobalNavigation = () => {
-  const { isDark: preferredDark, accentColor, setAccentColor } = useTheme();
+  const { isDark: preferredDark } = useTheme();
   const pathname = usePathname();
   const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || (pathname === "/googlemapsextension" || pathname === "/goupildigitalecosystem" || pathname === "/googleplayonios");
   const isProjectPage = isRenault || pathname.startsWith("/projects/");
@@ -484,7 +286,6 @@ const GlobalNavigation = () => {
   const [scrolledY, setScrolledY] = useState(false);
   const [langForceExpanded, setLangForceExpanded] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [colorPickerOpen, setColorPickerOpen] = useState(false);
   const scrolledYRef = useRef(false);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -494,7 +295,7 @@ const GlobalNavigation = () => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
 
-  const isScrolled = scrolledY && !langForceExpanded && !langOpen && !isMenuOpen && !colorPickerOpen;
+  const isScrolled = scrolledY && !langForceExpanded && !langOpen && !isMenuOpen;
 
 
   useEffect(() => { setSelectedLanguage(detectLanguage()); }, []);
@@ -537,20 +338,6 @@ const GlobalNavigation = () => {
 
   const closeLangDropdown = useCallback(() => {
     setLangOpen(false);
-    setTimeout(() => setLangForceExpanded(false), 280);
-  }, []);
-
-  const openColorPicker = useCallback(() => {
-    if (scrolledY) {
-      setLangForceExpanded(true);
-      setTimeout(() => setColorPickerOpen(true), 380);
-    } else {
-      setColorPickerOpen(true);
-    }
-  }, [scrolledY]);
-
-  const closeColorPicker = useCallback(() => {
-    setColorPickerOpen(false);
     setTimeout(() => setLangForceExpanded(false), 280);
   }, []);
 
@@ -702,16 +489,6 @@ const GlobalNavigation = () => {
                       {link.name}
                     </Link>
                   ))}
-
-                  {!isProjectPage && <ColorPicker
-                    accentColor={accentColor}
-                    onAccentChange={setAccentColor}
-                    isDark={isDark}
-                    isOpen={colorPickerOpen}
-                    onOpen={openColorPicker}
-                    onClose={closeColorPicker}
-                    options={ACCENT_OPTIONS}
-                  />}
                   <LanguageSelector
                     selectedLanguage={selectedLanguage}
                     onLanguageChange={handleLanguageChange}
@@ -801,13 +578,6 @@ const GlobalNavigation = () => {
             ))}
           </div>
           <div className="flex flex-col gap-0">
-            {!isProjectPage && <ColorPickerMobile
-              accentColor={accentColor}
-              onAccentChange={setAccentColor}
-              isDark={isDark}
-              selectedLanguage={selectedLanguage}
-              borderColor={borderColor}
-            />}
             {!isProjectPage && <ThemeToggleMobile selectedLanguage={selectedLanguage} borderColor={borderColor} onClose={() => setIsMenuOpen(false)} />}
           </div>
         </div>

@@ -21,8 +21,8 @@ const bannerText = {
 
 export function ListingBanner({ kind, language }: { kind: keyof typeof bannerText; language: Language }) {
   const [desktop, compact] = bannerText[kind][language];
-  return <div data-listing-banner className="w-full h-[45px] md:h-[50px] lg:h-[46px] rounded-[12px] flex items-center justify-center shrink-0" style={{ backgroundColor:"var(--theme-accent)" }}>
-    <p className="text-center px-3 lg:px-6 whitespace-pre-line lg:whitespace-nowrap text-[9px] md:text-[11px] lg:text-base leading-snug" style={{ fontFamily:"var(--font-body)", fontWeight:600, letterSpacing:0, color:"var(--theme-accent-fg)" }}>
+  return <div data-listing-banner className="w-full h-[45px] md:h-[50px] lg:h-[46px] rounded-[12px] flex items-center justify-center shrink-0" style={{ backgroundColor:"#314dcb" }}>
+    <p className="text-center px-3 lg:px-6 whitespace-pre-line lg:whitespace-nowrap text-[9px] md:text-[11px] lg:text-base leading-snug" style={{ fontFamily:"var(--font-body)", fontWeight:600, letterSpacing:0, color:"#ffffff" }}>
       <span className="hidden lg:inline">{desktop}</span>
       <span className="lg:hidden">{compact}</span>
     </p>

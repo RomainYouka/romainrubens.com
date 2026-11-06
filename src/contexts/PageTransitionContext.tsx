@@ -9,13 +9,15 @@ export type TransitionDirection = "up" | "down";
 interface PageTransitionContextType {
   phase: TransitionPhase;
   effect: "strips" | "spiral";
+  origin: { x: number; y: number };
   direction: TransitionDirection;
-  triggerTransition: (href: string, direction?: TransitionDirection, reason?: "logo" | "projects-cta") => void;
+  triggerTransition: (href: string, direction?: TransitionDirection, reason?: "logo" | "projects-cta", origin?: { x: number; y: number }) => void;
 }
 
 const PageTransitionContext = createContext<PageTransitionContextType>({
   phase: "idle",
   effect: "strips",
+  origin: { x: 0, y: 0 },
   direction: "up",
   triggerTransition: () => {},
 });
@@ -23,6 +25,7 @@ const PageTransitionContext = createContext<PageTransitionContextType>({
 export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
   const [phase,setPhase]=useState<TransitionPhase>("idle");
   const [effect,setEffect]=useState<"strips" | "spiral">("strips");
+  const [origin,setOrigin]=useState({ x: 0, y: 0 });
   const timers=useRef<ReturnType<typeof setTimeout>[]>([]);
   const [direction, setDirection] = useState<TransitionDirection>("up");
   const router = useRouter();
@@ -30,7 +33,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
 
   const triggerTransition = useCallback(
-    (href: string, dir: TransitionDirection = "up", reason?: "logo" | "projects-cta") => {
+    (href: string, dir: TransitionDirection = "up", reason?: "logo" | "projects-cta", source?: { x: number; y: number }) => {
       setDirection(dir);
       timers.current.forEach(clearTimeout);
       if (reason === "logo" && pathname === "/" && href === "/") {
@@ -45,6 +48,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
       }
       router.prefetch(href);
       const spiral = reason === "projects-cta";
+      setOrigin(source ?? { x: innerWidth / 2, y: innerHeight / 2 });
       setEffect(spiral ? "spiral" : "strips");
       setPhase("in");
       // Bounded reveal: no dependency on animation callbacks or network responses.
@@ -58,7 +62,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   );
 
   return (
-    <PageTransitionContext.Provider value={{ phase, direction, effect, triggerTransition }}>
+    <PageTransitionContext.Provider value={{ phase, direction, effect, origin, triggerTransition }}>
       {children}
     </PageTransitionContext.Provider>
   );

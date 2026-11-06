@@ -5,14 +5,13 @@ import { useTheme } from "@/contexts/ThemeContext";
 // An original, lightly dithered colour field. No image, WebGL or external script.
 export function ContactField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { theme, accentColor } = useTheme();
+  const { theme } = useTheme();
   useEffect(() => {
     const canvas = canvasRef.current, host = canvas?.parentElement, ctx = canvas?.getContext("2d");
     if (!canvas || !host || !ctx) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const mobile = matchMedia("(hover: none), (pointer: coarse)");
-    const monochrome = theme === "dark" ? "245,245,245" : "29,29,31";
-    const colors = accentColor === "mono" ? [monochrome, monochrome, monochrome] : ["255,65,70", "65,235,105", "65,115,255"];
+    const colors = ["255,65,70", "65,235,105", "65,115,255"];
     let width = 0, height = 0, frame = 0, lastFrame = 0, inView = true, px = -1000, py = -1000;
     function draw(now: number) {
       if (!width || !height) return;
@@ -24,11 +23,11 @@ export function ContactField() {
         const noise = seed - Math.floor(seed);
         const edge = Math.max(Math.abs(nx) * 1.55, Math.abs(ny) * 1.2);
         const wave = Math.sin(nx * 8 + ny * 5 + time * .16) * .095 + Math.sin(ny * 9 - time * .11) * .05;
-        const quiet = Math.max(0, Math.min(1, (Math.hypot(nx, ny * .9) - .19) * 4));
+        const distance = Math.min(1, Math.hypot(nx, ny * .9) / .6);
+        const quiet = .065 + .935 * distance ** 1.65;
         const pointer = reduced.matches ? 0 : Math.max(0, 1 - Math.hypot(x - px, y - py) / 160) * .12;
-        const strength = Math.max(0, Math.min(1, (edge - .3 + wave + noise * .1 + pointer) * 2.8)) * quiet;
-        if (strength < .04) continue;
-        const alpha = Math.round(strength * 5) / 5 * (theme === "dark" ? .28 : .26);
+        const strength = (.3 + .7 * Math.max(0, Math.min(1, (edge - .3 + wave + noise * .1 + pointer) * 2.8))) * quiet;
+        const alpha = strength * (theme === "dark" ? .3 : .29);
         for (let stripe = 0; stripe < 3; stripe++) {
           ctx!.fillStyle = `rgba(${colors[stripe]},${alpha})`;
           const left = x + stripe * cell / 3, stripeWidth = cell / 3 - .7;
@@ -59,6 +58,6 @@ export function ContactField() {
     document.addEventListener("visibilitychange", sync); reduced.addEventListener("change", sync);
     resize();
     return () => { cancelAnimationFrame(frame); observer.disconnect(); sizes.disconnect(); host.removeEventListener("pointermove", pointer); host.removeEventListener("pointerleave", leave); document.removeEventListener("visibilitychange", sync); reduced.removeEventListener("change", sync); };
-  }, [theme, accentColor]);
+  }, [theme]);
   return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none" />;
 }

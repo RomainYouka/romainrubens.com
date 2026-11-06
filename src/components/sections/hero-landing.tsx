@@ -91,11 +91,8 @@ export default function HeroLanding() {
 
   // ── Auto-scroll ─────────────────────────────────────────────────────────────
   const handleScroll = () => {
-    const scene = document.querySelector<HTMLElement>("[data-home-scene]");
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const end = scene ? scene.offsetTop + scene.offsetHeight - window.innerHeight : 0;
-    if (!reduced && window.scrollY < end - 10) window.scrollTo({ top: end, behavior: "smooth" });
-    else document.getElementById("personal-intro")?.scrollIntoView({ behavior: reduced ? "instant" : "smooth" });
+    const event = new Event("home-discover", { cancelable: true });
+    if (window.dispatchEvent(event)) document.getElementById("personal-intro")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   };
 
   // Always dark for readable white text, independently of the site theme.
