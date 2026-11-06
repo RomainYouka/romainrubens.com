@@ -2,7 +2,9 @@
 :global([data-theme="dark"]) .overlay { --sf-accent-filter:brightness(0); }
 .traveller { position:fixed; left:0; top:0; width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--theme-btn-bg); color:var(--theme-btn-fg); offset-path:var(--flight-path); offset-anchor:50% 50%; offset-rotate:0deg; animation:takeoff 1150ms cubic-bezier(.38,.05,.2,1) both; box-shadow:0 10px 32px #0002; }
 :global(body):has(.overlay) :global(#main-content) { pointer-events:none; }
+:global(body):has(.overlay:global([data-source="home"][data-phase="in"])) :global(#main-content) { animation:camera-depart 1150ms cubic-bezier(.38,.05,.2,1) both; transform-origin:70% 45%; }
 :global(body):has(.overlay) :global(.home-discover-actions [data-action-arrow]) { opacity:0; }
 @keyframes takeoff { from { offset-distance:0%; transform:rotate(-45deg) scale(1); } to { offset-distance:100%; transform:rotate(12deg) scale(1.5); } }
+@keyframes camera-depart { 0%,12% { transform:none; } 100% { transform:translate(-38vw,40vh) rotate(-5deg) scale(1.14); } }
 @media(max-width:767px) { .traveller { width:52px; height:52px; } }
 @media(prefers-reduced-motion:reduce) { .overlay { display:none; } }

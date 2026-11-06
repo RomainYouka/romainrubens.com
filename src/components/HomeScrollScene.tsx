@@ -37,7 +37,7 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       const scale = cover + (1 - cover) * eased;
       root.style.setProperty("--screen-scale", String(scale));
       root.style.setProperty("--screen-rise", `${-viewportHeight * .01 * eased}px`);
-      root.style.setProperty("--screen-radius", `${(window.innerWidth < 768 ? screenWidth*.14 : 3) * eased}px`);
+      root.style.setProperty("--screen-radius", `${window.innerWidth < 768 ? screenWidth*(50/353)*Math.min(1,p/.3) : 3*eased}px`);
       root.style.setProperty("--hardware-visible", p > .1 ? "visible" : "hidden");
       root.style.setProperty("--hardware-opacity", String(Math.max(0, Math.min(1,(p - .08) / (window.innerWidth < 768 ? .3 : .65)))));
       root.style.setProperty("--cable-opacity", String(Math.max(0, Math.min(1, (p-.18)/.5))));
@@ -55,7 +55,7 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       const mobile = window.innerWidth < 768;
       root.setAttribute("data-home-device",mobile ? "iphone-18-pro" : "studio-display");
       const width = reduced.matches ? window.innerWidth : mobile ? Math.min(window.innerWidth*.72,viewportHeight*.31) : Math.min(1040,viewportHeight*.64*16/9,window.innerWidth*.74);
-      const height = reduced.matches ? viewportHeight : width * (mobile ? 19.5/9 : 9/16);
+      const height = reduced.matches ? viewportHeight : width * (mobile ? 768/353 : 9/16);
       screenHeight=height;
       screenWidth=width;
       cover = reduced.matches ? 1 : Math.max(window.innerWidth / width, viewportHeight / height);

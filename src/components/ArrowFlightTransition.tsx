@@ -12,7 +12,7 @@ export function ArrowFlightTransition({ leaving, origin }: { leaving:boolean; or
   const path=leaving
     ? `M-70 -70 C-20 10 55 65 110 145`
     : `M${origin.x} ${origin.y} C${origin.x+width*.22} ${origin.y-height*.68} ${origin.x+width*.78} ${origin.y-height*.85} ${width*1.45} ${-height*.4}`;
-  return <div data-page-transition="flight" data-phase={leaving ? "out" : "in"} className={`${s.overlay} ${leaving ? s.out : ""}`} aria-hidden="true" style={{"--flight-path":`path('${path}')`} as CSSProperties}>
+  return <div data-page-transition="flight" data-source={pathname==="/" ? "home" : "destination"} data-phase={leaving ? "out" : "in"} className={`${s.overlay} ${leaving ? s.out : ""}`} aria-hidden="true" style={{"--flight-path":`path('${path}')`} as CSSProperties}>
     {!leaving && pathname==="/" && <span className={s.traveller}><SFIcon name="arrow-light" size={23} onAccent /></span>}
   </div>;
 }
