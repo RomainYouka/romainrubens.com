@@ -13,8 +13,11 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     // These full-page case studies must not inherit the catalogue's scroll offset.
     const resetProjectScroll = (pathname === "/renaultextensionapp" || pathname === "/stratosapp" || pathname === "/googlemapsextension") && !window.location.hash;
     if (resetProjectScroll) window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    // La page d'accueil garde un scroll natif fiable, notamment au zoom.
-    if (pathname === "/") return;
+    // Three native snap positions: hero, introduction, then the footer's end.
+    if (pathname === "/") {
+      document.documentElement.setAttribute("data-home-snap", "true");
+      return () => document.documentElement.removeAttribute("data-home-snap");
+    }
 
     // Respecte prefers-reduced-motion
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

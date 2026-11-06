@@ -100,7 +100,7 @@ export default function HeroLanding() {
 
   return (
     <section
-      className="relative w-full h-screen overflow-hidden"
+      className="relative w-full h-[100dvh] overflow-hidden"
       data-section="hero-landing"
       style={{ backgroundColor: "#050507" }}
     >

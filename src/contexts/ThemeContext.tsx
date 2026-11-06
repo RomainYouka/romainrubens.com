@@ -31,10 +31,19 @@ export function useTheme() {
   return ctx;
 }
 
+function applyBrowserTheme(theme: Theme) {
+  // color-scheme controls native browser UI; theme-color controls supported toolbars.
+  document.documentElement.style.colorScheme=theme;
+  document.querySelectorAll('meta[name="theme-color"]').forEach(meta=>{
+    meta.removeAttribute("media");
+    meta.setAttribute("content",theme==="dark" ? "#191919" : "#ffffff");
+  });
+  document.querySelectorAll('meta[name="color-scheme"]').forEach(meta=>meta.setAttribute("content",theme));
+}
+
 function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", theme === "dark" ? "#191919" : "#ffffff");
+  applyBrowserTheme(theme);
 }
 
 function applyAccent(color: AccentColor) {
@@ -87,6 +96,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     transitionLock.current = true;
 
     const newTheme = theme === "light" ? "dark" : "light";
+    applyBrowserTheme(newTheme);
     Analytics.themeToggle(newTheme);
 
     if (newTheme === "dark") {

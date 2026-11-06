@@ -21,7 +21,7 @@ const googleSansFlex = Google_Sans_Flex({
 });
 
 const siteUrlMeta = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
-const defaultTitle = "Romain Rubens - UX/UI Designer · Smart Ecosystems";
+const defaultTitle = "Romain Rubens — UX/UI Designer · Digital Products & Connected Ecosystems";
 const defaultDescription =
   "Portfolio de Romain Rubens, designer UX/UI spécialisé dans les écosystèmes connectés, le design d'interaction et les interfaces du quotidien.";
 const logoImage = "/icons/icon.svg";
@@ -30,7 +30,7 @@ const brandLogo = "/icons/logo-romain-rubens.svg";
 const absoluteBrandLogo = `${siteUrlMeta}${brandLogo}`;
 const socialImage = "/icons/og-image.png";
 const absoluteSocialImage = `${siteUrlMeta}${socialImage}`;
-const initialThemeScript = `(function(){try{var t=sessionStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}var supported={blue:1,pink:1,green:1,orange:1,mono:1};var a=sessionStorage.getItem('accentColor');localStorage.removeItem('accentColor');if(a&&supported[a]&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}else{sessionStorage.setItem('accentColor','blue');document.documentElement.removeAttribute('data-accent');}}catch(e){}})()`;
+const initialThemeScript = `(function(){try{var t=sessionStorage.getItem('theme');document.documentElement.style.colorScheme=t==='dark'?'dark':'light';var c=document.querySelector('meta[name="color-scheme"]');if(c)c.setAttribute('content',t==='dark'?'dark':'light');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#191919');}else{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#ffffff');}var supported={blue:1,pink:1,green:1,orange:1,mono:1};var a=sessionStorage.getItem('accentColor');localStorage.removeItem('accentColor');if(a&&supported[a]&&a!=='blue'){document.documentElement.setAttribute('data-accent',a);}else{sessionStorage.setItem('accentColor','blue');document.documentElement.removeAttribute('data-accent');}}catch(e){}})()`;
 
 export const metadata: Metadata = {
   applicationName: "Romain Rubens",
@@ -116,9 +116,10 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${googleSans.variable} ${googleSansFlex.variable}`}>
       <head>
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="color-scheme" content="light" />
         {/* Anti-flash : applique le thème et la couleur du navigateur avant le rendu React */}
         <script dangerouslySetInnerHTML={{ __html: initialThemeScript }} />
-        <meta name="theme-color" content="#ffffff" />
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://cloud.umami.is" />
         <link rel="image_src" href={absoluteBrandLogo} />

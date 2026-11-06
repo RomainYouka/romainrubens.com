@@ -9,29 +9,29 @@ import { usePageTransition } from "@/contexts/PageTransitionContext";
 
 const translations = {
   FR: {
-    title: "UX/UI Designer · Smart Ecosystems",
-    textMain: "Je suis étudiant en design industriel avec une pratique centrée sur l'UX/UI et le design d'interaction.",
-    textGray1: " Mon travail porte sur la manière dont les interfaces s'organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.",
-    textMain2: " Je porte un intérêt particulier aux écosystèmes connectés, aux interfaces de service et aux usages du quotidien,",
-    textGray2: " tout en développant une approche applicable à des contextes numériques plus larges.",
+    title: "Designer UX/UI · Produits Numériques & Écosystèmes Connectés",
+    textMain: "Designer UX/UI et étudiant en design d’interaction, je conçois des produits numériques et des écosystèmes connectés.",
+    textGray1: " J’associe recherche utilisateur, esprit critique et pensée systémique pour comprendre les besoins et simplifier les systèmes complexes.",
+    textMain2: " Des parcours aux design systems, je cherche à rendre les expériences utiles, accessibles et cohérentes.",
+    textGray2: " En collaboration avec les développeurs, je veille à préserver le sens du design dans le produit final.",
     ctaProjects: "Voir mes projets",
     ctaSkills: "Mes compétences",
   },
   EN: {
-    title: "UX/UI Designer · Smart Ecosystems",
-    textMain: "I'm an industrial design student with a practice focused on UX/UI and interaction design.",
-    textGray1: " My work explores how interfaces organize themselves in real-world usage, concrete constraints, and everyday systems.",
-    textMain2: " I have a particular interest in connected ecosystems, service interfaces, and everyday digital systems,",
-    textGray2: " while developing an approach applicable to broader digital contexts.",
+    title: "UX/UI Designer · Digital Products & Connected Ecosystems",
+    textMain: "I’m a UX/UI designer and interaction design student, creating digital products and connected ecosystems.",
+    textGray1: " I combine user research, critical thinking, and systems thinking to understand people’s needs and simplify complex systems.",
+    textMain2: " From user journeys to design systems, I aim to make experiences useful, accessible, and consistent.",
+    textGray2: " Working alongside developers, I help preserve the intent of the design in the final product.",
     ctaProjects: "View my projects",
     ctaSkills: "My skills",
   },
   ՀԱՅ: {
-    title: "UX/UI Դիզայներ · Smart Ecosystems",
-    textMain: "Ես industrial design ուսանող եմ՝ UX/UI և interaction design կենտրոնացված պրակտիկայով։",
-    textGray1: " Իմ աշխատանքը ուսումնասիրում է, թե ինչպես են ինտերֆեյսները կազմակերպվում իրական օգտագործման, կոնկրետ սահմանափակումների և առօրյա համակարգերում։",
-    textMain2: " Ես հատկապես հետաքրքրված եմ կապակցված էկոհամակարգերով, ծառայությունների ինտերֆեյսներով և առօրյա թվային համակարգերով,",
-    textGray2: " միաժամանակ զարգացնելով մոտեցում, որը կիրառելի է ավելի լայն թվային համատեքստերում։",
+    title: "UX/UI դիզայներ · Թվային պրոդուկտներ և կապակցված էկոհամակարգեր",
+    textMain: "Ես UX/UI դիզայներ և փոխազդեցության դիզայնի ուսանող եմ․ նախագծում եմ թվային պրոդուկտներ և կապակցված էկոհամակարգեր։",
+    textGray1: " Օգտատերերի հետազոտությունը, քննադատական և համակարգային մտածողությունն ինձ օգնում են հասկանալ մարդկանց կարիքները և պարզեցնել բարդ համակարգերը։",
+    textMain2: " Օգտատերերի ուղիներից մինչև դիզայն համակարգեր՝ ձգտում եմ ստեղծել օգտակար, հասանելի և համահունչ փորձառություններ։",
+    textGray2: " Ծրագրավորողների հետ համագործակցելով՝ պահպանում եմ դիզայնի մտահղացումը վերջնական պրոդուկտում։",
     ctaProjects: "Տեսեք իմ նախագծերը",
     ctaSkills: "Իմ հմտությունները",
   },
@@ -283,12 +283,12 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
       {/* Main section */}
       <section
         id={id}
-        className="w-full min-h-screen flex items-center"
+        className="w-full min-h-[100dvh] flex items-center"
         data-section="personal-intro"
         style={{
           backgroundColor: isDark ? "#191919" : "#F5F5F5",
-          paddingTop: "clamp(80px, 10vw, 120px)",
-          paddingBottom: "clamp(80px, 10vw, 120px)",
+          paddingTop: "clamp(64px, 8vw, 100px)",
+          paddingBottom: "clamp(64px, 8vw, 100px)",
         }}
       >
         <div className="w-full">
@@ -332,7 +332,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                   color: "var(--theme-fg)",
                   lineHeight: 1.6,
                   letterSpacing: "-0.018em",
-                  marginBottom: "clamp(48px, 8vw, 88px)",
+                  marginBottom: "clamp(32px, 6vw, 64px)",
                   display: "inline-block",
                 }}
               >
@@ -358,11 +358,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
         </div>
       </section>
       <style>{`
-        @media (min-width: 760px) {
-          .personal-intro-title {
-            white-space: nowrap;
-          }
-        }
+        .personal-intro-title { text-wrap: balance; }
       `}</style>
     </>
   );

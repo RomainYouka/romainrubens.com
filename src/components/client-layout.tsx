@@ -13,7 +13,7 @@ import { ThemeSwitchOverlay } from "@/components/ThemeSwitchOverlay";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import StarScrollTop from "@/components/StarScrollTop";
 
-const defaultTitle = "Romain Rubens - UX/UI Designer · Smart Ecosystems";
+const defaultTitle = "Romain Rubens — UX/UI Designer · Digital Products & Connected Ecosystems";
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -23,8 +23,8 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const metaDescriptions: Record<string, string> = {
       FR: "Portfolio de Romain Rubens, designer UX/UI spécialisé dans les écosystèmes connectés, le design d'interaction et les interfaces du quotidien.",
-      EN: "I'm an industrial design student with a practice focused on UX/UI and interaction design. My work explores how interfaces organize themselves in real-world usage, concrete constraints, and everyday systems.",
-      ՀԱՅ: "Ես industrial design ուսանող եմ՝ UX/UI և interaction design կենտրոնացված պրակտիկայով։ Իմ աշխատանքը ուսումնասիրում է, թե ինչպես են ինտերֆեյսները կազմակերպվում իրական օգտագործման և առօրյա համակարգերում։",
+      EN: "Romain Rubens, UX/UI designer and interaction design student. Digital products, connected ecosystems, user research and design systems.",
+      ՀԱՅ: "Ռոման Ռուբենս՝ UX/UI դիզայներ և փոխազդեցության դիզայնի ուսանող։ Թվային պրոդուկտներ, կապակցված էկոհամակարգեր, օգտատերերի հետազոտություն և դիզայն համակարգեր։",
     };
 
     const updateDocumentLanguage = (language: string) => {
