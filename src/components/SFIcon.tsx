@@ -7,6 +7,7 @@ const dimensions = {
   translate:[51,37], sun:[35,35], moon:[32,32], palette:[39,33],
   "check-circle":[33,33], envelope:[39,28], calendar:[32,30], document:[27,34],
   share:[29,36], "share-fill":[29,36], "share-circle":[33,33],
+  "arrow-light":[31,25],
 } as const;
 export type SFIconName = keyof typeof dimensions;
 

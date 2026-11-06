@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import type Lenis from "lenis";
+import { setupHomeScroll } from "@/lib/home-scroll";
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
@@ -15,8 +16,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     if (resetProjectScroll) window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     // Three native snap positions: hero, introduction, then the footer's end.
     if (pathname === "/") {
-      document.documentElement.setAttribute("data-home-snap", "true");
-      return () => document.documentElement.removeAttribute("data-home-snap");
+      return setupHomeScroll();
     }
 
     // Respecte prefers-reduced-motion
