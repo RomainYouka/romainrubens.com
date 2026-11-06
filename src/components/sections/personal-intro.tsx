@@ -115,6 +115,11 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   }, []);
 
   const content = translations[selectedLanguage];
+  const titleLines = selectedLanguage==="FR"
+    ? ["Designer UX/UI · Produits Numériques", "& Écosystèmes Connectés"]
+    : selectedLanguage==="EN"
+      ? ["UX/UI Designer · Digital Products", "& Connected Ecosystems"]
+      : ["UX/UI դիզայներ · Թվային պրոդուկտներ", "և կապակցված էկոհամակարգեր"];
 
   // Split text to find LinkedIn and CV/Resume links and make them clickable
   const renderTextWithLinks = (text: string) => {
@@ -320,7 +325,8 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                   marginBottom: "clamp(24px, 3vw, 40px)",
                 }}
               >
-                {content.title}
+                <span className="intro-role">{titleLines[0]}</span>
+                <span className="intro-specialty">{titleLines[1]}</span>
               </h2>
 
               {/* Text with colored sections */}
@@ -359,6 +365,9 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
       </section>
       <style>{`
         .personal-intro-title { text-wrap: balance; }
+        .personal-intro-title .intro-role,
+        .personal-intro-title .intro-specialty { display:block; white-space:nowrap; }
+        .personal-intro-title { font-size:clamp(14px, 4.2vw, 44px) !important; }
       `}</style>
     </>
   );

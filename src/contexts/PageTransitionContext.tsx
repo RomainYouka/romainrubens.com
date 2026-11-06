@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 type TransitionPhase = "idle" | "in" | "out";
@@ -19,15 +19,27 @@ const PageTransitionContext = createContext<PageTransitionContextType>({
 });
 
 export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
-  // Navigation must never be gated by a decorative animation or timer.
-  const phase: TransitionPhase = "idle";
+  const [phase,setPhase]=useState<TransitionPhase>("idle");
+  const timers=useRef<ReturnType<typeof setTimeout>[]>([]);
   const [direction, setDirection] = useState<TransitionDirection>("up");
   const router = useRouter();
+  useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
 
   const triggerTransition = useCallback(
     (href: string, dir: TransitionDirection = "up") => {
       setDirection(dir);
-      router.push(href);
+      timers.current.forEach(clearTimeout);
+      if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setPhase("idle"); router.push(href); return;
+      }
+      router.prefetch(href);
+      setPhase("in");
+      // Bounded reveal: no dependency on animation callbacks or network responses.
+      timers.current=[
+        setTimeout(()=>{ router.push(href); if(href==="/") window.scrollTo({top:0,behavior:"instant"}); },880),
+        setTimeout(()=>setPhase("out"),930),
+        setTimeout(()=>setPhase("idle"),1850),
+      ];
     },
     [router]
   );

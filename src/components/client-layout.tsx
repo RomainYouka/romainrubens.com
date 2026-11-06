@@ -4,6 +4,8 @@ import { detectLanguage } from "@/lib/language";
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
+import { usePageTransition } from "@/contexts/PageTransitionContext";
 import { LazyMotion, domAnimation } from "framer-motion";
 import GlobalNavigation from "@/components/sections/global-navigation";
 import GlobalFooter from "@/components/sections/global-footer";
@@ -14,9 +16,11 @@ import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import StarScrollTop from "@/components/StarScrollTop";
 
 const defaultTitle = "Romain Rubens — UX/UI Designer · Digital Products & Connected Ecosystems";
+const PageTransitionOverlay=dynamic(()=>import("@/components/PageTransitionOverlay").then(m=>m.PageTransitionOverlay),{ssr:false});
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const {phase}=usePageTransition();
   const isResumePage = pathname === "/resume";
 
   // Mise à jour de la langue du document selon la préférence de l'utilisateur
@@ -59,9 +63,10 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {!isResumePage && <GlobalNavigation onShowQuotes={() => {}} />}
+      {!isResumePage && <GlobalNavigation />}
       {children}
       {!isResumePage && <GlobalFooter />}
+      {phase!=="idle" && <PageTransitionOverlay />}
     </>
   );
 }

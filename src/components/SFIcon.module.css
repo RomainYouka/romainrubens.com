@@ -44,10 +44,13 @@
 :global([data-theme="dark"]) .open { background:#3d3d3d; border-color:#545454; color:#909090; }
 .external { width:28px; height:28px; --sf-scale:0.5833333333; }
 @media(min-width:768px) { .open { --badge-size:40px; --badge-border:1.25px; --sf-scale:0.625; } }
-@media(hover:hover) and (pointer:fine) {
+@media(min-width:768px) and (hover:hover) and (pointer:fine) {
   :global([data-card-pill]:hover) .open { max-width:calc(var(--badge-size) * 5); }
   :global([data-card-pill]:hover) .openLabel { opacity:1; visibility:visible; transition-delay:70ms; }
 }
-:global([data-card-pill]:focus-visible) .open { max-width:calc(var(--badge-size) * 5); }
-:global([data-card-pill]:focus-visible) .openLabel { opacity:1; visibility:visible; }
+@media(min-width:768px) {
+  :global([data-card-pill]:focus-visible) .open { max-width:calc(var(--badge-size) * 5); }
+  :global([data-card-pill]:focus-visible) .openLabel { opacity:1; visibility:visible; }
+}
+@media(max-width:767px) { .open,.openLabel { transition:none; } .openLabel { display:none; } }
 @media(prefers-reduced-motion:reduce) { .open,.openLabel { transition:none; } }

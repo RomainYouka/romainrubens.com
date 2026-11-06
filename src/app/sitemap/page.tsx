@@ -184,12 +184,6 @@ const getSections = (language: Language): Section[] => [
     ]
   },
   {
-    title: "skills",
-    items: [
-      { label: "skills", href: "/skills", isClickable: true }
-    ]
-  },
-  {
     title: "contact",
     items: [
       { label: "contact", href: "/contact", isClickable: true }

@@ -475,7 +475,7 @@ const ColorPickerMobile = ({ accentColor, onAccentChange, isDark, selectedLangua
 };
 
 // ─── Navigation principale ───────────────────────────────────────────────────
-const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
+const GlobalNavigation = () => {
   const { isDark: preferredDark, accentColor, setAccentColor } = useTheme();
   const pathname = usePathname();
   const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || pathname === "/googlemapsextension";
@@ -561,12 +561,8 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     e.preventDefault();
     setLogoAnimating(true);
     setTimeout(() => setLogoAnimating(false), 260);
-    if (pathname === "/") {
-      if (onShowQuotes) onShowQuotes();
-    } else {
-      triggerTransition("/", "down");
-    }
-  }, [pathname, onShowQuotes, triggerTransition]);
+    triggerTransition("/", "down");
+  }, [triggerTransition]);
 
   const handleMenuToggle = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
@@ -607,7 +603,6 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
     { name: t.home, href: "/" },
     { name: t.projects, href: "/projects" },
     { name: t.articles, href: "/articles" },
-    { name: t.skills, href: "/skills" },
     { name: t.contact, href: "/contact" },
   ];
 
@@ -689,6 +684,11 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                     <Link
                       key={link.name}
                       href={link.href}
+                      onClick={(event)=>{
+                        if(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                        event.preventDefault();
+                        triggerTransition(link.href,link.href==="/" ? "down" : "up");
+                      }}
                       className="flex items-center h-full font-medium text-sm px-1.5 xl:px-3 no-underline hover:underline focus-visible:underline"
                       style={{
                         color: textColor,
@@ -789,7 +789,12 @@ const GlobalNavigation = ({ onShowQuotes }: { onShowQuotes?: () => void }) => {
                   borderColor,
                   display: "flex", alignItems: "center", gap: 8,
                 }}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(event)=>{
+                  setIsMenuOpen(false);
+                  if(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                  event.preventDefault();
+                  triggerTransition(link.href,link.href==="/" ? "down" : "up");
+                }}
               >
                 {link.name}
               </Link>

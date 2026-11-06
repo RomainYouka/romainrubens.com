@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { AccentColor } from "@/contexts/ThemeContext";
@@ -78,7 +78,7 @@ export function PageTransitionOverlay() {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        pointerEvents: "all",
+        pointerEvents: "none",
         display: "flex",
       }}
     >

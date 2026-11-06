@@ -20,7 +20,6 @@ const routes = [
   "/projects/waveswitch",
   "/articles",
   "/explorations",
-  "/skills",
   "/contact",
   "/resume",
   "/legal",

@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useTheme } from "@/contexts/ThemeContext";
 
 /** One decorative canvas: no media downloads, touch handlers or React frame updates. */
 export default function DiodeBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { accentColor, theme, isHighContrast } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -18,9 +16,6 @@ export default function DiodeBackground() {
     if (!base) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const touch = matchMedia("(max-width: 767px), (hover: none), (pointer: coarse)");
-    const accent=getComputedStyle(host).getPropertyValue("--theme-accent").trim();
-    const hex=/^#[0-9a-f]{6}$/i.test(accent) ? accent.slice(1) : "314DCB";
-    const rgb=[0,2,4].map(offset=>parseInt(hex.slice(offset,offset+2),16));
     let width=0, height=0, frame=0, lastFrame=0, inView=true;
     let pointerX=0.5, pointerY=0.5, movingUntil=0;
     let x=0.5, y=0.5;
@@ -42,8 +37,8 @@ export default function DiodeBackground() {
         const radius=Math.min(230,Math.max(140,width*0.21));
         const cx=x*width, cy=y*height;
         const glow=ctx!.createRadialGradient(cx,cy,0,cx,cy,radius);
-        glow.addColorStop(0,`rgba(${rgb.join(",")},${0.13*strength})`);
-        glow.addColorStop(1,`rgba(${rgb.join(",")},0)`);
+        glow.addColorStop(0,`rgba(190,200,220,${0.04*strength})`);
+        glow.addColorStop(1,"rgba(190,200,220,0)");
         ctx!.fillStyle=glow;
         ctx!.fillRect(cx-radius,cy-radius,radius*2,radius*2);
         const left=Math.max(0,Math.floor((cx-radius)/stepX)*stepX);
@@ -53,11 +48,11 @@ export default function DiodeBackground() {
             const d=Math.hypot(px-cx,py-cy)/radius;
             if(d>=1) continue;
             const light=(1-d)**2*strength;
-            ctx!.fillStyle=`rgba(${rgb.join(",")},${light*0.9})`;
+            ctx!.fillStyle=`rgba(255,65,70,${light*0.9})`;
             ctx!.fillRect(px,py+2,2,8);
-            ctx!.fillStyle=`rgba(${rgb.join(",")},${light*0.8})`;
+            ctx!.fillStyle=`rgba(65,255,105,${light*0.9})`;
             ctx!.fillRect(px+3,py+2,2,8);
-            ctx!.fillStyle=`rgba(${rgb.join(",")},${light*0.65})`;
+            ctx!.fillStyle=`rgba(65,115,255,${light*0.9})`;
             ctx!.fillRect(px+6,py+2,2,8);
           }
         }
@@ -112,7 +107,7 @@ export default function DiodeBackground() {
       document.removeEventListener("visibilitychange",sync);
       reduced.removeEventListener("change",sync); touch.removeEventListener("change",sync);
     };
-  },[accentColor,theme,isHighContrast]);
+  },[]);
 
   return <canvas ref={canvasRef} aria-hidden="true" data-diode-background className="absolute inset-0 w-full h-full pointer-events-none" />;
 }
