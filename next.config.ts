@@ -55,7 +55,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/:folder(icons|projects|articles|resume)/:path*.:ext(png|jpg|jpeg|webp|svg|gif|webm|mp4|pdf)",
+        source: "/:folder(icons|projects|articles|resume)/:path*.:ext(png|jpg|jpeg|webp|svg|gif|webm|mp4|pdf|json)",
         headers: [{ key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" }],
       },
       ...legacyLogoHeaders.map((source) => ({

@@ -19,7 +19,7 @@ const MAX_OFFSET = 3.5;
 export default function StarScrollTop() {
   const { isDark: preferredDark } = useTheme();
   const pathname = usePathname();
-  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || (pathname === "/googlemapsextension" || pathname === "/goupildigitalecosystem");
+  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || (pathname === "/googlemapsextension" || pathname === "/goupildigitalecosystem" || pathname === "/googleplayonios");
   const isDark = !isRenault && preferredDark;
   const [visible, setVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);

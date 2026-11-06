@@ -2,6 +2,8 @@
 .canvas p,.canvas h2,.canvas h3 { color:inherit; letter-spacing:normal; }
 .canvas em { color:#18181b; font-style:normal; }
 .canvas img { display:block; }
+.nativeFigure { container-type:inline-size; content-visibility:auto; contain-intrinsic-size:auto 500px; flex:none; color:#18181b; }
+.nativeFigure p { margin:0; }
 .hero { height:1080px; overflow:hidden; position:relative; border-radius:0 0 100px 100px; display:flex; align-items:flex-end; justify-content:center; color:white; }
 .heroBackground { position:absolute; top:0; left:0; width:100%; height:117.18%; max-width:none; }
 .hero::after { content:""; position:absolute; inset:0; background:rgba(0,0,0,.3); pointer-events:none; }
@@ -48,6 +50,7 @@
 .componentStack .figureHeading p { font-size:18px; }
 .componentStack .figureHeading h3 { font-size:52px; }
 .componentStack .figureHeading+img { width:100%; height:auto; margin-top:32px; }
+.componentStack .figureHeading+.nativeFigure { margin-top:32px; }
 .componentFigures { display:flex; flex-direction:column; align-items:center; gap:32px; padding-top:32px; }
 .componentFigures img { max-width:100%; height:auto; }
 .buttonFigures { padding-top:32px; display:flex; flex-direction:column; align-items:center; gap:64px; }
@@ -57,16 +60,19 @@
 .buttonColumns>div+div { width:566.66px; gap:74.969px; }
 .buttonColumns img { max-width:100%; height:auto; }
 .usability { padding:256px 107px; background:#1d1d1f; color:white; }
-.usability h2 { font:500 40px/1.4 var(--font-display),sans-serif; text-align:center; }
+.usability h2 { font:400 40px/1.4 var(--font-display),sans-serif; text-align:center; }.usability h2 strong { font-weight:700; }
 .ratings { display:flex; justify-content:center; gap:16px; margin-top:32px; }
-.ratings>span,.example>div { display:flex; align-items:center; gap:8px; background:#18181b; padding:8px 32px; border-radius:10px; min-height:48px; font-size:20px; }
-.usabilityColumns { width:1306px; margin:64px auto 0; display:grid; grid-template-columns:1fr 1fr; gap:64px; }
-.criteria { display:flex; flex-direction:column; gap:20px; }
-.criteria p { font:400 20px/1.3 var(--font-body),sans-serif; color:#f4f4f5; }
-.criteria p+p { font-size:16px; color:#c7c7cc; }
-.criteria strong { font-weight:700; }.example { display:flex; flex-direction:column; align-items:flex-start; gap:16px; }
-.example h3 { font:700 32px/1.3 var(--font-display),sans-serif; margin-bottom:12px; }
-.example>div { padding:8px 20px; }.example p { font-size:20px; }.example strong { font-size:24px; }
+.ratings>span,.examplePill { display:flex; align-items:center; gap:8px; background:#18181b; padding:8px 32px; border-radius:10px; height:48px; font-size:20px; white-space:nowrap; }
+.ratings strong { font-size:24px; }
+.usabilityColumns { width:1306px; margin:64px auto 0; display:flex; flex-direction:column; gap:24px; }
+.criteria { display:grid; grid-template-columns:repeat(2,626px); gap:54px; }
+.criteriaColumn { display:flex; flex-direction:column; gap:24px; }
+.criteria p { font:400 24px/1.4 var(--font-body),sans-serif; color:#ffffff; }
+.criteria p+p { font-style:italic; color:#f4f4f5; }
+.criteria strong { font-weight:700; }.example { display:flex; flex-direction:column; align-items:center; gap:16px; }
+.example h3 { font:italic 500 24px/1.4 var(--font-body),sans-serif; }
+.exampleRow { display:flex; justify-content:center; gap:16px; }.exampleRow+.exampleRow { margin-top:6px; }
+.example p { font-size:20px; }.example strong { font-size:24px; }
 .example span { padding-left:4px; }.rating0 svg { color:#ff5c57; }.rating1 svg { color:#ff9f0a; }.rating2 svg { color:#ffd60a; }.rating3 svg { color:#b7e14a; }.rating4 svg { color:#64d98b; }.rating5 svg { color:#30d158; }
 .ecosystem { padding:256px 0; background:#f4f4f5; }
 .ecosystemFigures { margin:128px auto 0; width:1408px; display:flex; flex-direction:column; align-items:center; gap:64px; }
@@ -109,11 +115,11 @@
   .colorStack { gap:20px; }.grids { padding:64px 20px; gap:32px; }.gridFigures { width:100%; gap:32px; }
   .buttonFigures { gap:32px; padding-top:16px; }.buttonColumns { gap:24px; justify-content:center; }
   .buttonColumns>div,.buttonColumns>div+div { width:calc(50% - 12px); gap:24px; }.componentFigures { gap:24px; padding-top:16px; }
-  .componentStack .figureHeading+img { margin-top:16px; }.componentFigures img { max-width:100%; }
+  .componentStack .figureHeading+img,.componentStack .figureHeading+.nativeFigure { margin-top:16px; }.componentFigures img { max-width:100%; }
   .usability { padding:64px 24px; }.usability h2 { font-size:28px; }.ratings { flex-wrap:wrap; gap:8px; margin-top:24px; }
   .ratings>span { padding:8px 12px; font-size:14px; min-height:36px; }.ratings svg { width:18px; height:18px; }
-  .usabilityColumns { width:100%; margin-top:40px; gap:40px; grid-template-columns:1fr; }.criteria p { font-size:17px; }.criteria p+p { font-size:14px; }
-  .example { gap:10px; }.example h3 { font-size:24px; }.example>div { min-height:40px; }.example p { font-size:16px; }
+  .usabilityColumns { width:100%; margin-top:40px; gap:40px; }.criteria { grid-template-columns:1fr; gap:24px; }.criteria p { font-size:17px; }.criteria p+p { font-size:17px; }
+  .example { gap:10px; }.example h3 { font-size:24px; }.examplePill { padding:8px 12px; height:40px; }.example p { font-size:16px; }.exampleRow { flex-wrap:wrap; gap:10px; }
   .ecosystemFigures,.experienceFigures { width:100%; margin-top:40px; gap:32px; }.ecosystemFigures .ecosystemBrand { width:60%; }
   .experienceFigures figcaption { font-size:18px; gap:10px; margin-bottom:20px; }.experienceFigures figcaption svg { width:18px; }
   .modeFigures { width:100%; min-height:0; gap:24px; margin-top:24px; justify-content:center; }.modeFigures img { width:calc(50% - 12px); }

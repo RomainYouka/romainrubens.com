@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
+import { readFile } from 'node:fs/promises';
 
 // Exercise the compiled app, not just configuration text. No external traffic.
 const port = 5011;
@@ -20,7 +21,7 @@ try {
   assert.ok(ready, 'Production server must start');
   // /skills now redirects to the CV PDF, whose SAMEORIGIN policy permits
   // the site's PDF viewer. Check the redirect itself separately below.
-  for (const path of ['/', '/articles', '/accessibility', '/legal', '/projects', '/contact', '/llms.txt', '/sitemap.xml']) {
+  for (const path of ['/', '/articles', '/accessibility', '/legal', '/projects', '/googlemapsextension', '/googleplayonios', '/goupildigitalecosystem', '/contact', '/llms.txt', '/sitemap.xml']) {
     const response = await fetch(base + path);
     assert.equal(response.status, 200, path);
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff', path);
@@ -28,7 +29,24 @@ try {
     assert.match(response.headers.get('content-security-policy') || '', /object-src 'none'/, path);
     assert.match(response.headers.get('x-robots-tag') || '', /noindex/, `Preview ${path}`);
     const body = await response.text();
+    if (path === '/') {
+      assert.match(body, /data-home-scene/);
+      assert.match(body, /data-diode-background/);
+      assert.ok(!/<footer\b/.test(body), 'Homepage does not render a legal footer');
+      assert.match(body, /Connected Ecosystems/);
+    }
     if (path === '/articles') assert.match(body, /href="https:\/\/medium.com\/@romainrubens\//);
+    if (path === '/googleplayonios') {
+      assert.match(body, /Google Play/);
+      assert.match(body, /href="\/goupildigitalecosystem"/);
+      assert.ok(!body.includes('romainrubens23@gmail.com'), 'Use public contact details in mockups');
+    }
+    if (path === '/contact') {
+      assert.match(body, /hello@romainrubens\.com/);
+      assert.match(body, /href="https:\/\/cal\.com\/romainrubens"/);
+      assert.ok(!/href="https?:\/\/(?:www\.)?(?:medium|pinterest|behance)\./.test(body), 'Removed social platforms stay absent from Contact');
+      assert.ok(!body.includes('CONTACT FORM'), 'No unrequested data collection form');
+    }
     if (path === '/llms.txt') {
       for (const section of ['## Projets', '## Compétences', '## Contact', '## Articles']) assert.ok(body.includes(section), section);
     }
@@ -44,6 +62,16 @@ try {
   assert.equal(cv.headers.get('x-frame-options'), 'SAMEORIGIN');
   assert.match(cv.headers.get('content-security-policy') || '', /frame-ancestors 'self'/);
   console.log('PASS retired skills redirect and PDF embedding protection');
+  const nativeFigures = JSON.parse(await readFile(new URL('../src/app/goupildigitalecosystem/native-extra.json', import.meta.url), 'utf8'));
+  for (const src of Object.values(nativeFigures)) {
+    const figure = await fetch(base + src);
+    assert.equal(figure.status, 200, src);
+    assert.match(figure.headers.get('content-type') || '', /application\/json/, src);
+    assert.equal(figure.headers.get('x-content-type-options'), 'nosniff', src);
+    const data = await figure.json();
+    assert.ok(data.style.width > 0 && data.style.height > 0, src);
+  }
+  console.log(`PASS ${Object.keys(nativeFigures).length} native component resources`);
   const write = await fetch(base + '/api/skills/update', {
     method: 'POST', headers: { 'content-type': 'application/json', origin: base }, body: '{}',
   });

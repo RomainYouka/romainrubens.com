@@ -88,6 +88,7 @@ type FooterLanguage = keyof typeof footerTranslations;
 
 // Match the final navigation panel of each case study, independently of theme.
 const projectPalettes: Record<string, { background: string; foreground: string; secondary: string; border: string }> = {
+  "/googleplayonios": { background: "#314dcb", foreground: "#ffffff", secondary: "#cfffd9", border: "#cfffd9" },
   "/renaultextensionapp": { background: "#efdf00", foreground: "#1d1d1f", secondary: "#1d1d1f", border: "#777000" },
   "/stratosapp": { background: "#007afe", foreground: "#121417", secondary: "#121417", border: "#143d69" },
   "/googlemapsextension": { background: "#007786", foreground: "#ffffff", secondary: "#c1edf5", border: "#c1edf5" },

@@ -7,7 +7,7 @@ import { detectLanguage } from "@/lib/language";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ProjectSkeleton } from "@/components/ui/skeleton";
 import { useTheme } from "@/contexts/ThemeContext";
 import { BehanceRedirectOverlay } from "@/components/BehanceRedirectOverlay";
@@ -92,7 +92,7 @@ const mobileProjects = [
     darkImage: "/projects/blocks/googleplayios-dark.webp",
     year: "",
     slug: "googleplayios",
-    externalUrl: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS",
+    externalUrl: undefined as string | undefined,
     isComingSoon: false,
     isPriority: false,
   },
@@ -235,6 +235,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavigate, externalUrl, isComingSoon, language, isPriority }: ProjectCardProps) => {
+  const reduceMotion = useReducedMotion();
   const [isClicked, setIsClicked] = useState(false);
   const [imgError, setImgError] = useState(false);
   const { isDark } = useTheme();
@@ -269,7 +270,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
       data-card-pill
       className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] cursor-pointer block"
       style={{ border: "1px solid var(--theme-pill-border)" }}
-      whileHover={{ boxShadow: isComingSoon ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 40px rgba(0,0,0,0.15)" }}
+      whileHover={{ scale: reduceMotion ? 1 : 1.02, boxShadow: isComingSoon ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 40px rgba(0,0,0,0.15)" }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
@@ -358,7 +359,7 @@ export default function PortfolioPage() {
     if (project) {
       setExpandingCard({ slug, rect, image: project.image });
       setTimeout(() => {
-        router.push(slug === "renault" ? "/renaultextensionapp" : slug === "stratos" ? "/stratosapp" : slug === "googlemaps" ? "/googlemapsextension" : slug === "goupil" ? "/goupildigitalecosystem" : `/projects/${slug}`);
+        router.push(slug === "renault" ? "/renaultextensionapp" : slug === "stratos" ? "/stratosapp" : slug === "googlemaps" ? "/googlemapsextension" : slug === "googleplayios" ? "/googleplayonios" : slug === "goupil" ? "/goupildigitalecosystem" : `/projects/${slug}`);
       }, 200);
     }
   }, [router, allProjects]);

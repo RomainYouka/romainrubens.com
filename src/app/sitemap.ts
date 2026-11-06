@@ -11,7 +11,7 @@ const routes = [
   "/projects/chaussez-vous-ou-pas",
   "/projects/framasoft",
   "/goupildigitalecosystem",
-  "/projects/googleplayios",
+  "/googleplayonios",
   "/projects/intratone",
   "/projects/ios26",
   "/projects/namequest",

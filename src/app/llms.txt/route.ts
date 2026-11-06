@@ -9,7 +9,7 @@ const projects = [
   ["iOS 26", "/projects/ios26", "Exploration de concepts d’interface pour iOS 26."],
   ["Wave Switch", "/projects/waveswitch", "Interface de contrôle sonore."],
   ["Google Maps App Extension", "https://www.behance.net/gallery/247000211/Google-Maps-App-Extension", "Projet d’extension de l’expérience Google Maps."],
-  ["Google Play on iOS", "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", "Concept Google Play adapté à iOS."],
+  ["Google Play on iOS", "/googleplayonios", "Concept Google Play adapté à iOS : distribution alternative dans l’Union européenne, règles d’interface, composants natifs et design system."],
   ["Renault App Extension", "/renaultextensionapp", "Projet académique d’extension de l’application Renault, avec Erwan Hodonou, sur les quotas de mobilité partagés."],
   ["Stratos — Campus App", "/stratosapp", "Concept d’application pour connecter les étudiants de Strate autour d’événements et de conversations de groupe."],
   ["Google Maps App Extension", "/googlemapsextension", "Projet de navigation accessible dans le pôle multimodal de Perrache à Lyon, avec cartes par étage, recherche utilisateur et adaptations pour Google Maps, Plans et TCL."],

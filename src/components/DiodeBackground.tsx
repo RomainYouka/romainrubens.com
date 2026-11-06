@@ -17,8 +17,9 @@ export default function DiodeBackground() {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const touch = matchMedia("(max-width: 767px), (hover: none), (pointer: coarse)");
     let width=0, height=0, frame=0, lastFrame=0, inView=true;
-    let pointerX=0.5, pointerY=0.5, movingUntil=0;
+    let pointerX=0.5, pointerY=0.5, movingUntil=0, lastPointer=-1000, previousDraw=0;
     let x=0.5, y=0.5;
+    let columns=0, energy=new Float32Array(0);
     // A regular RGB-stripe matrix: three equal, rectangular subpixels per pixel.
     const stepX=10, stepY=12;
 
@@ -30,17 +31,15 @@ export default function DiodeBackground() {
         const t=now/1000;
         const targetX=auto ? 0.5+Math.sin(t*0.27)*0.34 : pointerX;
         const targetY=auto ? 0.5+Math.sin(t*0.39+0.8)*0.29 : pointerY;
-        // Desktop follows the actual pointer, without a trailing interpolation.
+        // The head follows exactly; only illuminated cells retain a fading trail.
         x=auto ? x+(targetX-x)*0.12 : targetX;
         y=auto ? y+(targetY-y)*0.12 : targetY;
-        const strength=auto ? 0.85 : Math.max(0,Math.min(1,(movingUntil-now)/900));
+        const strength=auto ? 0.85 : now-lastPointer<100 ? 1 : 0;
         const radius=Math.min(230,Math.max(140,width*0.21));
         const cx=x*width, cy=y*height;
-        const glow=ctx!.createRadialGradient(cx,cy,0,cx,cy,radius);
-        glow.addColorStop(0,`rgba(190,200,220,${0.04*strength})`);
-        glow.addColorStop(1,"rgba(190,200,220,0)");
-        ctx!.fillStyle=glow;
-        ctx!.fillRect(cx-radius,cy-radius,radius*2,radius*2);
+        const decay=Math.exp(-Math.min(100,now-previousDraw)/480);
+        previousDraw=now;
+        for(let i=0;i<energy.length;i++) energy[i]*=decay;
         const left=Math.max(0,Math.floor((cx-radius)/stepX)*stepX);
         const top=Math.max(0,Math.floor((cy-radius)/stepY)*stepY);
         for(let py=top;py<Math.min(height,cy+radius);py+=stepY) {
@@ -48,6 +47,15 @@ export default function DiodeBackground() {
             const d=Math.hypot(px-cx,py-cy)/radius;
             if(d>=1) continue;
             const light=(1-d)**2*strength;
+            const index=Math.floor(py/stepY)*columns+Math.floor(px/stepX);
+            energy[index]=Math.max(energy[index],light);
+          }
+        }
+        for(let row=0;row<Math.ceil(height/stepY);row++) {
+          for(let column=0;column<columns;column++) {
+            const light=energy[row*columns+column];
+            if(light<.012) continue;
+            const px=column*stepX, py=row*stepY;
             ctx!.fillStyle=`rgba(255,65,70,${light*0.9})`;
             ctx!.fillRect(px,py+2,2,8);
             ctx!.fillStyle=`rgba(65,255,105,${light*0.9})`;
@@ -70,7 +78,10 @@ export default function DiodeBackground() {
       frame=requestAnimationFrame(tick);
     }
     function resize() {
-      width=Math.round(host!.clientWidth); height=Math.round(host!.clientHeight);
+      const cover=Number(getComputedStyle(host!).getPropertyValue("--home-cover")) || 1;
+      width=Math.round(host!.clientWidth*cover); height=Math.round(host!.clientHeight*cover);
+      columns=Math.ceil(width/stepX);
+      energy=new Float32Array(columns*Math.ceil(height/stepY));
       // CSS-pixel resolution is enough for the intentionally granular pattern.
       canvas!.width=grid.width=width; canvas!.height=grid.height=height;
       base!.fillStyle="#050507"; base!.fillRect(0,0,width,height);
@@ -86,7 +97,8 @@ export default function DiodeBackground() {
       const rect=host!.getBoundingClientRect();
       pointerX=(event.clientX-rect.left)/rect.width;
       pointerY=(event.clientY-rect.top)/rect.height;
-      movingUntil=performance.now()+1800;
+      lastPointer=performance.now();
+      movingUntil=lastPointer+2300;
       start();
     }
     function sync() {
@@ -98,12 +110,14 @@ export default function DiodeBackground() {
     const sizeObserver=new ResizeObserver(resize);
     observer.observe(host); sizeObserver.observe(host);
     host.addEventListener("pointermove",pointer,{passive:true});
+    window.addEventListener("home-screen-resize",resize);
     document.addEventListener("visibilitychange",sync);
     reduced.addEventListener("change",sync); touch.addEventListener("change",sync);
     resize();
     return ()=>{
       cancelAnimationFrame(frame); observer.disconnect(); sizeObserver.disconnect();
       host.removeEventListener("pointermove",pointer);
+      window.removeEventListener("home-screen-resize",resize);
       document.removeEventListener("visibilitychange",sync);
       reduced.removeEventListener("change",sync); touch.removeEventListener("change",sync);
     };

@@ -2,8 +2,9 @@
 
 import { detectLanguage } from "@/lib/language";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useTheme } from "@/contexts/ThemeContext";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 
@@ -14,7 +15,7 @@ const translations = {
     textGray1: " J’associe recherche utilisateur, esprit critique et pensée systémique pour comprendre les besoins et simplifier les systèmes complexes.",
     textMain2: " Des parcours aux design systems, je cherche à rendre les expériences utiles, accessibles et cohérentes.",
     textGray2: " En collaboration avec les développeurs, je veille à préserver le sens du design dans le produit final.",
-    ctaProjects: "Voir mes projets",
+    ctaProjects: "Je découvre",
     ctaSkills: "Mes compétences",
   },
   EN: {
@@ -23,7 +24,7 @@ const translations = {
     textGray1: " I combine user research, critical thinking, and systems thinking to understand people’s needs and simplify complex systems.",
     textMain2: " From user journeys to design systems, I aim to make experiences useful, accessible, and consistent.",
     textGray2: " Working alongside developers, I help preserve the intent of the design in the final product.",
-    ctaProjects: "View my projects",
+    ctaProjects: "Discover",
     ctaSkills: "My skills",
   },
   ՀԱՅ: {
@@ -32,31 +33,19 @@ const translations = {
     textGray1: " Օգտատերերի հետազոտությունը, քննադատական և համակարգային մտածողությունն ինձ օգնում են հասկանալ մարդկանց կարիքները և պարզեցնել բարդ համակարգերը։",
     textMain2: " Օգտատերերի ուղիներից մինչև դիզայն համակարգեր՝ ձգտում եմ ստեղծել օգտակար, հասանելի և համահունչ փորձառություններ։",
     textGray2: " Ծրագրավորողների հետ համագործակցելով՝ պահպանում եմ դիզայնի մտահղացումը վերջնական պրոդուկտում։",
-    ctaProjects: "Տեսեք իմ նախագծերը",
+    ctaProjects: "Բացահայտել",
     ctaSkills: "Իմ հմտությունները",
   },
 };
 
-// PDF file mapping for downloads
-const pdfFiles = {
-  FR: "/resume/RUBENS_Romain_cv.pdf",
-  EN: "/resume/RUBENS_Romain_Resume.pdf",
-  ՀԱՅ: "/resume/RUBENS_Romain_Ամփոփում.pdf"
-};
-
-const pdfFileNames = {
-  FR: "RUBENS_Romain_cv.pdf",
-  EN: "RUBENS_Romain_Resume.pdf",
-  ՀԱՅ: "RUBENS_Romain_Ամփոփում.pdf"
-};
-
 export default function PersonalIntro({ id = "personal-intro" }: { id?: string }) {
   const { isDark } = useTheme();
+  const sectionRef = useRef<HTMLElement>(null);
+  const router = useRouter();
   const { triggerTransition } = usePageTransition();
   const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
   const [isVisible, setIsVisible] = useState(false);
   const [isFading, setIsFading] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
 
   const prefersReducedMotion =
     typeof window !== "undefined"
@@ -64,23 +53,6 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
       : false;
 
   const transitionDuration = prefersReducedMotion ? "1ms" : "200ms";
-
-  const handleCVDownload = () => {
-    setIsDownloading(true);
-    setTimeout(() => {
-      setIsDownloading(false);
-    }, 2200);
-
-    const pdfUrl = pdfFiles[selectedLanguage];
-    const fileName = pdfFileNames[selectedLanguage];
-
-    const link = document.createElement('a');
-    link.href = pdfUrl;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
 
   useEffect(() => {
     let saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
@@ -92,12 +64,14 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
   }, []);
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const handleLanguageChange = (event: CustomEvent<"FR" | "EN" | "ՀԱՅ">) => {
+      clearTimeout(timer);
       if (prefersReducedMotion) {
         setSelectedLanguage(event.detail);
       } else {
         setIsFading(true);
-        setTimeout(() => {
+        timer = setTimeout(() => {
           setSelectedLanguage(event.detail);
           setIsFading(false);
         }, 200);
@@ -106,13 +80,20 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
 
     window.addEventListener("languageChange", handleLanguageChange as EventListener);
     return () => {
+      clearTimeout(timer);
       window.removeEventListener("languageChange", handleLanguageChange as EventListener);
     };
   }, [prefersReducedMotion]);
 
   useEffect(() => {
-    setIsVisible(true);
-  }, []);
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setIsVisible(true); router.prefetch("/projects"); observer.disconnect(); }
+    }, { threshold: .15 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [router]);
 
   const content = translations[selectedLanguage];
   const titleLines = selectedLanguage==="FR"
@@ -121,172 +102,11 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
       ? ["UX/UI Designer · Digital Products", "& Connected Ecosystems"]
       : ["UX/UI դիզայներ · Թվային պրոդուկտներ", "և կապակցված էկոհամակարգեր"];
 
-  // Split text to find LinkedIn and CV/Resume links and make them clickable
-  const renderTextWithLinks = (text: string) => {
-    // Match LinkedIn (both "LinkedIn" and Armenian «LinkedIn»–ը)
-    const linkedInPattern = /«?LinkedIn»?–?ը?/i;
-    // Match CV/Resume (télécharger mon CV, download my resume, ներբեռնել իմ ռեզյումեն)
-    const cvPattern = /(télécharger mon CV|download my resume|ներբեռնել իմ ռեզյումեն)/i;
-    
-    // Split by LinkedIn first
-    const linkedInParts = text.split(linkedInPattern);
-    
-    if (linkedInParts.length === 1) {
-      // No LinkedIn found, just look for CV/Resume
-      const cvParts = text.split(cvPattern);
-      if (cvParts.length === 1) {
-        return text;
-      }
-      return (
-        <>
-          {cvParts[0]}
-          <button
-            onClick={handleCVDownload}
-            disabled={isDownloading}
-            style={{
-              color: "#1d1d1f",
-              textDecoration: "none",
-              background: "none",
-              border: "none",
-              padding: "0",
-              cursor: "pointer",
-              transition: `color ${transitionDuration} ease-in-out`,
-              fontFamily: "inherit",
-              fontSize: "inherit",
-              fontWeight: "inherit",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#0A66C2";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#1d1d1f";
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.color = "#0A66C2";
-              e.currentTarget.style.outline = "2px solid #0A66C2";
-              e.currentTarget.style.outlineOffset = "2px";
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.color = "#1d1d1f";
-              e.currentTarget.style.outline = "none";
-            }}
-          >
-            <u>{cvParts[1]}</u>
-          </button>
-          {cvParts[2]}
-        </>
-      );
-    }
-
-    // LinkedIn found, now check for CV in the last part
-    const lastPart = linkedInParts[linkedInParts.length - 1];
-    const cvParts = lastPart.split(cvPattern);
-    
-    const linkedInLink = (
-      <a
-        href="https://www.linkedin.com/in/romain-rubens-ba660323b/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group relative inline-block"
-        style={{
-          color: "#1d1d1f",
-          textDecoration: "none",
-          transition: `color ${transitionDuration} ease-in-out`,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = "#0A66C2";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = "#1d1d1f";
-        }}
-        onFocus={(e) => {
-          e.currentTarget.style.color = "#0A66C2";
-          e.currentTarget.style.outline = "2px solid #0A66C2";
-          e.currentTarget.style.outlineOffset = "2px";
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.color = "#1d1d1f";
-          e.currentTarget.style.outline = "none";
-        }}
-      >
-        LinkedIn
-        <span
-          className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#0A66C2] group-hover:w-full"
-          style={{
-            transition: `width ${transitionDuration} ease-in-out`,
-          }}
-        />
-      </a>
-    );
-
-    const cvButton = (
-      <button
-        onClick={handleCVDownload}
-        disabled={isDownloading}
-        className="group relative inline-block"
-        style={{
-          color: "#1d1d1f",
-          textDecoration: "none",
-          background: "none",
-          border: "none",
-          padding: "0",
-          cursor: "pointer",
-          transition: `color ${transitionDuration} ease-in-out`,
-          fontFamily: "inherit",
-          fontSize: "inherit",
-          fontWeight: "inherit",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.color = "#333333";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.color = "#1d1d1f";
-        }}
-        onFocus={(e) => {
-          e.currentTarget.style.color = "#333333";
-          e.currentTarget.style.outline = "2px solid #333333";
-          e.currentTarget.style.outlineOffset = "2px";
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.color = "#1d1d1f";
-          e.currentTarget.style.outline = "none";
-        }}
-      >
-        {cvParts[1] || ""}
-        <span
-          className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#3C3C3C] group-hover:w-full"
-          style={{
-            transition: `width ${transitionDuration} ease-in-out`,
-          }}
-        />
-      </button>
-    );
-
-    if (cvParts.length === 1) {
-      return (
-        <>
-          {linkedInParts[0]}
-          {linkedInLink}
-          {linkedInParts[1]}
-        </>
-      );
-    }
-
-    return (
-      <>
-        {linkedInParts[0]}
-        {linkedInLink}
-        {cvParts[0]}
-        {cvButton}
-        {cvParts[2]}
-      </>
-    );
-  };
-
   return (
     <>
       {/* Main section */}
       <section
+        ref={sectionRef}
         id={id}
         className="w-full min-h-[100dvh] flex items-center"
         data-section="personal-intro"

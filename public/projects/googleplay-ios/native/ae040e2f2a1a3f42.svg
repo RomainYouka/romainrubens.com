@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="654.194" height="798.627" viewBox="0 0 654.194 798.627" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<foreignObject x="-5.08912" y="-5.08912" width="664.372" height="808.805"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(2.54px);clip-path:url(#bgblur_0_0_141_clip_path);height:100%;width:100%"></div></foreignObject><g id="BG blur" data-figma-bg-blur-radius="5.08912">
+<use xlink:href="#stroke0_0_141" fill="#323232"/>
+<mask id="stroke1_0_141" fill="white">
+<use xlink:href="#stroke0_0_141"/>
+</mask>
+<path d="M30 798.627H624.194C640.763 798.627 654.194 785.195 654.194 768.627V30C654.194 13.4315 640.763 0 624.194 0H30C13.4315 0 0 13.4314 0 30V768.627C0 785.195 13.4315 798.627 30 798.627Z" stroke-width="8" stroke="#0043A6" mask="url(#stroke1_0_141)"/>
+</g>
+<defs>
+<clipPath id="bgblur_0_0_141_clip_path" transform="translate(5.08912 5.08912)"><path d="M30 2H624.194C639.658 2.00016 652.194 14.5361 652.194 30V768.627C652.194 784.091 639.658 796.627 624.194 796.627H30C14.5362 796.627 2.0002 784.091 2 768.627V30L2.00879 29.2773C2.39207 14.1473 14.7776 2 30 2Z"/>
+</clipPath><path id="stroke0_0_141" d="M0 30C0 13.4314 13.4315 0 30 0H624.194C640.763 0 654.194 13.4315 654.194 30V768.627C654.194 785.195 640.763 798.627 624.194 798.627H30C13.4315 798.627 0 785.195 0 768.627V30Z"/>
+</defs>
+</svg>

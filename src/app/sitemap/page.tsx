@@ -167,7 +167,7 @@ const getSections = (language: Language): Section[] => [
       { label: "students", href: "/stratosapp", isSubItem: true, isClickable: true },
       { label: "googlemaps", href: "/googlemapsextension", isSubItem: true, isClickable: true },
       { label: "renault", href: "/renaultextensionapp", isSubItem: true, isClickable: true },
-      { label: "googleplayios", href: "https://www.behance.net/gallery/246858627/Google-Play-on-iOS", isSubItem: true, isClickable: true, target: "_blank", rel: "noopener noreferrer" },
+      { label: "googleplayios", href: "/googleplayonios", isSubItem: true, isClickable: true },
       { label: "webProjects", href: "#", isSubItem: true },
       { label: "framasoft", href: "/projects/framasoft", isSubItem: true, isClickable: true },
       { label: "goupil", href: "/goupildigitalecosystem", isSubItem: true, isClickable: true },

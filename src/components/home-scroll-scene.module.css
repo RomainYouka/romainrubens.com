@@ -1,0 +1,11 @@
+.scene { height:225svh; position:relative; background:var(--theme-bg-alt); --screen-width:100vw; --screen-height:100svh; --screen-scale:1; --home-cover:1; --screen-radius:0px; --screen-rise:0px; --hardware-opacity:0; }
+.sticky { position:sticky; top:0; height:100svh; overflow:hidden; isolation:isolate; }
+.screen { position:absolute; z-index:2; left:50%; top:50%; width:var(--screen-width); height:var(--screen-height); transform:translate(-50%,-50%) translateY(var(--screen-rise)) scale(var(--screen-scale)); transform-origin:center; will-change:transform; }
+.screen::before { content:""; position:absolute; inset:-15px; border:1px solid #646469; border-radius:calc(var(--screen-radius) + 15px); background:linear-gradient(150deg,#3a3a3e,#09090b 35%,#202023); box-shadow:0 22px 50px #0003; }
+.surface { position:relative; width:100%; height:100%; overflow:hidden; border-radius:var(--screen-radius); background:#050507; }
+.camera { position:absolute; width:4px; height:4px; border-radius:50%; top:-9px; left:50%; background:#161923; box-shadow:inset 0 0 1px #63718e; opacity:var(--hardware-opacity); }
+.stand { position:absolute; z-index:1; top:calc(50% + var(--screen-height)/2 - 1svh); left:50%; width:clamp(52px,8vw,106px); height:clamp(65px,8vw,100px); transform:translateX(-50%); background:linear-gradient(90deg,#85858a,#c1c1c6 45%,#9c9ca1); clip-path:polygon(25% 0,75% 0,84% 87%,100% 96%,100% 100%,0 100%,0 96%,16% 87%); opacity:var(--hardware-opacity); }
+.stand span { position:absolute; bottom:0; left:0; right:0; height:5px; background:#737379; }
+.shadow { position:absolute; top:calc(50% + var(--screen-height)/2 + clamp(65px,8vw,100px) - 1svh); left:50%; width:35%; height:14px; border-radius:50%; background:#0002; filter:blur(12px); transform:translateX(-50%); opacity:var(--hardware-opacity); }
+@media(max-width:767px) { .scene { height:195svh; }.screen::before { inset:-9px; border-radius:calc(var(--screen-radius) + 9px); }.camera { top:-6px; width:3px; height:3px; }.shadow { width:60%; } }
+@media(prefers-reduced-motion:reduce) { .scene { height:100svh; }.screen { width:100%; height:100%; transform:translate(-50%,-50%); will-change:auto; }.screen::before,.stand,.shadow,.camera { display:none; }.surface { border-radius:0; } }

@@ -10,7 +10,7 @@ import DiodeBackground from "@/components/DiodeBackground";
 const translations = {
   FR:  { text: "Bonjour, moi c'est Romain Rubens",  button: "Découvrir"  },
   EN:  { text: "Hello, I'm Romain Rubens",          button: "Discover"   },
-  ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ",     button: "ԲԱՑԱՀԱՅТЕЛ" },
+  ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ",     button: "Բացահայտել" },
 };
 
 export default function HeroLanding() {
@@ -91,7 +91,11 @@ export default function HeroLanding() {
 
   // ── Auto-scroll ─────────────────────────────────────────────────────────────
   const handleScroll = () => {
-    document.getElementById("personal-intro")?.scrollIntoView({ behavior: "smooth" });
+    const scene = document.querySelector<HTMLElement>("[data-home-scene]");
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const end = scene ? scene.offsetTop + scene.offsetHeight - window.innerHeight : 0;
+    if (!reduced && window.scrollY < end - 10) window.scrollTo({ top: end, behavior: "smooth" });
+    else document.getElementById("personal-intro")?.scrollIntoView({ behavior: reduced ? "instant" : "smooth" });
   };
 
   // Always dark for readable white text, independently of the site theme.
@@ -100,7 +104,7 @@ export default function HeroLanding() {
 
   return (
     <section
-      className="relative w-full h-[100dvh] overflow-hidden"
+      className="relative w-full h-full overflow-hidden"
       data-section="hero-landing"
       style={{ backgroundColor: "#050507" }}
     >
@@ -114,7 +118,7 @@ export default function HeroLanding() {
           <h1
             style={{
               fontFamily:    "var(--font-display)",
-              fontSize:      "clamp(28px, 6.5vw, 80px)",
+              fontSize:      "calc(clamp(28px, 6.5vw, 80px) / var(--home-cover, 1))",
               fontWeight:    600,
               color:         textColor,
               letterSpacing: "-0.02em",
@@ -122,7 +126,7 @@ export default function HeroLanding() {
               textAlign:     "center",
               opacity:       splashDone ? 1 : 0,
               transition:    "opacity 0.6s ease",
-              maxWidth:      "90vw",
+              maxWidth:      "calc(90vw / var(--home-cover, 1))",
             }}
           >
             <span className="sr-only">{fullText}</span>
@@ -150,8 +154,8 @@ export default function HeroLanding() {
         {/* Bouton scroll — centrage sans transform conflictuel ──────────── */}
         {showScrollButton && (
           <div
-            className="absolute bottom-8 md:bottom-12"
-            style={{ left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", zIndex: 20 }}
+            className="absolute"
+            style={{ bottom: "calc(36px / var(--home-cover, 1))", left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", zIndex: 20, scale: "calc(1 / var(--home-cover, 1))", transformOrigin: "bottom center" }}
           >
             <button
               onClick={handleScroll}

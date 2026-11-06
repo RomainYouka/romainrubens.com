@@ -6,7 +6,7 @@ import { detectLanguage } from "@/lib/language";
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Analytics } from "@/lib/analytics";
 import { type Language } from "@/lib/language";
 import { articles } from "@/data/articles";
@@ -43,6 +43,7 @@ interface ArticleCardProps {
 }
 
 const ArticleCard = ({ image, number, title, href, language, onOpen, isPriority }: ArticleCardProps) => {
+  const reduceMotion = useReducedMotion();
   const handleClick = useCallback(() => {
     triggerHapticFeedback();
     window.dispatchEvent(new CustomEvent("blob-wink"));
@@ -64,7 +65,7 @@ const ArticleCard = ({ image, number, title, href, language, onOpen, isPriority 
         data-card-pill
         className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] cursor-pointer block p-0"
         style={{ border: "1px solid var(--theme-pill-border)", background: "transparent", textDecoration: "none" }}
-        whileHover={{ boxShadow: "0 10px 40px rgba(0,0,0,0.15)" }}
+        whileHover={{ scale: reduceMotion ? 1 : 1.02, boxShadow: "0 10px 40px rgba(0,0,0,0.15)" }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         aria-label={label}

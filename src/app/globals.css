@@ -265,16 +265,7 @@
   p { font-family: var(--font-body); font-size: 17px; line-height: 1.47059; font-weight: 400; letter-spacing: -0.022em; color: var(--foreground); }
   a { color: var(--color-link); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  html[data-home-snap="true"] { scroll-snap-type:y mandatory; }
-  html[data-home-snap="true"] [data-section="hero-landing"],
-  html[data-home-snap="true"] [data-section="personal-intro"] {
-    scroll-snap-align:start;
-    scroll-snap-stop:always;
-  }
-  html[data-home-snap="true"] footer[data-section="footer"] {
-    scroll-snap-align:end;
-    scroll-snap-stop:always;
-  }
+  html:has([data-home-scene]), body:has([data-home-scene]) { overflow-x:clip; overflow-y:visible; }
   @media (hover: hover) and (pointer: fine) {
     [data-project-category]:not([aria-current="true"]):hover {
       --category-hover-bg: color-mix(in srgb, var(--theme-pill-bg) 88%, var(--theme-fg));
