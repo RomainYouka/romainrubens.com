@@ -6,7 +6,8 @@ import s from "./home-scroll-scene.module.css";
 // Both ends stay concealed: the display hides the attachment and the other end
 // extends beyond the viewport even at the maximum drag distance.
 const curve = (x: number, y: number) => `M480 -160 C${480+x*.15} -55 ${438+x*.4} ${20+y*.25} ${380+x*.6} ${35+y*.4} C${240+x} ${55+y*.7} ${100+x} ${65+y} ${-1100+x} ${65+y}`;
-const phoneCurve = (x:number,y:number) => `M500 -10 C500 30 ${490+x*.15} ${50+y*.2} ${440+x*.4} ${58+y*.4} C${300+x} ${75+y*.7} ${100+x} ${85+y} ${-1100+x} ${85+y}`;
+const phoneCurve = (x:number,y:number) => `M500 -10L500 46 C500 ${65+y*.1} ${480+x*.1} ${74+y*.2} ${430+x*.3} ${80+y*.4} C${300+x} ${92+y*.7} ${100+x} ${95+y} ${-1100+x} ${95+y}`;
+const constrain=(x:number,y:number,mobile:boolean)=>({x:Math.max(mobile ? -90 : -420,Math.min(mobile ? 90 : 420,x)),y:Math.max(mobile ? -16 : -65,Math.min(mobile ? 6 : 10,y))});
 const languageCodes: Record<string,string> = {FR:"fr",EN:"en",ՀԱՅ:"hy"};
 
 /** Anchored behind the display. Geometry changes only while grabbed or via keys. */
@@ -42,7 +43,7 @@ export default function MonitorCable() {
     const start=grab.current;
     if(!start || start.id!==event.pointerId || !svg.current) return;
     const rect=svg.current.getBoundingClientRect();
-    offset.current={x:Math.max(-420,Math.min(420,start.dx+(event.clientX-start.x)/rect.width*1000)),y:Math.max(-65,Math.min(10,start.dy+(event.clientY-start.y)/rect.height*180))};
+    offset.current=constrain(start.dx+(event.clientX-start.x)/rect.width*1000,start.dy+(event.clientY-start.y)/rect.height*180,mobile.current);
     schedule();
   };
   const up = (event:PointerEvent<SVGSVGElement>) => {
@@ -54,17 +55,17 @@ export default function MonitorCable() {
     if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Home","Escape"].includes(event.key)) return;
     event.preventDefault();
     if(event.key==="Home" || event.key==="Escape") offset.current=mobile.current ? {x:0,y:0} : {x:420,y:10};
-    else offset.current={x:Math.max(-420,Math.min(420,offset.current.x+(event.key==="ArrowLeft" ? -20 : event.key==="ArrowRight" ? 20 : 0))),y:Math.max(-65,Math.min(10,offset.current.y+(event.key==="ArrowUp" ? -16 : event.key==="ArrowDown" ? 16 : 0)))};
+    else offset.current=constrain(offset.current.x+(event.key==="ArrowLeft" ? -20 : event.key==="ArrowRight" ? 20 : 0),offset.current.y+(event.key==="ArrowUp" ? -8 : event.key==="ArrowDown" ? 8 : 0),mobile.current);
     schedule(); setValue(Math.round(offset.current.x));
   };
   const label=language==="fr" ? "Déplacer le câble : flèches du clavier, touche Début pour réinitialiser" : language==="hy" ? "Տեղափոխել մալուխը՝ սլաքներով, Home՝ վերակայելու համար" : "Move power cable: arrow keys, Home to reset";
   return <svg ref={svg} className={s.cables} data-monitor-cable viewBox="0 0 1000 180" preserveAspectRatio="none" fill="none" role="slider" tabIndex={0} aria-label={label} aria-valuemin={-420} aria-valuemax={420} aria-valuenow={value} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onLostPointerCapture={()=>{grab.current=null;}} onKeyDown={key}>
-    <defs><pattern id="home-usb-braid" width="8" height="5" patternUnits="userSpaceOnUse"><path d="M-2 5L3 0M2 5L7 0M6 5L11 0" stroke="#b8b5af" strokeWidth=".65"/><path d="M-2 0L3 5M2 0L7 5M6 0L11 5" stroke="#fff" strokeWidth=".65"/></pattern></defs>
-    <defs><linearGradient id="usb-shell"><stop stopColor="#c8c6c0"/><stop offset=".18" stopColor="#faf9f6"/><stop offset=".6" stopColor="#eeece6"/><stop offset="1" stopColor="#bdbab4"/></linearGradient></defs>
+    <defs><pattern id="home-usb-braid" width="8" height="5" patternUnits="userSpaceOnUse"><path d="M-2 5L3 0M2 5L7 0M6 5L11 0" stroke="#39393e" strokeWidth=".65"/><path d="M-2 0L3 5M2 0L7 5M6 0L11 5" stroke="#08080a" strokeWidth=".65"/></pattern></defs>
+    <defs><linearGradient id="usb-shell"><stop stopColor="#111113"/><stop offset=".18" stopColor="#3e3e42"/><stop offset=".6" stopColor="#242427"/><stop offset="1" stopColor="#09090b"/></linearGradient></defs>
     <path ref={node=>{paths.current[0]=node;}} className={s.cableMain} d={curve(420,10)} stroke="var(--cable-color,#09090b)" strokeWidth="5.5" strokeLinecap="round" />
     <path ref={node=>{paths.current[1]=node;}} className={s.cableHighlight} d={curve(420,10)} stroke="#515158" strokeOpacity=".5" strokeWidth=".8" />
     <path ref={node=>{paths.current[3]=node;}} className={s.braid} d={curve(420,10)} stroke="url(#home-usb-braid)" strokeWidth="4.5" />
-    <g className={s.usbPlug}><rect x="478" y="-12" width="44" height="14" rx="5" fill="#b9bab9" stroke="#777b7c" strokeWidth="1"/><rect x="468" y="-3" width="64" height="34" rx="10" fill="url(#usb-shell)" stroke="#c6c3bc" strokeWidth=".8"/><path d="M488 30L491 40Q500 43 509 40L512 30" fill="url(#usb-shell)"/></g>
+    <g className={s.usbPlug}><rect x="480" y="-12" width="40" height="15" rx="3" fill="#b9bab9" stroke="#777b7c" strokeWidth="1"/><rect x="468" y="-3" width="64" height="42" rx="4" fill="url(#usb-shell)" stroke="#151518" strokeWidth=".8"/><path d="M488 38L490 46Q500 48 510 46L512 38" fill="url(#usb-shell)"/></g>
     <path ref={node=>{paths.current[2]=node;}} className={s.cableHit} d={curve(420,10)} stroke="transparent" strokeWidth="26" />
   </svg>;
 }

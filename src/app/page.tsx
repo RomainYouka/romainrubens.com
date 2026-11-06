@@ -6,7 +6,7 @@ import HomeScrollScene from "@/components/HomeScrollScene";
 
 export default function Home() {
   return (
-    <main id="main-content" className="min-h-screen w-full" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
+    <main id="main-content" className="min-h-screen w-full" style={{ backgroundColor: "var(--theme-bg)" }}>
       <HomeScrollScene introduction={<PersonalIntro />}><HeroLanding /></HomeScrollScene>
     </main>
   );

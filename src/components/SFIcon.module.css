@@ -16,7 +16,7 @@
   min-width:var(--badge-size);
   max-width:var(--badge-size);
   height:var(--badge-size);
-  overflow:hidden;
+  overflow:visible;
   border:0;
   color:var(--theme-btn-fg);
   transition:max-width 320ms cubic-bezier(.2,.8,.2,1);

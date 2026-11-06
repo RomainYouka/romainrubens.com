@@ -63,7 +63,7 @@ const ArticleCard = ({ image, number, title, href, language, onOpen, isPriority 
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         data-card-pill
-        className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] cursor-pointer block p-0"
+        className="relative w-full aspect-[2.16/1] rounded-[14.44px] cursor-pointer block p-0"
         style={{ border: "1px solid var(--theme-pill-border)", background: "transparent", textDecoration: "none" }}
         whileHover={{ scale: reduceMotion ? 1 : 1.02, boxShadow: "0 10px 40px rgba(0,0,0,0.15)" }}
         whileTap={{ scale: 0.98 }}
@@ -75,7 +75,7 @@ const ArticleCard = ({ image, number, title, href, language, onOpen, isPriority 
           alt={label}
           fill
           className="object-cover"
-          style={{ objectPosition: number === "04" ? "right center" : "center center" }}
+          style={{ objectPosition: number === "04" ? "right center" : "center center",borderRadius:"inherit" }}
           priority={isPriority}
           fetchPriority={isPriority ? "high" : "auto"}
           sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 57px), (max-width: 1279px) calc(50vw - 73px), 576px"

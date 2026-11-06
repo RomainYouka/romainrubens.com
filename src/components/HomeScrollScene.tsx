@@ -42,6 +42,11 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       root.style.setProperty("--hardware-opacity", String(Math.max(0, (p - .18) / .65)));
       root.style.setProperty("--cable-opacity", String(Math.max(0, Math.min(1, (p-.18)/.5))));
       const visibleHeight=window.visualViewport?.height || viewportHeight;
+      const intro=document.getElementById("personal-intro");
+      const titleTop=intro?.firstElementChild ? intro.getBoundingClientRect().top+(intro.clientHeight-intro.firstElementChild.clientHeight)/2 : Infinity;
+      const deviceOpacity=Math.max(0,Math.min(1,(titleTop-visibleHeight)/24));
+      root.style.setProperty("--mobile-device-opacity",String(deviceOpacity));
+      root.style.setProperty("--mobile-device-visible",deviceOpacity>0 && p>.1 ? "visible" : "hidden");
       root.style.setProperty("--discover-bottom", `${(Math.max(0,(screenHeight*scale-visibleHeight)/2)+40)/scale}px`);
     };
     const scroll = () => { if (!frame) frame = requestAnimationFrame(update); };
@@ -85,7 +90,7 @@ export default function HomeScrollScene({ children, introduction }: { children: 
     <div className={s.sticky}>
       <MonitorCable />
       <svg className={s.stand} aria-hidden="true" viewBox="0 0 200 120" fill="none"><defs><linearGradient id="studio-aluminium" x1="100" y1="0" x2="100" y2="108" gradientUnits="userSpaceOnUse"><stop stopColor="#8a8b8f"/><stop offset=".53" stopColor="#c4c5c8"/><stop offset=".9" stopColor="#a8a9ad"/><stop offset="1" stopColor="#e0e1e3"/></linearGradient><linearGradient id="studio-base"><stop stopColor="#919296"/><stop offset=".5" stopColor="#d9dade"/><stop offset="1" stopColor="#919296"/></linearGradient></defs><path fillRule="evenodd" d="M16 0H184V108H16V0Z M80 0A20 20 0 0 0 120 0H80Z" fill="url(#studio-aluminium)"/><path d="M16 108H184V115Q184 118 181 118H19Q16 118 16 115V108Z" fill="url(#studio-base)"/><path d="M18 116H182V118H18Z" fill="#7c7d81"/></svg>
-      <div className={s.screen} data-home-screen><div className={s.surface}>{children}</div><span className={s.camera} aria-hidden="true" /><span className={s.phoneControls} aria-hidden="true" /></div>
+      <div className={s.screen} data-home-screen><div className={s.surface}>{children}</div><span className={s.camera} aria-hidden="true" /><span className={s.phoneControls} aria-hidden="true" /><img className={s.phoneFrame} src="/devices/iphone-18-pro.webp" width={389} height={800} alt="" aria-hidden="true" decoding="async" /></div>
       <div className={s.shadow} aria-hidden="true" />
     </div>
   </div><div className={s.continuation}>{introduction}</div></section>;

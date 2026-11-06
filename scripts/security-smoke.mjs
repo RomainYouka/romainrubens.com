@@ -90,6 +90,11 @@ try {
     assert.ok((await asset.arrayBuffer()).byteLength > 0, src);
   }
   console.log(`PASS ${visualExports.length} original transparent visual exports`);
+  const deviceFrame=await fetch(base+'/devices/iphone-18-pro.webp');
+  assert.equal(deviceFrame.status,200,'Homepage device frame');
+  assert.match(deviceFrame.headers.get('content-type')||'',/image\/webp/);
+  assert.ok((await deviceFrame.arrayBuffer()).byteLength>1000,'Non-empty licensed device frame');
+  console.log('PASS homepage device frame');
   const write = await fetch(base + '/api/skills/update', {
     method: 'POST', headers: { 'content-type': 'application/json', origin: base }, body: '{}',
   });

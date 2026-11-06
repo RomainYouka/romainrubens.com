@@ -268,7 +268,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       data-card-pill
-      className="relative w-full aspect-[2.16/1] overflow-hidden rounded-[14.44px] cursor-pointer block"
+      className="relative w-full aspect-[2.16/1] rounded-[14.44px] cursor-pointer block"
       style={{ border: "1px solid var(--theme-pill-border)" }}
       whileHover={{ scale: reduceMotion ? 1 : 1.02, boxShadow: isComingSoon ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 40px rgba(0,0,0,0.15)" }}
       whileTap={{ scale: 0.98 }}
@@ -279,6 +279,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
         alt={slug}
         fill
         className="object-cover"
+        style={{borderRadius:"inherit"}}
         priority={isPriority}
         fetchPriority={isPriority ? "high" : "auto"}
         sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(50vw - 57px), (max-width: 1279px) calc(50vw - 73px), 576px"
@@ -291,7 +292,7 @@ const ProjectCard = ({ image, darkImage, year, slug, onNavigate, onExternalNavig
           <CardOpenBadge language={language} />
       </div>
       {isComingSoon && (
-        <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4 z-20">
+        <div className="absolute inset-0 rounded-[inherit] bg-black/40 flex items-center justify-center p-4 z-20">
           <span className="text-white font-bold text-center text-sm md:text-xl lg:text-2xl drop-shadow-lg">
             {isClicked ? t.returnDate : t.soon}
           </span>
