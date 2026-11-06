@@ -15,7 +15,7 @@
 .cableHit { pointer-events:stroke; touch-action:none; cursor:grab; }.cableHit:active { cursor:grabbing; }.cables:focus-visible { outline:2px dashed var(--theme-fg); outline-offset:-8px; }
 .braid,.usbPlug { display:none; }
 @media(max-width:767px) {
- .scene { height:125svh; }.continuation { margin-top:calc(-1 * var(--intro-overlap,0px)); }
+ .scene { height:150svh; }.continuation { margin-top:0; }
  .screen { opacity:var(--mobile-device-opacity,1); }.screen::before { display:none; }
  .phoneFrame { display:block; position:absolute; width:110.2%; height:104.2%; max-width:none; left:-5.1%; top:-2.1%; z-index:4; opacity:var(--hardware-opacity); filter:grayscale(1) drop-shadow(0 16px 20px #0004); pointer-events:none; }
  .camera { top:12px; left:50%; width:22%; height:22px; border-radius:30px; background:#030304; transform:translateX(-50%); box-shadow:inset 0 0 1px #101015; }

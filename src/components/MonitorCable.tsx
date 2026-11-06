@@ -6,7 +6,7 @@ import s from "./home-scroll-scene.module.css";
 // Both ends stay concealed: the display hides the attachment and the other end
 // extends beyond the viewport even at the maximum drag distance.
 const curve = (x: number, y: number) => `M480 -160 C${480+x*.15} -55 ${438+x*.4} ${20+y*.25} ${380+x*.6} ${35+y*.4} C${240+x} ${55+y*.7} ${100+x} ${65+y} ${-1100+x} ${65+y}`;
-const phoneCurve = (x:number,y:number) => `M500 -10L500 46 C500 ${65+y*.1} ${480+x*.1} ${74+y*.2} ${430+x*.3} ${80+y*.4} C${300+x} ${92+y*.7} ${100+x} ${95+y} ${-1100+x} ${95+y}`;
+const phoneCurve = (x:number,y:number) => `M500 -10L500 36 C500 ${59+y*.1} ${480+x*.1} ${72+y*.2} ${430+x*.3} ${80+y*.4} C${300+x} ${92+y*.7} ${100+x} ${95+y} ${-1100+x} ${95+y}`;
 const constrain=(x:number,y:number,mobile:boolean)=>({x:Math.max(mobile ? -90 : -420,Math.min(mobile ? 90 : 420,x)),y:Math.max(mobile ? -16 : -65,Math.min(mobile ? 6 : 10,y))});
 const languageCodes: Record<string,string> = {FR:"fr",EN:"en",ՀԱՅ:"hy"};
 
@@ -65,7 +65,7 @@ export default function MonitorCable() {
     <path ref={node=>{paths.current[0]=node;}} className={s.cableMain} d={curve(420,10)} stroke="var(--cable-color,#09090b)" strokeWidth="5.5" strokeLinecap="round" />
     <path ref={node=>{paths.current[1]=node;}} className={s.cableHighlight} d={curve(420,10)} stroke="#515158" strokeOpacity=".5" strokeWidth=".8" />
     <path ref={node=>{paths.current[3]=node;}} className={s.braid} d={curve(420,10)} stroke="url(#home-usb-braid)" strokeWidth="4.5" />
-    <g className={s.usbPlug}><rect x="480" y="-12" width="40" height="15" rx="3" fill="#b9bab9" stroke="#777b7c" strokeWidth="1"/><rect x="468" y="-3" width="64" height="42" rx="4" fill="url(#usb-shell)" stroke="#151518" strokeWidth=".8"/><path d="M488 38L490 46Q500 48 510 46L512 38" fill="url(#usb-shell)"/></g>
+    <g className={s.usbPlug}><rect x="488" y="-10" width="24" height="11" rx="2.5" fill="#b9bab9" stroke="#777b7c" strokeWidth="1"/><rect x="484" y="-2" width="32" height="28" rx="4.5" fill="url(#usb-shell)" stroke="#151518" strokeWidth=".8"/><path d="M491 25L493 36Q500 38 507 36L509 25" fill="url(#usb-shell)"/></g>
     <path ref={node=>{paths.current[2]=node;}} className={s.cableHit} d={curve(420,10)} stroke="transparent" strokeWidth="26" />
   </svg>;
 }

@@ -11,7 +11,7 @@ export default function HomeScrollScene({ children, introduction }: { children: 
     const root = scene.current;
     if (!root) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-    let frame = 0, travelFrame = 0, top = 0, distance = 1, cover = 1, viewportHeight = 1, screenHeight = 1;
+    let frame = 0, travelFrame = 0, top = 0, distance = 1, cover = 1, viewportHeight = 1, screenHeight = 1, screenWidth = 1;
     const cancelTravel = () => cancelAnimationFrame(travelFrame);
     const discover = (event: Event) => {
       const intro = document.getElementById("personal-intro");
@@ -37,9 +37,9 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       const scale = cover + (1 - cover) * eased;
       root.style.setProperty("--screen-scale", String(scale));
       root.style.setProperty("--screen-rise", `${-viewportHeight * .01 * eased}px`);
-      root.style.setProperty("--screen-radius", `${(window.innerWidth < 768 ? 38 : 3) * eased}px`);
+      root.style.setProperty("--screen-radius", `${(window.innerWidth < 768 ? screenWidth*.14 : 3) * eased}px`);
       root.style.setProperty("--hardware-visible", p > .1 ? "visible" : "hidden");
-      root.style.setProperty("--hardware-opacity", String(Math.max(0, (p - .18) / .65)));
+      root.style.setProperty("--hardware-opacity", String(Math.max(0, Math.min(1,(p - .08) / (window.innerWidth < 768 ? .3 : .65)))));
       root.style.setProperty("--cable-opacity", String(Math.max(0, Math.min(1, (p-.18)/.5))));
       const visibleHeight=window.visualViewport?.height || viewportHeight;
       const intro=document.getElementById("personal-intro");
@@ -57,15 +57,11 @@ export default function HomeScrollScene({ children, introduction }: { children: 
       const width = reduced.matches ? window.innerWidth : mobile ? Math.min(window.innerWidth*.72,viewportHeight*.31) : Math.min(1040,viewportHeight*.64*16/9,window.innerWidth*.74);
       const height = reduced.matches ? viewportHeight : width * (mobile ? 19.5/9 : 9/16);
       screenHeight=height;
+      screenWidth=width;
       cover = reduced.matches ? 1 : Math.max(window.innerWidth / width, viewportHeight / height);
       root.style.setProperty("--screen-width", `${width}px`);
       root.style.setProperty("--screen-height", `${height}px`);
       root.style.setProperty("--home-cover", String(cover));
-      const intro=document.getElementById("personal-intro");
-      const titleOffset=intro?.firstElementChild ? (intro.clientHeight-intro.firstElementChild.clientHeight)/2 : 88;
-      const safeHardwareBottom=viewportHeight/2+height/2-viewportHeight*.01+120;
-      const overlap=mobile && !reduced.matches ? Math.max(0,Math.min(viewportHeight*.32,viewportHeight+titleOffset-safeHardwareBottom)) : 0;
-      root.parentElement?.style.setProperty("--intro-overlap",`${overlap}px`);
       top = root.getBoundingClientRect().top + window.scrollY;
       distance = Math.max(1, root.offsetHeight - viewportHeight);
       update();
