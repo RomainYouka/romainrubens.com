@@ -12,7 +12,7 @@ const translations = {
     sections: [
       {
         heading: "Dénomination.",
-        content: "Le présent site internet, accessible à l'adresse romainrubens.com, est édité par RUBENS Romain, étudiant en design industriel spécialisé en UX/UI et design d'interaction, domicilié en France."
+        content: "romainrubens.com est un portfolio personnel non commercial édité par Romain Rubens, responsable de la publication. Il présente ses travaux en UX/UI, design d'interaction et design industriel. Le site ne propose pas de vente en ligne."
       },
       {
         heading: "Contact.",
@@ -61,7 +61,7 @@ const translations = {
     sections: [
       {
         heading: "Identification.",
-        content: "This website, accessible at romainrubens.com, is published by RUBENS Romain, an industrial design student specializing in UX/UI and interaction design, based in France."
+        content: "romainrubens.com is a personal, non-commercial portfolio published by Romain Rubens, who is responsible for publication. It presents his work in UX/UI, interaction design and industrial design. This website does not offer online sales."
       },
       {
         heading: "Contact.",
@@ -110,7 +110,7 @@ const translations = {
     sections: [
       {
         heading: "Նույնականացում։",
-        content: "Այս կայքը, հասանելի romainrubens.com հասցեով, պատկանում և կառավարվում է RUBENS Romain-ի կողմից, որը արդյունաբերական դիզայնի ուսանող է՝ մասնագիտացած UX/UI և փոխազդեցության դիզայնում, և բնակվում է Ֆրանսիայում։"
+        content: "romainrubens.com-ը Ռոմեն Ռուբենսի անձնական, ոչ առևտրային պորտֆոլիոն է։ Ռոմեն Ռուբենսը կայքի հրատարակիչն ու հրապարակման պատասխանատուն է։ Կայքը ներկայացնում է նրա աշխատանքները UX/UI, փոխազդեցության և արդյունաբերական դիզայնի ոլորտներում և չի առաջարկում առցանց վաճառք։"
       },
       {
         heading: "Կապ։",
