@@ -2,7 +2,7 @@ import { createPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = createPageMetadata({
   title: "Projets",
-  description: "Sélection de projets de design UX/UI de Romain Rubens — applications mobiles, sites web et projets divers.",
+  description: "Projets de Romain Rubens, Product & Interaction Designer | Connected Ecosystems & Smart Home : interfaces, design systems et projets divers.",
   path: "/projects",
 });
 

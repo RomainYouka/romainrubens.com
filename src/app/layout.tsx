@@ -4,6 +4,7 @@ import Script from "next/script";
 import ClientLayout from "@/components/client-layout";
 import { LanguageSync } from "@/components/language-sync";
 import { Google_Sans, Google_Sans_Flex } from "next/font/google";
+import { jobTitle, siteTitle, profileDescriptions } from "@/lib/profile";
 
 const googleSans = Google_Sans({
   subsets: ["latin", "armenian"],
@@ -23,9 +24,8 @@ const googleSansFlex = Google_Sans_Flex({
 });
 
 const siteUrlMeta = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
-const defaultTitle = "Romain Rubens — UX/UI Designer · Digital Products & Connected Ecosystems";
-const defaultDescription =
-  "Portfolio de Romain Rubens, designer UX/UI spécialisé dans les écosystèmes connectés, le design d'interaction et les interfaces du quotidien.";
+const defaultTitle = siteTitle;
+const defaultDescription = profileDescriptions.FR;
 const logoImage = "/icons/icon.svg";
 const absoluteLogoImage = `${siteUrlMeta}${logoImage}`;
 const brandLogo = "/icons/logo-romain-rubens.svg";
@@ -47,8 +47,9 @@ export const metadata: Metadata = {
   description: defaultDescription,
   keywords: [
     "Romain Rubens",
-    "UX UI designer",
-    "Smart Ecosystems",
+    "Product & Interaction Designer",
+    "Connected Ecosystems",
+    "Smart Home",
     "design d'interaction",
     "maison connectée",
     "portfolio designer",
@@ -78,7 +79,7 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: defaultDescription,
     url: siteUrlMeta,
-    images: [{ url: absoluteSocialImage, width: 1200, height: 630, alt: "Romain Rubens - UX/UI Designer · Smart Ecosystems" }],
+    images: [{ url: absoluteSocialImage, width: 1200, height: 630, alt: siteTitle }],
   },
   twitter: {
     card: "summary_large_image",
@@ -148,12 +149,12 @@ export default function RootLayout({
                   "url": siteUrlMeta,
                   "image": absoluteLogoImage,
                   "description": defaultDescription,
-                  "jobTitle": "UX/UI Designer · Smart Ecosystems",
+                  "jobTitle": jobTitle,
                   "knowsAbout": [
                     "UX/UI design",
                     "Interaction design",
-                    "Smart ecosystems",
-                    "Connected home",
+                    "Connected ecosystems",
+                    "Smart home",
                     "Service design",
                   ],
                   "sameAs": [

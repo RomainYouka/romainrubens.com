@@ -1,6 +1,7 @@
 "use client";
 
 import { detectLanguage } from "@/lib/language";
+import { siteTitle, profileDescriptions } from "@/lib/profile";
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -15,7 +16,7 @@ import { ThemeSwitchOverlay } from "@/components/ThemeSwitchOverlay";
 import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import StarScrollTop from "@/components/StarScrollTop";
 
-const defaultTitle = "Romain Rubens — UX/UI Designer · Digital Products & Connected Ecosystems";
+const defaultTitle = siteTitle;
 const PageTransitionOverlay=dynamic(()=>import("@/components/PageTransitionOverlay").then(m=>m.PageTransitionOverlay),{ssr:false});
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
@@ -25,18 +26,14 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
   // Mise à jour de la langue du document selon la préférence de l'utilisateur
   useEffect(() => {
-    const metaDescriptions: Record<string, string> = {
-      FR: "Portfolio de Romain Rubens, designer UX/UI spécialisé dans les écosystèmes connectés, le design d'interaction et les interfaces du quotidien.",
-      EN: "Romain Rubens, UX/UI designer and interaction design student. Digital products, connected ecosystems, user research and design systems.",
-      ՀԱՅ: "Ռոման Ռուբենս՝ UX/UI դիզայներ և փոխազդեցության դիզայնի ուսանող։ Թվային պրոդուկտներ, կապակցված էկոհամակարգեր, օգտատերերի հետազոտություն և դիզայն համակարգեր։",
-    };
+    const metaDescriptions: Record<string, string> = profileDescriptions;
 
     const updateDocumentLanguage = (language: string) => {
       if (pathname === "/") {
         document.title = defaultTitle;
       }
       const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
+      if (metaDescription && pathname === "/") {
         metaDescription.setAttribute("content", metaDescriptions[language] || metaDescriptions.FR);
       }
       const langMap: Record<string, string> = { FR: "fr", EN: "en", ՀԱՅ: "hy" };

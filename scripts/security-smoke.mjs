@@ -57,6 +57,8 @@ try {
       assert.ok(!body.includes('data-story-countdown'), 'Removed countdown stays absent');
       assert.ok(!/<footer\b/.test(body), 'Homepage does not render a legal footer');
       assert.match(body, /Connected Ecosystems/);
+      assert.match(body, /<title>Romain Rubens — Product &amp; Interaction Designer \| Connected Ecosystems &amp; Smart Home<\/title>/);
+      assert.ok(body.includes('"jobTitle":"Product & Interaction Designer | Connected Ecosystems & Smart Home"'), 'Structured profile uses the current role');
     }
     if (path === '/articles') assert.match(body, /href="https:\/\/medium.com\/@romainrubens\//);
     if (path === '/googleplayonios') {
@@ -74,6 +76,7 @@ try {
       assert.ok(!body.includes('CONTACT FORM'), 'No unrequested data collection form');
     }
     if (path === '/llms.txt') {
+      assert.ok(body.includes('Product & Interaction Designer | Connected Ecosystems & Smart Home'), 'AI summary uses the current role');
       assert.ok(!/framasoft/i.test(body), 'Removed project is not advertised to crawlers');
       for (const section of ['## Projets', '## Compétences', '## Contact', '## Articles']) assert.ok(body.includes(section), section);
     }

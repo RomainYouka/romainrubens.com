@@ -1,5 +1,6 @@
 import skills from "@/data/skills.json";
 import { articles } from "@/data/articles";
+import { jobTitle, profileDescriptions } from "@/lib/profile";
 
 export const dynamic = "force-static";
 
@@ -23,8 +24,8 @@ const absolute = (url: string) => url.startsWith("/") ? `https://romainrubens.co
 export function GET() {
   const text = [
     "# Romain Rubens",
-    "> Portfolio officiel — UX/UI Designer · Smart Ecosystems.",
-    "Étudiant en design industriel avec une pratique centrée sur l’UX/UI et le design d’interaction. Son travail porte sur la manière dont les interfaces s’organisent dans des usages réels, des contraintes concrètes et des systèmes du quotidien.",
+    `> Portfolio officiel — ${jobTitle}.`,
+    profileDescriptions.FR,
     "Intérêts : écosystèmes connectés, interfaces de service et usages du quotidien. Langues du site : français, anglais et arménien.",
     "Les projets sont présentés comme des travaux de design ; la présence d’une marque ne constitue pas une preuve d’emploi ou de partenariat avec celle-ci. Consulter les études de cas pour le contexte et les détails.",
     "## Pages de référence",

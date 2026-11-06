@@ -2,7 +2,7 @@ import { createPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = createPageMetadata({
   title: "CV",
-  description: "Curriculum vitae de Romain Rubens, designer UX/UI et designer d'interaction.",
+  description: "Curriculum vitae de Romain Rubens — Product & Interaction Designer | Connected Ecosystems & Smart Home.",
   path: "/resume",
 });
 

@@ -9,8 +9,8 @@ import { usePageTransition } from "@/contexts/PageTransitionContext";
 
 const translations = {
   FR: {
-    title: "Designer UX/UI · Produits Numériques & Écosystèmes Connectés",
-    textMain: "Designer UX/UI et étudiant en design d’interaction, je conçois des produits numériques et des écosystèmes connectés.",
+    title: "Designer Produit & Interaction | Écosystèmes Connectés & Maison Intelligente",
+    textMain: "Designer produit et d’interaction, je conçois des produits numériques et des expériences pour les écosystèmes connectés et la maison intelligente.",
     textGray1: " J’associe recherche utilisateur, esprit critique et pensée systémique pour comprendre les besoins et simplifier les systèmes complexes.",
     textMain2: " Des parcours aux design systems, je cherche à rendre les expériences utiles, accessibles et cohérentes.",
     textGray2: " En collaboration avec les développeurs, je veille à préserver le sens du design dans le produit final.",
@@ -18,8 +18,8 @@ const translations = {
     ctaSkills: "Mes compétences",
   },
   EN: {
-    title: "UX/UI Designer · Digital Products & Connected Ecosystems",
-    textMain: "I’m a UX/UI designer and interaction design student, creating digital products and connected ecosystems.",
+    title: "Product & Interaction Designer | Connected Ecosystems & Smart Home",
+    textMain: "I’m a product and interaction designer, creating digital products and experiences for connected ecosystems and smart homes.",
     textGray1: " I combine user research, critical thinking, and systems thinking to understand people’s needs and simplify complex systems.",
     textMain2: " From user journeys to design systems, I aim to make experiences useful, accessible, and consistent.",
     textGray2: " Working alongside developers, I help preserve the intent of the design in the final product.",
@@ -27,8 +27,8 @@ const translations = {
     ctaSkills: "My skills",
   },
   ՀԱՅ: {
-    title: "UX/UI դիզայներ · Թվային պրոդուկտներ և կապակցված էկոհամակարգեր",
-    textMain: "Ես UX/UI դիզայներ և փոխազդեցության դիզայնի ուսանող եմ․ նախագծում եմ թվային պրոդուկտներ և կապակցված էկոհամակարգեր։",
+    title: "Պրոդուկտի և փոխազդեցության դիզայներ | Կապակցված էկոհամակարգեր և խելացի տուն",
+    textMain: "Ես պրոդուկտի և փոխազդեցության դիզայներ եմ․ նախագծում եմ թվային պրոդուկտներ և փորձառություններ կապակցված էկոհամակարգերի և խելացի տան համար։",
     textGray1: " Օգտատերերի հետազոտությունը, քննադատական և համակարգային մտածողությունն ինձ օգնում են հասկանալ մարդկանց կարիքները և պարզեցնել բարդ համակարգերը։",
     textMain2: " Օգտատերերի ուղիներից մինչև դիզայն համակարգեր՝ ձգտում եմ ստեղծել օգտակար, հասանելի և համահունչ փորձառություններ։",
     textGray2: " Ծրագրավորողների հետ համագործակցելով՝ պահպանում եմ դիզայնի մտահղացումը վերջնական պրոդուկտում։",
@@ -107,10 +107,10 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
 
   const content = translations[selectedLanguage];
   const titleLines = selectedLanguage==="FR"
-    ? ["Designer UX/UI · Produits Numériques", "& Écosystèmes Connectés"]
+    ? ["Designer Produit & Interaction", "Écosystèmes Connectés & Maison Intelligente"]
     : selectedLanguage==="EN"
-      ? ["UX/UI Designer · Digital Products", "& Connected Ecosystems"]
-      : ["UX/UI դիզայներ · Թվային պրոդուկտներ", "և կապակցված էկոհամակարգեր"];
+      ? ["Product & Interaction Designer", "Connected Ecosystems & Smart Home"]
+      : ["Պրոդուկտի և փոխազդեցության դիզայներ", "Կապակցված էկոհամակարգեր և խելացի տուն"];
 
   return (
     <>
@@ -144,6 +144,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
             >
               {/* Title */}
               <h2
+                aria-label={content.title}
                 className="personal-intro-title"
                 style={{
                   fontFamily: "var(--font-display)",
@@ -155,7 +156,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
                   marginBottom: "clamp(24px, 3vw, 40px)",
                 }}
               >
-                <span className="intro-role">{titleLines[0]}</span>
+                <span className="intro-role">{titleLines[0]}</span>{" "}
                 <span className="intro-specialty">{titleLines[1]}</span>
               </h2>
 
@@ -191,7 +192,7 @@ export default function PersonalIntro({ id = "personal-intro" }: { id?: string }
         [data-section="personal-intro"] { position:relative; align-items:center; background:transparent; padding-block:clamp(80px,10svh,112px)!important; }
         .personal-intro-title .intro-role,
         .personal-intro-title .intro-specialty { display:block; white-space:nowrap; }
-        .personal-intro-title { font-size:clamp(14px, 4.2vw, 44px) !important; }
+        .personal-intro-title { font-size:clamp(14px, 3.2vw, 36px) !important; }
         @media(max-width:767px) {
           [data-section="personal-intro"] { align-items:center; padding-top:88px!important; padding-bottom:88px!important; }
           .personal-intro-title { font-size:clamp(24px,6.2vw,36px)!important; }

@@ -12,8 +12,9 @@ export function createPageMetadata({ title, description, path }: PageMetadataOpt
     description,
     keywords: [
       "Romain Rubens",
-      "UX UI designer",
-      "Smart Ecosystems",
+      "Product & Interaction Designer",
+      "Connected Ecosystems",
+      "Smart Home",
       "design d'interaction",
       "maison connectée",
       "portfolio designer",

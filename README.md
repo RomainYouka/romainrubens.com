@@ -1,6 +1,6 @@
 ## Romain Rubens
 
-Welcome to my official portfolio. I’m a designer working at the intersection of UX/UI, interaction design, and connected ecosystems. Here, I share selected projects, the thinking behind them, my skills, and articles about designing for real people and everyday life.
+Welcome to my official portfolio. I’m Romain Rubens, Product & Interaction Designer | Connected Ecosystems & Smart Home. Here, I share selected projects, the thinking behind them, my skills, and articles about designing for real people and everyday life.
 
 Explore the website: [romainrubens.com](https://romainrubens.com)
 

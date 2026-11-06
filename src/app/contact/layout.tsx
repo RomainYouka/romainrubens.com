@@ -2,7 +2,7 @@ import { createPageMetadata } from "@/lib/page-metadata";
 
 export const metadata = createPageMetadata({
   title: "Contact",
-  description: "Prenez contact avec Romain Rubens — designer UX/UI disponible pour des opportunités professionnelles.",
+  description: "Prenez contact avec Romain Rubens — Product & Interaction Designer | Connected Ecosystems & Smart Home, disponible pour des opportunités professionnelles.",
   path: "/contact",
 });
 
