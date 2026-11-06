@@ -86,10 +86,18 @@ const footerTranslations = {
 };
 type FooterLanguage = keyof typeof footerTranslations;
 
+// Match the final navigation panel of each case study, independently of theme.
+const projectPalettes: Record<string, { background: string; foreground: string; secondary: string; border: string }> = {
+  "/renaultextensionapp": { background: "#efdf00", foreground: "#1d1d1f", secondary: "#1d1d1f", border: "#777000" },
+  "/stratosapp": { background: "#007afe", foreground: "#121417", secondary: "#121417", border: "#143d69" },
+  "/googlemapsextension": { background: "#007786", foreground: "#ffffff", secondary: "#c1edf5", border: "#c1edf5" },
+  "/goupildigitalecosystem": { background: "#18181b", foreground: "#ffffff", secondary: "#c7c7cc", border: "#616161" },
+};
+
 const GlobalFooter = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || pathname === "/googlemapsextension";
+  const projectPalette = projectPalettes[pathname];
   const [selectedLanguage, setSelectedLanguage] = useState<FooterLanguage>("EN");
 
   useEffect(() => {
@@ -129,7 +137,7 @@ const GlobalFooter = () => {
         backgroundColor: bgColor,
         borderColor: borderColor,
         direction: "ltr",
-        ...(isRenault ? { "--theme-nav-bg": pathname === "/googlemapsextension" ? "#007786" : pathname === "/stratosapp" ? "#121417" : "#1d1d1f", "--theme-fg": "#ffffff", "--theme-border": pathname === "/googlemapsextension" ? "#c1edf5" : "#474747", "--theme-subtle": pathname === "/googlemapsextension" ? "#c1edf5" : "#c7c7cc" } as React.CSSProperties : {}),
+        ...(projectPalette ? { "--theme-nav-bg": projectPalette.background, "--theme-fg": projectPalette.foreground, "--theme-border": projectPalette.border, "--theme-subtle": projectPalette.secondary, "--theme-accent": projectPalette.foreground } as React.CSSProperties : {}),
       }}
     >
       <div className="mx-auto max-w-[1200px] px-6 py-6 md:py-6">

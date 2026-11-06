@@ -1,6 +1,6 @@
 /**
  * Umami Analytics — wrapper typé
- * Zéro cookie, RGPD compliant, pas de bannière nécessaire.
+ * La conformité et les règles de consentement dépendent de la configuration.
  *
  * Usage :
  *   import { track } from "@/lib/analytics";

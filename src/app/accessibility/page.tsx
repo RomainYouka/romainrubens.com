@@ -92,7 +92,7 @@ export default function AccessibilitePage() {
             {(["mobile","desktop"] as const).map(device=><div key={device} className="rounded-[16px] border p-5" style={{borderColor:"var(--theme-pill-border)",backgroundColor:"var(--theme-pill-bg)"}}>
               <h3 className="text-lg font-semibold mb-4" style={headingStyle}>{copy[device]}</h3>
               <dl className="grid grid-cols-2 gap-4">
-                {([["performance",copy.performance],["accessibility",copy.accessibility],["bestPractices",copy.best],["seo",copy.seo]] as const).map(([key,label])=><div key={key}><dt className="text-sm">{label}</dt><dd className="text-3xl font-semibold mt-1">{accessibilityAudit[device][key]}<span className="text-sm font-normal">/100</span></dd></div>)}
+                {([["performance",copy.performance],["accessibility",copy.accessibility],["bestPractices",copy.best],["seo",copy.seo]] as const).map(([key,label])=><div key={key}><dt className="text-sm">{label}</dt><dd className="text-3xl font-semibold mt-1"><span data-audit-score={accessibilityAudit[device][key]} style={accessibilityAudit[device][key] === 100 ? { color: "var(--theme-success-aaa)" } : undefined}>{accessibilityAudit[device][key]}</span><span className="text-sm font-normal">/100</span></dd></div>)}
               </dl>
               <p className="text-sm mt-5" style={{color:"var(--theme-subtle)"}}>LCP {accessibilityAudit[device].lcp} · TBT {accessibilityAudit[device].tbt} · CLS {accessibilityAudit[device].cls}</p>
               <a href={accessibilityAudit.report+"?form_factor="+device} target="_blank" rel="noopener noreferrer" className="mt-5 flex items-center justify-between gap-3 min-h-11 underline underline-offset-4" style={headingStyle}>{copy.report}<ExternalLinkBadge /></a>

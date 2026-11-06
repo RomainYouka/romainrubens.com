@@ -12,7 +12,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   // Recréé à chaque changement de route : garantit l'activation/désactivation correcte
   useLayoutEffect(() => {
     // These full-page case studies must not inherit the catalogue's scroll offset.
-    const resetProjectScroll = (pathname === "/renaultextensionapp" || pathname === "/stratosapp" || pathname === "/googlemapsextension") && !window.location.hash;
+    const resetProjectScroll = (pathname === "/renaultextensionapp" || pathname === "/stratosapp" || (pathname === "/googlemapsextension" || pathname === "/goupildigitalecosystem")) && !window.location.hash;
     if (resetProjectScroll) window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     // Three native snap positions: hero, introduction, then the footer's end.
     if (pathname === "/") {

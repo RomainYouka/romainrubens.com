@@ -10,7 +10,7 @@ const routes = [
   "/googlemapsextension",
   "/projects/chaussez-vous-ou-pas",
   "/projects/framasoft",
-  "/projects/goupil",
+  "/goupildigitalecosystem",
   "/projects/googleplayios",
   "/projects/intratone",
   "/projects/ios26",

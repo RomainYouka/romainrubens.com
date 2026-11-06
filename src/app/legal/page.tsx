@@ -1,326 +1,168 @@
 "use client";
-
-import { detectLanguage } from "@/lib/language";
-
-import { useState, useEffect } from "react";
-
-type Language = "FR" | "EN" | "ՀԱՅ";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { detectLanguage, type Language } from "@/lib/language";
+import { SFIcon } from "@/components/SFIcon";
 
 const translations = {
-  FR: {
-    title: "Mentions Légales",
-    sections: [
-      {
-        heading: "Dénomination.",
-        content: "romainrubens.com est un portfolio personnel non commercial édité par Romain Rubens, responsable de la publication. Il présente ses travaux en UX/UI, design d'interaction et design industriel. Le site ne propose pas de vente en ligne."
-      },
-      {
-        heading: "Contact.",
-        content: "Pour toute prise de contact, demande ou information complémentaire, vous pouvez écrire à l'adresse suivante : contact@romainrubens.com."
-      },
-      {
-        heading: "Signalement.",
-        content: "Toute erreur, anomalie ou problème technique peut être signalé à l'adresse suivante : report@romainrubens.com."
-      },
-      {
-        heading: "Hébergement.",
-        content: "Le site est hébergé par Vercel Inc., plateforme de déploiement et d'hébergement d'applications web."
-      },
-      {
-        heading: "Nom de domaine.",
-        content: "Le nom de domaine romainrubens.com est la propriété exclusive de RUBENS Romain."
-      },
-      {
-        heading: "Propriété intellectuelle.",
-        content: "L'ensemble des contenus présents sur ce site, incluant de manière non exhaustive les projets, interfaces, visuels, textes, animations, fichiers et structure générale, est la propriété exclusive de RUBENS Romain sauf mention contraire.\nToute reproduction, représentation, modification, publication, transmission ou exploitation, totale ou partielle, sans autorisation écrite préalable est strictement interdite."
-      },
-      {
-        heading: "Utilisation des ressources.",
-        content: "Certains projets peuvent inclure des ressources accessibles telles que des fichiers Figma, documents PDF ou autres supports.\nToute utilisation, reproduction ou extraction, même partielle, de ces éléments est strictement interdite.\nToute demande doit être formulée par email à contact@romainrubens.com en précisant l'identité du demandeur, le contexte, l'objectif et les modalités d'utilisation envisagées.\nAucune autorisation n'est implicite."
-      },
-      {
-        heading: "Données personnelles.",
-        content: "Le site ne collecte aucune donnée personnelle.\nAucun formulaire de collecte n'est présent.\nLes interactions proposées redirigent vers des services tiers indépendants."
-      },
-      {
-        heading: "Responsabilité.",
-        content: "Les informations présentes sur ce site sont fournies à titre indicatif.\nRUBENS Romain ne saurait être tenu responsable des erreurs, omissions ou de l'interprétation et de l'usage des informations.\nLes liens externes ne sont pas sous le contrôle de l'éditeur."
-      },
-      {
-        heading: "Validité.",
-        content: "Les présentes mentions légales sont applicables à compter de leur mise en ligne et pour toute la durée d'exploitation du site."
-      },
-      {
-        heading: "Modification.",
-        content: "RUBENS Romain se réserve le droit de modifier à tout moment les présentes mentions légales afin de les adapter à l'évolution du site, de la législation ou de ses activités."
-      }
+  "FR": {
+    "title": "Mentions légales",
+    "date": "Mise à jour · 6 novembre 2026",
+    "intro": "Édition du site, droits d’utilisation et protection des données.",
+    "sections": [
+      [
+        "Éditeur et publication",
+        "romainrubens.com est un portfolio personnel non commercial édité par Romain Rubens, responsable de la publication. Il présente ses projets, articles et travaux de design. Aucune vente en ligne n’est proposée.\nContact éditorial et demandes d’autorisation : hello@romainrubens.com."
+      ],
+      [
+        "Hébergement",
+        "Vercel Inc.\n440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.\nTéléphone publié par Vercel pour son contact juridique : +1 559 288 7060.\nCoordonnées de référence : vercel.com/legal/dmca-policy."
+      ],
+      [
+        "Droits sur les contenus",
+        "Les créations originales de Romain Rubens sont protégées par le droit d’auteur. Les marques, logos, photographies, interfaces et ressources de tiers restent soumis aux droits de leurs titulaires. Les projets collectifs demeurent soumis aux droits des coauteurs.\nSauf licence indiquée ou exception légale, toute reproduction, adaptation, diffusion ou exploitation nécessite l’autorisation préalable du titulaire des droits. L’accès à un PDF ou fichier Figma ne transfère aucun droit de propriété intellectuelle."
+      ],
+      [
+        "Projets et marques citées",
+        "Les concepts et projets académiques documentent un travail de design. La présence d’une marque n’implique ni partenariat, ni validation, ni commercialisation du concept par cette marque, sauf indication expresse dans le projet."
+      ],
+      [
+        "Données personnelles",
+        "L’accès au site implique le traitement de données techniques par les prestataires d’hébergement et de sécurité, notamment les adresses IP et informations de requête, pour délivrer et protéger le service. Les coordonnées et messages que vous adressez volontairement par courriel servent à répondre à votre demande, sur la base de l’intérêt légitime de l’éditeur à gérer ces échanges.\nLes échanges ne sont conservés que pendant la durée nécessaire à leur traitement et, le cas échéant, à la défense des droits de l’éditeur. Les durées des journaux techniques et les éventuels transferts hors de l’Espace économique européen dépendent des contrats et politiques des prestataires concernés."
+      ],
+      [
+        "Préférences et mesure d’audience",
+        "Le navigateur mémorise des préférences de langue, d’apparence et de contraste dans ses stockages locaux ou de session. Vous pouvez les effacer dans ses paramètres.\nLorsque la mesure d’audience est configurée, Umami Cloud reçoit des événements de consultation et d’interaction. L’absence de cookies ne suffit pas à établir une exemption de consentement : celle-ci dépend de la configuration et des conditions applicables. Aucune certification CNIL n’est revendiquée."
+      ],
+      [
+        "Vos droits et signalements",
+        "Pour exercer vos droits d’accès, de rectification, d’effacement, de limitation ou d’opposition lorsqu’ils s’appliquent : hello@romainrubens.com. Une vérification proportionnée de votre identité peut être nécessaire. Vous pouvez également saisir la CNIL.\nPour une erreur, une atteinte à vos droits, une demande de rectification ou de droit de réponse : report@romainrubens.com. Indiquez la page, les faits concernés et un moyen de vous répondre."
+      ],
+      [
+        "Disponibilité et cadre applicable",
+        "L’éditeur veille à l’exactitude des informations et au fonctionnement du site, sans garantir l’absence d’erreurs ou d’interruptions. Les services externes, notamment Medium, LinkedIn, Behance et Cal.com, appliquent leurs propres conditions et politiques de confidentialité.\nCes informations sont établies au regard du droit français, notamment de la LCEN et des règles de protection des données, sans priver les visiteurs des dispositions impératives applicables ni limiter les responsabilités auxquelles la loi interdit de déroger."
+      ]
     ]
   },
-  EN: {
-    title: "Legal Notice",
-    sections: [
-      {
-        heading: "Identification.",
-        content: "romainrubens.com is a personal, non-commercial portfolio published by Romain Rubens, who is responsible for publication. It presents his work in UX/UI, interaction design and industrial design. This website does not offer online sales."
-      },
-      {
-        heading: "Contact.",
-        content: "For any inquiries or requests, you may contact: contact@romainrubens.com."
-      },
-      {
-        heading: "Reporting.",
-        content: "Any issue, error, or technical problem can be reported at: report@romainrubens.com."
-      },
-      {
-        heading: "Hosting.",
-        content: "The website is hosted by Vercel Inc., a web application hosting and deployment platform."
-      },
-      {
-        heading: "Domain name.",
-        content: "The domain name romainrubens.com is the exclusive property of RUBENS Romain."
-      },
-      {
-        heading: "Intellectual property.",
-        content: "All content on this website, including but not limited to projects, interfaces, visuals, texts, animations, files, and overall structure, is the exclusive property of RUBENS Romain unless otherwise stated.\nAny reproduction, modification, distribution, or use, in whole or in part, without prior written permission is strictly prohibited."
-      },
-      {
-        heading: "Use of resources.",
-        content: "Some projects may include accessible resources such as Figma files, PDFs, or other materials.\nAny use, extraction, or reproduction, even partial, is strictly prohibited.\nRequests must be sent to contact@romainrubens.com specifying identity, context, purpose, and intended use.\nNo permission is granted implicitly."
-      },
-      {
-        heading: "Personal data.",
-        content: "This website does not collect any personal data.\nNo forms are used.\nInteractions redirect to external third-party services."
-      },
-      {
-        heading: "Liability.",
-        content: "The information provided on this website is for informational purposes only.\nRUBENS Romain cannot be held responsible for errors, omissions, or misuse of the information.\nExternal links are not under the control of the publisher."
-      },
-      {
-        heading: "Validity.",
-        content: "These legal notices are effective from the moment they are published and for the entire duration of the website's operation."
-      },
-      {
-        heading: "Modification.",
-        content: "RUBENS Romain reserves the right to modify these legal notices at any time."
-      }
+  "EN": {
+    "title": "Legal notice",
+    "date": "Updated · 6 November 2026",
+    "intro": "Website publishing information, content usage rights and personal data protection.",
+    "sections": [
+      [
+        "Publisher and publication",
+        "romainrubens.com is a personal, non-commercial portfolio published by Romain Rubens, who is responsible for publication. It presents his design work, projects and articles. No online sales are offered.\nEditorial enquiries and permission requests: hello@romainrubens.com."
+      ],
+      [
+        "Hosting",
+        "Vercel Inc.\n440 N Barranca Ave #4133, Covina, CA 91723, United States.\nTelephone published by Vercel for its legal contact: +1 559 288 7060.\nReference contact details: vercel.com/legal/dmca-policy."
+      ],
+      [
+        "Content rights",
+        "Romain Rubens’s original creations are protected by copyright. Third-party trademarks, logos, photographs, interfaces and resources remain subject to their owners’ rights. Collaborative projects remain subject to their co-authors’ rights.\nUnless a licence or statutory exception applies, reproduction, adaptation, distribution or exploitation requires the relevant rights holder’s prior permission. Access to a PDF or Figma file does not transfer intellectual property rights."
+      ],
+      [
+        "Projects and trademarks",
+        "Concepts and academic projects document design work. Mentioning a brand does not imply partnership, endorsement or commercial release by that brand, unless expressly stated in the project."
+      ],
+      [
+        "Personal data",
+        "Accessing the website involves processing technical data by hosting and security providers, including IP addresses and request information, to deliver and protect the service. Contact details and messages you voluntarily send by email are used to respond to your enquiry, based on the publisher’s legitimate interest in handling correspondence.\nCorrespondence is retained only as needed to handle the enquiry and, where necessary, protect legal rights. Technical log retention and any transfers outside the European Economic Area depend on the relevant providers’ contracts and policies."
+      ],
+      [
+        "Preferences and audience measurement",
+        "The browser stores language, appearance and contrast preferences in local or session storage. You can clear these in your browser settings.\nWhen audience measurement is configured, Umami Cloud receives page-view and interaction events. A cookie-free tool is not automatically exempt from consent requirements: exemption depends on its configuration and applicable conditions. No CNIL certification is claimed."
+      ],
+      [
+        "Your rights and reporting",
+        "To exercise applicable rights of access, rectification, erasure, restriction or objection: hello@romainrubens.com. Proportionate identity verification may be necessary. You may also complain to the French data protection authority, CNIL.\nFor an error, content affecting your rights, a correction or right-of-reply request: report@romainrubens.com. Include the precise page, relevant facts and a way to contact you."
+      ],
+      [
+        "Availability and applicable framework",
+        "The publisher seeks to keep information accurate and the website working, without guaranteeing uninterrupted or error-free access. External services, including Medium, LinkedIn, Behance and Cal.com, apply their own terms and privacy policies.\nThis information refers to French law, including the LCEN and data protection rules, without depriving visitors of mandatory protections or excluding liability that cannot lawfully be excluded."
+      ]
     ]
   },
-  ՀԱՅ: {
-    title: "Իրավական տեղեկություններ",
-    sections: [
-      {
-        heading: "Նույնականացում։",
-        content: "romainrubens.com-ը Ռոմեն Ռուբենսի անձնական, ոչ առևտրային պորտֆոլիոն է։ Ռոմեն Ռուբենսը կայքի հրատարակիչն ու հրապարակման պատասխանատուն է։ Կայքը ներկայացնում է նրա աշխատանքները UX/UI, փոխազդեցության և արդյունաբերական դիզայնի ոլորտներում և չի առաջարկում առցանց վաճառք։"
-      },
-      {
-        heading: "Կապ։",
-        content: "Ցանկացած հարցման կամ հաղորդակցության համար կարող եք գրել՝ contact@romainrubens.com։"
-      },
-      {
-        heading: "Խնդիրների հաղորդում։",
-        content: "Ցանկացած սխալ կամ տեխնիկական խնդիր կարող եք հաղորդել՝ report@romainrubens.com։"
-      },
-      {
-        heading: "Հոսթինգ։",
-        content: "Կայքը հոսթինգ է ստանում Vercel Inc. հարթակի միջոցով։"
-      },
-      {
-        heading: "Դոմենային անուն։",
-        content: "romainrubens.com դոմենը պատկանում է բացառապես RUBENS Romain-ին։"
-      },
-      {
-        heading: "Մտավոր սեփականություն։",
-        content: "Կայքում ներկայացված բոլոր բովանդակությունները՝ ներառյալ նախագծերը, ինտերֆեյսները, վիզուալները, տեքստերը, անիմացիաները և կառուցվածքը, պատկանում են RUBENS Romain-ին, եթե այլ բան նշված չէ։\nՀանցակցային օգտագործում առանց նախնական գրավոր թույլտվության խստիվ արգելվում է։"
-      },
-      {
-        heading: "Ռեսուրսների օգտագործում։",
-        content: "Որոշ նախագծեր կարող են ներառել Figma ֆայլեր, PDF-ներ կամ այլ նյութեր։\nԱրդրանց օգտագործումը նույնիսկ մասամբ արգելվում է։\nՀարցումները պետք է ուղարկվեն contact@romainrubens.com հասցեին՝ նշելով նպատակը և օգտագործման պայմանները։"
-      },
-      {
-        heading: "Անձնական տվյալներ։",
-        content: "Կայքը չի հավաքում անձնական տվյալներ։\nՉկան ձևաթղթեր։\nԲոլոր գործողությունները փոխանցվում են արտաքին ծառայությունների։"
-      },
-      {
-        heading: "Պատասխանատվություն։",
-        content: "Տեղեկատվությունը տրամադրվում է տեղեկատվական նպատակներով։\nRUBENS Romain-ը պատասխանատվություն չի կրում հնարավոր սխալների կամ օգտագործման համար։"
-      },
-      {
-        heading: "Վավերականություն։",
-        content: "Այս իրավական տեղեկությունները գործում են հրապարակման պահից։"
-      },
-      {
-        heading: "Փոփոխություններ։",
-        content: "RUBENS Romain-ը իրավունք ունի փոփոխել այս իրավական տեղեկությունները ցանկացած պահի։"
-      }
+  "ՀԱՅ": {
+    "title": "Իրավական տեղեկություններ",
+    "date": "Թարմացում · 6 նոյեմբերի 2026",
+    "intro": "Կայքի հրատարակիչը, օգտագործման իրավունքներն ու տվյալների պաշտպանությունը։",
+    "sections": [
+      [
+        "Հրատարակիչ և հրապարակում",
+        "romainrubens.com-ը Ռոմեն Ռուբենսի անձնական, ոչ առևտրային պորտֆոլիոն է։ Նա կայքի հրատարակիչն ու հրապարակման պատասխանատուն է։ Կայքը ներկայացնում է նրա դիզայնի նախագծերն ու հոդվածները և չի առաջարկում առցանց վաճառք։\nԽմբագրական հարցեր և թույլտվություններ՝ hello@romainrubens.com։"
+      ],
+      [
+        "Հոսթինգ",
+        "Vercel Inc.\n440 N Barranca Ave #4133, Covina, CA 91723, ԱՄՆ։\nVercel-ի հրապարակած իրավական կապի հեռախոս՝ +1 559 288 7060։\nՊաշտոնական կոնտակտներ՝ vercel.com/legal/dmca-policy։"
+      ],
+      [
+        "Բովանդակության իրավունքներ",
+        "Ռոմեն Ռուբենսի ինքնատիպ ստեղծագործությունները պաշտպանված են հեղինակային իրավունքով։ Երրորդ անձանց ապրանքանիշերը, լոգոները, լուսանկարներն ու ինտերֆեյսները մնում են համապատասխան իրավատերերի սեփականությունը։ Համատեղ նախագծերի նկատմամբ պահպանվում են համահեղինակների իրավունքները։\nԲացառությամբ նշված լիցենզիայի կամ օրենքով նախատեսված դեպքերի՝ վերարտադրումը, փոփոխումը կամ տարածումը պահանջում է իրավատիրոջ նախնական թույլտվությունը։ PDF կամ Figma ֆայլի հասանելիությունը չի փոխանցում մտավոր սեփականության իրավունքներ։"
+      ],
+      [
+        "Նախագծեր և ապրանքանիշեր",
+        "Հայեցակարգերն ու ուսումնական նախագծերը ներկայացնում են դիզայնի աշխատանքը։ Ապրանքանիշի հիշատակումը չի նշանակում գործընկերություն, հաստատում կամ հայեցակարգի առևտրայնացում, եթե այլ բան հստակ նշված չէ։"
+      ],
+      [
+        "Անձնական տվյալներ",
+        "Կայքի աշխատանքի և անվտանգության համար մատակարարները մշակում են տեխնիկական տվյալներ՝ ներառյալ IP հասցեներն ու հարցումների տեղեկությունները։ Ձեր կամավոր ուղարկած նամակներն ու կոնտակտները մշակվում են հարցմանը պատասխանելու համար՝ նամակագրությունը վարելու օրինական շահի հիմքով։\nՆամակագրությունը պահվում է հարցման մշակման և անհրաժեշտության դեպքում իրավունքների պաշտպանության համար անհրաժեշտ ժամանակով։ Տեխնիկական մատյանների պահպանման ժամկետներն ու Եվրոպական տնտեսական տարածքից դուրս փոխանցումները կախված են մատակարարների պայմանագրերից և քաղաքականություններից։"
+      ],
+      [
+        "Նախընտրություններ և վիճակագրություն",
+        "Դիտարկիչը տեղային կամ նստաշրջանի պահոցներում հիշում է լեզվի, տեսքի և կոնտրաստի նախընտրությունները։ Դրանք կարող եք ջնջել կարգավորումներում։\nԵրբ լսարանի չափումը կարգավորված է, Umami Cloud-ը ստանում է դիտումների և գործողությունների իրադարձություններ։ Cookie-ների բացակայությունն ինքնին չի ազատում համաձայնության պահանջից․ դա կախված է կարգավորումներից և կիրառելի պայմաններից։ CNIL-ի հավաստագրում չի հայտարարվում։"
+      ],
+      [
+        "Ձեր իրավունքներն ու հաղորդումները",
+        "Հասանելիության, ուղղման, ջնջման, սահմանափակման կամ առարկության կիրառելի իրավունքներն իրականացնելու համար գրեք hello@romainrubens.com։ Կարող է անհրաժեշտ լինել ինքնության համաչափ ստուգում։ Կարող եք նաև դիմել CNIL-ին։\nՍխալների, իրավունքների խախտումների, ուղղման կամ պատասխանի իրավունքի հարցումների համար՝ report@romainrubens.com։ Նշեք էջը, փաստերն ու կապի միջոցը։"
+      ],
+      [
+        "Հասանելիություն և իրավական շրջանակ",
+        "Հրատարակիչը ձգտում է ապահովել ճշգրիտ տեղեկություններ և կայքի աշխատանքը՝ առանց անխափան կամ անսխալ հասանելիություն երաշխավորելու։ Medium, LinkedIn, Behance և Cal.com արտաքին ծառայությունները կիրառում են իրենց պայմաններն ու քաղաքականությունները։\nՏեղեկությունները կազմված են ֆրանսիական իրավունքի, ներառյալ LCEN-ի և տվյալների պաշտպանության կանոնների հիմքով՝ չզրկելով այցելուներին կիրառելի պարտադիր պաշտպանությունից և չսահմանափակելով օրենքով չբացառվող պատասխանատվությունը։"
+      ]
     ]
   }
 };
 
+const references = [
+  ["LCEN · Article 1-1", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000801164"],
+  ["CNIL", "https://www.cnil.fr/"],
+  ["Vercel · Legal contact", "https://vercel.com/legal/dmca-policy"],
+  ["Vercel · Privacy", "https://vercel.com/legal/privacy-policy"],
+  ["Umami · Privacy", "https://umami.is/privacy"],
+];
+
 export default function LegalPage() {
   const [language, setLanguage] = useState<Language>("EN");
-
   useEffect(() => {
-    const saved = detectLanguage() as Language;
-    if (saved && ["FR", "EN", "ՀԱՅ"].includes(saved)) {
-      setLanguage(saved);
-    }
-
-    const handleLanguageChange = (event: CustomEvent<Language>) => {
-      setLanguage(event.detail);
+    setLanguage(detectLanguage());
+    const onLanguage = (event: Event) => {
+      const next = (event as CustomEvent<Language>).detail;
+      if (next in translations) setLanguage(next);
     };
-
-    window.addEventListener("languageChange", handleLanguageChange as EventListener);
-    return () => {
-      window.removeEventListener("languageChange", handleLanguageChange as EventListener);
-    };
+    window.addEventListener("languageChange", onLanguage);
+    return () => window.removeEventListener("languageChange", onLanguage);
   }, []);
-
   const t = translations[language];
-
-  return (
-    <main id="main-content" className="flex flex-col w-full min-h-screen" style={{ backgroundColor: "var(--theme-bg-alt)" }}>
-      <div className="flex-1 w-full flex justify-center pt-20 md:pt-24 pb-4 md:pb-24 px-4 md:px-8">
-        <div className="w-full max-w-[1234px]">
-          {/* Title */}
-          <h1
-            className="text-3xl md:text-4xl font-semibold mb-12 md:mb-16"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--theme-fg)",
-              fontWeight: 600,
-            }}
-          >
-            {t.title}
-          </h1>
-
-          {/* Content in editorial columns (not grid) */}
-          <div
-            style={{
-              columnCount: 2,
-              columnGap: "48px",
-              fontFamily: "var(--font-body)",
-              color: "var(--theme-fg)",
-              fontSize: "15px",
-              lineHeight: "1.6",
-            }}
-            className="hidden md:block"
-          >
-            {t.sections.map((section, index) => (
-              <div
-                key={index}
-                className="flex flex-col gap-2 mb-4 break-inside-avoid"
-                style={{
-                  breakInside: "avoid",
-                }}
-              >
-                {/* Heading */}
-                <span
-                  style={{
-                    fontWeight: 600,
-                    marginBottom: "4px",
-                  }}
-                >
-                  {section.heading}
-                </span>
-
-                {/* Content with email/contact links */}
-                <div
-                  style={{
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  {section.content.split(/(contact@romainrubens\.com|report@romainrubens\.com|romainrubens\.com)/g).map((part, i) => {
-                    const isEmail = part === "contact@romainrubens.com" || part === "report@romainrubens.com";
-                    const isDomain = part === "romainrubens.com";
-                    return isEmail || isDomain ? (
-                      <a
-                        key={i}
-                        href={isEmail ? `mailto:${part}` : `https://${part}`}
-                        style={{
-                          color: "var(--theme-accent)",
-                          textDecoration: "none",
-                          cursor: "pointer",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.textDecoration = "underline";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.textDecoration = "none";
-                        }}
-                      >
-                        {part}
-                      </a>
-                    ) : (
-                      <span key={i}>{part}</span>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-
-
-          {/* Mobile single column */}
-          <div className="md:hidden flex flex-col gap-4">
-            {t.sections.map((section, index) => (
-              <div
-                key={index}
-                className="flex flex-col gap-2"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  color: "var(--theme-fg)",
-                  fontSize: "15px",
-                  lineHeight: "1.6",
-                }}
-              >
-                {/* Heading */}
-                <span
-                  style={{
-                    fontWeight: 600,
-                    marginBottom: "4px",
-                  }}
-                >
-                  {section.heading}
-                </span>
-
-                {/* Content with email/contact links */}
-                <div
-                  style={{
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  {section.content.split(/(contact@romainrubens\.com|report@romainrubens\.com|romainrubens\.com)/g).map((part, i) => {
-                    const isEmail = part === "contact@romainrubens.com" || part === "report@romainrubens.com";
-                    const isDomain = part === "romainrubens.com";
-                    return isEmail || isDomain ? (
-                      <a
-                        key={i}
-                        href={isEmail ? `mailto:${part}` : `https://${part}`}
-                        style={{
-                          color: "var(--theme-accent)",
-                          textDecoration: "none",
-                          cursor: "pointer",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.textDecoration = "underline";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.textDecoration = "none";
-                        }}
-                      >
-                        {part}
-                      </a>
-                    ) : (
-                      <span key={i}>{part}</span>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
+  const cardStyle = { backgroundColor: "var(--theme-bg)", borderColor: "var(--theme-border)", color: "var(--theme-fg)" };
+  return <main id="main-content" className="w-full min-h-screen px-4 md:px-8 pt-24 md:pt-28 pb-24" style={{ backgroundColor: "var(--theme-bg-alt)", color: "var(--theme-fg)" }}>
+    <div className="max-w-[1202px] mx-auto">
+      <h1 className="text-3xl md:text-5xl font-semibold mb-4" style={{ color: "var(--theme-fg)" }}>{t.title}</h1>
+      <p className="mb-2" style={{ color: "var(--theme-subtle)" }}>{t.date}</p>
+      <p className="mb-10 max-w-2xl leading-relaxed" style={{ color: "var(--theme-fg)" }}>{t.intro}</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {t.sections.map(([heading, text], i) => <section key={heading} className={`rounded-[20px] border p-5 md:p-6 ${i === 0 ? "md:col-span-2" : ""}`} style={cardStyle}>
+          <h2 className="text-xl md:text-2xl font-semibold mb-4" style={{ color: "var(--theme-fg)" }}>{heading}</h2>
+          <p className="leading-relaxed whitespace-pre-line" style={{ color: "var(--theme-fg)" }}>{text.split(/(hello@romainrubens\.com|report@romainrubens\.com)/g).map((part, j) => part.includes("@") ? <a key={j} href={`mailto:${part}`} className="underline underline-offset-4 break-words" style={{ color: "var(--theme-fg)" }}>{part}</a> : part)}</p>
+        </section>)}
+        <section className="rounded-[20px] border p-5 md:p-6 md:col-span-2" style={cardStyle}>
+          <h2 className="text-xl md:text-2xl font-semibold mb-4" style={{ color: "var(--theme-fg)" }}>{language === "FR" ? "Références et services" : language === "EN" ? "References and services" : "Հղումներ և ծառայություններ"}</h2>
+          <ul data-sitemap-icons className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+            {references.map(([label, href]) => <li key={href}><a href={href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 min-h-11 underline underline-offset-4" style={{ color: "var(--theme-fg)" }}>{label}<SFIcon name="share" size={18} /></a></li>)}
+          </ul>
+          <Link href="/accessibility" className="mt-6 flex items-center justify-between min-h-12 border rounded-full px-5 py-3 gap-4" style={{ color: "var(--theme-fg)", borderColor: "var(--theme-pill-border)", backgroundColor: "var(--theme-pill-bg)" }}>{language === "FR" ? "Consulter l’accessibilité" : language === "EN" ? "Read accessibility information" : "Կարդալ հասանելիության մասին"}<SFIcon name="arrow-light" size={20} /></Link>
+        </section>
       </div>
-    </main>
-  );
+    </div>
+  </main>;
 }

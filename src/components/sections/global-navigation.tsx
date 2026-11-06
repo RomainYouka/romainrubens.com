@@ -475,7 +475,7 @@ const ColorPickerMobile = ({ accentColor, onAccentChange, isDark, selectedLangua
 const GlobalNavigation = () => {
   const { isDark: preferredDark, accentColor, setAccentColor } = useTheme();
   const pathname = usePathname();
-  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || pathname === "/googlemapsextension";
+  const isRenault = pathname === "/renaultextensionapp" || pathname === "/stratosapp" || (pathname === "/googlemapsextension" || pathname === "/goupildigitalecosystem");
   const isProjectPage = isRenault || pathname.startsWith("/projects/");
   const isGoogleMaps = pathname === "/googlemapsextension";
   const isDark = !isGoogleMaps && (isRenault || preferredDark);

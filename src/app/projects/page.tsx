@@ -134,7 +134,7 @@ const webProjects = [
     darkImage: "/projects/blocks/goupil-dark-trimmed.webp",
     year: "2026",
     slug: "goupil",
-    externalUrl: "https://www.behance.net/gallery/253535235/Goupil-Digital-Ecosystem-UXUI-Design-System",
+    externalUrl: undefined as string | undefined,
     isComingSoon: false,
   },
 ];
@@ -358,7 +358,7 @@ export default function PortfolioPage() {
     if (project) {
       setExpandingCard({ slug, rect, image: project.image });
       setTimeout(() => {
-        router.push(slug === "renault" ? "/renaultextensionapp" : slug === "stratos" ? "/stratosapp" : slug === "googlemaps" ? "/googlemapsextension" : `/projects/${slug}`);
+        router.push(slug === "renault" ? "/renaultextensionapp" : slug === "stratos" ? "/stratosapp" : slug === "googlemaps" ? "/googlemapsextension" : slug === "goupil" ? "/goupildigitalecosystem" : `/projects/${slug}`);
       }, 200);
     }
   }, [router, allProjects]);

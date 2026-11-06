@@ -1,0 +1,287 @@
+{
+  "cover": {
+    "width": 1468,
+    "height": 826,
+    "nodeId": "78:62349"
+  },
+  "colors-system": {
+    "width": 1467,
+    "height": 710,
+    "nodeId": "78:62437"
+  },
+  "colors-state": {
+    "width": 1468,
+    "height": 713,
+    "nodeId": "78:62669"
+  },
+  "colors-accent": {
+    "width": 1468,
+    "height": 713,
+    "nodeId": "78:62875"
+  },
+  "typography": {
+    "width": 1463,
+    "height": 383,
+    "nodeId": "78:63012"
+  },
+  "icons": {
+    "width": 1468,
+    "height": 673,
+    "nodeId": "78:63080"
+  },
+  "foundations": {
+    "width": 1468,
+    "height": 1005,
+    "nodeId": "78:63174"
+  },
+  "grids": {
+    "width": 1629,
+    "height": 398,
+    "nodeId": "78:63505"
+  },
+  "component-icons": {
+    "width": 1473,
+    "height": 809,
+    "nodeId": "78:15337"
+  },
+  "button-info-1": {
+    "width": 1217,
+    "height": 835,
+    "nodeId": "78:15465"
+  },
+  "button-info-2": {
+    "width": 1217,
+    "height": 835,
+    "nodeId": "78:15614"
+  },
+  "button-left-0": {
+    "width": 535,
+    "height": 1383,
+    "nodeId": "78:15765"
+  },
+  "button-left-1": {
+    "width": 570,
+    "height": 1383,
+    "nodeId": "78:15994"
+  },
+  "button-left-2": {
+    "width": 544,
+    "height": 1383,
+    "nodeId": "78:16222"
+  },
+  "button-left-3": {
+    "width": 549,
+    "height": 1383,
+    "nodeId": "78:16450"
+  },
+  "button-left-4": {
+    "width": 540,
+    "height": 1383,
+    "nodeId": "78:16678"
+  },
+  "button-left-5": {
+    "width": 557,
+    "height": 1383,
+    "nodeId": "78:16906"
+  },
+  "button-left-6": {
+    "width": 538,
+    "height": 1383,
+    "nodeId": "78:17134"
+  },
+  "button-left-7": {
+    "width": 570,
+    "height": 2003,
+    "nodeId": "78:17362"
+  },
+  "button-right-0": {
+    "width": 530,
+    "height": 1634,
+    "nodeId": "78:17552"
+  },
+  "button-right-1": {
+    "width": 567,
+    "height": 1634,
+    "nodeId": "78:17754"
+  },
+  "button-right-2": {
+    "width": 540,
+    "height": 1634,
+    "nodeId": "78:17956"
+  },
+  "button-right-3": {
+    "width": 547,
+    "height": 1634,
+    "nodeId": "78:18158"
+  },
+  "button-right-4": {
+    "width": 536,
+    "height": 1634,
+    "nodeId": "78:18360"
+  },
+  "button-right-5": {
+    "width": 534,
+    "height": 1634,
+    "nodeId": "78:18562"
+  },
+  "button-right-6": {
+    "width": 553,
+    "height": 1634,
+    "nodeId": "78:18768"
+  },
+  "header-1": {
+    "width": 1473,
+    "height": 1775,
+    "nodeId": "78:18973"
+  },
+  "header-2": {
+    "width": 1462,
+    "height": 1073,
+    "nodeId": "79:71547"
+  },
+  "search-1": {
+    "width": 1208,
+    "height": 1983,
+    "nodeId": "78:19249"
+  },
+  "search-2": {
+    "width": 1469,
+    "height": 604,
+    "nodeId": "78:19334"
+  },
+  "progress": {
+    "width": 1473,
+    "height": 1701,
+    "nodeId": "78:19481"
+  },
+  "actions-1": {
+    "width": 1473,
+    "height": 1369,
+    "nodeId": "78:19712"
+  },
+  "actions-2": {
+    "width": 435,
+    "height": 503,
+    "nodeId": "78:19895"
+  },
+  "language-1": {
+    "width": 345,
+    "height": 946,
+    "nodeId": "78:19943"
+  },
+  "language-2": {
+    "width": 665,
+    "height": 503,
+    "nodeId": "78:19984"
+  },
+  "navigation": {
+    "width": 956,
+    "height": 608,
+    "nodeId": "78:20021"
+  },
+  "number": {
+    "width": 1114,
+    "height": 470,
+    "nodeId": "78:20100"
+  },
+  "contents": {
+    "width": 850,
+    "height": 1376,
+    "nodeId": "78:20208"
+  },
+  "ecosystem-brand": {
+    "width": 833,
+    "height": 88,
+    "nodeId": "78:63748"
+  },
+  "eco-configurator": {
+    "width": 1408,
+    "height": 417,
+    "nodeId": "78:63764"
+  },
+  "eco-shop": {
+    "width": 1408,
+    "height": 417,
+    "nodeId": "78:64115"
+  },
+  "eco-parts": {
+    "width": 1408,
+    "height": 417,
+    "nodeId": "78:65032"
+  },
+  "eco-warranty": {
+    "width": 1408,
+    "height": 417,
+    "nodeId": "78:65584"
+  },
+  "experience-0": {
+    "width": 1384,
+    "height": 936,
+    "nodeId": "78:66921"
+  },
+  "experience-1": {
+    "width": 1385,
+    "height": 555,
+    "nodeId": "78:66992"
+  },
+  "experience-2": {
+    "width": 1384,
+    "height": 470,
+    "nodeId": "78:67194"
+  },
+  "experience-3": {
+    "width": 1384,
+    "height": 435,
+    "nodeId": "78:67435"
+  },
+  "experience-4": {
+    "width": 1382,
+    "height": 514,
+    "nodeId": "78:67557"
+  },
+  "experience-5": {
+    "width": 1382,
+    "height": 755,
+    "nodeId": "78:67700"
+  },
+  "experience-6": {
+    "width": 1384,
+    "height": 485,
+    "nodeId": "78:67815"
+  },
+  "experience-7": {
+    "width": 1385,
+    "height": 446,
+    "nodeId": "78:68583"
+  },
+  "mode-light": {
+    "width": 589,
+    "height": 1283,
+    "nodeId": "78:68649"
+  },
+  "mode-dark": {
+    "width": 589,
+    "height": 1283,
+    "nodeId": "78:68719"
+  },
+  "grids-edge": {
+    "width": 1629,
+    "height": 398,
+    "nodeId": "78:63566"
+  },
+  "hero": {
+    "width": 2400,
+    "height": 1600,
+    "nodeId": "78:62112"
+  },
+  "showcase-background": {
+    "width": 1920,
+    "height": 1507,
+    "nodeId": "78:62164"
+  },
+  "showcase-tablet": {
+    "width": 2400,
+    "height": 1600,
+    "nodeId": "78:62256"
+  }
+}

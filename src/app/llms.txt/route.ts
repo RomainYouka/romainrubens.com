@@ -14,7 +14,7 @@ const projects = [
   ["Stratos — Campus App", "/stratosapp", "Concept d’application pour connecter les étudiants de Strate autour d’événements et de conversations de groupe."],
   ["Google Maps App Extension", "/googlemapsextension", "Projet de navigation accessible dans le pôle multimodal de Perrache à Lyon, avec cartes par étage, recherche utilisateur et adaptations pour Google Maps, Plans et TCL."],
   ["Framasoft", "/projects/framasoft", "Refonte UX/UI du site Framasoft."],
-  ["Goupil", "https://www.behance.net/gallery/253535235/Goupil-Digital-Ecosystem-UXUI-Design-System", "Écosystème digital et design system."],
+  ["Goupil", "/goupildigitalecosystem", "Projet de stage : recherche UX, stratégie produit et écosystème de services numériques pour les véhicules utilitaires électriques Goupil. Création du design system SyGo, fondations, composants et interfaces de configuration, pièces, support et formation."],
   ["NameQuest", "/projects/namequest", "Jeu de société éducatif et inclusif abordant les discriminations liées aux noms de famille, pour 2 à 6 joueurs dès 12 ans."],
   ["Vahan Soghomonian", "/projects/vahansoghomonian", "Site portfolio pour l’artiste Vahan Soghomonian."],
   ["Chaussez-vous ou pas", "/projects/chaussez-vous-ou-pas", "Identité visuelle et branding."],
