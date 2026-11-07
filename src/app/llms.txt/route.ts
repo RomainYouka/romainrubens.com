@@ -1,7 +1,7 @@
 import skills from "@/data/skills.json";
 import { articles } from "@/data/articles";
 import { jobTitle, profileDescriptions } from "@/lib/profile";
-import { resumePdfUrl } from "@/lib/resume";
+import { resumePdfUrl, frenchResumePdfUrl } from "@/lib/resume";
 
 export const dynamic = "force-static";
 
@@ -31,7 +31,8 @@ export function GET() {
     "Les projets sont présentés comme des travaux de design ; la présence d’une marque ne constitue pas une preuve d’emploi ou de partenariat avec celle-ci. Consulter les études de cas pour le contexte et les détails.",
     "## Pages de référence",
     ...["/", "/projects", "/contact", "/articles", "/explorations"].map(url => `- [${url}](${absolute(url)})`),
-    `- [Résumé / Resume (PDF)](${absolute(resumePdfUrl)})`,
+    `- [Résumé français (PDF)](${absolute(frenchResumePdfUrl)})`,
+    `- [English resume (PDF)](${absolute(resumePdfUrl)})`,
     "## Projets",
     ...projects.map(([name, url, description]) => `- [${name}](${absolute(url)}): ${description}`),
     "## Compétences",

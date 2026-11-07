@@ -123,16 +123,20 @@ try {
   assert.match(cv.headers.get('content-security-policy') || '', /frame-ancestors 'self'/);
   const resumePath = '/resume/Romain_Rubens_Resume.pdf';
   const currentResume = resumePath + '?v=9fb768e3';
-  const expectedResume = await readFile(new URL('../public' + resumePath, import.meta.url));
-  assert.equal(cv.headers.get('content-disposition'), 'inline; filename="Romain Rubens (resume).pdf"', 'PDF viewer uses the exact requested filename');
-  assert.equal(createHash('sha256').update(Buffer.from(await cv.arrayBuffer())).digest('hex'), createHash('sha256').update(expectedResume).digest('hex'), 'CV alias serves the exact common PDF');
+  const frenchResumePath = '/resume/Romain_Rubens_Resume_FR.pdf';
+  const frenchResume = frenchResumePath + '?v=25788089';
+  assert.ok(cv.headers.get('content-disposition').includes("filename*=UTF-8''" + encodeURIComponent('Romain Rubens (Résumé).pdf')), 'French PDF preserves the accented filename');
+  assert.equal(createHash('sha256').update(Buffer.from(await cv.arrayBuffer())).digest('hex'), '257880890a58f0915226bcf9dead71ed73e42cb1387868f696dcb5887f9783f6', 'CV alias serves the exact French PDF');
+  const englishResume = await fetch(base + currentResume);
+  assert.equal(englishResume.headers.get('content-disposition'), 'inline; filename="Romain Rubens (resume).pdf"');
+  assert.equal(createHash('sha256').update(Buffer.from(await englishResume.arrayBuffer())).digest('hex'), '9fb768e3e1b8430154b8f3862eec61bd4551597b0aeb4dbab7df3768cbe697d3', 'English and Armenian PDF is unchanged');
   for (const path of ['/resume', '/resume/RUBENS_Romain_cv.pdf', '/resume/RUBENS_Romain_Resume.pdf', '/resume/RUBENS_Romain_Ամփոփում.pdf']) {
     const hidden = await fetch(base + encodeURI(path), { redirect: 'manual' });
     assert.equal(hidden.status, 307, `Temporary resume redirect ${path}`);
-    assert.equal(hidden.headers.get('location'), currentResume, path);
+    assert.equal(hidden.headers.get('location'), path === '/resume/RUBENS_Romain_cv.pdf' ? frenchResume : currentResume, path);
   }
   assert.ok(!(await (await fetch(base + '/sitemap.xml')).text()).includes('<loc>https://romainrubens.com/resume</loc>'), 'Hidden language-picker page is not advertised to crawlers');
-  console.log('PASS common resume integrity and hidden language-picker redirects');
+  console.log('PASS localized resume integrity and hidden language-picker redirects');
   console.log('PASS retired skills redirect and PDF embedding protection');
   const nativeFigures = JSON.parse(await readFile(new URL('../src/app/goupildigitalecosystem/native-extra.json', import.meta.url), 'utf8'));
   const nativeAssets = new Set();

@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { resumePdfUrl, resumePdfPath, resumeDownloadName } from "./src/lib/resume";
+import { resumePdfUrl, resumePdfPath, resumeDownloadName, frenchResumePdfUrl, frenchResumePdfPath, frenchResumeDownloadName } from "./src/lib/resume";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
     return [
       // Keep the language-picker source for later; expose the common PDF for now.
       { source: "/resume", destination: resumePdfUrl, permanent: false },
-      ...["/resume/RUBENS_Romain_cv.pdf", "/resume/RUBENS_Romain_Resume.pdf", "/resume/RUBENS_Romain_Ամփոփում.pdf"].map(source => ({ source: encodeURI(source), destination: resumePdfUrl, permanent: false })),
+      { source: "/resume/RUBENS_Romain_cv.pdf", destination: frenchResumePdfUrl, permanent: false },
+      ...["/resume/RUBENS_Romain_Resume.pdf", "/resume/RUBENS_Romain_Ամփոփում.pdf"].map(source => ({ source: encodeURI(source), destination: resumePdfUrl, permanent: false })),
       { source: "/projects/framasoft", destination: "/projects", permanent: true },
       {
         source: "/icons/logo-rubens.png",
@@ -52,6 +53,10 @@ const nextConfig: NextConfig = {
     ];
 
     return [
+      {
+        source: frenchResumePdfPath,
+        headers: [{ key: "Content-Disposition", value: `inline; filename="Romain Rubens (Resume).pdf"; filename*=UTF-8''${encodeURIComponent(frenchResumeDownloadName)}` }],
+      },
       {
         source: resumePdfPath,
         headers: [{ key: "Content-Disposition", value: `inline; filename="${resumeDownloadName}"` }],

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { resumePdfUrl } from "@/lib/resume";
+import { frenchResumePdfUrl } from "@/lib/resume";
 
 export const metadata: Metadata = {
   title: "Résumé",
-  alternates: { canonical: resumePdfUrl },
+  alternates: { canonical: frenchResumePdfUrl },
   robots: { index: false, follow: true },
 };
 

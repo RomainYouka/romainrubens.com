@@ -10,7 +10,7 @@ import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 import { detectLanguage, type Language } from "@/lib/language";
 import { Analytics } from "@/lib/analytics";
-import { resumePdfUrl, resumeDownloadName } from "@/lib/resume";
+import { getResume } from "@/lib/resume";
 
 // ─── Animated burger ────────────────────────────────────────────────────────
 const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean; isDark: boolean }) => {
@@ -73,8 +73,9 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
     setValidating(true);
     setTimeout(() => setValidating(false), 2200);
     const a = document.createElement("a");
-    a.href = resumePdfUrl;
-    a.download = resumeDownloadName;
+    const resume = getResume(selectedLanguage);
+    a.href = resume.url;
+    a.download = resume.downloadName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

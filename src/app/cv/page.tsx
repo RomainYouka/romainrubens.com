@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import { resumePdfUrl } from '@/lib/resume';
+import { frenchResumePdfUrl } from '@/lib/resume';
 
 export default function CVPage() {
-  redirect(resumePdfUrl);
+  redirect(frenchResumePdfUrl);
 }

@@ -3,7 +3,7 @@
 import { detectLanguage } from "@/lib/language";
 import { articles } from "@/data/articles";
 import { SFIcon } from "@/components/SFIcon";
-import { resumePdfUrl } from "@/lib/resume";
+import { getResume } from "@/lib/resume";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -190,7 +190,7 @@ const getSections = (language: Language): Section[] => [
   {
     title: "resume",
     items: [
-      { label: "resume", href: resumePdfUrl, isClickable: true }
+      { label: "resume", href: getResume(language).url, isClickable: true }
     ]
   },
   {

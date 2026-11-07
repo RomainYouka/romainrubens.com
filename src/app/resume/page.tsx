@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { resumePdfUrl } from "@/lib/resume";
+import { resumePdfUrl, frenchResumePdfUrl } from "@/lib/resume";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
@@ -104,7 +104,7 @@ export default function ResumePage() {
 
   const getPdfUrl = () => {
     const pdfMap: Record<Language, string> = {
-      FR: resumePdfUrl,
+      FR: frenchResumePdfUrl,
       EN: resumePdfUrl,
       ՀԱՅ: resumePdfUrl
     };
