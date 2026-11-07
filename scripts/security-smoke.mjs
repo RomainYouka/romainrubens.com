@@ -64,6 +64,12 @@ try {
       assert.match(body, /<h2[^>]*aria-label="Product &amp; Interaction Designer \| Connected Ecosystems &amp; Smart Home"[^>]*lang="en"/, 'Visible role stays in English');
     }
     if (path === '/articles') assert.match(body, /href="https:\/\/medium.com\/@romainrubens\//);
+    if (path === '/accessibility') {
+      const scores = [...body.matchAll(/data-audit-score="(\d+)"/g)].map(match => Number(match[1]));
+      assert.deepEqual(scores, [94, 100, 100, 100, 98, 100, 100, 100], 'Published PageSpeed scores match the measured mobile and desktop report');
+      assert.match(body, /https:\/\/pagespeed.web.dev\/analysis\/https-romainrubens-com\/diclczu5ak\?form_factor=mobile/);
+      assert.match(body, /https:\/\/pagespeed.web.dev\/analysis\/https-romainrubens-com\/diclczu5ak\?form_factor=desktop/);
+    }
     if (path === '/googleplayonios') {
       assert.match(body, /Google Play/);
       assert.match(body, /href="\/projects\/namequest"/);
