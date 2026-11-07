@@ -27,11 +27,18 @@ export function useTheme() {
 }
 
 function applyBrowserTheme(theme: Theme) {
-  // color-scheme controls native browser UI; theme-color controls supported toolbars.
-  document.documentElement.style.colorScheme=theme;
+  const root = document.documentElement;
+  const color = theme === "dark" ? "#1d1d1f" : "#ffffff";
+  // Recent Safari versions sample the root background instead of theme-color.
+  // Update it at click time, independently of the delayed page curtain reveal.
+  root.style.colorScheme = theme;
+  root.style.backgroundColor = color;
   document.querySelectorAll('meta[name="theme-color"]').forEach(meta=>{
-    meta.removeAttribute("media");
-    meta.setAttribute("content",theme==="dark" ? "#191919" : "#ffffff");
+    // Reinsert the hint so WebKit also invalidates a previously cached tint.
+    const replacement = meta.cloneNode(false) as HTMLMetaElement;
+    replacement.removeAttribute("media");
+    replacement.content = color;
+    meta.replaceWith(replacement);
   });
   document.querySelectorAll('meta[name="color-scheme"]').forEach(meta=>meta.setAttribute("content",theme));
 }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, m as motion } from "framer-motion";
 import { useTheme } from "@/contexts/ThemeContext";
 import { usePathname } from "next/navigation";
+import styles from "./StarScrollTop.module.css";
 
 // Blob/potato shape — viewBox 0 0 64 64
 const BLOB_PATH =
@@ -123,6 +124,8 @@ export default function StarScrollTop() {
     <AnimatePresence>
       {shown && (
         <motion.button
+          className={styles.button}
+          type="button"
           ref={buttonRef}
           key="scroll-to-top"
           initial={{ opacity: 0, scale: 0.4 }}
@@ -133,6 +136,7 @@ export default function StarScrollTop() {
           whileTap={{ scale: 0.88 }}
           onClick={handleClick}
           aria-label="Retour en haut de page"
+          title="Retour en haut de page"
           style={{
             position: "fixed",
             bottom: "2rem",
@@ -151,7 +155,7 @@ export default function StarScrollTop() {
             boxShadow: "0 4px 20px rgba(0,0,0,0.22)",
           }}
         >
-          <div style={{ width: 54, height: 54, pointerEvents: "none" }}>
+          <div className={styles.character} style={{ width: 54, height: 54, pointerEvents: "none" }}>
             <svg
               viewBox="0 0 64 64"
               width="54"
@@ -198,6 +202,9 @@ export default function StarScrollTop() {
               />
             </svg>
           </div>
+          <svg className={styles.arrow} width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 20V4M5 11l7-7 7 7" />
+          </svg>
         </motion.button>
       )}
     </AnimatePresence>

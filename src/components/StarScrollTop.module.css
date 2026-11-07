@@ -1,0 +1,38 @@
+.character,
+.arrow {
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.arrow {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.button:hover .character,
+.button:focus-visible .character {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.button:hover .arrow,
+.button:focus-visible .arrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--theme-text);
+  outline-offset: 5px;
+}
+
+@media (hover: none) {
+  .character { opacity: 0; }
+  .arrow { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .character,
+  .arrow { transition: none; }
+}
