@@ -1,9 +1,13 @@
 import type { NextConfig } from "next";
+import { resumePdfUrl } from "./src/lib/resume";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
+      // Keep the language-picker source for later; expose the common PDF for now.
+      { source: "/resume", destination: resumePdfUrl, permanent: false },
+      ...["/resume/RUBENS_Romain_cv.pdf", "/resume/RUBENS_Romain_Resume.pdf", "/resume/RUBENS_Romain_Ամփոփում.pdf"].map(source => ({ source: encodeURI(source), destination: resumePdfUrl, permanent: false })),
       { source: "/projects/framasoft", destination: "/projects", permanent: true },
       {
         source: "/icons/logo-rubens.png",

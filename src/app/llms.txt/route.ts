@@ -1,6 +1,7 @@
 import skills from "@/data/skills.json";
 import { articles } from "@/data/articles";
 import { jobTitle, profileDescriptions } from "@/lib/profile";
+import { resumePdfUrl } from "@/lib/resume";
 
 export const dynamic = "force-static";
 
@@ -29,7 +30,8 @@ export function GET() {
     "Intérêts : écosystèmes connectés, interfaces de service et usages du quotidien. Langues du site : français, anglais et arménien.",
     "Les projets sont présentés comme des travaux de design ; la présence d’une marque ne constitue pas une preuve d’emploi ou de partenariat avec celle-ci. Consulter les études de cas pour le contexte et les détails.",
     "## Pages de référence",
-    ...["/", "/projects", "/contact", "/resume", "/articles", "/explorations"].map(url => `- [${url}](${absolute(url)})`),
+    ...["/", "/projects", "/contact", "/articles", "/explorations"].map(url => `- [${url}](${absolute(url)})`),
+    `- [Résumé / Resume (PDF)](${absolute(resumePdfUrl)})`,
     "## Projets",
     ...projects.map(([name, url, description]) => `- [${name}](${absolute(url)}): ${description}`),
     "## Compétences",

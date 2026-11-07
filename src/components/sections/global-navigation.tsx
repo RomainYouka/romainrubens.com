@@ -10,6 +10,7 @@ import { ThemeToggle, ThemeToggleMobile } from "@/components/ThemeToggle";
 import { usePageTransition } from "@/contexts/PageTransitionContext";
 import { detectLanguage, type Language } from "@/lib/language";
 import { Analytics } from "@/lib/analytics";
+import { resumePdfUrl, resumeDownloadName } from "@/lib/resume";
 
 // ─── Animated burger ────────────────────────────────────────────────────────
 const AnimatedBurgerIcon = ({ isOpen, isDark }: { isOpen: boolean; isDark: boolean }) => {
@@ -56,7 +57,7 @@ const BrandLogo = ({ isScrolled, className }: { isScrolled: boolean; className?:
 
 // ─── Traductions nav ─────────────────────────────────────────────────────────
 const translations = {
-  FR:  { home: "Accueil", projects: "Projets",    articles: "Articles", skills: "Compétences",   contact: "Contact", resume: "CV" },
+  FR:  { home: "Accueil", projects: "Projets",    articles: "Articles", skills: "Compétences",   contact: "Contact", resume: "Résumé" },
   EN:  { home: "Home",    projects: "Projects",   articles: "Articles", skills: "Skills",        contact: "Contact", resume: "Resume"         },
   ՀԱՅ: { home: "Գլխավոր", projects: "Նախագծեր", articles: "Հոդվածներ", skills: "Հմտություններ", contact: "Կապ",     resume: "Ռեզյումե"  },
 };
@@ -71,19 +72,9 @@ const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedL
   const handleDownload = () => {
     setValidating(true);
     setTimeout(() => setValidating(false), 2200);
-    const files: Record<Language, string> = {
-      FR: "/resume/RUBENS_Romain_cv.pdf",
-      EN: "/resume/RUBENS_Romain_Resume.pdf",
-      ՀԱՅ: "/resume/RUBENS_Romain_Ամփոփում.pdf",
-    };
-    const names: Record<Language, string> = {
-      FR: "RUBENS_Romain_cv.pdf",
-      EN: "RUBENS_Romain_Resume.pdf",
-      ՀԱՅ: "RUBENS_Romain_Ամփոփում.pdf",
-    };
     const a = document.createElement("a");
-    a.href = files[selectedLanguage];
-    a.download = names[selectedLanguage];
+    a.href = resumePdfUrl;
+    a.download = resumeDownloadName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

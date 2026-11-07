@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { resumePdfUrl } from "@/lib/resume";
 
 type Language = "FR" | "EN" | "ՀԱՅ";
 
 const translations = {
   FR: {
     portfolio: "Accéder au Portfolio",
-    cvTitle: "Curriculum Vitae",
+    cvTitle: "Résumé",
     cvSubtitle: "Romain Rubens"
   },
   EN: {
@@ -103,9 +104,9 @@ export default function ResumePage() {
 
   const getPdfUrl = () => {
     const pdfMap: Record<Language, string> = {
-      FR: "/resume/RUBENS_Romain_cv.pdf",
-      EN: "/resume/RUBENS_Romain_Resume.pdf",
-      ՀԱՅ: "/resume/RUBENS_Romain_Ամփոփում.pdf"
+      FR: resumePdfUrl,
+      EN: resumePdfUrl,
+      ՀԱՅ: resumePdfUrl
     };
     return pdfMap[language];
   };

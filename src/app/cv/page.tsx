@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
+import { resumePdfUrl } from '@/lib/resume';
 
 export default function CVPage() {
-  redirect('/resume/RUBENS_Romain_cv.pdf');
+  redirect(resumePdfUrl);
 }

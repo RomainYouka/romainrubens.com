@@ -20,7 +20,6 @@ const routes = [
   "/articles",
   "/explorations",
   "/contact",
-  "/resume",
   "/legal",
   "/accessibility",
   "/sitemap",

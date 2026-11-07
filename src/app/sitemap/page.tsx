@@ -3,6 +3,7 @@
 import { detectLanguage } from "@/lib/language";
 import { articles } from "@/data/articles";
 import { SFIcon } from "@/components/SFIcon";
+import { resumePdfUrl } from "@/lib/resume";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -25,7 +26,7 @@ const translations = {
     skills: "Compétences",
     explorations: "Explorations",
     contact: "Contact",
-    resume: "CV / Resume",
+    resume: "Résumé",
     legal: "Mentions légales",
     accessibility: "Accessibilité",
     inProgress: "(en cours)",
@@ -65,7 +66,7 @@ const translations = {
     skills: "Skills",
     explorations: "Explorations",
     contact: "Contact",
-    resume: "CV / Resume",
+    resume: "Resume",
     legal: "Legal Notice",
     accessibility: "Accessibility",
     inProgress: "(in progress)",
@@ -105,7 +106,7 @@ const translations = {
     skills: "Հմտություններ",
     explorations: "Հետազոտություններ",
     contact: "Կապ",
-    resume: "CV / Ռեզյումե",
+    resume: "Ռեզյումե",
     legal: "Իրավական տեղեկություններ",
     accessibility: "Հասանելիություն",
     inProgress: "(կա՛մ վերամշակում)",
@@ -189,7 +190,7 @@ const getSections = (language: Language): Section[] => [
   {
     title: "resume",
     items: [
-      { label: "resume", href: "/resume", isClickable: true }
+      { label: "resume", href: resumePdfUrl, isClickable: true }
     ]
   },
   {

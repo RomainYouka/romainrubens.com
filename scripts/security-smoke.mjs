@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 
 // Exercise the compiled app, not just configuration text. No external traffic.
 const port = 5011;
@@ -113,6 +114,16 @@ try {
   assert.match(cv.headers.get('content-type') || '', /application\/pdf/);
   assert.equal(cv.headers.get('x-frame-options'), 'SAMEORIGIN');
   assert.match(cv.headers.get('content-security-policy') || '', /frame-ancestors 'self'/);
+  const currentResume = '/resume/Romain_Rubens_Resume.pdf';
+  const expectedResume = await readFile(new URL('../public' + currentResume, import.meta.url));
+  assert.equal(createHash('sha256').update(Buffer.from(await cv.arrayBuffer())).digest('hex'), createHash('sha256').update(expectedResume).digest('hex'), 'CV alias serves the exact common PDF');
+  for (const path of ['/resume', '/resume/RUBENS_Romain_cv.pdf', '/resume/RUBENS_Romain_Resume.pdf', '/resume/RUBENS_Romain_Ամփոփում.pdf']) {
+    const hidden = await fetch(base + encodeURI(path), { redirect: 'manual' });
+    assert.equal(hidden.status, 307, `Temporary resume redirect ${path}`);
+    assert.equal(hidden.headers.get('location'), currentResume, path);
+  }
+  assert.ok(!(await (await fetch(base + '/sitemap.xml')).text()).includes('<loc>https://romainrubens.com/resume</loc>'), 'Hidden language-picker page is not advertised to crawlers');
+  console.log('PASS common resume integrity and hidden language-picker redirects');
   console.log('PASS retired skills redirect and PDF embedding protection');
   const nativeFigures = JSON.parse(await readFile(new URL('../src/app/goupildigitalecosystem/native-extra.json', import.meta.url), 'utf8'));
   const nativeAssets = new Set();
