@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { resumePdfUrl } from "./src/lib/resume";
+import { resumePdfUrl, resumePdfPath, resumeDownloadName } from "./src/lib/resume";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -52,6 +52,10 @@ const nextConfig: NextConfig = {
     ];
 
     return [
+      {
+        source: resumePdfPath,
+        headers: [{ key: "Content-Disposition", value: `inline; filename="${resumeDownloadName}"` }],
+      },
       {
         source: "/:path*",
         headers: [

@@ -114,8 +114,10 @@ try {
   assert.match(cv.headers.get('content-type') || '', /application\/pdf/);
   assert.equal(cv.headers.get('x-frame-options'), 'SAMEORIGIN');
   assert.match(cv.headers.get('content-security-policy') || '', /frame-ancestors 'self'/);
-  const currentResume = '/resume/Romain_Rubens_Resume.pdf';
-  const expectedResume = await readFile(new URL('../public' + currentResume, import.meta.url));
+  const resumePath = '/resume/Romain_Rubens_Resume.pdf';
+  const currentResume = resumePath + '?v=9fb768e3';
+  const expectedResume = await readFile(new URL('../public' + resumePath, import.meta.url));
+  assert.equal(cv.headers.get('content-disposition'), 'inline; filename="Romain Rubens (resume).pdf"', 'PDF viewer uses the exact requested filename');
   assert.equal(createHash('sha256').update(Buffer.from(await cv.arrayBuffer())).digest('hex'), createHash('sha256').update(expectedResume).digest('hex'), 'CV alias serves the exact common PDF');
   for (const path of ['/resume', '/resume/RUBENS_Romain_cv.pdf', '/resume/RUBENS_Romain_Resume.pdf', '/resume/RUBENS_Romain_Ամփոփում.pdf']) {
     const hidden = await fetch(base + encodeURI(path), { redirect: 'manual' });
