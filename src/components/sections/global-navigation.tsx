@@ -66,7 +66,7 @@ const translations = {
 const ResumeButton = ({ selectedLanguage, isDark, compact = false }: { selectedLanguage: Language; isDark: boolean; compact?: boolean }) => {
   const t = translations[selectedLanguage];
   const [validating, setValidating] = useState(false);
-  const compactWidth: Record<Language, number> = { FR: 60, EN: 76, ՀԱՅ: 80 };
+  const compactWidth: Record<Language, number> = { FR: 76, EN: 76, ՀԱՅ: 80 };
   const buttonWidth = compact ? compactWidth[selectedLanguage] : 95;
 
   const handleDownload = () => {
