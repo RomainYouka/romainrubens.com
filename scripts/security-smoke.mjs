@@ -59,6 +59,7 @@ try {
       assert.ok(!/<footer\b/.test(body), 'Homepage does not render a legal footer');
       assert.match(body, /Connected Ecosystems/);
       assert.match(body, /<title>Romain Rubens — Product &amp; Interaction Designer \| Connected Ecosystems &amp; Smart Home<\/title>/);
+      assert.match(body, /name="description" content="I’m a product and interaction designer, creating digital products and experiences for connected ecosystems and smart homes\. I combine user research, critical thinking, and systems thinking to understand people’s needs and simplify complex systems\. From user journeys to design systems, I aim to make experiences useful, accessible, and consistent\. Working alongside developers, I help preserve the intent of the design in the final product\."/);
       assert.ok(body.includes('"jobTitle":"Product & Interaction Designer | Connected Ecosystems & Smart Home"'), 'Structured profile uses the current role');
       assert.match(body, /<h2[^>]*aria-label="Product &amp; Interaction Designer \| Connected Ecosystems &amp; Smart Home"[^>]*lang="en"/, 'Visible role stays in English');
     }

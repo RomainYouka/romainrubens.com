@@ -4,7 +4,7 @@ import Script from "next/script";
 import ClientLayout from "@/components/client-layout";
 import { LanguageSync } from "@/components/language-sync";
 import { Google_Sans, Google_Sans_Flex } from "next/font/google";
-import { jobTitle, siteTitle, profileDescriptions } from "@/lib/profile";
+import { jobTitle, siteTitle, profileSearchDescription } from "@/lib/profile";
 
 const googleSans = Google_Sans({
   subsets: ["latin", "armenian"],
@@ -25,7 +25,7 @@ const googleSansFlex = Google_Sans_Flex({
 
 const siteUrlMeta = process.env.NEXT_PUBLIC_SITE_URL || "https://romainrubens.com";
 const defaultTitle = siteTitle;
-const defaultDescription = profileDescriptions.FR;
+const defaultDescription = profileSearchDescription;
 const logoImage = "/icons/icon.svg";
 const absoluteLogoImage = `${siteUrlMeta}${logoImage}`;
 const brandLogo = "/icons/logo-romain-rubens.svg";

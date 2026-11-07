@@ -1,7 +1,7 @@
 "use client";
 
 import { detectLanguage } from "@/lib/language";
-import { siteTitle, profileDescriptions } from "@/lib/profile";
+import { siteTitle, profileSearchDescription } from "@/lib/profile";
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -26,15 +26,13 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
   // Mise à jour de la langue du document selon la préférence de l'utilisateur
   useEffect(() => {
-    const metaDescriptions: Record<string, string> = profileDescriptions;
-
     const updateDocumentLanguage = (language: string) => {
       if (pathname === "/") {
         document.title = defaultTitle;
       }
       const metaDescription = document.querySelector('meta[name="description"]');
       if (metaDescription && pathname === "/") {
-        metaDescription.setAttribute("content", metaDescriptions[language] || metaDescriptions.FR);
+        metaDescription.setAttribute("content", profileSearchDescription);
       }
       const langMap: Record<string, string> = { FR: "fr", EN: "en", ՀԱՅ: "hy" };
       document.documentElement.lang = langMap[language] || "fr";
