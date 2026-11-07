@@ -23,6 +23,18 @@ try {
     await delay(250);
   }
   assert.ok(ready, 'Production server must start');
+  const missing = await fetch(base + '/lost-signal-404-check');
+  assert.equal(missing.status, 404, 'Unknown routes retain HTTP 404 status');
+  const missingBody = await missing.text();
+  assert.match(missingBody, /data-not-found/);
+  assert.match(missingBody, /name="robots" content="noindex"/);
+  assert.match(missingBody, /href="\/projects"/);
+  assert.equal((missingBody.match(/<h1\b/g) || []).length, 1);
+  assert.ok(!missingBody.includes('RR — 004 / OFF GRID'));
+  assert.ok(!missingBody.includes('Destination inconnue'));
+  assert.match(missingBody, /icons\/sf\/arrow-light.svg/);
+  assert.ok(!missingBody.includes('aria-pressed='));
+  console.log('PASS immersive 404, shared recovery buttons and simplified signal');
   // /skills now redirects to the CV PDF, whose SAMEORIGIN policy permits
   // the site's PDF viewer. Check the redirect itself separately below.
   for (const path of ['/', '/articles', '/accessibility', '/legal', '/projects', ...projectRoutes, '/projects/namequest', '/contact', '/llms.txt', '/sitemap.xml']) {

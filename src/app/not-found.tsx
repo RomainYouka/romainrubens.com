@@ -1,189 +1,108 @@
 "use client";
 
-import { detectLanguage } from "@/lib/language";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { ArrowLeft, Compass } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { detectLanguage, type Language } from "@/lib/language";
+import { SplitAction } from "@/components/SplitAction";
+import { getLostSignalFrame, getSpeechEnvelope, lostDialogue } from "@/lib/lost-signal";
+import s from "./not-found.module.css";
 
-const translations = {
-  FR: {
-    eyebrow: "Erreur 404",
-    title: "Le chemin sort de l'interface.",
-    subtext: "Cette page existe peut-être dans une autre version du site, mais ce lien ne répond plus.",
-    button: "Retour à l'accueil",
-    status: "Signal perdu",
-    route: "Route introuvable",
-  },
-  EN: {
-    eyebrow: "Error 404",
-    title: "The path left the interface.",
-    subtext: "This page may exist in another version of the site, but this link no longer responds.",
-    button: "Back home",
-    status: "Signal lost",
-    route: "Route not found",
-  },
-  ՀԱՅ: {
-    eyebrow: "Սխալ 404",
-    title: "Այս ուղին դուրս է եկել ինտերֆեյսից։",
-    subtext: "Էջը հնարավոր է կա կայքի մեկ այլ տարբերակում, բայց այս հղումն այլևս չի պատասխանում։",
-    button: "Վերադառնալ տուն",
-    status: "Կապը կորել է",
-    route: "Ուղին չի գտնվել",
-  },
+const copy = {
+  FR: { title: "Vous êtes sorti du cadre.", description: "Cette page n’existe pas. Le reste de l’univers, si.", home: "Retour à l’accueil", projects: "Explorer les projets", signal: "L’accueil est toujours là.", error: "Erreur 404" },
+  EN: { title: "You went beyond the frame.", description: "This page doesn’t exist. The rest of the universe does.", home: "Back to home", projects: "Explore the projects", signal: "Home is still here.", error: "Error 404" },
+  ՀԱՅ: { title: "Դուք դուրս եք եկել շրջանակից։", description: "Այս էջը գոյություն չունի։ Բայց մնացած աշխարհը տեղում է։", home: "Վերադառնալ գլխավոր էջ", projects: "Դիտել նախագծերը", signal: "Գլխավոր էջը տեղում է։", error: "Սխալ 404" },
 };
 
+function BrandMark() {
+  return <svg viewBox="0 0 512 512" width="30" height="30" fill="currentColor" aria-hidden="true"><path d="M234.667 448V307.2L135.467 406.933L105.067 376.533L204.8 277.333H64V234.667H204.8L105.067 135.467L135.467 105.067L234.667 204.8V64H277.333V204.8L376.533 105.067L406.933 135.467L307.2 234.667H448V277.333H307.2L406.933 376.533L376.533 406.933L277.333 307.2V448H234.667Z" /></svg>;
+}
+
 export default function NotFound() {
-  const [selectedLanguage, setSelectedLanguage] = useState<"FR" | "EN" | "ՀԱՅ">("EN");
-
+  const [language, setLanguage] = useState<Language>("EN");
+  const [signal, setSignal] = useState(() => getLostSignalFrame(0));
+  const scene = useRef<HTMLElement>(null);
+  const wave = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    const saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
-    if (saved && translations[saved]) {
-      setSelectedLanguage(saved);
-    }
-  }, []);
-
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    if (!signal.speaking || reduced.matches) return;
+    const text = lostDialogue[language][signal.line];
+    const animations = Array.from(wave.current?.children ?? []).map((bar, index) =>
+      bar.animate(getSpeechEnvelope(text, index, signal.voice), { duration: signal.next, easing: "linear", fill: "forwards" })
+    );
+    const stop = () => animations.forEach(animation => animation.cancel());
+    reduced.addEventListener("change", stop);
+    return () => { stop(); reduced.removeEventListener("change", stop); };
+  }, [language, signal]);
   useEffect(() => {
-    const handleLanguageChange = (event: Event) => {
-      const customEvent = event as CustomEvent<"FR" | "EN" | "ՀԱՅ">;
-      setSelectedLanguage(customEvent.detail);
+    let start = performance.now();
+    let hiddenAt = document.hidden ? start : 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const update = () => {
+      clearTimeout(timer);
+      if (document.hidden) return;
+      const frame = getLostSignalFrame(performance.now() - start);
+      setSignal(frame);
+      timer = setTimeout(update, Math.max(16, frame.next));
     };
-
-    window.addEventListener("languageChange", handleLanguageChange);
-    return () => window.removeEventListener("languageChange", handleLanguageChange);
+    const visibility = () => {
+      if (document.hidden) { hiddenAt = performance.now(); clearTimeout(timer); }
+      else { if (hiddenAt) start += performance.now() - hiddenAt; hiddenAt = 0; update(); }
+    };
+    update();
+    document.addEventListener("visibilitychange", visibility);
+    return () => { clearTimeout(timer); document.removeEventListener("visibilitychange", visibility); };
   }, []);
-
-  const t = translations[selectedLanguage];
+  useEffect(() => {
+    setLanguage(detectLanguage());
+    const change = (event: Event) => {
+      const value = (event as CustomEvent<Language>).detail;
+      if (value in copy) setLanguage(value);
+    };
+    window.addEventListener("languageChange", change);
+    return () => window.removeEventListener("languageChange", change);
+  }, []);
+  const t = copy[language];
 
   return (
-    <main className="not-found-shell relative min-h-[100svh] overflow-hidden bg-[#1D1D1F] text-white">
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="not-found-grid absolute inset-0" />
-        <div className="not-found-scan absolute left-0 top-0 h-px w-full" />
-        <div className="absolute inset-x-6 top-24 h-px bg-white/10 md:inset-x-10" />
+    <main id="main-content" data-not-found data-theme="dark" className={s.scene} ref={scene}
+      onPointerMove={event => {
+        if (event.pointerType !== "mouse" || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        scene.current?.style.setProperty("--mx", `${((event.clientX - rect.left) / rect.width - .5) * 18}px`);
+        scene.current?.style.setProperty("--my", `${((event.clientY - rect.top) / rect.height - .5) * 12}px`);
+      }} onPointerLeave={() => { scene.current?.style.setProperty("--mx", "0px"); scene.current?.style.setProperty("--my", "0px"); }}>
+      <div className={s.texture} aria-hidden="true" />
+      <div className={s.particles} aria-hidden="true">{Array.from({ length: 30 }, (_, i) => <i key={i} style={{ "--x": `${(i * 37 + 7) % 100}%`, "--y": `${(i * 23 + 11) % 100}%`, "--delay": `${-i * .7}s`, "--color": ["#ff637c", "#7cdda9", "#729cff"][i % 3] } as CSSProperties} />)}</div>
+      <div className={s.topline}>
+        <Link href="/" className={s.brand} aria-label={`Romain Rubens — ${t.home}`}><BrandMark /> Romain Rubens</Link>
       </div>
-
-      <section className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1200px] flex-col justify-center px-6 py-28 md:px-10">
-        <Link
-          href="/"
-          aria-label={t.button}
-          className="not-found-home group mb-14 inline-flex w-fit items-center gap-2 rounded-full border border-white/14 bg-white text-[#1D1D1F] px-4 py-2 text-sm font-semibold no-underline transition duration-200 hover:scale-[1.02] hover:bg-[#f5f5f7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-        >
-          <ArrowLeft className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5" aria-hidden="true" />
-          <span>{t.button}</span>
-        </Link>
-
-        <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(280px,420px)] md:items-end">
-          <div className="max-w-[760px]">
-            <p className="mb-5 text-sm font-semibold uppercase text-white/62">
-              {t.eyebrow}
-            </p>
-            <h1
-              className="text-[clamp(42px,8vw,96px)] font-semibold leading-[0.95] text-white"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "0px" }}
-            >
-              {t.title}
-            </h1>
-            <p className="mt-7 max-w-[640px] text-base leading-7 text-white/72 md:text-lg md:leading-8">
-              {t.subtext}
-            </p>
+      <section className={s.center} aria-labelledby="lost-title">
+        <div className={s.art} aria-hidden="true">
+          <span className={s.four}>4</span>
+          <div className={s.portal}>
+            <div className={s.halo} />
+            <div className={s.rings}><i /><i /><i /><i /><i /></div>
+            <div className={s.core}><span><BrandMark /></span></div>
+            <span className={s.crosshair}>+</span>
           </div>
-
-          <div className="not-found-panel relative aspect-square min-h-[280px] overflow-hidden rounded-[8px] border border-white/12 bg-white/[0.035] p-6 shadow-2xl shadow-black/20">
-            <div className="absolute inset-6 rounded-full border border-white/10" aria-hidden="true" />
-            <div className="absolute inset-16 rounded-full border border-dashed border-white/12" aria-hidden="true" />
-            <div className="not-found-orbit absolute left-1/2 top-1/2 h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/16" aria-hidden="true">
-              <span className="absolute left-1/2 top-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[1px] bg-[var(--theme-accent)] shadow-[0_0_22px_var(--theme-accent)]" />
-            </div>
-
-            <div className="relative flex h-full flex-col justify-between">
-              <div className="flex items-center justify-between gap-3 text-xs font-semibold uppercase text-white/54">
-                <span>{t.route}</span>
-                <Compass className="h-4 w-4 text-white/62" aria-hidden="true" />
-              </div>
-
-              <div className="text-center">
-                <div className="not-found-code text-[clamp(74px,13vw,154px)] font-semibold leading-none text-white" aria-hidden="true">
-                  404
-                </div>
-                <svg className="mx-auto mt-5 h-14 w-14" viewBox="0 0 78 75" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M21.2637 4.08739L37.8817 26.3888L38.0898 26.3454L52.3654 3.49677L64.4675 12.5899L49.1889 33.6824L49.3474 33.824L74.6759 40.115L70.7839 54.6401L45.7033 47.424L45.4704 47.5599L48.1731 73.7679L33.2104 74.6175L32.2146 48.2718L32.0561 48.1302L6.39732 59.2027L1.30436 44.8482L27.3245 35.3599L27.3989 35.0824L9.58414 13.9477L21.2637 4.08739Z" fill="var(--theme-accent)" />
-                </svg>
-              </div>
-
-              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/12 bg-white/8 px-3 py-2 text-sm font-medium text-white/72">
-                <span className="h-2 w-2 rotate-45 rounded-[1px] bg-[var(--theme-accent)]" aria-hidden="true" />
-                {t.status}
-              </div>
-            </div>
+          <span className={`${s.four} ${s.lastFour}`}>4</span>
+        </div>
+        <div className={s.message}>
+          <p className={s.eyebrow}>{t.error}</p>
+          <h1 id="lost-title">{t.title}</h1>
+          <p className={s.description}>{t.description}</p>
+          <div className={s.actions}>
+            <SplitAction primary href="/">{t.home}</SplitAction>
+            <SplitAction href="/projects">{t.projects}</SplitAction>
           </div>
         </div>
       </section>
-
-      <style>{`
-        .not-found-grid {
-          background-image:
-            linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
-          background-size: 56px 56px;
-          mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.28) 68%, transparent);
-        }
-
-        .not-found-scan {
-          background: linear-gradient(90deg, transparent, var(--theme-accent), transparent);
-          animation: scan-y 5.8s cubic-bezier(0.45, 0, 0.2, 1) infinite;
-          opacity: 0.72;
-        }
-
-        .not-found-panel::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background:
-            linear-gradient(120deg, rgba(255,255,255,0.16), transparent 34%),
-            linear-gradient(180deg, rgba(255,255,255,0.06), transparent 70%);
-          opacity: 0.72;
-        }
-
-        .not-found-orbit {
-          animation: orbit 12s linear infinite;
-        }
-
-        .not-found-code {
-          text-shadow: 0 0 34px rgba(255,255,255,0.12);
-        }
-
-        @keyframes scan-y {
-          0% { transform: translateY(14vh); opacity: 0; }
-          12% { opacity: 0.78; }
-          56% { opacity: 0.78; }
-          100% { transform: translateY(86vh); opacity: 0; }
-        }
-
-        @keyframes orbit {
-          from { transform: translate(-50%, -50%) rotate(0deg); }
-          to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .not-found-scan,
-          .not-found-orbit {
-            animation: none;
-          }
-        }
-
-        html[data-contrast="high"] .not-found-shell,
-        html[data-contrast="high"] .not-found-shell * {
-          color: #ffffff !important;
-        }
-
-        html[data-contrast="high"] .not-found-home,
-        html[data-contrast="high"] .not-found-home * {
-          background: #ffffff !important;
-          border-color: #ffffff !important;
-          color: #000000 !important;
-        }
-      `}</style>
+      <div className={s.bottomline}>
+        <div className={s.telemetry} data-speaking={signal.speaking} data-voice={signal.voice} data-silent={signal.silent} aria-hidden={signal.silent}>
+          <span className={s.wave} ref={wave} aria-hidden="true">{Array.from({ length: 17 }, (_, i) => <i key={i} />)}</span>
+          <span className={s.caption} key={`${signal.voice}-${signal.line}`}>{lostDialogue[language][signal.line]}</span>
+        </div>
+      </div>
     </main>
   );
 }
