@@ -14,7 +14,7 @@ const translations = {
     textGray1: " J’associe recherche utilisateur, esprit critique et pensée systémique pour comprendre les besoins et simplifier les systèmes complexes.",
     textMain2: " Des parcours aux design systems, je cherche à rendre les expériences utiles, accessibles et cohérentes.",
     textGray2: " En collaboration avec les développeurs, je veille à préserver le sens du design dans le produit final.",
-    ctaProjects: "Je découvre",
+    ctaProjects: "Explorer ce monde",
     ctaSkills: "Mes compétences",
   },
   EN: {
@@ -22,7 +22,7 @@ const translations = {
     textGray1: " I combine user research, critical thinking, and systems thinking to understand people’s needs and simplify complex systems.",
     textMain2: " From user journeys to design systems, I aim to make experiences useful, accessible, and consistent.",
     textGray2: " Working alongside developers, I help preserve the intent of the design in the final product.",
-    ctaProjects: "Discover",
+    ctaProjects: "Explore this world",
     ctaSkills: "My skills",
   },
   ՀԱՅ: {
@@ -30,7 +30,7 @@ const translations = {
     textGray1: " Օգտատերերի հետազոտությունը, քննադատական և համակարգային մտածողությունն ինձ օգնում են հասկանալ մարդկանց կարիքները և պարզեցնել բարդ համակարգերը։",
     textMain2: " Օգտատերերի ուղիներից մինչև դիզայն համակարգեր՝ ձգտում եմ ստեղծել օգտակար, հասանելի և համահունչ փորձառություններ։",
     textGray2: " Ծրագրավորողների հետ համագործակցելով՝ պահպանում եմ դիզայնի մտահղացումը վերջնական պրոդուկտում։",
-    ctaProjects: "Բացահայտել",
+    ctaProjects: "Բացահայտել այս աշխարհը",
     ctaSkills: "Իմ հմտությունները",
   },
 };

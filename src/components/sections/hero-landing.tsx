@@ -1,194 +1,58 @@
 "use client";
 
-import { detectLanguage } from "@/lib/language";
-
-import { useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import DiodeBackground from "@/components/DiodeBackground";
+import { setupHomeAutoAdvance } from "@/lib/home-auto-advance";
+import s from "./hero-landing.module.css";
 
-
-const translations = {
-  FR:  { text: "Bonjour, moi c'est Romain Rubens",  button: "Découvrir"  },
-  EN:  { text: "Hello, I'm Romain Rubens",          button: "Discover"   },
-  ՀԱՅ: { text: "Ողջույն, ես Ռոման Ռուբենս եմ",     button: "Բացահայտել" },
-};
+const headline = "hello future.";
 
 export default function HeroLanding() {
-
-  const [displayedText,     setDisplayedText]     = useState("");
-  const [selectedLanguage,  setSelectedLanguage]  = useState<"FR" | "EN" | "ՀԱՅ">("EN");
-  const [isTyping,          setIsTyping]          = useState(false);
-  const [showScrollButton,  setShowScrollButton]  = useState(false);
-  const [btnVisible,        setBtnVisible]        = useState(false);
-  const splashDone                         = true;
-  const [showInitialCursor, setShowInitialCursor] = useState(true);
-  const [greeting, setGreeting] = useState("Bonjour");
+  const [displayedText, setDisplayedText] = useState("");
+  const [complete, setComplete] = useState(false);
+  const autoAdvance = useRef<ReturnType<typeof setupHomeAutoAdvance> | null>(null);
 
   useEffect(() => {
-    const updateGreeting = () => {
-      const hour = new Date().getHours();
-      setGreeting(hour >= 6 && hour < 18 ? "Bonjour" : "Bonsoir");
-    };
-    updateGreeting();
-    const timer = window.setInterval(updateGreeting, 60_000);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  const fullText   = selectedLanguage === "FR" ? `${greeting}, moi c'est Romain Rubens` : translations[selectedLanguage].text;
-  const buttonText = translations[selectedLanguage].button;
-
-  // ── Langue ──────────────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const comingFromResume = sessionStorage.getItem("comingFromResume");
-      if (comingFromResume === "true") sessionStorage.setItem("introSeen", "true");
-    }
-    let saved = detectLanguage() as "FR" | "EN" | "ՀԱՅ" | null;
-    if (!saved || !translations[saved]) {
-      saved = "FR";
-      localStorage.setItem("preferredLanguage", "FR");
-    }
-    setSelectedLanguage(saved);
-  }, []);
-
-  useEffect(() => {
-    const handler = (e: CustomEvent<"FR" | "EN" | "ՀԱՅ">) => {
-      setSelectedLanguage(e.detail);
-      setDisplayedText("");
-      setIsTyping(true);
-      setShowScrollButton(false);
-      setBtnVisible(false);
-      setShowInitialCursor(true);
-    };
-    window.addEventListener("languageChange", handler as EventListener);
-    return () => window.removeEventListener("languageChange", handler as EventListener);
-  }, []);
-
-  useEffect(() => {
-    if (!showInitialCursor) return;
-    const t = setTimeout(() => { setShowInitialCursor(false); setIsTyping(true); }, 1000);
-    return () => clearTimeout(t);
-  }, [showInitialCursor]);
-
-  // ── Typewriter ───────────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (!splashDone || !isTyping) return;
-    if (displayedText.length < fullText.length) {
-      const t = setTimeout(() => setDisplayedText(fullText.slice(0, displayedText.length + 1)), 100);
-      return () => clearTimeout(t);
+    const controller = setupHomeAutoAdvance(() => {
+      const event = new Event("home-discover", { cancelable: true });
+      if (window.dispatchEvent(event)) document.getElementById("personal-intro")?.scrollIntoView({ behavior: "smooth" });
+    });
+    autoAdvance.current = controller;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let timer: ReturnType<typeof setTimeout>;
+    if (reduced) {
+      setDisplayedText(headline);
+      setComplete(true);
     } else {
-      const t = setTimeout(() => { setIsTyping(false); setShowScrollButton(true); }, 500);
-      return () => clearTimeout(t);
+      let length = 0;
+      const type = () => {
+        setDisplayedText(headline.slice(0, ++length));
+        if (length < headline.length) timer = setTimeout(type, 90);
+        else setComplete(true);
+      };
+      timer = setTimeout(type, 700);
     }
-  }, [displayedText, isTyping, fullText, splashDone]);
+    return () => { clearTimeout(timer); controller.dispose(); autoAdvance.current = null; };
+  }, []);
 
-  // ── Animation d'entrée du bouton scroll ──────────────────────────────────────
   useEffect(() => {
-    if (!showScrollButton) return;
-    const t = setTimeout(() => setBtnVisible(true), 60);
-    return () => clearTimeout(t);
-  }, [showScrollButton]);
+    if (!complete) return;
+    // Let the author credit finish fading in before the 2.5-second reading pause.
+    const timer = setTimeout(() => autoAdvance.current?.ready(), 350);
+    return () => clearTimeout(timer);
+  }, [complete]);
 
-  // ── Auto-scroll ─────────────────────────────────────────────────────────────
-  const handleScroll = () => {
-    const event = new Event("home-discover", { cancelable: true });
-    if (window.dispatchEvent(event)) document.getElementById("personal-intro")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
-  };
-
-  // Always dark for readable white text, independently of the site theme.
-  const textColor = "#ffffff";
-  const mutedColor = "rgba(255,255,255,0.72)";
-
-  return (
-    <section
-      className="relative w-full h-full overflow-hidden"
-      data-section="hero-landing"
-      style={{ backgroundColor: "#050507" }}
-    >
-      <DiodeBackground />
-
-      {/* ── Contenu ─────────────────────────────────────────────────────── */}
-      <div className="relative w-full h-full flex flex-col items-center justify-center" style={{ zIndex: 10 }}>
-
-        {/* Titre typewriter */}
-        <div className="flex items-center justify-center flex-1 w-full px-4">
-          <h1
-            style={{
-              fontFamily:    "var(--font-display)",
-              fontSize:      "calc(clamp(28px, 6.5vw, 80px) / var(--home-cover, 1))",
-              fontWeight:    600,
-              color:         textColor,
-              letterSpacing: "-0.02em",
-              lineHeight:    1.3,
-              textAlign:     "center",
-              opacity:       splashDone ? 1 : 0,
-              transition:    "opacity 0.6s ease",
-              maxWidth:      "calc(90vw / var(--home-cover, 1))",
-            }}
-          >
-            <span className="sr-only">{fullText}</span>
-            <span aria-hidden="true">
-              {showInitialCursor && !displayedText ? (
-                <span style={{ animation: "blink 0.7s infinite" }}>|</span>
-              ) : displayedText ? (
-                <span>
-                  {displayedText}
-                  <span style={{
-                    animation:  isTyping ? "blink 0.7s infinite" : "none",
-                    opacity:    isTyping ? 1 : 0,
-                    transition: "opacity 0.1s ease",
-                    marginLeft: "-0.05em",
-                    whiteSpace: "nowrap",
-                  }}>|</span>
-                </span>
-              ) : (
-                <span style={{ visibility: "hidden" }}>{fullText}</span>
-              )}
-            </span>
-          </h1>
-        </div>
-
-        {/* Bouton scroll — centrage sans transform conflictuel ──────────── */}
-        {showScrollButton && (
-          <div
-            className="absolute"
-            data-home-scroll-control
-            style={{ bottom: "calc(36px / var(--home-cover, 1))", left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", zIndex: 20, scale: "calc(1 / var(--home-cover, 1))", transformOrigin: "bottom center" }}
-          >
-            <button
-              onClick={handleScroll}
-              aria-label="Scroll down to continue"
-              style={{
-                display:    "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap:        "8px",
-                background: "none",
-                border:     "none",
-                padding:    "16px",
-                cursor:     "pointer",
-                opacity:    btnVisible ? 1 : 0,
-                transform:  `translateY(${btnVisible ? 0 : 20}px)`,
-                transition: "opacity 0.6s ease, transform 0.6s ease, scale 0.3s ease",
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.scale = "1.1"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.scale = "1"; }}
-            >
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "12px", fontWeight: 500, color: mutedColor, letterSpacing: "0.05em", textTransform: "uppercase" }}>
-                {buttonText}
-              </span>
-              <ChevronDown className="w-5 h-5 animate-bounce" style={{ color: mutedColor }} />
-            </button>
-          </div>
-        )}
+  return <section className={s.hero} data-section="hero-landing">
+    <DiodeBackground />
+    <div className={s.content}>
+      <div className={s.lockup} data-home-lockup data-intro-ready={complete} lang="en">
+        <h1 className={s.title}>
+          <span className="sr-only">{headline}</span>
+          <span className={s.reserve} aria-hidden="true">{headline}</span>
+          <span className={s.typed} aria-hidden="true">{displayedText}<span className={s.cursor} data-complete={complete}>|</span></span>
+        </h1>
+        <p className={s.author}>by <em>Romain</em> <strong>Rubens</strong></p>
       </div>
-
-      <style>{`
-        @keyframes blink {
-          0%, 49% { opacity: 1; }
-          50%, 100% { opacity: 0; }
-        }
-      `}</style>
-    </section>
-  );
+    </div>
+  </section>;
 }

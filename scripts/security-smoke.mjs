@@ -67,6 +67,9 @@ try {
       assert.match(body, /data-home-scene/);
       assert.match(body, /data-diode-background/);
       assert.match(body, /data-home-experience/);
+      assert.match(body, /hello future\./);
+      assert.match(body, /by <em[^>]*>Romain<\/em>/);
+      assert.ok(!body.includes('data-home-scroll-control'), 'First-screen Discover button stays removed');
       assert.ok(!body.includes('data-story-countdown'), 'Removed countdown stays absent');
       assert.ok(!/<footer\b/.test(body), 'Homepage does not render a legal footer');
       assert.match(body, /Connected Ecosystems/);
